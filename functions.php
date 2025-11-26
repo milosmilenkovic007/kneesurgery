@@ -28,6 +28,8 @@ require_once get_stylesheet_directory() . '/inc/modules.php';
 require_once get_stylesheet_directory() . '/inc/pdf-pricelist.php';
 // Word export
 require_once get_stylesheet_directory() . '/inc/export-doc.php';
+// Candidate uploads
+require_once get_stylesheet_directory() . '/inc/candidate-upload.php';
 
 // Globally remove the legacy "Custom Fields" meta box across all post types
 add_action('add_meta_boxes', function () {

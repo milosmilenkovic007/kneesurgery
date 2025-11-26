@@ -71,11 +71,11 @@
 .hj-hd-bullet .ic svg{width:22px;height:22px}
 
 /* CTA + Rating grouped */
-.hj-hd-cta-rating{
-    display:flex;
-    align-items:center;
-    gap:20px;
-    margin:30px 0 0;
+.hj-hd-cta-rating {
+    display: flex;
+    align-items: center;
+    margin: 30px 0 0;
+    justify-content: space-between;
 }
 
 /* CTA */
@@ -101,9 +101,16 @@
 
 /* Rating */
 .hj-hd-rating{display:flex;flex-direction:column;align-items:flex-start;gap:8px;color:var(--hd-text)}
-.hj-hd-rating .row{display:flex;align-items:center;gap:12px}
+.hj-hd-rating .row{display:flex;align-items:center;gap:0px}
 .hj-hd-rating .stars{letter-spacing:3px;color:#fbbf24;font-size:18px}
-.hj-hd-rating .sub{color:var(--hd-text)}
+.hj-hd-rating .sub {
+    color: var(--hd-text);
+    gap: 12px;
+    display: flex;
+    /* justify-content: center; */
+    /* align-content: center; */
+    align-items: center;
+}
 .hj-hd-rating .sub a{color:var(--hd-blue);text-decoration:underline}
 
 /* Images grid */

@@ -4,12 +4,12 @@
   "label": "Candidate – Popup Form",
   "display": "block",
   "sub_fields": [
-    { "key": "field_hj_cp_w_title", "label": "Welcome Title", "name": "welcome_title", "type": "text", "default_value": "Dobrodošli u SmileRevolution" },
-    { "key": "field_hj_cp_w_sub", "label": "Welcome Subtitle", "name": "welcome_subtitle", "type": "textarea", "rows": 2, "default_value": "Ispunite našu anketu od 30 sekundi da biste saznali jeste li kandidat." },
-    { "key": "field_hj_cp_w_btn", "label": "Start Button", "name": "start_label", "type": "text", "default_value": "Dalje" },
+    { "key": "field_hj_cp_w_title", "label": "Welcome Title", "name": "welcome_title", "type": "text", "default_value": "Welcome to Healing Journey" },
+    { "key": "field_hj_cp_w_sub", "label": "Welcome Subtitle", "name": "welcome_subtitle", "type": "textarea", "rows": 2, "default_value": "Complete our 30‑second survey to find out if you’re a candidate." },
+    { "key": "field_hj_cp_w_btn", "label": "Start Button", "name": "start_label", "type": "text", "default_value": "Start" },
 
     { "key": "field_hj_cp_q_title", "label": "Question Title", "name": "question_title", "type": "text", "default_value": "How would you describe your teeth?" },
-    { "key": "field_hj_cp_q_sub", "label": "Question Subtitle", "name": "question_subtitle", "type": "text", "default_value": "Select the appropriate option." },
+    { "key": "field_hj_cp_q_sub", "label": "Question Subtitle", "name": "question_subtitle", "type": "text", "default_value": "Select the option that fits you best." },
     { "key": "field_hj_cp_options", "label": "Options (3)", "name": "options", "type": "repeater", "min": 3, "max": 3, "button_label": "Add Option", "layout": "row", "sub_fields": [
       { "key": "field_hj_cp_opt_label", "label": "Label", "name": "label", "type": "text", "required": 1 },
       { "key": "field_hj_cp_opt_img", "label": "Image / GIF", "name": "image", "type": "image", "return_format": "array", "preview_size": "medium", "library": "all" }

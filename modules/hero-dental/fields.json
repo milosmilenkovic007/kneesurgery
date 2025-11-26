@@ -11,14 +11,14 @@
     ]},
     { "key": "field_hj_hd_cta", "label": "Primary CTA", "name": "cta", "type": "group", "sub_fields": [
       { "key": "field_hj_hd_cta_label", "label": "Label", "name": "label", "type": "text", "placeholder": "Book a Free Consultation" },
-      { "key": "field_hj_hd_cta_url", "label": "URL", "name": "url", "type": "url" },
+      { "key": "field_hj_hd_cta_url", "label": "URL / Anchor", "name": "url", "type": "text", "placeholder": "https://example.com or #anchor" },
       { "key": "field_hj_hd_cta_note", "label": "Small Note", "name": "note", "type": "text", "placeholder": "100% Free medical online consultation" }
     ]},
     { "key": "field_hj_hd_rating", "label": "Rating", "name": "rating", "type": "group", "sub_fields": [
       { "key": "field_hj_hd_rating_value", "label": "Stars (e.g. 5)", "name": "stars", "type": "number", "min": 0, "max": 5, "step": 0.5 },
       { "key": "field_hj_hd_rating_label", "label": "Label", "name": "label", "type": "text", "placeholder": "(5 Stars)" },
       { "key": "field_hj_hd_reviews_count", "label": "Reviews Count", "name": "reviews_count", "type": "number", "min": 0 },
-      { "key": "field_hj_hd_reviews_url", "label": "Reviews URL", "name": "reviews_url", "type": "url" }
+      { "key": "field_hj_hd_reviews_url", "label": "Reviews URL / Anchor", "name": "reviews_url", "type": "text", "placeholder": "https://… or #anchor" }
     ]},
     { "key": "field_hj_hd_media", "label": "Media Grid", "name": "media", "type": "group", "sub_fields": [
       { "key": "field_hj_hd_img_left", "label": "Left Large Image", "name": "left_image", "type": "image", "return_format": "array" },

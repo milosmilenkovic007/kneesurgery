@@ -46,11 +46,11 @@ list($t1, $t2) = hj_hd_split_title($title);
         </ul>
       <?php endif; ?>
 
-      <?php if (!empty($cta['label']) && !empty($cta['url'])): ?>
+      <?php if (!empty($cta['label']) && !empty($cta['url'])): $cta_href = trim((string)$cta['url']); $is_cand = strpos($cta_href, '#candidate') !== false; ?>
       <div class="hj-hd-cta-rating">
 
         <div class="hj-hd-cta">
-          <a class="btn-primary" href="<?php echo esc_url($cta['url']); ?>">
+          <a class="btn-primary" href="<?php echo esc_attr($cta_href); ?>" <?php if($is_cand) echo 'data-candidate="1"'; ?>>
             <?php echo esc_html($cta['label']); ?> →
           </a>
           <?php if (!empty($cta['note'])): ?>

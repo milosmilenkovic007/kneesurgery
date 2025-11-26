@@ -159,7 +159,7 @@
                             "label": "Welcome Title",
                             "name": "welcome_title",
                             "type": "text",
-                            "default_value": "Dobrodo\u0161li u SmileRevolution"
+                            "default_value": "Welcome to Healing Journey"
                         },
                         {
                             "key": "field_hj_cp_w_sub",
@@ -167,14 +167,14 @@
                             "name": "welcome_subtitle",
                             "type": "textarea",
                             "rows": 2,
-                            "default_value": "Ispunite na\u0161u anketu od 30 sekundi da biste saznali jeste li kandidat."
+                            "default_value": "Complete our 30\u2011second survey to find out if you\u2019re a candidate."
                         },
                         {
                             "key": "field_hj_cp_w_btn",
                             "label": "Start Button",
                             "name": "start_label",
                             "type": "text",
-                            "default_value": "Dalje"
+                            "default_value": "Start"
                         },
                         {
                             "key": "field_hj_cp_q_title",
@@ -188,7 +188,7 @@
                             "label": "Question Subtitle",
                             "name": "question_subtitle",
                             "type": "text",
-                            "default_value": "Select the appropriate option."
+                            "default_value": "Select the option that fits you best."
                         },
                         {
                             "key": "field_hj_cp_options",
@@ -414,9 +414,10 @@
                                 },
                                 {
                                     "key": "field_hj_hd_cta_url",
-                                    "label": "URL",
+                                    "label": "URL / Anchor",
                                     "name": "url",
-                                    "type": "url"
+                                    "type": "text",
+                                    "placeholder": "https://example.com or #anchor"
                                 },
                                 {
                                     "key": "field_hj_hd_cta_note",
@@ -458,9 +459,10 @@
                                 },
                                 {
                                     "key": "field_hj_hd_reviews_url",
-                                    "label": "Reviews URL",
+                                    "label": "Reviews URL / Anchor",
                                     "name": "reviews_url",
-                                    "type": "url"
+                                    "type": "text",
+                                    "placeholder": "https://\u2026 or #anchor"
                                 }
                             ]
                         },
@@ -594,5 +596,5 @@
     "position": "acf_after_title",
     "style": "seamless",
     "active": true,
-    "modified": 1764147012
+    "modified": 1764152653
 }
