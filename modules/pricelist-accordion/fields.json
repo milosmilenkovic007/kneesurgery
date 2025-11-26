@@ -1,0 +1,18 @@
+{
+  "key": "layout_hj_pricelist_accordion",
+  "name": "pricelist_accordion",
+  "label": "Pricelist – Accordion",
+  "display": "block",
+  "sub_fields": [
+    { "key": "field_hj_pa_title", "label": "Module Title", "name": "module_title", "type": "text", "placeholder": "Dental Care Pricelist" },
+    { "key": "field_hj_pa_currency", "label": "Currency Symbol", "name": "currency", "type": "text", "default_value": "€", "wrapper": {"width": "20"} },
+    { "key": "field_hj_pa_sections", "label": "Sections", "name": "sections", "type": "repeater", "button_label": "Add Section", "layout": "row", "collapsed": "field_hj_pa_section_title", "sub_fields": [
+      { "key": "field_hj_pa_section_title", "label": "Section Title", "name": "section_title", "type": "text", "required": 1 },
+      { "key": "field_hj_pa_items", "label": "Items", "name": "items", "type": "repeater", "button_label": "Add Item", "layout": "table", "collapsed": "field_hj_pa_item_title", "sub_fields": [
+        { "key": "field_hj_pa_item_title", "label": "Title", "name": "item_title", "type": "text", "required": 1 },
+        { "key": "field_hj_pa_item_price", "label": "Price", "name": "item_price", "type": "text", "wrapper": {"width": "20"} },
+        { "key": "field_hj_pa_item_desc", "label": "Short Description", "name": "item_desc", "type": "textarea", "rows": 2 }
+      ]}
+    ]}
+  ]
+}

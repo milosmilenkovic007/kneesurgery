@@ -1,0 +1,19 @@
+{
+  "key": "layout_hj_cta_pricelist_download",
+  "name": "cta_pricelist_download",
+  "label": "CTA – Download Pricelist",
+  "display": "block",
+  "sub_fields": [
+    { "key": "field_hj_cpd_title", "label": "Title", "name": "title", "type": "text", "default_value": "Get the full pricelist" },
+    { "key": "field_hj_cpd_subtitle", "label": "Subtitle", "name": "subtitle", "type": "textarea", "rows": 2, "placeholder": "Transparent costs, neatly organized in a single PDF." },
+    { "key": "field_hj_cpd_generate", "label": "Generate from Pricelist", "name": "generate_from_pricelist", "type": "true_false", "ui": 1, "message": "Create PDF from the Pricelist module dynamically" },
+    { "key": "field_hj_cpd_pdf", "label": "PDF File (upload)", "name": "pdf_file", "type": "file", "return_format": "array", "library": "all", "mime_types": "pdf", "required": 0, "conditional_logic": [ [ { "field": "field_hj_cpd_generate", "operator": "!=", "value": "1" } ] ] },
+    { "key": "field_hj_cpd_btn_label", "label": "Download Button Label", "name": "btn_label", "type": "text", "default_value": "Download Pricelist (PDF)" },
+    { "key": "field_hj_cpd_email_label", "label": "Email Button Label", "name": "email_label", "type": "text", "default_value": "Send me by Email" },
+    { "key": "field_hj_cpd_note", "label": "Note (small text)", "name": "note", "type": "text", "placeholder": "Updated monthly" },
+    { "key": "field_hj_cpd_secondary", "label": "Secondary Button", "name": "secondary", "type": "group", "sub_fields": [
+      { "key": "field_hj_cpd_sec_label", "label": "Label", "name": "label", "type": "text", "placeholder": "Contact us" },
+      { "key": "field_hj_cpd_sec_url", "label": "URL", "name": "url", "type": "url" }
+    ]}
+  ]
+}

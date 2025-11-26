@@ -1,0 +1,8 @@
+{
+  "name": "hello-elementor-child/hj-theme",
+  "description": "Child theme libraries",
+  "type": "project",
+  "require": {
+    "dompdf/dompdf": "^2.0"
+  }
+}

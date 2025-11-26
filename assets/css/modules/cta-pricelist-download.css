@@ -1,0 +1,32 @@
+:root{--cpd-bg:#f3f6fc;--cpd-border:#e6eaf1;--cpd-text:#111827;--cpd-muted:#6b7280;--cpd-blue:#3b82f6;--cpd-shadow:0 18px 50px rgba(15,23,42,.06)}
+
+.hj-cta-pricelist{margin:40px 0}
+.hj-cta-pricelist .hj-cpd-wrap{max-width:1200px;margin:0 auto;padding:36px 40px;border:1px solid var(--cpd-border);background:var(--cpd-bg);border-radius:28px;box-shadow:var(--cpd-shadow);display:grid;grid-template-columns:1.4fr .6fr;align-items:center;gap:20px}
+
+.hj-cpd-title{margin:0 0 8px}
+.hj-cpd-sub{margin:0 0 16px;color:var(--cpd-muted);line-height:1.7;max-width:720px}
+
+.hj-cpd-cta{display:flex;align-items:center;flex-wrap:wrap;gap:14px; margin-top: 15px;}
+.hj-cpd-cta .btn-primary{display:inline-flex;align-items:center;gap:10px;background:var(--cpd-blue);color:#fff;text-decoration:none;padding:16px 22px;border-radius:14px;box-shadow:var(--cpd-shadow);font-weight:600}
+.hj-cpd-cta .btn-primary .ic img{width:18px;height:18px;display:block}
+.hj-cpd-cta .btn-secondary{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--cpd-border);border-radius:12px;padding:14px 18px;text-decoration:none;color:var(--cpd-text);background:#fff}
+.hj-cpd-cta .btn-secondary:hover{border-color:var(--cpd-blue);color:var(--cpd-blue)}
+.hj-cpd-cta .note{font-size:14px;color:var(--cpd-muted);margin-left:4px}
+
+/* Inline email form */
+.hj-cpd-email{display:none;align-items:center;gap:10px;margin-top:14px}
+.hj-cpd-email.is-open{display:flex}
+.hj-cpd-email input[type=email]{flex:1 1 280px;max-width:340px;border:1px solid var(--cpd-border);border-radius:12px;padding:12px 12px;font-size:16px}
+.hj-cpd-email .btn-primary{display:inline-flex;align-items:center;gap:8px;background:var(--cpd-blue);color:#fff;border:0;border-radius:14px;padding:14px 22px;font-weight:600;box-shadow:var(--cpd-shadow);cursor:pointer}
+.hj-cpd-email .status{color:var(--cpd-muted);margin-left:6px}
+
+.hj-cta-pricelist .side-ill{display:flex;justify-content:flex-end}
+.hj-cta-pricelist .badge{display:inline-flex;align-items:center;justify-content:center;width:110px;height:110px;border-radius:26px;background:#fff;border:1px solid var(--cpd-border);box-shadow:var(--cpd-shadow)}
+.hj-cta-pricelist .badge img{max-width:70px;max-height:70px;display:block}
+
+@media(max-width:900px){
+  .hj-cta-pricelist .hj-cpd-wrap{grid-template-columns:1fr;padding:26px;border-radius:22px}
+  .hj-cta-pricelist .side-ill{justify-content:flex-start}
+  .hj-cta-pricelist .badge{width:84px;height:84px;border-radius:20px}
+  .hj-cta-pricelist .badge img{max-width:56px;max-height:56px}
+}

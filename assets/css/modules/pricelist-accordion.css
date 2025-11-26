@@ -1,0 +1,51 @@
+:root{--pa-max:1100px;--pa-gap:16px;--pa-radius:14px;--pa-border:#e5e7eb;--pa-muted:#6b7280;--pa-text:#111827;--pa-blue:#3b82f6;--pa-card:#fff;--pa-shadow:0 8px 30px rgba(15,23,42,.06)}
+
+.hj-pricelist-accordion{margin:24px 0}
+.hj-pricelist-accordion .hj-pa-wrap{max-width:var(--pa-max);margin:70px auto;padding:0 16px}
+.hj-pa-title{margin:0 0 20px}
+
+/* Tabs */
+.hj-pa-tabs{margin-top:10px}
+.hj-pa-tabs .tab-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 23px;
+    margin: 40px 0 40px;
+    justify-content: space-evenly;
+}
+.hj-pa-tabs .tab{appearance:none;border:1px solid var(--pa-border);background:#fff;color:var(--pa-text);border-radius:12px;padding:10px 14px;cursor:pointer;font-weight:600;box-shadow:var(--pa-shadow)}
+.hj-pa-tabs .tab.is-active{background:var(--pa-blue);border-color:var(--pa-blue);color:#fff}
+.hj-pa-tabs .tab-panels{width:100%}
+.hj-pa-tabs .tab-panel{display:block}
+.hj-pa-tabs .tab-panel[hidden]{display:none}
+
+/* legacy spacing retained if used without tabs */
+.hj-pa-section{margin:18px 0 26px}
+.hj-pa-section-title{font-size:clamp(18px,2.6vw,24px);margin:0 0 10px;color:var(--pa-text)}
+
+.hj-pa-list{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.hj-pa-item details{background:var(--pa-card);border:1px solid var(--pa-border);border-radius:var(--pa-radius);box-shadow:var(--pa-shadow)}
+.hj-pa-item summary{cursor:pointer;display:flex;align-items:center;gap:10px;padding:14px 16px;list-style:none}
+.hj-pa-item summary::-webkit-details-marker{display:none}
+.hj-pa-item .ind {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    /* border: 1px solid var(--pa-border); */
+    border-radius: 6px;
+    margin-right: 2px;
+    color: #3b82f6;
+    font-weight: 700;
+    line-height: 1;
+}
+.hj-pa-item details summary .ind::before{content:"+"}
+.hj-pa-item details[open] summary .ind::before{content:"-"}
+.hj-pa-item .t{font-weight:600;color:var(--pa-text)}
+.hj-pa-item .dots{flex:1 1 auto;height:1px;border-bottom: 1px dashed #3b82f6;opacity:.7}
+.hj-pa-item .price{display:inline-flex;gap:4px;font-weight:700}
+.hj-pa-item .curr{opacity:.85}
+.hj-pa-item .desc{padding:14px 16px 14px;color:var(--pa-muted);font-size:14px}
+
+.hj-pa-item details[open] summary{border-bottom:1px solid var(--pa-border)}

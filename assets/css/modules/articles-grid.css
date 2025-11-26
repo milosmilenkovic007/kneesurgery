@@ -1,0 +1,286 @@
+/* wp-content/themes/hello-elementor-child/assets/css/modules/articles-grid.css */
+/* Articles Grid – Dental Care 1:1 */
+
+:root{
+  --ag-border: #e5e7eb;
+  --ag-muted: #6b7280;
+  --ag-text: #111827;
+  --ag-blue: #2563eb;
+  --ag-shadow-img: 0 18px 45px rgba(15, 23, 42, 0.10);
+}
+
+/* WRAPPER
+/* -------------------------------------------- */
+
+.hj-articles-grid{
+  margin: 80px 0;
+}
+
+.hj-articles-grid .hj-ag-wrap{
+  width: 100%;
+  margin: 0;
+  padding: 0 40px; /* full width feeling sa levo/desno paddingom */
+}
+
+/* HEADER
+/* -------------------------------------------- */
+
+.hj-ag-head{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+.hj-ag-title{
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 0;
+  font-size: 34px;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  font-weight: 700;
+  color: var(--ag-text);
+}
+
+.hj-ag-title .accent{
+  display: inline-block;
+  width: 4px;
+  height: 32px;
+  border-radius: 999px;
+  background: var(--ag-blue);
+}
+
+/* "See all articles" button */
+
+.hj-ag-all{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 12px 22px;
+  border-radius: 999px;
+  border: 1px solid var(--ag-border);
+  background: #f9fafb;
+  text-decoration: none;
+  font-family: "Poppins", Sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--ag-text);
+  transition: all 0.18s ease;
+  white-space: nowrap;
+}
+
+.hj-ag-all span{
+  font-size: 16px;
+  line-height: 0;
+}
+
+.hj-ag-all:hover{
+  border-color: var(--ag-blue);
+  color: var(--ag-blue);
+  background: #ffffff;
+  box-shadow: 0 12px 35px rgba(15, 23, 42, 0.08);
+}
+
+/* GRID
+/* -------------------------------------------- */
+
+.hj-ag-grid{
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(var(--ag-cols, 3), minmax(0, 1fr));
+  gap: 40px;
+  align-items: stretch; /* sve kartice iste visine u redu */
+}
+
+/* CARD
+/* -------------------------------------------- */
+
+.hj-ag-card{
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.hj-ag-card .card-link{
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  text-decoration: none;
+  color: inherit;
+  justify-content: space-between;
+}
+
+/* image */
+
+.hj-ag-card .card-media{
+  margin: 0 0 20px; /* malo veći razmak ispod slike */
+  aspect-ratio: 16 / 10;
+  position: relative;
+}
+
+.hj-ag-card .img{
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  border-radius: 26px;
+  box-shadow: var(--ag-shadow-img);
+}
+
+.hj-ag-card .img.placeholder{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 26px;
+  background: linear-gradient(180deg, #f8fafc, #eef2f7);
+  color: #94a3b8;
+}
+
+/* meta row – author + date */
+
+.hj-ag-card .card-meta{
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+  font-family: "Poppins", Sans-serif;
+  font-size: 14px;
+  color: var(--ag-muted);
+}
+
+.hj-ag-card .card-meta .author-ico{
+  display: inline-flex;
+  width: 18px;
+  height: 18px;
+  opacity: 0.9;
+}
+
+.hj-ag-card .card-meta .author-ico img{
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.hj-ag-card .card-meta .author{
+  font-weight: 500;
+  color: var(--e-global-color-39dba3d);
+}
+
+.hj-ag-card .card-meta .date{
+  margin-left: auto;
+}
+
+/* post title – 1:1 sa tvojim Elementor naslovom */
+
+.hj-ag-card .card-title{
+  margin: 0 0 8px;
+  font-family: "Source Serif 4", Sans-serif;
+  font-size: 22px;
+  font-weight: 500;
+  line-height: 1.5em;
+  color: var(--e-global-color-39dba3d);
+}
+
+/* excerpt – MAX 2 LINIJE, sa "..." */
+
+.hj-ag-card .card-excerpt{
+  margin: 0; /* nema margine, razmak pravi card-tag */
+  font-family: "Poppins", Sans-serif;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.7;
+  color: var(--ag-muted);
+
+  display: -webkit-box;
+  -webkit-line-clamp: 2;          /* max 2 linije */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* taxonomy pill */
+
+.hj-ag-card .card-tag{
+  margin-top: 22px; /* jasan razmak od teksta, kao na screenu */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 26px;
+  border-radius: 999px;
+  border: 1px solid var(--ag-border);
+  background: #f5f7ff;
+  font-family: "Poppins", Sans-serif;
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 1.6em;
+  color: var(--e-global-color-a796a21);
+}
+
+/* RESPONSIVE
+/* -------------------------------------------- */
+
+@media (max-width: 1200px){
+  .hj-articles-grid .hj-ag-wrap{
+    padding: 0 24px;
+  }
+}
+
+@media (max-width: 1000px){
+  .hj-ag-grid{
+    grid-template-columns: repeat(var(--ag-cols-md, 2), minmax(0, 1fr));
+    gap: 32px;
+  }
+}
+
+@media (max-width: 640px){
+  .hj-articles-grid{
+    margin: 64px 0;
+  }
+
+  .hj-articles-grid .hj-ag-wrap{
+    padding: 0 16px;
+  }
+
+  .hj-ag-head{
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 26px;
+  }
+
+  .hj-ag-title{
+    font-size: 28px;
+  }
+
+  .hj-ag-title .accent{
+    height: 26px;
+  }
+
+  .hj-ag-all{
+    padding: 10px 18px;
+    font-size: 14px;
+  }
+
+  .hj-ag-grid{
+    grid-template-columns: repeat(var(--ag-cols-sm, 1), minmax(0, 1fr));
+    gap: 28px;
+  }
+
+  .hj-ag-card .card-meta{
+    font-size: 15px;
+  }
+
+  .hj-ag-card .card-excerpt{
+    font-size: 15px;
+  }
+
+  .hj-ag-card .card-tag{
+    font-size: 15px;
+    padding: 10px 22px;
+  }
+}

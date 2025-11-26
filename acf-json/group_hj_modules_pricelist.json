@@ -1,0 +1,598 @@
+{
+    "key": "group_hj_modules_pricelist",
+    "title": "Page Modules",
+    "fields": [
+        {
+            "key": "field_hj_modules_fc",
+            "label": "Modules",
+            "name": "modules",
+            "type": "flexible_content",
+            "button_label": "Add Module",
+            "layouts": {
+                "layout_hj_articles_grid": {
+                    "key": "layout_hj_articles_grid",
+                    "name": "articles_grid",
+                    "label": "Articles \u2013 Grid",
+                    "display": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_hj_ag_title",
+                            "label": "Module Title",
+                            "name": "title",
+                            "type": "text",
+                            "placeholder": "Dental care articles"
+                        },
+                        {
+                            "key": "field_hj_ag_mode",
+                            "label": "Content Source",
+                            "name": "mode",
+                            "type": "button_group",
+                            "choices": {
+                                "category": "By Category",
+                                "manual": "Pick Posts"
+                            },
+                            "default_value": "category"
+                        },
+                        {
+                            "key": "field_hj_ag_terms",
+                            "label": "Categories",
+                            "name": "category",
+                            "type": "taxonomy",
+                            "taxonomy": "category",
+                            "field_type": "checkbox",
+                            "add_term": 1,
+                            "save_terms": 0,
+                            "load_terms": 0,
+                            "return_format": "id",
+                            "conditional_logic": [
+                                [
+                                    {
+                                        "field": "field_hj_ag_mode",
+                                        "operator": "==",
+                                        "value": "category"
+                                    }
+                                ]
+                            ]
+                        },
+                        {
+                            "key": "field_hj_ag_posts",
+                            "label": "Posts",
+                            "name": "posts",
+                            "type": "relationship",
+                            "post_type": [
+                                "post"
+                            ],
+                            "return_format": "id",
+                            "filters": [
+                                "search",
+                                "taxonomy"
+                            ],
+                            "conditional_logic": [
+                                [
+                                    {
+                                        "field": "field_hj_ag_mode",
+                                        "operator": "==",
+                                        "value": "manual"
+                                    }
+                                ]
+                            ]
+                        },
+                        {
+                            "key": "field_hj_ag_count",
+                            "label": "Number of posts",
+                            "name": "count",
+                            "type": "number",
+                            "default_value": 3,
+                            "min": 1,
+                            "max": 24,
+                            "wrapper": {
+                                "width": "20"
+                            }
+                        },
+                        {
+                            "key": "field_hj_ag_columns",
+                            "label": "Columns (desktop)",
+                            "name": "columns",
+                            "type": "number",
+                            "default_value": 3,
+                            "min": 1,
+                            "max": 6,
+                            "wrapper": {
+                                "width": "20"
+                            }
+                        },
+                        {
+                            "key": "field_hj_ag_columns_md",
+                            "label": "Columns (tablet)",
+                            "name": "columns_tablet",
+                            "type": "number",
+                            "default_value": 2,
+                            "min": 1,
+                            "max": 4,
+                            "wrapper": {
+                                "width": "20"
+                            }
+                        },
+                        {
+                            "key": "field_hj_ag_columns_sm",
+                            "label": "Columns (mobile)",
+                            "name": "columns_mobile",
+                            "type": "number",
+                            "default_value": 1,
+                            "min": 1,
+                            "max": 2,
+                            "wrapper": {
+                                "width": "20"
+                            }
+                        },
+                        {
+                            "key": "field_hj_ag_cta",
+                            "label": "Top Right Button",
+                            "name": "cta",
+                            "type": "group",
+                            "sub_fields": [
+                                {
+                                    "key": "field_hj_ag_cta_label",
+                                    "label": "Label",
+                                    "name": "label",
+                                    "type": "text",
+                                    "default_value": "See all articles"
+                                },
+                                {
+                                    "key": "field_hj_ag_cta_url",
+                                    "label": "URL",
+                                    "name": "url",
+                                    "type": "url"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                "layout_hj_candidate_popup": {
+                    "key": "layout_hj_candidate_popup",
+                    "name": "candidate_popup",
+                    "label": "Candidate \u2013 Popup Form",
+                    "display": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_hj_cp_w_title",
+                            "label": "Welcome Title",
+                            "name": "welcome_title",
+                            "type": "text",
+                            "default_value": "Dobrodo\u0161li u SmileRevolution"
+                        },
+                        {
+                            "key": "field_hj_cp_w_sub",
+                            "label": "Welcome Subtitle",
+                            "name": "welcome_subtitle",
+                            "type": "textarea",
+                            "rows": 2,
+                            "default_value": "Ispunite na\u0161u anketu od 30 sekundi da biste saznali jeste li kandidat."
+                        },
+                        {
+                            "key": "field_hj_cp_w_btn",
+                            "label": "Start Button",
+                            "name": "start_label",
+                            "type": "text",
+                            "default_value": "Dalje"
+                        },
+                        {
+                            "key": "field_hj_cp_q_title",
+                            "label": "Question Title",
+                            "name": "question_title",
+                            "type": "text",
+                            "default_value": "How would you describe your teeth?"
+                        },
+                        {
+                            "key": "field_hj_cp_q_sub",
+                            "label": "Question Subtitle",
+                            "name": "question_subtitle",
+                            "type": "text",
+                            "default_value": "Select the appropriate option."
+                        },
+                        {
+                            "key": "field_hj_cp_options",
+                            "label": "Options (3)",
+                            "name": "options",
+                            "type": "repeater",
+                            "min": 3,
+                            "max": 3,
+                            "button_label": "Add Option",
+                            "layout": "row",
+                            "sub_fields": [
+                                {
+                                    "key": "field_hj_cp_opt_label",
+                                    "label": "Label",
+                                    "name": "label",
+                                    "type": "text",
+                                    "required": 1
+                                },
+                                {
+                                    "key": "field_hj_cp_opt_img",
+                                    "label": "Image / GIF",
+                                    "name": "image",
+                                    "type": "image",
+                                    "return_format": "array",
+                                    "preview_size": "medium",
+                                    "library": "all"
+                                }
+                            ]
+                        },
+                        {
+                            "key": "field_hj_cp_u_title",
+                            "label": "Upload Title",
+                            "name": "upload_title",
+                            "type": "text",
+                            "default_value": "Upload photos"
+                        },
+                        {
+                            "key": "field_hj_cp_u_sub",
+                            "label": "Upload Subtitle",
+                            "name": "upload_subtitle",
+                            "type": "text",
+                            "default_value": "Attach a few clear photos of your teeth."
+                        },
+                        {
+                            "key": "field_hj_cp_b_title",
+                            "label": "Booking Title",
+                            "name": "booking_title",
+                            "type": "text",
+                            "default_value": "Book appointment"
+                        },
+                        {
+                            "key": "field_hj_cp_b_sub",
+                            "label": "Booking Subtitle",
+                            "name": "booking_subtitle",
+                            "type": "text",
+                            "default_value": "Choose a convenient time for your free consultation."
+                        },
+                        {
+                            "key": "field_hj_cp_b_cta",
+                            "label": "Booking Button",
+                            "name": "booking_cta",
+                            "type": "group",
+                            "sub_fields": [
+                                {
+                                    "key": "field_hj_cp_b_cta_label",
+                                    "label": "Label",
+                                    "name": "label",
+                                    "type": "text",
+                                    "default_value": "Book a Free Consultation"
+                                },
+                                {
+                                    "key": "field_hj_cp_b_cta_url",
+                                    "label": "URL",
+                                    "name": "url",
+                                    "type": "url"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                "layout_hj_cta_pricelist_download": {
+                    "key": "layout_hj_cta_pricelist_download",
+                    "name": "cta_pricelist_download",
+                    "label": "CTA \u2013 Download Pricelist",
+                    "display": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_hj_cpd_title",
+                            "label": "Title",
+                            "name": "title",
+                            "type": "text",
+                            "default_value": "Get the full pricelist"
+                        },
+                        {
+                            "key": "field_hj_cpd_subtitle",
+                            "label": "Subtitle",
+                            "name": "subtitle",
+                            "type": "textarea",
+                            "rows": 2,
+                            "placeholder": "Transparent costs, neatly organized in a single PDF."
+                        },
+                        {
+                            "key": "field_hj_cpd_generate",
+                            "label": "Generate from Pricelist",
+                            "name": "generate_from_pricelist",
+                            "type": "true_false",
+                            "ui": 1,
+                            "message": "Create PDF from the Pricelist module dynamically"
+                        },
+                        {
+                            "key": "field_hj_cpd_pdf",
+                            "label": "PDF File (upload)",
+                            "name": "pdf_file",
+                            "type": "file",
+                            "return_format": "array",
+                            "library": "all",
+                            "mime_types": "pdf",
+                            "required": 0,
+                            "conditional_logic": [
+                                [
+                                    {
+                                        "field": "field_hj_cpd_generate",
+                                        "operator": "!=",
+                                        "value": "1"
+                                    }
+                                ]
+                            ]
+                        },
+                        {
+                            "key": "field_hj_cpd_btn_label",
+                            "label": "Download Button Label",
+                            "name": "btn_label",
+                            "type": "text",
+                            "default_value": "Download Pricelist (PDF)"
+                        },
+                        {
+                            "key": "field_hj_cpd_email_label",
+                            "label": "Email Button Label",
+                            "name": "email_label",
+                            "type": "text",
+                            "default_value": "Send me by Email"
+                        },
+                        {
+                            "key": "field_hj_cpd_note",
+                            "label": "Note (small text)",
+                            "name": "note",
+                            "type": "text",
+                            "placeholder": "Updated monthly"
+                        },
+                        {
+                            "key": "field_hj_cpd_secondary",
+                            "label": "Secondary Button",
+                            "name": "secondary",
+                            "type": "group",
+                            "sub_fields": [
+                                {
+                                    "key": "field_hj_cpd_sec_label",
+                                    "label": "Label",
+                                    "name": "label",
+                                    "type": "text",
+                                    "placeholder": "Contact us"
+                                },
+                                {
+                                    "key": "field_hj_cpd_sec_url",
+                                    "label": "URL",
+                                    "name": "url",
+                                    "type": "url"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                "layout_hj_hero_dental": {
+                    "key": "layout_hj_hero_dental",
+                    "name": "hero_dental",
+                    "label": "Hero \u2013 Dental",
+                    "display": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_hj_hd_title",
+                            "label": "Title",
+                            "name": "title",
+                            "type": "text",
+                            "placeholder": "Dental Care",
+                            "required": 1
+                        },
+                        {
+                            "key": "field_hj_hd_intro",
+                            "label": "Intro Text",
+                            "name": "intro",
+                            "type": "textarea",
+                            "rows": 3
+                        },
+                        {
+                            "key": "field_hj_hd_bullets",
+                            "label": "Highlights",
+                            "name": "bullets",
+                            "type": "repeater",
+                            "button_label": "Add Highlight",
+                            "layout": "table",
+                            "sub_fields": [
+                                {
+                                    "key": "field_hj_hd_bullet_text",
+                                    "label": "Text",
+                                    "name": "text",
+                                    "type": "text",
+                                    "required": 1
+                                }
+                            ]
+                        },
+                        {
+                            "key": "field_hj_hd_cta",
+                            "label": "Primary CTA",
+                            "name": "cta",
+                            "type": "group",
+                            "sub_fields": [
+                                {
+                                    "key": "field_hj_hd_cta_label",
+                                    "label": "Label",
+                                    "name": "label",
+                                    "type": "text",
+                                    "placeholder": "Book a Free Consultation"
+                                },
+                                {
+                                    "key": "field_hj_hd_cta_url",
+                                    "label": "URL",
+                                    "name": "url",
+                                    "type": "url"
+                                },
+                                {
+                                    "key": "field_hj_hd_cta_note",
+                                    "label": "Small Note",
+                                    "name": "note",
+                                    "type": "text",
+                                    "placeholder": "100% Free medical online consultation"
+                                }
+                            ]
+                        },
+                        {
+                            "key": "field_hj_hd_rating",
+                            "label": "Rating",
+                            "name": "rating",
+                            "type": "group",
+                            "sub_fields": [
+                                {
+                                    "key": "field_hj_hd_rating_value",
+                                    "label": "Stars (e.g. 5)",
+                                    "name": "stars",
+                                    "type": "number",
+                                    "min": 0,
+                                    "max": 5,
+                                    "step": 0.5
+                                },
+                                {
+                                    "key": "field_hj_hd_rating_label",
+                                    "label": "Label",
+                                    "name": "label",
+                                    "type": "text",
+                                    "placeholder": "(5 Stars)"
+                                },
+                                {
+                                    "key": "field_hj_hd_reviews_count",
+                                    "label": "Reviews Count",
+                                    "name": "reviews_count",
+                                    "type": "number",
+                                    "min": 0
+                                },
+                                {
+                                    "key": "field_hj_hd_reviews_url",
+                                    "label": "Reviews URL",
+                                    "name": "reviews_url",
+                                    "type": "url"
+                                }
+                            ]
+                        },
+                        {
+                            "key": "field_hj_hd_media",
+                            "label": "Media Grid",
+                            "name": "media",
+                            "type": "group",
+                            "sub_fields": [
+                                {
+                                    "key": "field_hj_hd_img_left",
+                                    "label": "Left Large Image",
+                                    "name": "left_image",
+                                    "type": "image",
+                                    "return_format": "array"
+                                },
+                                {
+                                    "key": "field_hj_hd_img_top_right",
+                                    "label": "Top Right Image",
+                                    "name": "top_right",
+                                    "type": "image",
+                                    "return_format": "array"
+                                },
+                                {
+                                    "key": "field_hj_hd_img_bottom_left",
+                                    "label": "Bottom Left Image",
+                                    "name": "bottom_left",
+                                    "type": "image",
+                                    "return_format": "array"
+                                },
+                                {
+                                    "key": "field_hj_hd_img_bottom_right",
+                                    "label": "Bottom Right Image",
+                                    "name": "bottom_right",
+                                    "type": "image",
+                                    "return_format": "array"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                "layout_hj_pricelist_accordion": {
+                    "key": "layout_hj_pricelist_accordion",
+                    "name": "pricelist_accordion",
+                    "label": "Pricelist \u2013 Accordion",
+                    "display": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_hj_pa_title",
+                            "label": "Module Title",
+                            "name": "module_title",
+                            "type": "text",
+                            "placeholder": "Dental Care Pricelist"
+                        },
+                        {
+                            "key": "field_hj_pa_currency",
+                            "label": "Currency Symbol",
+                            "name": "currency",
+                            "type": "text",
+                            "default_value": "\u20ac",
+                            "wrapper": {
+                                "width": "20"
+                            }
+                        },
+                        {
+                            "key": "field_hj_pa_sections",
+                            "label": "Sections",
+                            "name": "sections",
+                            "type": "repeater",
+                            "button_label": "Add Section",
+                            "layout": "row",
+                            "collapsed": "field_hj_pa_section_title",
+                            "sub_fields": [
+                                {
+                                    "key": "field_hj_pa_section_title",
+                                    "label": "Section Title",
+                                    "name": "section_title",
+                                    "type": "text",
+                                    "required": 1
+                                },
+                                {
+                                    "key": "field_hj_pa_items",
+                                    "label": "Items",
+                                    "name": "items",
+                                    "type": "repeater",
+                                    "button_label": "Add Item",
+                                    "layout": "table",
+                                    "collapsed": "field_hj_pa_item_title",
+                                    "sub_fields": [
+                                        {
+                                            "key": "field_hj_pa_item_title",
+                                            "label": "Title",
+                                            "name": "item_title",
+                                            "type": "text",
+                                            "required": 1
+                                        },
+                                        {
+                                            "key": "field_hj_pa_item_price",
+                                            "label": "Price",
+                                            "name": "item_price",
+                                            "type": "text",
+                                            "wrapper": {
+                                                "width": "20"
+                                            }
+                                        },
+                                        {
+                                            "key": "field_hj_pa_item_desc",
+                                            "label": "Short Description",
+                                            "name": "item_desc",
+                                            "type": "textarea",
+                                            "rows": 2
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            }
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "page_template",
+                "operator": "==",
+                "value": "page-pricelist-dental.php"
+            }
+        ]
+    ],
+    "position": "acf_after_title",
+    "style": "seamless",
+    "active": true,
+    "modified": 1764147012
+}

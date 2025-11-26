@@ -1,0 +1,20 @@
+{
+  "key": "layout_hj_articles_grid",
+  "name": "articles_grid",
+  "label": "Articles – Grid",
+  "display": "block",
+  "sub_fields": [
+    { "key": "field_hj_ag_title", "label": "Module Title", "name": "title", "type": "text", "placeholder": "Dental care articles" },
+    { "key": "field_hj_ag_mode", "label": "Content Source", "name": "mode", "type": "button_group", "choices": { "category": "By Category", "manual": "Pick Posts" }, "default_value": "category" },
+    { "key": "field_hj_ag_terms", "label": "Categories", "name": "category", "type": "taxonomy", "taxonomy": "category", "field_type": "checkbox", "add_term": 1, "save_terms": 0, "load_terms": 0, "return_format": "id", "conditional_logic": [ [ { "field": "field_hj_ag_mode", "operator": "==", "value": "category" } ] ] },
+    { "key": "field_hj_ag_posts", "label": "Posts", "name": "posts", "type": "relationship", "post_type": ["post"], "return_format": "id", "filters": ["search", "taxonomy"], "conditional_logic": [ [ { "field": "field_hj_ag_mode", "operator": "==", "value": "manual" } ] ] },
+    { "key": "field_hj_ag_count", "label": "Number of posts", "name": "count", "type": "number", "default_value": 3, "min": 1, "max": 24, "wrapper": {"width": "20"} },
+    { "key": "field_hj_ag_columns", "label": "Columns (desktop)", "name": "columns", "type": "number", "default_value": 3, "min": 1, "max": 6, "wrapper": {"width": "20"} },
+    { "key": "field_hj_ag_columns_md", "label": "Columns (tablet)", "name": "columns_tablet", "type": "number", "default_value": 2, "min": 1, "max": 4, "wrapper": {"width": "20"} },
+    { "key": "field_hj_ag_columns_sm", "label": "Columns (mobile)", "name": "columns_mobile", "type": "number", "default_value": 1, "min": 1, "max": 2, "wrapper": {"width": "20"} },
+    { "key": "field_hj_ag_cta", "label": "Top Right Button", "name": "cta", "type": "group", "sub_fields": [
+      { "key": "field_hj_ag_cta_label", "label": "Label", "name": "label", "type": "text", "default_value": "See all articles" },
+      { "key": "field_hj_ag_cta_url", "label": "URL", "name": "url", "type": "url" }
+    ] }
+  ]
+}
