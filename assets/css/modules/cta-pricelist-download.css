@@ -26,7 +26,11 @@
 
 @media(max-width:900px){
   .hj-cta-pricelist .hj-cpd-wrap{grid-template-columns:1fr;padding:26px;border-radius:22px}
-  .hj-cta-pricelist .side-ill{justify-content:flex-start}
+  .hj-cpd-title, .hj-cpd-sub{ text-align:center; margin-left:auto; margin-right:auto }
+  .hj-cpd-cta{ justify-content:center }
+  .hj-cpd-cta .note{ width:100%; text-align:center; margin-left:0 }
+  .hj-cpd-email{ justify-content:center }
+  .hj-cta-pricelist .side-ill{justify-content:center}
   .hj-cta-pricelist .badge{width:84px;height:84px;border-radius:20px}
   .hj-cta-pricelist .badge img{max-width:56px;max-height:56px}
 }
