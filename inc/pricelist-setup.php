@@ -72,6 +72,34 @@ add_action('admin_enqueue_scripts', function(){
 	wp_enqueue_style('dashicons');
 });
 
+// Last-resort patch: after all scripts are printed, hard-override ACF tooltip methods
+add_action('admin_print_footer_scripts', function(){
+	echo '<script>(function(){
+		function safePatch(){
+			if(!window.acf || !acf.Model || !acf.Model.prototype) return;
+			try{
+				var P = acf.Model.prototype;
+				P.hideTitle = function(){
+					try{
+						var tt = this && this.tooltip ? this.tooltip : null;
+						if(tt && typeof tt.hide === "function"){ tt.hide(); }
+					}catch(e){}
+				};
+				P.showTitle = function(){
+					if(typeof window.tippy !== "function"){ return; }
+					// fallback to no-op; ACF will set tooltip when needed
+				};
+			}catch(e){}
+		}
+		// Run now and also when ACF signals ready
+		safePatch();
+		if(window.acf && acf.addAction){
+			acf.addAction("ready", safePatch);
+			acf.addAction("append", safePatch);
+		}
+	})();</script>';
+}, 999);
+
 // Disable Gutenberg block editor for pages using our custom Pricelist template
 add_filter('use_block_editor_for_post', function ($use_block_editor, $post) {
 	if (!$post) { return $use_block_editor; }
