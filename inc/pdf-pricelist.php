@@ -63,19 +63,66 @@ add_action('template_redirect', function(){
  */
 function hj_build_pricelist_pdf_html($post_id){
     $site = get_bloginfo('name');
+    $doc_title = 'Healing Journey® - Dental Care Price List';
     $date = date_i18n(get_option('date_format'));
   $logo = get_stylesheet_directory_uri() . '/assets/img/HealingJourney-logo.svg';
   $currency = '€';
 
     // Find pricelist data from flexible content
     $sections = [];
+    $package_summary = null;
     $rows = get_field('modules', $post_id) ?: [];
     foreach ($rows as $row){
         if (isset($row['acf_fc_layout']) && $row['acf_fc_layout'] === 'pricelist_accordion'){
         $sections = $row['sections'] ?? [];
         if (!empty($row['currency'])) { $currency = $row['currency']; }
+            // Try to extract a package summary (title tab, first block and price)
+            foreach ($sections as $sec){
+              if (!empty($sec['package_view'])){
+                $tab_title = $sec['section_title'] ?? '';
+                $mode = $sec['package_content_mode'] ?? 'template';
+                $pkg_title = '';
+                $pkg_desc = '';
+                $pkg_amount = '';
+                $pkg_curr = '';
+                if ($mode === 'template'){
+                  $tpl = $sec['package_template'] ?? [];
+                  $pkg_title = $tpl['title'] ?? '';
+                  $pkg_desc = $tpl['subtitle'] ?? '';
+                  $pr = $tpl['price'] ?? [];
+                  $pkg_amount = $pr['amount'] ?? '';
+                  $pkg_curr = $pr['currency'] ?? '';
+                } elseif ($mode === 'wysiwyg') {
+                  $wys = wp_strip_all_tags($sec['package_content'] ?? '');
+                  $pkg_desc = trim($wys);
+                } else {
+                  $html = $sec['package_content_html'] ?? '';
+                  $pkg_desc = trim(wp_strip_all_tags($html));
+                }
+                $package_summary = [
+                  'tab' => $tab_title,
+                  'title' => $pkg_title,
+                  'desc' => $pkg_desc,
+                  'amount' => $pkg_amount,
+                  'curr' => $pkg_curr,
+                ];
+                break;
+              }
+            }
             break;
         }
+    }
+
+    // Partition sections: first two on page 1, others on page 2
+    $first_sections = [];
+    $other_sections = [];
+    $c = 0;
+    foreach ($sections as $s){
+      $st = $s['section_title'] ?? '';
+      $items = $s['items'] ?? [];
+      if (!$st || empty($items)) continue;
+      if ($c < 2) { $first_sections[] = $s; } else { $other_sections[] = $s; }
+      $c++;
     }
 
     ob_start();
@@ -84,35 +131,44 @@ function hj_build_pricelist_pdf_html($post_id){
     <head>
       <meta charset="utf-8">
       <style>
-        @page { margin: 28mm 18mm; }
-        body{ font-family: DejaVu Sans, Helvetica, Arial, sans-serif; color:#111827; }
-        .head{ display:flex; justify-content:space-between; align-items:flex-end; margin-bottom: 16px; }
-        .head-left{ display:flex; align-items:flex-end; gap:12px; }
-        .logo{ height:28px; }
-        .logo img{ height:28px; width:auto; }
-        .title{ font-size: 26px; font-weight:700; }
-        .muted{ color:#6b7280; }
-        .card{ border:1px solid #e5e7eb; border-radius:12px; padding:14px 16px; margin:0 0 14px; }
-        .sect{ font-size:18px; font-weight:700; margin:14px 0 8px; }
-        table{ width:100%; border-collapse:collapse; }
-        th,td{ padding:8px 6px; border-bottom:1px dashed #e5e7eb; }
-        th{ text-align:left; font-size:12px; color:#6b7280; }
+        @page { margin: 24mm 16mm; }
+        body{ font-family: DejaVu Sans, Helvetica, Arial, sans-serif; color:#111827; font-size:12px; }
+        .head{ display:flex; justify-content:space-between; align-items:flex-start; margin-bottom: 12px; gap:14px; }
+        .head-left{ display:flex; align-items:center; gap:10px; }
+        .head-right{ text-align:right; }
+        .logo{ height:26px; }
+        .logo img{ height:26px; width:auto; }
+        .title{ font-size: 20px; font-weight:700; line-height:1.25; }
+        .muted{ color:#6b7280; font-size:11px; margin-top:4px; }
+        .card{ border:1px solid #e5e7eb; border-radius:12px; padding:14px 16px; margin:0 0 14px; page-break-inside: avoid; }
+        .sect{ font-size:16px; font-weight:700; margin:12px 0 6px; page-break-after: avoid; }
+        .pkg{ display:flex; justify-content:space-between; align-items:flex-start; gap:12px; }
+        .pkg-main{ flex:1 1 auto; }
+        .pkg-title{ font-weight:700; margin:0 0 3px; }
+        .pkg-desc{ color:#374151; font-size:12px; }
+        .pkg-price{ text-align:right; font-weight:800; white-space:nowrap; }
+        .pkg-price .amt{ font-size:20px }
+        table{ width:100%; border-collapse:collapse; font-size:12px; }
+        th,td{ padding:7px 6px; border-bottom:1px dashed #3d86f5; }
+        th{ text-align:left; font-size:11px; color:#6b7280; }
         td.price{ text-align:right; font-weight:600; white-space:nowrap; }
         .curr{ opacity:.8; margin-right:4px; }
-        .desc{ color:#6b7280; font-size:12px; padding-top:4px; }
-        .footer{ text-align:center; font-size:12px; color:#6b7280; margin-top: 16px; }
+        .desc{ color:#6b7280; font-size:11px; padding-top:4px; }
+        .footer{ text-align:center; font-size:12px; color:#374151; margin-top: 18px; padding-top: 10px; border-top:1px solid #e5e7eb; }
+        .page-break{ page-break-before: always; }
       </style>
     </head>
     <body>
       <div class="head">
         <div class="head-left">
           <span class="logo"><img src="<?php echo esc_url($logo); ?>" alt="<?php echo esc_attr($site); ?>" /></span>
-          <div class="title"><?php echo esc_html($site); ?> – Pricelist</div>
         </div>
-        <div class="muted">Updated: <?php echo esc_html($date); ?></div>
+        <div class="head-right">
+          <div class="title"><?php echo esc_html($doc_title); ?></div>
+          <div class="muted">Updated: <?php echo esc_html($date); ?></div>
+        </div>
       </div>
-
-      <?php foreach ($sections as $section): $st = $section['section_title'] ?? ''; $items = $section['items'] ?? []; if (!$st || empty($items)) continue; ?>
+      <?php foreach ($first_sections as $section): $st = $section['section_title'] ?? ''; $items = $section['items'] ?? []; ?>
         <div class="sect"><?php echo esc_html($st); ?></div>
         <div class="card">
           <table>
@@ -132,7 +188,53 @@ function hj_build_pricelist_pdf_html($post_id){
         </div>
       <?php endforeach; ?>
 
-      <div class="footer">Prices are indicative; final quote after consultation.</div>
+      <?php if (!empty($other_sections) || $package_summary): ?>
+        <div class="page-break"></div>
+      <?php endif; ?>
+
+      <?php foreach ($other_sections as $section): $st = $section['section_title'] ?? ''; $items = $section['items'] ?? []; ?>
+        <div class="sect"><?php echo esc_html($st); ?></div>
+        <div class="card">
+          <table>
+            <thead><tr><th>Service</th><th class="price">Price</th></tr></thead>
+            <tbody>
+              <?php foreach ($items as $it): $t = $it['item_title'] ?? ''; if (!$t) continue; $p = $it['item_price'] ?? ''; $d = $it['item_desc'] ?? ''; ?>
+                <tr>
+                  <td>
+                    <div><?php echo esc_html($t); ?></div>
+                    <?php if ($d): ?><div class="desc"><?php echo esc_html($d); ?></div><?php endif; ?>
+                  </td>
+                  <td class="price"><?php if ($p !== ''): ?><span class="curr"><?php echo esc_html($currency); ?></span><?php echo esc_html($p); ?><?php else: ?>&nbsp;<?php endif; ?></td>
+                </tr>
+              <?php endforeach; ?>
+            </tbody>
+          </table>
+        </div>
+      <?php endforeach; ?>
+
+      <?php if ($package_summary): ?>
+        <div class="sect"><?php echo esc_html($package_summary['tab'] ?: 'Package Offer'); ?></div>
+        <div class="card">
+          <div class="pkg">
+            <div class="pkg-main">
+              <?php if ($package_summary['title']): ?><div class="pkg-title"><?php echo esc_html($package_summary['title']); ?></div><?php endif; ?>
+              <?php if ($package_summary['desc']): ?><div class="pkg-desc"><?php echo nl2br(esc_html($package_summary['desc'])); ?></div><?php endif; ?>
+            </div>
+            <?php if ($package_summary['amount'] || $package_summary['curr']): ?>
+              <div class="pkg-price"><span class="amt"><?php echo esc_html($package_summary['amount']); ?></span> <span class="curr"><?php echo esc_html($package_summary['curr']); ?></span></div>
+            <?php endif; ?>
+          </div>
+        </div>
+      <?php endif; ?>
+
+      <div class="footer">
+        <div>Prices are indicative; final quote after consultation.</div>
+        <div style="margin-top:8px; font-weight:700;">Healing Journey®</div>
+        <div>Medical Travel Facilitator</div>
+        <div>Fener Mah. Fener Cd. No:11, Fener İş Merkezi, B2 Blok, kapı no:204 Muratpaşa/Antalya/TÜRKİYE</div>
+        <div>(Phone +90242 323 0112)</div>
+        <div>email: info@healingjourney.travel</div>
+      </div>
     </body>
     </html>
     <?php
@@ -146,6 +248,7 @@ function hj_build_package_pdf_html($post_id){
   $site = get_bloginfo('name');
   $date = date_i18n(get_option('date_format'));
   $logo = get_stylesheet_directory_uri() . '/assets/img/HealingJourney-logo.svg';
+  $doc_title = 'Healing Journey® - All on 4 Package';
 
   // Find first package section
   $pkg = [];
@@ -171,31 +274,35 @@ function hj_build_package_pdf_html($post_id){
   <head>
     <meta charset="utf-8">
     <style>
-      @page { margin: 22mm 18mm; }
-      body{ font-family: DejaVu Sans, Helvetica, Arial, sans-serif; color:#111827; }
-      .head{ display:flex; justify-content:space-between; align-items:flex-end; margin-bottom: 12px; }
-      .head-left{ display:flex; align-items:flex-end; gap:12px; }
-      .logo{ height:28px; }
-      .logo img{ height:28px; width:auto; }
-      .title{ font-size: 24px; font-weight:700; }
-      .muted{ color:#6b7280; }
-      .card{ border:1px solid #e5e7eb; border-radius:12px; padding:12px 14px; margin:0 0 10px; }
-      .sect{ font-size:16px; font-weight:700; margin:10px 0 8px; }
-      ul{ margin:8px 0 10px 16px; }
+      @page { margin: 24mm 16mm; }
+      body{ font-family: DejaVu Sans, Helvetica, Arial, sans-serif; color:#111827; font-size:12px; }
+      .head{ display:flex; justify-content:space-between; align-items:flex-start; margin-bottom: 12px; gap:14px; }
+      .head-left{ display:flex; align-items:center; gap:10px; }
+      .head-right{ text-align:right; }
+      .logo{ height:26px; }
+      .logo img{ height:26px; width:auto; }
+      .title{ font-size: 20px; font-weight:700; line-height:1.25; }
+      .muted{ color:#6b7280; font-size:11px; margin-top:4px; }
+      .card{ border:1px solid #e5e7eb; border-radius:12px; padding:12px 14px; margin:0 0 10px; page-break-inside: avoid; }
+      .sect{ font-size:16px; font-weight:700; margin:10px 0 8px; page-break-after: avoid; }
+      ul{ margin:8px 0 10px 16px; page-break-inside: avoid; }
       li{ margin:4px 0; }
       .note{ color:#6b7280; }
       .price{ display:flex; justify-content:space-between; align-items:baseline; gap:10px; font-weight:800; }
       .price-amt{ font-size:22px }
       .currency{ opacity:.85 }
+      .footer{ text-align:center; font-size:12px; color:#374151; margin-top: 18px; padding-top: 10px; border-top:1px solid #e5e7eb; }
     </style>
   </head>
   <body>
     <div class="head">
       <div class="head-left">
         <span class="logo"><img src="<?php echo esc_url($logo); ?>" alt="<?php echo esc_attr($site); ?>" /></span>
-        <div class="title"><?php echo esc_html($site); ?> – Package Offer</div>
       </div>
-      <div class="muted">Updated: <?php echo esc_html($date); ?></div>
+      <div class="head-right">
+        <div class="title"><?php echo esc_html($doc_title); ?></div>
+        <div class="muted">Updated: <?php echo esc_html($date); ?></div>
+      </div>
     </div>
 
     <?php if (!empty($pkg['wysiwyg'])): ?>
@@ -274,6 +381,15 @@ function hj_build_package_pdf_html($post_id){
           </div>
         <?php endif; ?>
     <?php endif; ?>
+
+    <div class="footer">
+      <div>Prices are indicative; final quote after consultation.</div>
+      <div style="margin-top:8px; font-weight:700;">Healing Journey®</div>
+      <div>Medical Travel Facilitator</div>
+      <div>Fener Mah. Fener Cd. No:11, Fener İş Merkezi, B2 Blok, kapı no:204 Muratpaşa/Antalya/TÜRKİYE</div>
+      <div>(Phone +90242 323 0112)</div>
+      <div>email: info@healingjourney.travel</div>
+    </div>
   </body>
   </html>
   <?php
