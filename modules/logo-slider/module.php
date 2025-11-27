@@ -21,9 +21,9 @@ $uid = uniqid('hj-ls-');
     <?php if (!empty($logos)): ?>
       <div class="hj-ls-viewport">
         <div class="hj-ls-track" role="list">
-          <?php foreach ($logos as $i => $logo): $img = $logo['image'] ?? null; if (!$img) continue; $url = $logo['url'] ?? ''; $alt = $logo['alt'] ?? ($img['alt'] ?? ''); $maxw = $logo['max_width'] ?? 0; $style = $maxw ? 'style="max-width:' . intval($maxw) . 'px"' : ''; ?>
-            <?php if ($url): ?><a class="hj-ls-item" role="listitem" href="<?php echo esc_url($url); ?>" target="_blank" rel="noopener" <?php echo $style; ?>>
-            <?php else: ?><span class="hj-ls-item" role="listitem" <?php echo $style; ?>><?php endif; ?>
+          <?php foreach ($logos as $i => $logo): $img = $logo['image'] ?? null; if (!$img) continue; $url = $logo['url'] ?? ''; $alt = $logo['alt'] ?? ($img['alt'] ?? ''); $maxw = $logo['max_width'] ?? 0; $style = $maxw ? ' style="max-width:' . intval($maxw) . 'px"' : ''; ?>
+            <?php if ($url): ?><a class="hj-ls-item" role="listitem" href="<?php echo esc_url($url); ?>" target="_blank" rel="noopener"<?php echo $style; ?>>
+            <?php else: ?><span class="hj-ls-item" role="listitem"<?php echo $style; ?>><?php endif; ?>
               <img src="<?php echo esc_url($img['url']); ?>" alt="<?php echo esc_attr($alt); ?>" draggable="false" />
             <?php if ($url): ?></a><?php else: ?></span><?php endif; ?>
           <?php endforeach; ?>
