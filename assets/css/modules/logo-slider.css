@@ -1,22 +1,20 @@
-:root{--ls-bg:#f3f6fc;--ls-border:#e6eaf1;--ls-text:#111827;--ls-muted:#6b7280;--ls-blue:#60a5fa}
-.hj-logo-slider{margin:36px 0}
-.hj-logo-slider .hj-ls-wrap{max-width:1240px;margin:0 auto;background:var(--ls-bg);border:1px solid var(--ls-border);border-radius:36px;box-shadow:0 18px 50px rgba(15,23,42,.06);padding:22px 26px;display:flex;align-items:center;gap:22px}
+:root{--ls-border:#e6eaf1;--ls-text:#111827;--ls-muted:#6b7280;--ls-blue:#60a5fa}
+.hj-logo-slider{margin:24px 0}
+.hj-logo-slider .hj-ls-wrap{max-width:1240px;margin:0 auto;padding:8px 0;display:flex;align-items:center;gap:30px}
 .hj-ls-head{flex:0 0 auto}
-.hj-ls-title{margin:0;font-size:28px;line-height:1.2;font-family:'Source Serif 4', serif;font-weight:600;color:var(--ls-text)}
+.hj-ls-title{margin:0;font-size:34px;line-height:1.2;font-family:'Source Serif 4', serif;font-weight:600;color:var(--ls-text)}
 .hj-ls-title .accent-italic{font-style:italic;color:var(--ls-blue)}
 .hj-ls-note{margin:4px 0 0;color:var(--ls-muted);font-size:14px}
 .hj-ls-divider{width:1px;align-self:stretch;background:var(--ls-border)}
 .hj-ls-viewport{flex:1 1 auto;overflow:hidden}
-.hj-ls-track{display:inline-flex;gap:38px;align-items:center;overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none;cursor:grab}
+.hj-ls-track{display:inline-flex;gap:60px;align-items:center;overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none;cursor:grab}
 .hj-ls-track::-webkit-scrollbar{display:none}
 .hj-ls-track.is-dragging{cursor:grabbing}
-.hj-ls-item{display:inline-flex;align-items:center;justify-content:center;opacity:.95;transition:.2s all ease}
-.hj-ls-item img{display:block;height:54px;width:auto;object-fit:contain}
-.hj-ls-item + .hj-ls-item{position:relative}
-.hj-ls-item + .hj-ls-item::before{content:"";position:absolute;left:-19px;top:25%;bottom:25%;width:1px;background:var(--ls-border)}
+.hj-ls-item{display:inline-flex;align-items:center;justify-content:center;opacity:.98;transition:.2s transform ease}
+.hj-ls-item img{display:block;height:84px;width:auto;object-fit:contain}
 
 @media(max-width:900px){
-  .hj-logo-slider .hj-ls-wrap{padding:18px 16px;border-radius:24px}
-  .hj-ls-title{font-size:24px}
-  .hj-ls-item img{height:46px}
+  .hj-logo-slider .hj-ls-wrap{padding:0 14px}
+  .hj-ls-title{font-size:28px}
+  .hj-ls-item img{height:64px}
 }

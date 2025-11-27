@@ -39,7 +39,7 @@ $uid = uniqid('hj-ls-');
     const track = root.querySelector('.hj-ls-track');
     if(!track) return;
 
-    let isDown = false, startX = 0, scrollL = 0;
+    let isDown = false, startX = 0, scrollL = 0, paused = false, raf=0;
     const onDown = (e)=>{ isDown = true; track.classList.add('is-dragging'); startX = (e.pageX || e.touches?.[0]?.pageX || 0); scrollL = track.scrollLeft; };
     const onMove = (e)=>{ if(!isDown) return; const x = (e.pageX || e.touches?.[0]?.pageX || 0); const walk = (startX - x); track.scrollLeft = scrollL + walk; };
     const onUp = ()=>{ isDown = false; track.classList.remove('is-dragging'); };
@@ -49,6 +49,25 @@ $uid = uniqid('hj-ls-');
 
     // Prevent click-through after drag
     track.addEventListener('click', function(e){ if(track.classList.contains('is-dragging')){ e.preventDefault(); e.stopPropagation(); track.classList.remove('is-dragging'); } }, true);
+
+    // Auto-run marquee: duplicate items and smoothly scroll
+    try{
+      const clone = track.cloneNode(true);
+      while(clone.firstChild){ track.appendChild(clone.firstChild); }
+      const half = Math.floor(track.scrollWidth/2);
+      const speed = 0.5; // px per frame
+      function tick(){
+        if(!paused && !isDown){
+          track.scrollLeft += speed;
+          if(track.scrollLeft >= half){ track.scrollLeft = 0; }
+        }
+        raf = requestAnimationFrame(tick);
+      }
+      tick();
+      track.addEventListener('mouseenter', ()=>{ paused = true; });
+      track.addEventListener('mouseleave', ()=>{ paused = false; });
+      document.addEventListener('visibilitychange', ()=>{ paused = document.hidden; });
+    }catch(err){}
   })();
   </script>
 </section>
