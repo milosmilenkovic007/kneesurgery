@@ -75,24 +75,35 @@ add_action('admin_enqueue_scripts', function(){
 // Last-resort patch: after all scripts are printed, hard-override ACF tooltip methods
 add_action('admin_print_footer_scripts', function(){
 	echo '<script>(function(){
+		console.log("HJ Admin Patch: start");
 		function safePatch(){
-			if(!window.acf || !acf.Model || !acf.Model.prototype) return;
+			if(!window.acf || !acf.Model || !acf.Model.prototype){
+				console.log("HJ Admin Patch: ACF not ready", window.acf);
+				return;
+			}
 			try{
 				var P = acf.Model.prototype;
+				if(P.__hj_patched){ return; }
+				var originalHide = P.hideTitle;
 				P.hideTitle = function(){
 					try{
 						var tt = this && this.tooltip ? this.tooltip : null;
+						console.log("HJ Admin Patch: hideTitle called. tooltip=", tt);
 						if(tt && typeof tt.hide === "function"){ tt.hide(); }
-					}catch(e){}
+						else { console.warn("HJ Admin Patch: tooltip.hide missing, suppressing error"); }
+					}catch(e){ console.warn("HJ Admin Patch: hideTitle error suppressed", e); }
 				};
 				P.showTitle = function(){
-					if(typeof window.tippy !== "function"){ return; }
-					// fallback to no-op; ACF will set tooltip when needed
+					if(typeof window.tippy !== "function"){ console.log("HJ Admin Patch: tippy missing, skip showTitle"); return; }
+					if(originalHide && originalHide.apply){ /* leave default if needed */ }
 				};
-			}catch(e){}
+				P.__hj_patched = true;
+				console.log("HJ Admin Patch: ACF Model patched");
+			}catch(e){ console.warn("HJ Admin Patch: exception while patching", e); }
 		}
-		// Run now and also when ACF signals ready
+		// Attempt multiple times as other scripts may load later
 		safePatch();
+		var tries = 0; var iv = setInterval(function(){ tries++; safePatch(); if(tries>10) clearInterval(iv); }, 300);
 		if(window.acf && acf.addAction){
 			acf.addAction("ready", safePatch);
 			acf.addAction("append", safePatch);
