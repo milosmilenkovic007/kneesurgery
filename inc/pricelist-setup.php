@@ -16,7 +16,7 @@ add_action('admin_head', function () {
 add_action('admin_footer', function () {
 		$screen = function_exists('get_current_screen') ? get_current_screen() : null;
 		if (!$screen || $screen->base !== 'post') { return; }
-		echo '<script>document.addEventListener("DOMContentLoaded",function(){
+			echo '<script>document.addEventListener("DOMContentLoaded",function(){
 			var root = document.querySelectorAll(".acf-field[data-key=\"field_hj_modules_fc\"] .acf-flexible-content .layout");
 			root.forEach(function(l){
 				l.classList.remove("-disabled");
@@ -31,17 +31,17 @@ add_action('admin_footer', function () {
 					var _hide = proto.hideTitle || function(){};
 					proto.showTitle = function(){
 						// If tippy is missing, skip custom tooltips to avoid breaking interactions
-						if(typeof window.tippy !== 'function'){ return; }
+						if(typeof window.tippy !== "function"){ return; }
 						return _show.apply(this, arguments);
 					};
 					proto.hideTitle = function(){
 						try{
-							if(this.tooltip && typeof this.tooltip.hide === 'function'){
+							if(this.tooltip && typeof this.tooltip.hide === "function"){
 								this.tooltip.hide();
 								return;
 							}
 							// Try a safe destroy if available
-							if(this.tooltip && typeof this.tooltip.destroy === 'function'){
+							if(this.tooltip && typeof this.tooltip.destroy === "function"){
 								this.tooltip.destroy();
 							}
 						}catch(e){}
