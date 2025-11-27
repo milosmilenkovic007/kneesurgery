@@ -3,6 +3,13 @@
  * Enqueue parent and child theme styles.
  */
 add_action('wp_enqueue_scripts', function () {
+    // Fonts
+    wp_enqueue_style(
+        'hj-source-serif-4',
+        'https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&display=swap',
+        [],
+        null
+    );
     // Parent theme style
     wp_enqueue_style(
         'hello-elementor-style',
@@ -30,6 +37,8 @@ require_once get_stylesheet_directory() . '/inc/pdf-pricelist.php';
 require_once get_stylesheet_directory() . '/inc/export-doc.php';
 // Candidate uploads
 require_once get_stylesheet_directory() . '/inc/candidate-upload.php';
+// Pricelist package defaults
+require_once get_stylesheet_directory() . '/inc/pricelist-package-defaults.php';
 
 // Globally remove the legacy "Custom Fields" meta box across all post types
 add_action('add_meta_boxes', function () {

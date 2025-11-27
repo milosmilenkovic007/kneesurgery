@@ -8,7 +8,87 @@
     { "key": "field_hj_pa_currency", "label": "Currency Symbol", "name": "currency", "type": "text", "default_value": "€", "wrapper": {"width": "20"} },
     { "key": "field_hj_pa_sections", "label": "Sections", "name": "sections", "type": "repeater", "button_label": "Add Section", "layout": "row", "collapsed": "field_hj_pa_section_title", "sub_fields": [
       { "key": "field_hj_pa_section_title", "label": "Section Title", "name": "section_title", "type": "text", "required": 1 },
-      { "key": "field_hj_pa_items", "label": "Items", "name": "items", "type": "repeater", "button_label": "Add Item", "layout": "table", "collapsed": "field_hj_pa_item_title", "sub_fields": [
+      { "key": "field_hj_pa_package_view", "label": "Package View", "name": "package_view", "type": "true_false", "ui": 1, "message": "Use custom package content instead of items/prices" },
+      { "key": "field_hj_pa_package_content_mode", "label": "Package Content Type", "name": "package_content_mode", "type": "radio", "layout": "horizontal", "choices": {"template": "Structured Template", "wysiwyg": "Visual Editor", "html": "HTML"}, "default_value": "template",
+        "conditional_logic": [ [ { "field": "field_hj_pa_package_view", "operator": "==", "value": "1" } ] ]
+      },
+      { "key": "field_hj_pa_pkg_group", "label": "Package Template Content", "name": "package_template", "type": "group", "layout": "block",
+        "conditional_logic": [ [ { "field": "field_hj_pa_package_view", "operator": "==", "value": "1" }, { "field": "field_hj_pa_package_content_mode", "operator": "==", "value": "template" } ] ],
+        "sub_fields": [
+          { "key": "field_hj_pa_pkg_slug", "label": "Template Slug (optional)", "name": "slug", "type": "text", "placeholder": "all-on-4", "wrapper": {"width": "30"}, "instructions": "Used as BEM modifier class hj-package--{slug}" },
+          { "key": "field_hj_pa_pkg_title", "label": "Package Title", "name": "title", "type": "text", "wrapper": {"width": "70"} },
+          { "key": "field_hj_pa_pkg_subtitle", "label": "Package Subtitle", "name": "subtitle", "type": "textarea", "rows": 3 },
+
+          { "key": "field_hj_pa_pkg_highlights", "label": "Highlights", "name": "highlights", "type": "repeater", "button_label": "Add Highlight", "layout": "table", "sub_fields": [
+            { "key": "field_hj_pa_pkg_highlight_text", "label": "Text", "name": "text", "type": "textarea", "rows": 2 }
+          ]},
+
+          { "key": "field_hj_pa_pkg_fd_group", "label": "Full Details", "name": "full_details", "type": "group", "layout": "block", "sub_fields": [
+            { "key": "field_hj_pa_pkg_fd_title", "label": "Section Title", "name": "title", "type": "text", "default_value": "Full Details" },
+            { "key": "field_hj_pa_pkg_fd_subheading", "label": "Subheading", "name": "subheading", "type": "text" },
+            { "key": "field_hj_pa_pkg_fd_paragraphs", "label": "Paragraphs", "name": "paragraphs", "type": "repeater", "button_label": "Add Paragraph", "sub_fields": [
+              { "key": "field_hj_pa_pkg_fd_p", "label": "Paragraph", "name": "p", "type": "textarea", "rows": 4 }
+            ]}
+          ]},
+
+          { "key": "field_hj_pa_pkg_ms_group", "label": "Medical Suitability", "name": "medical", "type": "group", "layout": "block", "sub_fields": [
+            { "key": "field_hj_pa_pkg_ms_title", "label": "Section Title", "name": "title", "type": "text", "default_value": "Medical Suitability Assessment" },
+            { "key": "field_hj_pa_pkg_ms_intro", "label": "Intro", "name": "intro", "type": "textarea", "rows": 2 },
+            { "key": "field_hj_pa_pkg_ms_list", "label": "Requirements List", "name": "list", "type": "repeater", "button_label": "Add Item", "sub_fields": [
+              { "key": "field_hj_pa_pkg_ms_li", "label": "Item", "name": "text", "type": "text" }
+            ]},
+            { "key": "field_hj_pa_pkg_ms_note", "label": "Note", "name": "note", "type": "textarea", "rows": 2 }
+          ]},
+
+          { "key": "field_hj_pa_pkg_ov_group", "label": "Package Overview", "name": "overview", "type": "group", "layout": "block", "sub_fields": [
+            { "key": "field_hj_pa_pkg_ov_title", "label": "Section Title", "name": "title", "type": "text", "default_value": "All-on-4 Package Overview (Single Arch)" },
+            { "key": "field_hj_pa_pkg_ov_intro", "label": "Intro", "name": "intro", "type": "textarea", "rows": 2 },
+            { "key": "field_hj_pa_pkg_ov_v1_title", "label": "Visit 1 Title", "name": "visit1_title", "type": "text", "default_value": "Visit 1 – Surgical Phase (7 Nights)" },
+            { "key": "field_hj_pa_pkg_ov_v1_list", "label": "Visit 1 List", "name": "visit1_list", "type": "repeater", "button_label": "Add Item", "sub_fields": [
+              { "key": "field_hj_pa_pkg_ov_v1_li", "label": "Item", "name": "text", "type": "text" }
+            ]},
+            { "key": "field_hj_pa_pkg_ov_v2_title", "label": "Visit 2 Title", "name": "visit2_title", "type": "text", "default_value": "Visit 2 – Prosthetic Phase (7 Nights)" },
+            { "key": "field_hj_pa_pkg_ov_v2_list", "label": "Visit 2 List", "name": "visit2_list", "type": "repeater", "button_label": "Add Item", "sub_fields": [
+              { "key": "field_hj_pa_pkg_ov_v2_li", "label": "Item", "name": "text", "type": "text" }
+            ]},
+            { "key": "field_hj_pa_pkg_ov_note", "label": "Note", "name": "note", "type": "textarea", "rows": 2 }
+          ]},
+
+          { "key": "field_hj_pa_pkg_incl_group", "label": "Inclusions", "name": "inclusions", "type": "group", "layout": "block", "sub_fields": [
+            { "key": "field_hj_pa_pkg_incl_title", "label": "Section Title", "name": "title", "type": "text", "default_value": "What the Package Includes (Single Arch)" },
+            { "key": "field_hj_pa_pkg_incl_surg_title", "label": "Surgical & Clinical Title", "name": "surg_title", "type": "text", "default_value": "Surgical & Clinical Inclusions" },
+            { "key": "field_hj_pa_pkg_incl_surg_list", "label": "Surgical & Clinical List", "name": "surg_list", "type": "repeater", "button_label": "Add Item", "sub_fields": [
+              { "key": "field_hj_pa_pkg_incl_surg_li", "label": "Item", "name": "text", "type": "text" }
+            ]},
+            { "key": "field_hj_pa_pkg_incl_sup_title", "label": "Support & Coordination Title", "name": "sup_title", "type": "text", "default_value": "Support & Coordination" },
+            { "key": "field_hj_pa_pkg_incl_sup_list", "label": "Support & Coordination List", "name": "sup_list", "type": "repeater", "button_label": "Add Item", "sub_fields": [
+              { "key": "field_hj_pa_pkg_incl_sup_li", "label": "Item", "name": "text", "type": "text" }
+            ]}
+          ]},
+
+          { "key": "field_hj_pa_pkg_travel_group", "label": "Travel & Accommodation", "name": "travel", "type": "group", "layout": "block", "sub_fields": [
+            { "key": "field_hj_pa_pkg_travel_title", "label": "Section Title", "name": "title", "type": "text", "default_value": "Travel & Accommodation" },
+            { "key": "field_hj_pa_pkg_travel_list", "label": "List", "name": "list", "type": "repeater", "button_label": "Add Item", "sub_fields": [
+              { "key": "field_hj_pa_pkg_travel_li", "label": "Item", "name": "text", "type": "text" }
+            ]}
+          ]},
+
+          { "key": "field_hj_pa_pkg_price_group", "label": "Price Block", "name": "price", "type": "group", "layout": "block", "sub_fields": [
+            { "key": "field_hj_pa_pkg_price_title", "label": "Title", "name": "title", "type": "text", "default_value": "Final Full-Arch Restoration (Single Arch)" },
+            { "key": "field_hj_pa_pkg_price_amount", "label": "Amount", "name": "amount", "type": "text", "wrapper": {"width": "30"} },
+            { "key": "field_hj_pa_pkg_price_currency", "label": "Currency", "name": "currency", "type": "text", "wrapper": {"width": "20"}, "default_value": "GBP" },
+            { "key": "field_hj_pa_pkg_price_note", "label": "Note", "name": "note", "type": "textarea", "rows": 3 }
+          ]}
+        ]
+      },
+      { "key": "field_hj_pa_package_content", "label": "Package Content (Visual)", "name": "package_content", "type": "wysiwyg", "tabs": "visual", "toolbar": "full", "media_upload": 0, "instructions": "Shown instead of items/prices when Package View is enabled.",
+        "conditional_logic": [ [ { "field": "field_hj_pa_package_view", "operator": "==", "value": "1" }, { "field": "field_hj_pa_package_content_mode", "operator": "==", "value": "wysiwyg" } ] ]
+      },
+      { "key": "field_hj_pa_package_content_html", "label": "Package Content (HTML)", "name": "package_content_html", "type": "textarea", "rows": 12, "new_lines": "",
+        "instructions": "Paste or write raw HTML. It will be output as-is.",
+        "conditional_logic": [ [ { "field": "field_hj_pa_package_view", "operator": "==", "value": "1" }, { "field": "field_hj_pa_package_content_mode", "operator": "==", "value": "html" } ] ]
+      },
+      { "key": "field_hj_pa_items", "label": "Items", "name": "items", "type": "repeater", "button_label": "Add Item", "layout": "table", "collapsed": "field_hj_pa_item_title", "conditional_logic": [ [ { "field": "field_hj_pa_package_view", "operator": "!=", "value": "1" } ] ], "sub_fields": [
         { "key": "field_hj_pa_item_title", "label": "Title", "name": "item_title", "type": "text", "required": 1 },
         { "key": "field_hj_pa_item_price", "label": "Price", "name": "item_price", "type": "text", "wrapper": {"width": "20"} },
         { "key": "field_hj_pa_item_desc", "label": "Short Description", "name": "item_desc", "type": "textarea", "rows": 2 }

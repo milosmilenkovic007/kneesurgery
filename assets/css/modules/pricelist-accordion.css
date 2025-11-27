@@ -52,6 +52,70 @@
 
 .hj-pa-item details[open] summary{border-bottom:1px solid var(--pa-border)}
 
+/* Package view */
+.hj-pa-package{background:var(--pa-card);border-radius:var(--pa-radius);box-shadow:var(--pa-shadow); padding: 20px 40px;}
+.hj-pa-package .hj-pa-package-inner{margin:0 auto;color:var(--pa-text) padding:20px;}
+.hj-pa-package h2,.hj-pa-package h3,.hj-pa-package h4{margin:18px 0 10px}
+.hj-pa-package h1,.hj-pa-package h2,.hj-pa-package h3,.hj-pa-package h4,
+.hj-pa-package p{margin:10px 0;line-height:1.6}
+.hj-pa-package ul{margin:10px 0 10px 20px}
+.hj-pa-package li{margin:6px 0}
+.hj-pa-package hr{border:0;border-top:1px solid var(--pa-border);margin:24px 0}
+.hj-pa-package .price-final{display:flex;align-items:baseline;gap:10px;margin:16px 0 0;font-weight:800}
+.hj-pa-package .price-final .amt{font-size:22px}
+
+/* Structured Package Template */
+.hj-package {font-size:16px}
+.hj-package__header{margin-bottom:10px;display:flex;align-items:flex-start;justify-content:space-between;gap:18px}
+.hj-package__header-text{flex:1 1 auto}
+.hj-package__actions{display:flex;gap:10px;align-items:center}
+.hj-package__act img{display:block;width:38px;height:38px;object-fit:contain;filter:drop-shadow(0 2px 6px rgba(0,0,0,.05))}
+.hj-package__act{display:inline-flex;border:1px solid var(--pa-border);background:#fff;border-radius:10px;padding:6px}
+.hj-package__act:hover{box-shadow:var(--pa-shadow)}
+.hj-package__title{font-size:clamp(22px,3.5vw,30px);margin:0;color:var(--pa-text)}
+.hj-package__subtitle{margin:8px 0 0;color:var(--pa-muted);font-size:15px}
+.hj-package__divider{margin:18px 0;display:flex;align-items:center;justify-content:center}
+.hj-package__divider::before{content:"⸻";color:#3f87f2;letter-spacing:.12em}
+.hj-package__section{margin:18px 0}
+.hj-package__section-title{
+    font-weight: 600;
+    color: var(--pa-text);
+    font-size: 16px;;
+}
+
+.hj-package__subheading{font-size:clamp(16px,2.4vw,18px);margin:12px 0 6px;color:#374151}
+.hj-package__list{list-style:none;padding:0;margin:10px 0}
+.hj-package__list li{margin:8px 0;line-height:1.6;display:flex;align-items:flex-start;gap:10px}
+.hj-package__list .ic{display:inline-flex;width:18px;height:18px;flex:0 0 18px;margin-top:3px}
+.hj-package__list .ic svg{display:block;width:18px;height:18px}
+.hj-package__list .tx{flex:1 1 auto}
+.hj-package__section--highlights .hj-package__list li{list-style:disc}
+/* Highlights default (no background override) */
+.hj-package__section--price{display:block}
+.hj-package__price-header{display:flex;align-items:baseline;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.hj-package__price{margin:0;font-weight:800;color:#111827}
+.hj-package__price-amount{font-size:26px}
+.hj-package__price-currency{margin-left:6px;opacity:.85}
+.hj-package__price-note{margin:8px 0 0;color:var(--pa-muted)}
+
+/* Package accordion */
+.hj-package__accordion{border:1px solid var(--pa-border);border-radius:12px;background:#fff;box-shadow:var(--pa-shadow);overflow:hidden}
+.hj-package__accordion + .hj-package__accordion{margin-top:12px}
+.hj-package__accordion summary{cursor:pointer;list-style:none;padding:14px 16px;display:flex;align-items:center;justify-content:space-between}
+.hj-package__accordion summary::-webkit-details-marker{display:none}
+.hj-package__accordion summary {
+    cursor: pointer;
+    list-style: none;
+    padding: 0px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #9dc1f81c;
+}
+.hj-package__accordion summary::after{content:"▾";color:#6b7280;margin-left:12px}
+.hj-package__accordion[open] summary::after{content:"▴"}
+.hj-package__body{padding:0 16px 14px}
+
 /* Responsive — tablet */
 @media (max-width: 900px){
     .hj-pricelist-accordion .hj-pa-wrap{max-width:var(--pa-max);margin:36px auto;padding:0 14px}
@@ -63,6 +127,8 @@
     .hj-pa-item summary{padding:14px}
     .hj-pa-item .dots{opacity:.5}
     .hj-pa-item .desc{font-size:15px}
+    .hj-pa-package{padding:18px}
+    .hj-package__price-amount{font-size:24px}
 }
 
 /* Responsive — mobile */
@@ -85,4 +151,8 @@
     .hj-pa-mob-section::after{content:"▾";position:absolute;right:14px;top:50%;transform:translateY(-50%);font-size:16px}
     .hj-pa-mob-section.is-open{background:var(--pa-blue);border-color:var(--pa-blue);color:#fff}
     .hj-pa-mob-section.is-open::after{content:"▴"}
+    .hj-package__title{font-size:22px}
+    .hj-package__section-title{font-size:18px}
+    .hj-package__price-header{gap:10px}
+    .hj-package__price-amount{font-size:22px}
 }
