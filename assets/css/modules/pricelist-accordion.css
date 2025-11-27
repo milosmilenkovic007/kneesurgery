@@ -19,6 +19,7 @@
 .hj-pa-tabs .tab-panels{width:100%}
 .hj-pa-tabs .tab-panel{display:block}
 .hj-pa-tabs .tab-panel[hidden]{display:none}
+.hj-pa-mob-section{display:none}
 
 /* legacy spacing retained if used without tabs */
 .hj-pa-section{margin:18px 0 26px}
@@ -76,4 +77,12 @@
     .hj-pa-item .t{font-size:16px;line-height:1.3}
     .hj-pa-item .dots{display:none}
     .hj-pa-item .price{margin-left:0}
+    /* Mobile stacked sections */
+    .hj-pa-tabs .tab-list{display:none}
+    .hj-pa-tabs .tab-panel{display:block !important}
+    .hj-pa-tabs .tab-panel[hidden]{display:block}
+    .hj-pa-mob-section{display:block;width:100%;margin:14px 0 10px;padding:12px 14px;border:1px solid var(--pa-border);border-radius:12px;background:#fff;box-shadow:var(--pa-shadow);font-weight:700;color:var(--pa-text);text-align:center;position:relative}
+    .hj-pa-mob-section::after{content:"▾";position:absolute;right:14px;top:50%;transform:translateY(-50%);font-size:16px}
+    .hj-pa-mob-section.is-open{background:var(--pa-blue);border-color:var(--pa-blue);color:#fff}
+    .hj-pa-mob-section.is-open::after{content:"▴"}
 }

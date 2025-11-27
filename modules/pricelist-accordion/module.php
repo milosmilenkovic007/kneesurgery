@@ -19,8 +19,9 @@ $uid = uniqid('hj-pa-');
         </div>
 
         <div class="tab-panels">
-          <?php foreach ($sections as $i => $section): $items = $section['items'] ?? []; if (empty($items)) continue; ?>
+          <?php foreach ($sections as $i => $section): $items = $section['items'] ?? []; if (empty($items)) continue; $st = $section['section_title'] ?? ''; ?>
             <div class="tab-panel <?php echo $i===0? 'is-active' : ''; ?>" role="tabpanel" id="<?php echo esc_attr($uid.'-panel-'.$i); ?>" aria-labelledby="<?php echo esc_attr($uid.'-tab-'.$i); ?>" <?php echo $i===0? '' : 'hidden'; ?>>
+              <?php if ($st): ?><button type="button" class="hj-pa-mob-section" aria-expanded="<?php echo $i===0? 'true':'false'; ?>"><?php echo esc_html($st); ?></button><?php endif; ?>
               <ul class="hj-pa-list" role="list">
                 <?php $idx=0; foreach ($items as $it): $t = $it['item_title'] ?? ''; if (!$t) { $idx++; continue; } $p = $it['item_price'] ?? ''; $d = $it['item_desc'] ?? ''; $is_first = ($idx===0); ?>
                   <li class="hj-pa-item">
@@ -51,6 +52,49 @@ $uid = uniqid('hj-pa-');
     if(!root) return;
     const tabs = Array.from(root.querySelectorAll('[role="tab"]'));
     const panels = Array.from(root.querySelectorAll('[role="tabpanel"]'));
+    // On mobile we stack sections; transform into single-open accordion by groups
+    if (window.matchMedia('(max-width: 700px)').matches) {
+      panels.forEach((p,i)=>{
+        p.removeAttribute('hidden');
+        const header = p.querySelector('.hj-pa-mob-section');
+        const list = p.querySelector('.hj-pa-list');
+        if(!header || !list) return;
+        if(i===0){
+          header.classList.add('is-open');
+          header.setAttribute('aria-expanded','true');
+        } else {
+          p.classList.add('mob-collapsed');
+          list.style.display = 'none';
+          header.setAttribute('aria-expanded','false');
+        }
+        header.addEventListener('click', function(){
+          if(header.classList.contains('is-open')){
+            // toggle close
+            header.classList.remove('is-open');
+            header.setAttribute('aria-expanded','false');
+            list.style.display = 'none';
+            p.classList.add('mob-collapsed');
+          } else {
+            // collapse others then open this
+            panels.forEach(pp=>{
+              const h = pp.querySelector('.hj-pa-mob-section');
+              const l = pp.querySelector('.hj-pa-list');
+              if(!h || !l) return;
+              h.classList.remove('is-open');
+              h.setAttribute('aria-expanded','false');
+              l.style.display = 'none';
+              pp.classList.add('mob-collapsed');
+            });
+            header.classList.add('is-open');
+            header.setAttribute('aria-expanded','true');
+            list.style.display = '';
+            p.classList.remove('mob-collapsed');
+            initAccordions(p);
+          }
+        });
+      });
+      return;
+    }
     function initAccordions(panel){
       const items = Array.from(panel.querySelectorAll('details'));
       if(items.length===0) return;
