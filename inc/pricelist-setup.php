@@ -3,6 +3,12 @@
 add_action('admin_head', function () {
 		$screen = function_exists('get_current_screen') ? get_current_screen() : null;
 		if (!$screen || $screen->base !== 'post') { return; }
+		// Polyfill tippy if missing (some admin UIs remove it); prevents ACF tooltip errors
+		echo '<script>(function(){
+			if(typeof window.tippy !== "function"){
+				window.tippy = function(){ return { hide:function(){}, destroy:function(){}, setProps:function(){}, setContent:function(){} }; };
+			}
+		})();</script>';
 		echo '<style>
 			/* Limit to our flexible field */
 			.acf-field[data-key="field_hj_modules_fc"] .acf-fc-layout-status,
@@ -59,6 +65,11 @@ add_action('admin_head', function(){
 		.acf-field[data-key="field_hj_modules_fc"] .acf-icon:before{ font-family: dashicons !important; speak: never; }
 		.acf-field[data-key="field_hj_modules_fc"] .acf-icon{ color:#555; }
 	</style>';
+});
+
+// Ensure dashicons are enqueued in admin if any plugin dequeued them
+add_action('admin_enqueue_scripts', function(){
+	wp_enqueue_style('dashicons');
 });
 
 // Disable Gutenberg block editor for pages using our custom Pricelist template
