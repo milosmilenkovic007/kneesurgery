@@ -1,8 +1,6 @@
 <?php
 // Admin polish for Flexible Modules: hide the ACF layout status toggle and badge
 add_action('admin_head', function () {
-		$screen = function_exists('get_current_screen') ? get_current_screen() : null;
-		if (!$screen || $screen->base !== 'post') { return; }
 		// Polyfill tippy if missing (some admin UIs remove it); prevents ACF tooltip errors
 		echo '<script>(function(){
 			if(typeof window.tippy !== "function"){
@@ -20,8 +18,6 @@ add_action('admin_head', function () {
 
 // Optional: ensure disabled layouts still render by forcing enable at load time in admin UI
 add_action('admin_footer', function () {
-		$screen = function_exists('get_current_screen') ? get_current_screen() : null;
-		if (!$screen || $screen->base !== 'post') { return; }
 			echo '<script>document.addEventListener("DOMContentLoaded",function(){
 			var root = document.querySelectorAll(".acf-field[data-key=\"field_hj_modules_fc\"] .acf-flexible-content .layout");
 			root.forEach(function(l){
@@ -59,8 +55,6 @@ add_action('admin_footer', function () {
 
 // Admin: ensure ACF flexible icons display correctly even if fonts/styles clash
 add_action('admin_head', function(){
-	$screen = function_exists('get_current_screen') ? get_current_screen() : null;
-	if (!$screen || $screen->base !== 'post') { return; }
 	echo '<style>
 		.acf-field[data-key="field_hj_modules_fc"] .acf-icon:before{ font-family: dashicons !important; speak: never; }
 		.acf-field[data-key="field_hj_modules_fc"] .acf-icon{ color:#555; }
@@ -70,7 +64,10 @@ add_action('admin_head', function(){
 // Ensure dashicons are enqueued in admin if any plugin dequeued them
 add_action('admin_enqueue_scripts', function(){
 	wp_enqueue_style('dashicons');
-});
+	// Try removing potential conflicting core tooltip script
+	wp_dequeue_script('tooltip-wizard');
+	wp_deregister_script('tooltip-wizard');
+}, 100);
 
 // Last-resort patch: after all scripts are printed, hard-override ACF tooltip methods
 add_action('admin_print_footer_scripts', function(){
