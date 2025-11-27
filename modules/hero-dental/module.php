@@ -81,27 +81,42 @@ list($t1, $t2) = hj_hd_split_title($title);
       <?php endif; ?>
     </div>
 
-    <div class="hj-hd-right">
-      <div>
-        <?php if (!empty($media['left_image'])): $img = $media['left_image']; ?>
+    <?php $layout = $media['layout'] ?? 'grid4'; ?>
+    <?php if ($layout === 'three'): ?>
+      <div class="hj-hd-right hj-hd-right--three">
+        <?php if (!empty($media['img1'])): $img = $media['img1']; ?>
+          <img class="card" src="<?php echo esc_url($img['url']); ?>" alt="<?php echo esc_attr($img['alt']); ?>">
+        <?php endif; ?>
+        <?php if (!empty($media['img2'])): $img = $media['img2']; ?>
+          <img class="card" src="<?php echo esc_url($img['url']); ?>" alt="<?php echo esc_attr($img['alt']); ?>">
+        <?php endif; ?>
+        <?php if (!empty($media['img3'])): $img = $media['img3']; ?>
           <img class="card" src="<?php echo esc_url($img['url']); ?>" alt="<?php echo esc_attr($img['alt']); ?>">
         <?php endif; ?>
       </div>
-      <div>
-        <?php if (!empty($media['top_right'])): $img = $media['top_right']; ?>
-          <img class="card" src="<?php echo esc_url($img['url']); ?>" alt="<?php echo esc_attr($img['alt']); ?>">
-        <?php endif; ?>
+    <?php else: ?>
+      <div class="hj-hd-right">
+        <div>
+          <?php if (!empty($media['left_image'])): $img = $media['left_image']; ?>
+            <img class="card" src="<?php echo esc_url($img['url']); ?>" alt="<?php echo esc_attr($img['alt']); ?>">
+          <?php endif; ?>
+        </div>
+        <div>
+          <?php if (!empty($media['top_right'])): $img = $media['top_right']; ?>
+            <img class="card" src="<?php echo esc_url($img['url']); ?>" alt="<?php echo esc_attr($img['alt']); ?>">
+          <?php endif; ?>
+        </div>
+        <div>
+          <?php if (!empty($media['bottom_left'])): $img = $media['bottom_left']; ?>
+            <img class="card" src="<?php echo esc_url($img['url']); ?>" alt="<?php echo esc_attr($img['alt']); ?>">
+          <?php endif; ?>
+        </div>
+        <div>
+          <?php if (!empty($media['bottom_right'])): $img = $media['bottom_right']; ?>
+            <img class="card" src="<?php echo esc_url($img['url']); ?>" alt="<?php echo esc_attr($img['alt']); ?>">
+          <?php endif; ?>
+        </div>
       </div>
-      <div>
-        <?php if (!empty($media['bottom_left'])): $img = $media['bottom_left']; ?>
-          <img class="card" src="<?php echo esc_url($img['url']); ?>" alt="<?php echo esc_attr($img['alt']); ?>">
-        <?php endif; ?>
-      </div>
-      <div>
-        <?php if (!empty($media['bottom_right'])): $img = $media['bottom_right']; ?>
-          <img class="card" src="<?php echo esc_url($img['url']); ?>" alt="<?php echo esc_attr($img['alt']); ?>">
-        <?php endif; ?>
-      </div>
-    </div>
+    <?php endif; ?>
   </div>
 </section>

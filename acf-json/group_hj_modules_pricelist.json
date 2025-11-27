@@ -468,37 +468,133 @@
                         },
                         {
                             "key": "field_hj_hd_media",
-                            "label": "Media Grid",
+                            "label": "Media",
                             "name": "media",
                             "type": "group",
                             "sub_fields": [
+                                {
+                                    "key": "field_hj_hd_media_layout",
+                                    "label": "Layout",
+                                    "name": "layout",
+                                    "type": "radio",
+                                    "choices": {
+                                        "grid4": "4-Image Grid",
+                                        "three": "Three Portrait Images"
+                                    },
+                                    "default_value": "grid4",
+                                    "layout": "horizontal"
+                                },
                                 {
                                     "key": "field_hj_hd_img_left",
                                     "label": "Left Large Image",
                                     "name": "left_image",
                                     "type": "image",
-                                    "return_format": "array"
+                                    "return_format": "array",
+                                    "conditional_logic": [
+                                        [
+                                            {
+                                                "field": "field_hj_hd_media_layout",
+                                                "operator": "==",
+                                                "value": "grid4"
+                                            }
+                                        ]
+                                    ]
                                 },
                                 {
                                     "key": "field_hj_hd_img_top_right",
                                     "label": "Top Right Image",
                                     "name": "top_right",
                                     "type": "image",
-                                    "return_format": "array"
+                                    "return_format": "array",
+                                    "conditional_logic": [
+                                        [
+                                            {
+                                                "field": "field_hj_hd_media_layout",
+                                                "operator": "==",
+                                                "value": "grid4"
+                                            }
+                                        ]
+                                    ]
                                 },
                                 {
                                     "key": "field_hj_hd_img_bottom_left",
                                     "label": "Bottom Left Image",
                                     "name": "bottom_left",
                                     "type": "image",
-                                    "return_format": "array"
+                                    "return_format": "array",
+                                    "conditional_logic": [
+                                        [
+                                            {
+                                                "field": "field_hj_hd_media_layout",
+                                                "operator": "==",
+                                                "value": "grid4"
+                                            }
+                                        ]
+                                    ]
                                 },
                                 {
                                     "key": "field_hj_hd_img_bottom_right",
                                     "label": "Bottom Right Image",
                                     "name": "bottom_right",
                                     "type": "image",
-                                    "return_format": "array"
+                                    "return_format": "array",
+                                    "conditional_logic": [
+                                        [
+                                            {
+                                                "field": "field_hj_hd_media_layout",
+                                                "operator": "==",
+                                                "value": "grid4"
+                                            }
+                                        ]
+                                    ]
+                                },
+                                {
+                                    "key": "field_hj_hd_img_three_1",
+                                    "label": "Image 1",
+                                    "name": "img1",
+                                    "type": "image",
+                                    "return_format": "array",
+                                    "conditional_logic": [
+                                        [
+                                            {
+                                                "field": "field_hj_hd_media_layout",
+                                                "operator": "==",
+                                                "value": "three"
+                                            }
+                                        ]
+                                    ]
+                                },
+                                {
+                                    "key": "field_hj_hd_img_three_2",
+                                    "label": "Image 2",
+                                    "name": "img2",
+                                    "type": "image",
+                                    "return_format": "array",
+                                    "conditional_logic": [
+                                        [
+                                            {
+                                                "field": "field_hj_hd_media_layout",
+                                                "operator": "==",
+                                                "value": "three"
+                                            }
+                                        ]
+                                    ]
+                                },
+                                {
+                                    "key": "field_hj_hd_img_three_3",
+                                    "label": "Image 3",
+                                    "name": "img3",
+                                    "type": "image",
+                                    "return_format": "array",
+                                    "conditional_logic": [
+                                        [
+                                            {
+                                                "field": "field_hj_hd_media_layout",
+                                                "operator": "==",
+                                                "value": "three"
+                                            }
+                                        ]
+                                    ]
                                 }
                             ]
                         }
@@ -516,6 +612,13 @@
                             "name": "module_title",
                             "type": "text",
                             "placeholder": "Dental Care Pricelist"
+                        },
+                        {
+                            "key": "field_hj_pa_subtitle",
+                            "label": "Module Subtitle",
+                            "name": "module_subtitle",
+                            "type": "text",
+                            "placeholder": "Optional subtitle under the main title"
                         },
                         {
                             "key": "field_hj_pa_currency",
@@ -542,6 +645,13 @@
                                     "name": "section_title",
                                     "type": "text",
                                     "required": 1
+                                },
+                                {
+                                    "key": "field_hj_pa_section_intro",
+                                    "label": "Section Intro",
+                                    "name": "section_intro",
+                                    "type": "text",
+                                    "instructions": "Shown below tab title and above items/package."
                                 },
                                 {
                                     "key": "field_hj_pa_package_view",
@@ -1039,5 +1149,5 @@
     "position": "acf_after_title",
     "style": "seamless",
     "active": true,
-    "modified": 1764248083
+    "modified": 1764270365
 }

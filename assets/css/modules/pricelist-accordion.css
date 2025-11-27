@@ -3,6 +3,11 @@
 .hj-pricelist-accordion{margin:24px 0}
 .hj-pricelist-accordion .hj-pa-wrap{max-width:var(--pa-max);margin:70px auto;padding:0 16px}
 .hj-pa-title{margin:0 0 20px;text-align:center}
+.hj-pa-subtitle {
+    margin: -6px 0 16px;
+    text-align: left;
+    color: var(--pa-muted);
+}
 
 /* Tabs */
 .hj-pa-tabs{margin-top:10px}
@@ -26,6 +31,7 @@
 .hj-pa-section-title{font-size:clamp(18px,2.6vw,24px);margin:0 0 10px;color:var(--pa-text)}
 
 .hj-pa-list{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.hj-pa-section-intro{color:var(--pa-muted);margin:4px 0 8px}
 .hj-pa-item details{background:var(--pa-card);border:1px solid var(--pa-border);border-radius:var(--pa-radius);box-shadow:var(--pa-shadow)}
 .hj-pa-item summary{cursor:pointer;display:flex;align-items:center;gap:10px;padding:14px 16px;list-style:none}
 .hj-pa-item summary::-webkit-details-marker{display:none}

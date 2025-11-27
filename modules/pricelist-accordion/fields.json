@@ -5,9 +5,11 @@
   "display": "block",
   "sub_fields": [
     { "key": "field_hj_pa_title", "label": "Module Title", "name": "module_title", "type": "text", "placeholder": "Dental Care Pricelist" },
+    { "key": "field_hj_pa_subtitle", "label": "Module Subtitle", "name": "module_subtitle", "type": "text", "placeholder": "Optional subtitle under the main title" },
     { "key": "field_hj_pa_currency", "label": "Currency Symbol", "name": "currency", "type": "text", "default_value": "€", "wrapper": {"width": "20"} },
     { "key": "field_hj_pa_sections", "label": "Sections", "name": "sections", "type": "repeater", "button_label": "Add Section", "layout": "row", "collapsed": "field_hj_pa_section_title", "sub_fields": [
       { "key": "field_hj_pa_section_title", "label": "Section Title", "name": "section_title", "type": "text", "required": 1 },
+      { "key": "field_hj_pa_section_intro", "label": "Section Intro", "name": "section_intro", "type": "text", "instructions": "Shown below tab title and above items/package." },
       { "key": "field_hj_pa_package_view", "label": "Package View", "name": "package_view", "type": "true_false", "ui": 1, "message": "Use custom package content instead of items/prices" },
       { "key": "field_hj_pa_package_content_mode", "label": "Package Content Type", "name": "package_content_mode", "type": "radio", "layout": "horizontal", "choices": {"template": "Structured Template", "wysiwyg": "Visual Editor", "html": "HTML"}, "default_value": "template",
         "conditional_logic": [ [ { "field": "field_hj_pa_package_view", "operator": "==", "value": "1" } ] ]

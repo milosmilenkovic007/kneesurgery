@@ -107,8 +107,6 @@
     color: var(--hd-text);
     gap: 12px;
     display: flex;
-    /* justify-content: center; */
-    /* align-content: center; */
     align-items: center;
 }
 .hj-hd-rating .sub a{color:var(--hd-blue);text-decoration:underline}
@@ -119,12 +117,15 @@
     grid-template-columns:1fr 1fr;
     gap:20px;
 }
+.hj-hd-right--three{grid-template-columns:1fr 1fr 1fr}
+.hj-hd-right--three .card{height:520px}
 .hj-hd-right .card{
     width:100%;
     height:100%;
     border-radius:20px;
     object-fit:cover;
     border:1px solid var(--hd-border);
+    height: 380px;
 }
 
 /* Responsive */
@@ -137,4 +138,15 @@
     .hj-hd-cta-rating{flex-direction:column;align-items:center;gap:14px}
     .hj-hd-rating{align-items:center;text-align:center}
     .hj-hd-right{gap:14px}
+    .hj-hd-right--three{grid-template-columns:1fr 1fr}
+    .hj-hd-right--three .card{height:260px}
+}
+
+/* Small mobile: show only two stacked images for 3-image layout */
+@media(max-width:600px){
+    .hj-hd-right--three{grid-template-columns:1fr}
+    .hj-hd-right--three .card{height:340px}
+    .hj-hd-right--three .card:nth-child(3){display:none}
+    /* Crop first image higher so face/smile is visible */
+    .hj-hd-right--three .card:first-child{object-position:center 0%}
 }

@@ -20,11 +20,15 @@
       { "key": "field_hj_hd_reviews_count", "label": "Reviews Count", "name": "reviews_count", "type": "number", "min": 0 },
       { "key": "field_hj_hd_reviews_url", "label": "Reviews URL / Anchor", "name": "reviews_url", "type": "text", "placeholder": "https://… or #anchor" }
     ]},
-    { "key": "field_hj_hd_media", "label": "Media Grid", "name": "media", "type": "group", "sub_fields": [
-      { "key": "field_hj_hd_img_left", "label": "Left Large Image", "name": "left_image", "type": "image", "return_format": "array" },
-      { "key": "field_hj_hd_img_top_right", "label": "Top Right Image", "name": "top_right", "type": "image", "return_format": "array" },
-      { "key": "field_hj_hd_img_bottom_left", "label": "Bottom Left Image", "name": "bottom_left", "type": "image", "return_format": "array" },
-      { "key": "field_hj_hd_img_bottom_right", "label": "Bottom Right Image", "name": "bottom_right", "type": "image", "return_format": "array" }
+    { "key": "field_hj_hd_media", "label": "Media", "name": "media", "type": "group", "sub_fields": [
+      { "key": "field_hj_hd_media_layout", "label": "Layout", "name": "layout", "type": "radio", "choices": {"grid4": "4-Image Grid", "three": "Three Portrait Images"}, "default_value": "grid4", "layout": "horizontal" },
+      { "key": "field_hj_hd_img_left", "label": "Left Large Image", "name": "left_image", "type": "image", "return_format": "array", "conditional_logic": [[{"field":"field_hj_hd_media_layout","operator":"==","value":"grid4"}]] },
+      { "key": "field_hj_hd_img_top_right", "label": "Top Right Image", "name": "top_right", "type": "image", "return_format": "array", "conditional_logic": [[{"field":"field_hj_hd_media_layout","operator":"==","value":"grid4"}]] },
+      { "key": "field_hj_hd_img_bottom_left", "label": "Bottom Left Image", "name": "bottom_left", "type": "image", "return_format": "array", "conditional_logic": [[{"field":"field_hj_hd_media_layout","operator":"==","value":"grid4"}]] },
+      { "key": "field_hj_hd_img_bottom_right", "label": "Bottom Right Image", "name": "bottom_right", "type": "image", "return_format": "array", "conditional_logic": [[{"field":"field_hj_hd_media_layout","operator":"==","value":"grid4"}]] },
+      { "key": "field_hj_hd_img_three_1", "label": "Image 1", "name": "img1", "type": "image", "return_format": "array", "conditional_logic": [[{"field":"field_hj_hd_media_layout","operator":"==","value":"three"}]] },
+      { "key": "field_hj_hd_img_three_2", "label": "Image 2", "name": "img2", "type": "image", "return_format": "array", "conditional_logic": [[{"field":"field_hj_hd_media_layout","operator":"==","value":"three"}]] },
+      { "key": "field_hj_hd_img_three_3", "label": "Image 3", "name": "img3", "type": "image", "return_format": "array", "conditional_logic": [[{"field":"field_hj_hd_media_layout","operator":"==","value":"three"}]] }
     ]}
   ]
 }

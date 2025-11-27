@@ -1,5 +1,6 @@
 <?php
 $module_title = get_sub_field('module_title');
+$module_subtitle = get_sub_field('module_subtitle');
 $currency = get_sub_field('currency') ?: '€';
 $sections = get_sub_field('sections') ?: [];
 $uid = uniqid('hj-pa-');
@@ -7,6 +8,7 @@ $uid = uniqid('hj-pa-');
 <section class="hj-pricelist-accordion" id="<?php echo esc_attr($uid); ?>" aria-label="Pricelist">
   <div class="hj-pa-wrap">
     <?php if ($module_title): ?><h2 class="hj-pa-title hj-hd-title"><?php echo esc_html($module_title); ?></h2><?php endif; ?>
+    <?php if (!empty($module_subtitle)): ?><p class="hj-pa-subtitle"><?php echo esc_html($module_subtitle); ?></p><?php endif; ?>
 
     <?php if (!empty($sections)): ?>
       <div class="hj-pa-tabs">
@@ -23,6 +25,7 @@ $uid = uniqid('hj-pa-');
             $st = $section['section_title'] ?? '';
             $is_package = !empty($section['package_view']);
             $items = $section['items'] ?? [];
+            $sintro = $section['section_intro'] ?? '';
             $has_content = $is_package || (!empty($items));
             if (!$has_content) continue;
           ?>
@@ -34,6 +37,7 @@ $uid = uniqid('hj-pa-');
                   <div class="hj-pa-package-inner">
                     <?php 
                       $mode = $section['package_content_mode'] ?? 'template';
+                      if (!empty($sintro)) { echo '<p class="hj-pa-section-intro">' . esc_html($sintro) . '</p>'; }
                       if ($mode === 'html') {
                         $html = $section['package_content_html'] ?? '';
                         if ($html) { echo do_shortcode($html); }
@@ -304,7 +308,8 @@ $uid = uniqid('hj-pa-');
                 </div>
               <?php else: ?>
                 <ul class="hj-pa-list" role="list">
-                  <?php $idx=0; foreach ($items as $it): $t = $it['item_title'] ?? ''; if (!$t) { $idx++; continue; } $p = $it['item_price'] ?? ''; $d = $it['item_desc'] ?? ''; $is_first = ($idx===0); ?>
+                  <?php if (!empty($sintro)) { echo '<li class="hj-pa-item hj-pa-item-intro"><div class="hj-pa-section-intro">' . esc_html($sintro) . '</div></li>'; }
+                  $idx=0; foreach ($items as $it): $t = $it['item_title'] ?? ''; if (!$t) { $idx++; continue; } $p = $it['item_price'] ?? ''; $d = $it['item_desc'] ?? ''; $is_first = ($idx===0); ?>
                     <li class="hj-pa-item">
                       <details <?php echo $is_first? 'open':''; ?>>
                         <summary>
