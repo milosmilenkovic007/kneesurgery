@@ -83,7 +83,7 @@
     display:inline-flex;
     align-items:center;
     gap:10px;
-    padding:18px 40px;
+    padding: 14px 32px;
     background:var(--hd-blue);
     color:#fff;
     border-radius:14px;

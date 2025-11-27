@@ -22,7 +22,43 @@ add_action('admin_footer', function () {
 				l.classList.remove("-disabled");
 				l.removeAttribute("aria-disabled");
 			});
+
+			// Guard against ACF tooltip errors from conflicting tooltip libraries
+			try{
+				if(window.acf && acf.Model && acf.Model.prototype){
+					var proto = acf.Model.prototype;
+					var _show = proto.showTitle || function(){};
+					var _hide = proto.hideTitle || function(){};
+					proto.showTitle = function(){
+						// If tippy is missing, skip custom tooltips to avoid breaking interactions
+						if(typeof window.tippy !== 'function'){ return; }
+						return _show.apply(this, arguments);
+					};
+					proto.hideTitle = function(){
+						try{
+							if(this.tooltip && typeof this.tooltip.hide === 'function'){
+								this.tooltip.hide();
+								return;
+							}
+							// Try a safe destroy if available
+							if(this.tooltip && typeof this.tooltip.destroy === 'function'){
+								this.tooltip.destroy();
+							}
+						}catch(e){}
+					};
+				}
+			}catch(e){}
 		});</script>';
+});
+
+// Admin: ensure ACF flexible icons display correctly even if fonts/styles clash
+add_action('admin_head', function(){
+	$screen = function_exists('get_current_screen') ? get_current_screen() : null;
+	if (!$screen || $screen->base !== 'post') { return; }
+	echo '<style>
+		.acf-field[data-key="field_hj_modules_fc"] .acf-icon:before{ font-family: dashicons !important; speak: never; }
+		.acf-field[data-key="field_hj_modules_fc"] .acf-icon{ color:#555; }
+	</style>';
 });
 
 // Disable Gutenberg block editor for pages using our custom Pricelist template
