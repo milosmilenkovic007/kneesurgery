@@ -164,17 +164,16 @@ $uid = uniqid('hj-candidate-');
     <div class="hj-cand-step" data-step="4" hidden>
       <h2 class="title"><?php echo esc_html($b_title); ?></h2>
       <?php if ($b_sub): ?><p class="sub"><?php echo esc_html($b_sub); ?></p><?php endif; ?>
-      <?php if (!empty($b_cta['label']) && !empty($b_cta['url'])): ?>
-        <div class="actions">
-          <a class="btn-primary" href="<?php echo esc_url($b_cta['url']); ?>"><?php echo esc_html($b_cta['label']); ?> →</a>
-        </div>
-      <?php endif; ?>
+      <?php /* ACF CTA removed – we submit via Fluent Form button below */ ?>
 
       <?php if ($ff_sc): ?>
         <div class="ff-wrap">
           <?php echo do_shortcode($ff_sc); ?>
         </div>
       <?php endif; ?>
+      <div class="actions">
+        <button class="btn-secondary" data-prev>Back</button>
+      </div>
     </div>
   </div>
 
@@ -233,8 +232,55 @@ $uid = uniqid('hj-candidate-');
       }
     }
 
+    function showError(stepEl, msg){
+      if(!stepEl) return;
+      let box = stepEl.querySelector('.hj-error');
+      if(!box){
+        box = document.createElement('div');
+        box.className = 'hj-error';
+        const actions = stepEl.querySelector('.actions');
+        if(actions) actions.insertAdjacentElement('beforebegin', box); else stepEl.appendChild(box);
+      }
+      box.textContent = msg || '';
+    }
+
+    function clearError(stepEl){ const box = stepEl?.querySelector('.hj-error'); if(box) box.textContent=''; }
+
+    function canProceed(curIdx){
+      const cur = steps[curIdx]; if(!cur) return true;
+      clearError(cur);
+      const stepNo = cur.dataset.step;
+      if(stepNo === '2'){
+        // require primary concern and age
+        const opt = cur.querySelector('.opt.is-selected');
+        const ageInput = cur.querySelector('[data-med="age"]');
+        const ageVal = (ageInput?.value || '').trim();
+        if(!opt){ showError(cur, 'Please select an option.'); return false; }
+        const ageNum = parseInt(ageVal, 10);
+        if(!ageVal || isNaN(ageNum) || ageNum < 1 || ageNum > 99){ showError(cur, 'Please enter a valid age (1–99).'); return false; }
+        // if chronic yes -> details required
+        const chronicYes = cur.querySelector('input[name="med-chronic"]:checked')?.value === 'Yes';
+        const chronicTxt = (cur.querySelector('.mf-chronic-details')?.value || '').trim();
+        if(chronicYes && !chronicTxt){ showError(cur, 'Please describe your chronic illnesses.'); return false; }
+        // if meds yes -> details required
+        const medsYes = cur.querySelector('input[name="med-meds"]:checked')?.value === 'Yes';
+        const medsTxt = (cur.querySelector('.mf-meds-details')?.value || '').trim();
+        if(medsYes && !medsTxt){ showError(cur, 'Please list your medications and doses.'); return false; }
+        return true;
+      }
+      if(stepNo === '3'){
+        // require at least one photo
+        const drops = cur.querySelectorAll('.drop');
+        let has = false;
+        drops.forEach(d=>{ if(d.dataset.index !== 'xray' && d.dataset.url) has = true; });
+        if(!has){ showError(cur, 'Please add at least one photo.'); return false; }
+        return true;
+      }
+      return true;
+    }
+
     nextBtns.forEach(b=> b.addEventListener('click', ()=>{
-      if(idx < steps.length-1) show(idx+1);
+      if(idx < steps.length-1){ if(canProceed(idx)) show(idx+1); }
     }));
     prevBtns.forEach(b=> b.addEventListener('click', ()=>{ if(idx>0) show(idx-1); }));
     closeEls.forEach(b=> b.addEventListener('click', doClose));
@@ -326,6 +372,24 @@ $uid = uniqid('hj-candidate-');
       });
     }
 
+    // Canvas -> Blob helper with fallback for older Safari/iOS
+    function canvasToBlob(canvas, type='image/jpeg', quality=.85){
+      return new Promise(resolve=>{
+        if (canvas.toBlob) {
+          canvas.toBlob(b=>resolve(b), type, quality);
+        } else {
+          // Fallback: toDataURL then convert
+          const dataURL = canvas.toDataURL(type, quality);
+          const byteString = atob(dataURL.split(',')[1]);
+          const mime = dataURL.split(',')[0].match(/:(.*?);/)[1] || type;
+          const ab = new ArrayBuffer(byteString.length);
+          const ia = new Uint8Array(ab);
+          for (let i=0; i<byteString.length; i++) ia[i] = byteString.charCodeAt(i);
+          resolve(new Blob([ab], {type: mime}));
+        }
+      });
+    }
+
     function applyPreview(wrap, fileOrBlob){
       const type = fileOrBlob.type || '';
       wrap.classList.add('has-preview');
@@ -384,6 +448,21 @@ $uid = uniqid('hj-candidate-');
       }
     });
 
+    // Prevent label default file-open when clicking anywhere on the tile
+    // Allow only the upload icon to trigger the dialog (and camera icon for capture)
+    root.addEventListener('click', function(e){
+      const drop = e.target.closest('.drop');
+      if(!drop) return;
+      const isUpload = !!e.target.closest('.open-upload');
+      const isCamera = !!e.target.closest('.open-camera');
+      const isCtrl   = !!e.target.closest('.controls, .btn-ctrl, .cam');
+      const isInput  = e.target.matches('input[type="file"]');
+      if(!(isUpload || isCamera || isCtrl || isInput)){
+        e.preventDefault();
+        e.stopPropagation();
+      }
+    }, true);
+
     // Camera helpers
     async function startCamera(wrap){
       const cam = wrap.querySelector('.cam');
@@ -441,7 +520,7 @@ $uid = uniqid('hj-candidate-');
           const max = 1280; const ratio = Math.min(max/w, max/h, 1);
           canvas.width = Math.round(w*ratio); canvas.height = Math.round(h*ratio);
           canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
-          const blob = await new Promise(r=>canvas.toBlob(b=>r(b), 'image/jpeg', .85));
+          const blob = await canvasToBlob(canvas, 'image/jpeg', .85);
           // preview & upload
           applyPreview(wrap, blob);
           const uploadFileObj = new File([blob], 'candidate.jpg', { type: 'image/jpeg' });
@@ -488,10 +567,15 @@ $uid = uniqid('hj-candidate-');
         data.meds_yesno = medsYN;
         data.meds_details = s2.querySelector('.mf-meds-details')?.value || '';
       }
-      // photos (urls preferred)
+      // photos (urls preferred) + X-ray
       const drops = root.querySelectorAll('[data-step="3"] .drop');
       data.photos = [];
-      drops.forEach(d=>{ data.photos.push(d.dataset.url || ''); });
+      data.x_ray = '';
+      drops.forEach(d=>{
+        const u = d.dataset.url || '';
+        if(d.dataset.index === 'xray'){ data.x_ray = u; }
+        else { data.photos.push(u); }
+      });
       return data;
     }
 
@@ -501,7 +585,7 @@ $uid = uniqid('hj-candidate-');
       if(!ff) return;
 
       const map = <?php echo wp_json_encode($ff_map); ?> || {};
-      const defaults = { age:'age', chronic_yesno:'chronic_yesno', chronic_details:'chronic_details', meds_yesno:'meds_yesno', meds_details:'meds_details', option:'concern', photo1:'photo_smile', photo2:'photo_anterior', photo3:'photo_left', photo4:'photo_right', photo5:'photo_mandibular', photo6:'photo_maxillary' };
+      const defaults = { age:'age', chronic_yesno:'chronic_yesno', chronic_details:'chronic_details', meds_yesno:'meds_yesno', meds_details:'meds_details', option:'concern', photo1:'photo_smile', photo2:'photo_anterior', photo3:'photo_left', photo4:'photo_right', photo5:'photo_mandibular', photo6:'photo_maxillary', x_ray:'x_ray' };
       const nameFor = (k)=> (map[k] && map[k].length ? map[k] : defaults[k]);
 
       function setField(name, value){
@@ -531,6 +615,7 @@ $uid = uniqid('hj-candidate-');
       for(let i=0;i<6;i++){
         setField(nameFor('photo'+(i+1)), data.photos[i] || '');
       }
+      setField(nameFor('x_ray'), data.x_ray || '');
     }
   });
   </script>
