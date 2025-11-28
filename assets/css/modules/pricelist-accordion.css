@@ -169,7 +169,20 @@
     .hj-pa-tabs .tab-list{display:none}
     .hj-pa-tabs .tab-panel{display:block !important}
     .hj-pa-tabs .tab-panel[hidden]{display:block}
-    .hj-pa-mob-section{display:block;width:100%;margin:14px 0 10px;padding:12px 14px;border:1px solid var(--pa-border);border-radius:12px;background:#fff;box-shadow:var(--pa-shadow);font-weight:700;color:var(--pa-text);text-align:center;position:relative}
+    .hj-pa-mob-section {
+        display: block;
+        width: 100%;
+        margin: 14px 0 10px;
+        padding: 12px 14px;
+        border: 1px solid var(--pa-border);
+        border-radius: 12px;
+        background: #c5d9f9;
+        box-shadow: var(--pa-shadow);
+        font-weight: 700;
+        color: var(--pa-text);
+        text-align: center;
+        position: relative;
+    }
     .hj-pa-mob-section::after{content:"▾";position:absolute;right:14px;top:50%;transform:translateY(-50%);font-size:16px}
     .hj-pa-mob-section.is-open{background:var(--pa-blue);border-color:var(--pa-blue);color:#fff}
     .hj-pa-mob-section.is-open::after{content:"▴"}
@@ -177,4 +190,5 @@
     .hj-package__section-title{font-size:18px}
     .hj-package__price-header{gap:10px}
     .hj-package__price-amount{font-size:22px}
+    .hj-pa-list {padding: 5px;}
 }

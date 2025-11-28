@@ -133,7 +133,7 @@
     .hj-hd-wrap{grid-template-columns:1fr;padding:26px;border-radius:24px}
     .hj-hd-left{max-width:none;margin:0 auto}
     .hj-hd-title, .hj-hd-intro{ text-align:center; margin-left:auto; margin-right:auto }
-    .hj-hd-bullets{ justify-items:center }
+    .hj-hd-bullets{ justify-items: baseline; justify-content: space-evenly; }
     .hj-hd-bullet{ justify-content:center }
     .hj-hd-cta-rating{flex-direction:column;align-items:center;gap:14px}
     .hj-hd-rating{align-items:center;text-align:center}
