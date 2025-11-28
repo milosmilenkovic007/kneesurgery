@@ -627,13 +627,6 @@
                             }
                         },
                         {
-                            "key": "field_hj_ls_note",
-                            "label": "Small Note (optional)",
-                            "name": "note",
-                            "type": "text",
-                            "placeholder": "Optional small description"
-                        },
-                        {
                             "key": "field_hj_ls_logos",
                             "label": "Logos",
                             "name": "logos",
@@ -647,11 +640,11 @@
                                     "name": "image",
                                     "type": "image",
                                     "required": 1,
-                                    "return_format": "array"
+                                    "return_format": "id"
                                 },
                                 {
                                     "key": "field_hj_ls_logo_url",
-                                    "label": "Link URL",
+                                    "label": "Link URL (optional)",
                                     "name": "url",
                                     "type": "url"
                                 },
@@ -1228,5 +1221,5 @@
     "position": "acf_after_title",
     "style": "seamless",
     "active": true,
-    "modified": 1764271450
+    "modified": 1764322115
 }
