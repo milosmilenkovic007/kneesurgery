@@ -131,4 +131,23 @@
   .med-grid{grid-template-columns:1fr}
 }
 
+/* Mobile-only tweaks (do not affect desktop) */
+@media(max-width:640px){
+  /* Step 2 + Step 3 action buttons centered on mobile */
+  .hj-cand-step[data-step="2"] .actions,
+  .hj-cand-step[data-step="3"] .actions{justify-content:center}
+
+  /* Upload grid: two columns and smaller tiles */
+  .uploads{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:50px}
+  .upload-cell{min-width:0;gap:0}
+  .drop{min-height:130px}
+  .drop-title{font-size:13px}
+  .drop .btn-ghost .ic{width:18px;height:14px}
+  .drop .btn-ghost{padding:6px;border-radius:9px}
+
+  /* Make X-ray tile span both columns with same height */
+  .upload-cell:has(.drop[data-index="xray"]){grid-column:1 / -1}
+  .drop[data-index="xray"]{min-height:100px!important}
+}
+
 html.hj-cand-open{overflow:hidden}

@@ -122,7 +122,6 @@ $uid = uniqid('hj-candidate-');
                 </button>
               </div>
               <div class="controls" hidden>
-                <button type="button" class="btn-ctrl retake" aria-label="Retake" title="Rotate / Retake" data-tip="Rotate / Retake">↺</button>
                 <button type="button" class="btn-ctrl remove" aria-label="Remove" title="Remove" data-tip="Remove">✕</button>
               </div>
               <div class="status" aria-live="polite"></div>
@@ -469,14 +468,7 @@ $uid = uniqid('hj-candidate-');
         e.preventDefault();
         return;
       }
-      const btnRetake = e.target.closest('.btn-ctrl.retake');
-      if(btnRetake){
-        const wrap = btnRetake.closest('.drop');
-        // prefer camera if available
-        if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia){ startCamera(wrap); }
-        else { const input = wrap.querySelector('input[type="file"]'); input.click(); }
-        e.preventDefault();
-      }
+      // retake/rotate removed
     });
 
     // Collect data and fill Fluent Form
