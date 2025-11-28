@@ -6,6 +6,7 @@
   "sub_fields": [
     { "key": "field_hj_cp_w_title", "label": "Welcome Title", "name": "welcome_title", "type": "text", "default_value": "Welcome to Healing Journey" },
     { "key": "field_hj_cp_w_sub", "label": "Welcome Subtitle", "name": "welcome_subtitle", "type": "textarea", "rows": 2, "default_value": "Complete our 30‑second survey to find out if you’re a candidate." },
+    { "key": "field_hj_cp_w_logo", "label": "Welcome Logo", "name": "welcome_logo", "type": "image", "return_format": "array", "preview_size": "medium" },
     { "key": "field_hj_cp_w_btn", "label": "Start Button", "name": "start_label", "type": "text", "default_value": "Start" },
 
     { "key": "field_hj_cp_q_title", "label": "Question Title", "name": "question_title", "type": "text", "default_value": "How would you describe your teeth?" },
@@ -15,14 +16,42 @@
       { "key": "field_hj_cp_opt_img", "label": "Image / GIF", "name": "image", "type": "image", "return_format": "array", "preview_size": "medium", "library": "all" }
     ]},
 
+    { "key": "field_hj_cp_m_title", "label": "Medical Title", "name": "medical_title", "type": "text", "default_value": "Your Medical Background" },
+    { "key": "field_hj_cp_m_sub", "label": "Medical Subtitle", "name": "medical_subtitle", "type": "textarea", "rows": 2, "default_value": "These details help our doctors plan your treatment safely." },
+
     { "key": "field_hj_cp_u_title", "label": "Upload Title", "name": "upload_title", "type": "text", "default_value": "Upload photos" },
     { "key": "field_hj_cp_u_sub", "label": "Upload Subtitle", "name": "upload_subtitle", "type": "text", "default_value": "Attach a few clear photos of your teeth." },
+    { "key": "field_hj_cp_u_cover", "label": "Upload Cover Image (optional)", "name": "upload_cover", "type": "image", "return_format": "array", "preview_size": "medium" },
+    { "key": "field_hj_cp_u_covers", "label": "Upload Covers (per photo)", "name": "upload_covers", "type": "group", "instructions": "Optional specific cover images for each photo box.", "layout": "block", "sub_fields": [
+      { "key": "field_hj_cp_u_cover_smile", "label": "Smile", "name": "cover_smile", "type": "image", "return_format": "array", "preview_size": "medium" },
+      { "key": "field_hj_cp_u_cover_anterior", "label": "Anterior", "name": "cover_anterior", "type": "image", "return_format": "array", "preview_size": "medium" },
+      { "key": "field_hj_cp_u_cover_left", "label": "Left Buccal", "name": "cover_left_buccal", "type": "image", "return_format": "array", "preview_size": "medium" },
+      { "key": "field_hj_cp_u_cover_right", "label": "Right Buccal", "name": "cover_right_buccal", "type": "image", "return_format": "array", "preview_size": "medium" },
+      { "key": "field_hj_cp_u_cover_mand", "label": "Mandibular Occlusal", "name": "cover_mandibular_occlusal", "type": "image", "return_format": "array", "preview_size": "medium" },
+      { "key": "field_hj_cp_u_cover_max", "label": "Maxillary Occlusal", "name": "cover_maxillary_occlusal", "type": "image", "return_format": "array", "preview_size": "medium" }
+    ] },
 
     { "key": "field_hj_cp_b_title", "label": "Booking Title", "name": "booking_title", "type": "text", "default_value": "Book appointment" },
     { "key": "field_hj_cp_b_sub", "label": "Booking Subtitle", "name": "booking_subtitle", "type": "text", "default_value": "Choose a convenient time for your free consultation." },
     { "key": "field_hj_cp_b_cta", "label": "Booking Button", "name": "booking_cta", "type": "group", "sub_fields": [
       { "key": "field_hj_cp_b_cta_label", "label": "Label", "name": "label", "type": "text", "default_value": "Book a Free Consultation" },
       { "key": "field_hj_cp_b_cta_url", "label": "URL", "name": "url", "type": "url" }
+    ]},
+
+    { "key": "field_hj_cp_ff_sc", "label": "Fluent Form Shortcode", "name": "ff_shortcode", "type": "text", "placeholder": "[fluentform id=\"1\"]" },
+    { "key": "field_hj_cp_ff_map", "label": "Fluent Form Field Map (optional)", "name": "ff_map", "type": "group", "sub_fields": [
+      { "key": "field_hj_cp_ff_age", "label": "Age field name", "name": "age", "type": "text", "placeholder": "age" },
+      { "key": "field_hj_cp_ff_ci_yesno", "label": "Chronic Yes/No name", "name": "chronic_yesno", "type": "text", "placeholder": "chronic_yesno" },
+      { "key": "field_hj_cp_ff_ci_text", "label": "Chronic Details name", "name": "chronic_details", "type": "text", "placeholder": "chronic_details" },
+      { "key": "field_hj_cp_ff_md_yesno", "label": "Medications Yes/No name", "name": "meds_yesno", "type": "text", "placeholder": "meds_yesno" },
+      { "key": "field_hj_cp_ff_md_text", "label": "Medications Details name", "name": "meds_details", "type": "text", "placeholder": "meds_details" },
+      { "key": "field_hj_cp_ff_opt", "label": "Primary Concern/Option name", "name": "option", "type": "text", "placeholder": "concern" },
+      { "key": "field_hj_cp_ff_p1", "label": "Photo 1 field name", "name": "photo1", "type": "text", "placeholder": "photo_smile" },
+      { "key": "field_hj_cp_ff_p2", "label": "Photo 2 field name", "name": "photo2", "type": "text", "placeholder": "photo_anterior" },
+      { "key": "field_hj_cp_ff_p3", "label": "Photo 3 field name", "name": "photo3", "type": "text", "placeholder": "photo_left" },
+      { "key": "field_hj_cp_ff_p4", "label": "Photo 4 field name", "name": "photo4", "type": "text", "placeholder": "photo_right" },
+      { "key": "field_hj_cp_ff_p5", "label": "Photo 5 field name", "name": "photo5", "type": "text", "placeholder": "photo_mandibular" },
+      { "key": "field_hj_cp_ff_p6", "label": "Photo 6 field name", "name": "photo6", "type": "text", "placeholder": "photo_maxillary" }
     ]}
   ]
 }

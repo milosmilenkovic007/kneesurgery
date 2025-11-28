@@ -21,6 +21,7 @@ function hj_upload_candidate(){
             'gif' => 'image/gif',
             'webp' => 'image/webp',
             'heic' => 'image/heic',
+            'pdf' => 'application/pdf',
         ],
     ];
 
