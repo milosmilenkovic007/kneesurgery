@@ -83,7 +83,7 @@ $uid = uniqid('hj-candidate-');
       </div>
       <div class="actions">
         <button class="btn-secondary" data-prev>Back</button>
-        <button class="btn-primary" data-next disabled>Continue</button>
+        <button class="btn-primary" data-next>Continue</button>
       </div>
     </div>
 
@@ -110,7 +110,14 @@ $uid = uniqid('hj-candidate-');
         ?>
           <div class="upload-cell">
             <div class="drop-title" aria-hidden="true"><?php echo esc_html($tip); ?></div>
-            <label class="drop" data-index="<?php echo $i; ?>"<?php if ($coverUrl) { echo ' style="--drop-cover: url(\'' . esc_url($coverUrl) . '\')"'; } ?>>
+            <?php
+              $style_attr = '';
+              if ($coverUrl) {
+                $style_value = "--drop-cover: url('" . esc_url($coverUrl) . "')";
+                $style_attr = ' style="' . esc_attr($style_value) . '"';
+              }
+            ?>
+            <label class="drop" data-index="<?php echo esc_attr($i); ?>"<?php echo $style_attr; ?>>
               <input type="file" accept="image/*" capture="environment" />
               <span class="hint">Tap to add photo</span>
               <div class="cta">
@@ -128,8 +135,10 @@ $uid = uniqid('hj-candidate-');
               <div class="cam" hidden>
                 <video playsinline autoplay></video>
                 <div class="cam-actions">
-                  <button type="button" class="btn-primary cam-snap" title="Take snapshot" data-tip="Take snapshot">Snap</button>
-                  <button type="button" class="btn-secondary cam-cancel">Cancel</button>
+                  <button type="button" class="cam-ico cam-snap" aria-label="Take photo" title="Take photo" data-tip="Take photo">
+                    <img class="ic" src="<?php echo esc_url( get_stylesheet_directory_uri() . '/assets/img/capture.png'); ?>" alt="" />
+                  </button>
+                  <button type="button" class="cam-ico cam-cancel" aria-label="Cancel" title="Cancel" data-tip="Cancel">✕</button>
                 </div>
               </div>
             </label>
@@ -288,13 +297,11 @@ $uid = uniqid('hj-candidate-');
     // Step 2 selection logic (primary concern)
     const step2 = root.querySelector('[data-step="2"]');
     if(step2){
-      const cont = step2.querySelector('[data-next]');
       step2.addEventListener('click', function(e){
         const btn = e.target.closest('.opt');
         if(!btn) return;
         step2.querySelectorAll('.opt').forEach(o=>o.classList.remove('is-selected'));
         btn.classList.add('is-selected');
-        cont.removeAttribute('disabled');
       });
 
       // medical fields enable/disable

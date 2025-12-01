@@ -1,13 +1,16 @@
 :root{--cand-bg:#ffffff;--card:#fff;--muted:#6b7280;--text:#111827;--blue:#3b82f6;--border:#e5e7eb;--shadow:0 20px 70px rgba(15,23,42,.12);--shadow-sm:0 8px 28px rgba(15,23,42,.09);--radius-outer:28px;--radius:16px;--focus:0 0 0 3px rgba(59,130,246,.25)}
 
-.hj-candidate{position:fixed;inset:0;z-index:9999;display:grid;place-items:center}
+.hj-candidate{position:fixed;inset:0;z-index:999999;display:grid;place-items:center;overscroll-behavior:contain}
 .hj-candidate[hidden]{display:none}
+.hj-candidate [hidden]{display:none !important}
+.hj-candidate .hj-cand-step:not(.is-active){display:none !important}
 .hj-cand-overlay{position:absolute;inset:0;background:var(--cand-bg);z-index:0}
-.hj-cand-dialog{position:relative;z-index:1;margin:0;width:100%;height:100vh;background:var(--card);border-radius:0;box-shadow:none;padding:36px 40px;display:flex;flex-direction:column;justify-content:center}
-.hj-cand-close{position:absolute;top:14px;right:16px;border:0;background:#eef4ff;color:var(--blue);font-size:22px;line-height:1;border-radius:10px;width:36px;height:36px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.hj-cand-dialog{position:relative;z-index:1;margin:0;width:100%;height:100dvh;min-height:100dvh;max-height:100dvh;background:var(--card);border-radius:0;box-shadow:none;padding:calc(18px + env(safe-area-inset-top)) 18px calc(18px + env(safe-area-inset-bottom));display:flex;flex-direction:column;justify-content:flex-start;align-items:center;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch}
+.hj-cand-close{position:absolute;top:calc(14px + env(safe-area-inset-top));right:16px;border:0;background:#eef4ff;color:var(--blue);font-size:22px;line-height:1;border-radius:10px;width:36px;height:36px;cursor:pointer;display:flex;align-items:center;justify-content:center}
 .hj-cand-close:hover{filter:brightness(0.98)}
 
-.hj-cand-step{max-width:1000px;margin:0 auto}
+.hj-cand-step{width:100%;max-width:780px;margin:0 auto}
+.hj-cand-step[data-step="1"]{min-height:calc(100dvh - (18px + env(safe-area-inset-top)) - (18px + env(safe-area-inset-bottom)));display:flex;flex-direction:column;align-items:center;justify-content:center}
 .hj-cand-step .brand{display:flex;justify-content:center;margin:10px 0 16px}
 .hj-cand-step .brand img{max-height:56px;width:auto;display:block}
 .hj-cand-step .title {
@@ -53,7 +56,11 @@
 .drop .cam{position:absolute;inset:0;background:#fff;display:none;flex-direction:column;align-items:center;justify-content:center;gap:10px;z-index:6}
 .drop.cam-open .cam{display:flex}
 .drop .cam video{width:100%;height:100%;object-fit:cover}
-.drop .cam .cam-actions{position:absolute;bottom:10px;display:flex;gap:8px}
+.drop .cam .cam-actions{position:absolute;bottom:calc(10px + env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);display:flex;gap:10px}
+.drop .cam .cam-ico{width:42px;height:42px;border-radius:999px;background:#fff;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 6px 16px rgba(15,23,42,.12)}
+.drop .cam .cam-ico .ic{width:20px;height:20px;display:block}
+.drop .cam .cam-ico.cam-snap{background:#eef4ff;border-color:#cfe0ff;color:var(--blue)}
+.drop .cam .cam-ico.cam-cancel{background:#fff;border-color:#f1d2d2;color:#ef4444;font-size:20px;line-height:1}
 .hint { display:none !important; }
 .hj-error{color:#dc2626;text-align:center;margin:10px 0}
 
@@ -126,7 +133,8 @@
 .mf-input{border:1px solid var(--border);border-radius:10px;padding:10px}
 
 @media(max-width:900px){
-  .hj-cand-dialog{margin:0;min-height:100vh;border-radius:0;padding:24px 18px}
+  .hj-cand-dialog{margin:0;min-height:100dvh;height:100dvh;border-radius:0;padding:calc(16px + env(safe-area-inset-top)) 16px calc(16px + env(safe-area-inset-bottom))}
+  .hj-cand-step{max-width:640px}
   .options,.uploads{grid-template-columns:1fr}
   .drop{min-height:200px}
   .med-grid{grid-template-columns:1fr}
@@ -134,17 +142,31 @@
 
 /* Mobile-only tweaks (do not affect desktop) */
 @media(max-width:640px){
+  .hj-cand-step{max-width:520px}
+  .hj-cand-step .title{font-size:28px}
+  /* Vertically center step 2 on small screens */
+  .hj-cand-step[data-step="2"]{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    min-height:calc(100dvh - (16px + env(safe-area-inset-top)) - (16px + env(safe-area-inset-bottom)));
+  }
   /* Step 2 + Step 3 action buttons centered on mobile */
   .hj-cand-step[data-step="2"] .actions,
   .hj-cand-step[data-step="3"] .actions{justify-content:center}
 
   /* Upload grid: two columns and smaller tiles */
-  .uploads{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:50px}
+  .uploads{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:12px}
   .upload-cell{min-width:0;gap:0}
-  .drop{min-height:130px}
+  .drop{min-height:120px}
   .drop-title{font-size:13px}
   .drop .btn-ghost .ic{width:18px;height:14px}
   .drop .btn-ghost{padding:6px;border-radius:9px}
+  /* Step 2 option cards smaller */
+  .opt{padding:8px}
+  .opt img{height:140px}
+  .actions .btn-primary,.actions .btn-secondary{padding:12px 18px}
 
   /* Make X-ray tile span both columns with same height */
   .upload-cell:has(.drop[data-index="xray"]){grid-column:1 / -1}
@@ -160,6 +182,8 @@
   .hj-cand-step[data-step="4"] .ff-wrap textarea{padding:1rem 1rem}
   .hj-cand-step[data-step="4"] .ff-wrap .ff-default .ff_btn_style{border:1px solid transparent;border-radius:14px;cursor:pointer;display:inline-block;font-size:16px;font-weight:500;line-height:1.5;width:100%;padding:15px 20px;position:relative;margin-top:18px;text-align:center;transition:background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;-webkit-user-select:none;-moz-user-select:none;user-select:none;vertical-align:middle;white-space:nowrap}
   .hj-cand-step[data-step="4"] .actions{justify-content:center}
+  /* Ensure bottom spacing never hides buttons */
+  .hj-cand-step .actions{margin-bottom:calc(8px + env(safe-area-inset-bottom))}
 }
 
 html.hj-cand-open{overflow:hidden}

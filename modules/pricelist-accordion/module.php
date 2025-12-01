@@ -418,41 +418,40 @@ $uid = uniqid('hj-pa-');
       e.preventDefault();
       const pkg = btn.closest('.hj-package');
       if(!pkg) return;
-      const html = `<!doctype html><html><head><meta charset="utf-8"><title>Healing Journey® - All on 4 Package</title>
-        <link rel="stylesheet" href="${cssUrl}">
-        <link rel="stylesheet" href="${fontUrl}">
-        <style>
-          @page { margin: 24mm 16mm; }
-          body{padding:24px; font-family: DejaVu Sans, Helvetica, Arial, sans-serif;}
-          .print-head{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;margin-bottom:12px}
-          .print-head .logo{height:26px}
-          .print-head .logo img{height:26px;width:auto}
-          .print-head .title{font-size:20px;font-weight:700;line-height:1.25}
-          .print-head .muted{color:#6b7280;font-size:11px;margin-top:4px;text-align:right}
-          /* Avoid breaking sections */
-          .hj-package__section{page-break-inside:avoid}
-          .hj-package__accordion{page-break-inside:avoid}
-          .hj-package__price-header{page-break-inside:avoid}
-          .print-footer{ text-align:center; font-size:12px; color:#374151; margin-top: 18px; padding-top: 10px; border-top:1px solid #e5e7eb; }
-        </style>
-      </head><body>
-        <div class="print-head">
-          <div class="logo"><img src="${logoUrl}" alt="Healing Journey"/></div>
-          <div class="right">
-            <div class="title">Healing Journey® - All on 4 Package</div>
-            <div class="muted">Printed: ${new Date().toLocaleDateString()}</div>
-          </div>
-        </div>
-        ${pkg.outerHTML}
-        <div class="print-footer">
-          <div>Prices are indicative; final quote after consultation.</div>
-          <div style="margin-top:8px; font-weight:700;">Healing Journey®</div>
-          <div>Medical Travel Facilitator</div>
-          <div>Fener Mah. Fener Cd. No:11, Fener İş Merkezi, B2 Blok, kapı no:204 Muratpaşa/Antalya/TÜRKİYE</div>
-          <div>(Phone +90242 323 0112)</div>
-          <div>email: info@healingjourney.travel</div>
-        </div>
-      </body></html>`;
+      var html = '';
+      html += '<!doctype html><html><head><meta charset="utf-8"><title>Healing Journey® - All on 4 Package</title>';
+      html += '<link rel="stylesheet" href="'+cssUrl+'">';
+      html += '<link rel="stylesheet" href="'+fontUrl+'">';
+      html += '<style>'+
+              '@page { margin: 24mm 16mm; }'+
+              'body{padding:24px; font-family: DejaVu Sans, Helvetica, Arial, sans-serif;}'+
+              '.print-head{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;margin-bottom:12px}'+
+              '.print-head .logo{height:26px}'+
+              '.print-head .logo img{height:26px;width:auto}'+
+              '.print-head .title{font-size:20px;font-weight:700;line-height:1.25}'+
+              '.print-head .muted{color:#6b7280;font-size:11px;margin-top:4px;text-align:right}'+
+              '/* Avoid breaking sections */'+
+              '.hj-package__section{page-break-inside:avoid}'+
+              '.hj-package__accordion{page-break-inside:avoid}'+
+              '.hj-package__price-header{page-break-inside:avoid}'+
+              '.print-footer{ text-align:center; font-size:12px; color:#374151; margin-top: 18px; padding-top: 10px; border-top:1px solid #e5e7eb; }'+
+              '</style></head><body>';
+      html += '<div class="print-head">'+
+                '<div class="logo"><img src="'+logoUrl+'" alt="Healing Journey"/></div>'+
+                '<div class="right">'+
+                  '<div class="title">Healing Journey® - All on 4 Package</div>'+
+                  '<div class="muted">Printed: '+ (new Date().toLocaleDateString()) +'</div>'+
+                '</div>'+
+              '</div>';
+      html += pkg.outerHTML;
+      html += '<div class="print-footer">'+
+                '<div>Prices are indicative; final quote after consultation.</div>'+
+                '<div style="margin-top:8px; font-weight:700;">Healing Journey®</div>'+
+                '<div>Medical Travel Facilitator</div>'+
+                '<div>Fener Mah. Fener Cd. No:11, Fener İş Merkezi, B2 Blok, kapı no:204 Muratpaşa/Antalya/TÜRKİYE</div>'+
+                '<div>(Phone +90242 323 0112)</div>'+
+                '<div>email: info@healingjourney.travel</div>'+
+              '</div></body></html>';
       const w = window.open('', '_blank');
       if(!w) return;
       w.document.open();
