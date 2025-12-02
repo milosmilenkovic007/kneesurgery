@@ -189,14 +189,14 @@
                             "label": "Question Title",
                             "name": "question_title",
                             "type": "text",
-                            "default_value": "How would you describe your teeth?"
+                            "default_value": "How would you describe your dental needs?"
                         },
                         {
                             "key": "field_hj_cp_q_sub",
                             "label": "Question Subtitle",
                             "name": "question_subtitle",
                             "type": "text",
-                            "default_value": "Select the option that fits you best."
+                            "default_value": "Select the appropriate option."
                         },
                         {
                             "key": "field_hj_cp_options",
@@ -225,6 +225,20 @@
                                     "library": "all"
                                 }
                             ]
+                        },
+                        {
+                            "key": "field_hj_cp_desc_label",
+                            "label": "Description Field Label",
+                            "name": "description_label",
+                            "type": "text",
+                            "default_value": "Describe your dental needs in your own words"
+                        },
+                        {
+                            "key": "field_hj_cp_desc_placeholder",
+                            "label": "Description Placeholder",
+                            "name": "description_placeholder",
+                            "type": "text",
+                            "default_value": "Tell us more about your specific concerns..."
                         },
                         {
                             "key": "field_hj_cp_m_title",
@@ -410,6 +424,13 @@
                                     "name": "option",
                                     "type": "text",
                                     "placeholder": "concern"
+                                },
+                                {
+                                    "key": "field_hj_cp_ff_desc",
+                                    "label": "Dental Needs Description name",
+                                    "name": "description",
+                                    "type": "text",
+                                    "placeholder": "description"
                                 },
                                 {
                                     "key": "field_hj_cp_ff_p1",
@@ -1435,5 +1456,5 @@
     "position": "acf_after_title",
     "style": "seamless",
     "active": true,
-    "modified": 1764706314
+    "modified": 1764708575
 }

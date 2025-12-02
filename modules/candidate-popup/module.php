@@ -7,6 +7,8 @@ $w_logo  = get_sub_field('welcome_logo');
 $q_title = get_sub_field('question_title');
 $q_sub   = get_sub_field('question_subtitle');
 $options = get_sub_field('options') ?: [];
+$desc_label = get_sub_field('description_label') ?: 'Describe your dental needs in your own words';
+$desc_placeholder = get_sub_field('description_placeholder') ?: 'Tell us more about your specific concerns...';
 
 $u_title = get_sub_field('upload_title');
 $u_sub   = get_sub_field('upload_subtitle');
@@ -41,7 +43,7 @@ $uid = uniqid('hj-candidate-');
       </div>
     </div>
 
-    <!-- Step 2: Options -->
+    <!-- Step 2: Dental Needs Options + Description -->
     <div class="hj-cand-step" data-step="2" hidden>
       <h2 class="title"><?php echo esc_html($q_title); ?></h2>
       <?php if ($q_sub): ?><p class="sub"><?php echo esc_html($q_sub); ?></p><?php endif; ?>
@@ -54,31 +56,44 @@ $uid = uniqid('hj-candidate-');
         <?php endforeach; ?>
       </div>
 
-      <div class="med-section">
-        <h3 class="med-title"><?php echo esc_html($m_title ?: 'Your Medical Background'); ?></h3>
-        <?php if($m_sub): ?><p class="med-sub"><?php echo esc_html($m_sub); ?></p><?php endif; ?>
-        <div class="med-grid">
-          <label class="med-field">
-            <input type="number" min="1" max="99" inputmode="numeric" pattern="[0-9]*" class="mf-input mf-age" data-med="age" placeholder="Age" />
-          </label>
+      <div class="desc-section">
+        <label class="desc-field">
+          <span class="desc-lbl"><?php echo esc_html($desc_label); ?></span>
+          <textarea class="desc-input" rows="4" placeholder="<?php echo esc_attr($desc_placeholder); ?>" data-desc="needs"></textarea>
+        </label>
+      </div>
 
-          <div class="med-field">
-            <span class="mf-lbl">Chronic illnesses</span>
-            <div class="mf-row">
-              <label><input type="radio" name="med-chronic" value="No" checked> No</label>
-              <label><input type="radio" name="med-chronic" value="Yes"> Yes</label>
-            </div>
-              <input type="text" class="mf-input mf-chronic-details" data-med="chronic_details" placeholder="Type your chronic illnesses" disabled hidden />
-          </div>
+      <div class="actions">
+        <button class="btn-secondary" data-prev>Back</button>
+        <button class="btn-primary" data-next>Continue</button>
+      </div>
+    </div>
 
-          <div class="med-field">
-            <span class="mf-lbl">Medications</span>
-            <div class="mf-row">
-              <label><input type="radio" name="med-meds" value="No" checked> No</label>
-              <label><input type="radio" name="med-meds" value="Yes"> Yes</label>
-            </div>
-              <input type="text" class="mf-input mf-meds-details" data-med="meds_details" placeholder="Type your medications" disabled hidden />
+    <!-- Step 3: Medical Background -->
+    <div class="hj-cand-step" data-step="3" hidden>
+      <h2 class="title"><?php echo esc_html($m_title ?: 'Your Medical Background'); ?></h2>
+      <?php if($m_sub): ?><p class="sub"><?php echo esc_html($m_sub); ?></p><?php endif; ?>
+      <div class="med-grid">
+        <label class="med-field">
+          <input type="number" min="1" max="99" inputmode="numeric" pattern="[0-9]*" class="mf-input mf-age" data-med="age" placeholder="Age" />
+        </label>
+
+        <div class="med-field">
+          <span class="mf-lbl">Chronic illnesses</span>
+          <div class="mf-row">
+            <label><input type="radio" name="med-chronic" value="No" checked> No</label>
+            <label><input type="radio" name="med-chronic" value="Yes"> Yes</label>
           </div>
+            <input type="text" class="mf-input mf-chronic-details" data-med="chronic_details" placeholder="Type your chronic illnesses" disabled hidden />
+        </div>
+
+        <div class="med-field">
+          <span class="mf-lbl">Medications</span>
+          <div class="mf-row">
+            <label><input type="radio" name="med-meds" value="No" checked> No</label>
+            <label><input type="radio" name="med-meds" value="Yes"> Yes</label>
+          </div>
+            <input type="text" class="mf-input mf-meds-details" data-med="meds_details" placeholder="Type your medications" disabled hidden />
         </div>
       </div>
       <div class="actions">
@@ -87,8 +102,8 @@ $uid = uniqid('hj-candidate-');
       </div>
     </div>
 
-    <!-- Step 3: Upload -->
-    <div class="hj-cand-step" data-step="3" hidden>
+    <!-- Step 4: Upload -->
+    <div class="hj-cand-step" data-step="4" hidden>
       <h2 class="title"><?php echo esc_html($u_title); ?></h2>
       <?php if ($u_sub): ?><p class="sub"><?php echo esc_html($u_sub); ?></p><?php endif; ?>
       <div class="uploads">
@@ -169,8 +184,8 @@ $uid = uniqid('hj-candidate-');
       </div>
     </div>
 
-    <!-- Step 4: Booking / Submit -->
-    <div class="hj-cand-step" data-step="4" hidden>
+    <!-- Step 5: Booking / Submit -->
+    <div class="hj-cand-step" data-step="5" hidden>
       <h2 class="title"><?php echo esc_html($b_title); ?></h2>
       <?php if ($b_sub): ?><p class="sub"><?php echo esc_html($b_sub); ?></p><?php endif; ?>
       <?php /* ACF CTA removed – we submit via Fluent Form button below */ ?>
@@ -182,6 +197,7 @@ $uid = uniqid('hj-candidate-');
       <?php endif; ?>
       <div class="actions">
         <button class="btn-secondary" data-prev>Back</button>
+        <button class="btn-primary btn-submit-custom" type="button" data-submit-form>Book a Free Consultation →</button>
       </div>
     </div>
   </div>
@@ -235,8 +251,8 @@ $uid = uniqid('hj-candidate-');
       });
       idx = i;
 
-      // When we arrive at step 4, attempt to populate Fluent Form
-      if(steps[idx] && steps[idx].dataset.step === '4'){
+      // When we arrive at step 5, attempt to populate Fluent Form
+      if(steps[idx] && steps[idx].dataset.step === '5'){
         setTimeout(populateFluentForm, 150);
       }
     }
@@ -260,11 +276,15 @@ $uid = uniqid('hj-candidate-');
       clearError(cur);
       const stepNo = cur.dataset.step;
       if(stepNo === '2'){
-        // require primary concern and age
+        // require primary concern
         const opt = cur.querySelector('.opt.is-selected');
+        if(!opt){ showError(cur, 'Please select an option.'); return false; }
+        return true;
+      }
+      if(stepNo === '3'){
+        // require age
         const ageInput = cur.querySelector('[data-med="age"]');
         const ageVal = (ageInput?.value || '').trim();
-        if(!opt){ showError(cur, 'Please select an option.'); return false; }
         const ageNum = parseInt(ageVal, 10);
         if(!ageVal || isNaN(ageNum) || ageNum < 1 || ageNum > 99){ showError(cur, 'Please enter a valid age (1–99).'); return false; }
         // if chronic yes -> details required
@@ -277,7 +297,7 @@ $uid = uniqid('hj-candidate-');
         if(medsYes && !medsTxt){ showError(cur, 'Please list your medications and doses.'); return false; }
         return true;
       }
-      if(stepNo === '3'){
+      if(stepNo === '4'){
         // require at least one photo
         const drops = cur.querySelectorAll('.drop');
         let has = false;
@@ -294,6 +314,18 @@ $uid = uniqid('hj-candidate-');
     prevBtns.forEach(b=> b.addEventListener('click', ()=>{ if(idx>0) show(idx-1); }));
     closeEls.forEach(b=> b.addEventListener('click', doClose));
 
+    // Custom submit button for step 5
+    const submitBtn = root.querySelector('[data-submit-form]');
+    if(submitBtn){
+      submitBtn.addEventListener('click', function(){
+        const ffForm = root.querySelector('[data-step="5"] .ff-wrap form');
+        if(ffForm){
+          const realSubmit = ffForm.querySelector('button[type="submit"]');
+          if(realSubmit){ realSubmit.click(); }
+        }
+      });
+    }
+
     // Step 2 selection logic (primary concern)
     const step2 = root.querySelector('[data-step="2"]');
     if(step2){
@@ -303,21 +335,24 @@ $uid = uniqid('hj-candidate-');
         step2.querySelectorAll('.opt').forEach(o=>o.classList.remove('is-selected'));
         btn.classList.add('is-selected');
       });
+    }
 
-      // medical fields enable/disable
-      const chronicRadios = step2.querySelectorAll('input[name="med-chronic"]');
-      const chronicDetails = step2.querySelector('.mf-chronic-details');
-      function toggleChronic(){ const yes = step2.querySelector('input[name="med-chronic"]:checked')?.value === 'Yes'; chronicDetails.disabled = !yes; chronicDetails.hidden = !yes; if(!yes) chronicDetails.value=''; }
+    // Step 3: medical fields enable/disable
+    const step3 = root.querySelector('[data-step="3"]');
+    if(step3){
+      const chronicRadios = step3.querySelectorAll('input[name="med-chronic"]');
+      const chronicDetails = step3.querySelector('.mf-chronic-details');
+      function toggleChronic(){ const yes = step3.querySelector('input[name="med-chronic"]:checked')?.value === 'Yes'; chronicDetails.disabled = !yes; chronicDetails.hidden = !yes; if(!yes) chronicDetails.value=''; }
       chronicRadios.forEach(r=>r.addEventListener('change',toggleChronic));
       toggleChronic();
-      const medsRadios = step2.querySelectorAll('input[name="med-meds"]');
-      const medsDetails = step2.querySelector('.mf-meds-details');
-      function toggleMeds(){ const yes = step2.querySelector('input[name="med-meds"]:checked')?.value === 'Yes'; medsDetails.disabled = !yes; medsDetails.hidden = !yes; if(!yes) medsDetails.value=''; }
+      const medsRadios = step3.querySelectorAll('input[name="med-meds"]');
+      const medsDetails = step3.querySelector('.mf-meds-details');
+      function toggleMeds(){ const yes = step3.querySelector('input[name="med-meds"]:checked')?.value === 'Yes'; medsDetails.disabled = !yes; medsDetails.hidden = !yes; if(!yes) medsDetails.value=''; }
       medsRadios.forEach(r=>r.addEventListener('change',toggleMeds));
       toggleMeds();
 
       // limit age input to 2 digits
-      const ageInput = step2.querySelector('[data-med="age"]');
+      const ageInput = step3.querySelector('[data-med="age"]');
       if(ageInput){
         ageInput.addEventListener('input', ()=>{
           const v = (ageInput.value || '').replace(/\D/g,'').slice(0,2);
@@ -563,19 +598,22 @@ $uid = uniqid('hj-candidate-');
       // primary concern
       const selected = root.querySelector('[data-step="2"] .opt.is-selected');
       data.option = selected ? selected.getAttribute('data-value') : '';
+      // dental needs description
+      const descInput = root.querySelector('[data-step="2"] [data-desc="needs"]');
+      data.description = descInput?.value || '';
       // medical
-      const s2 = root.querySelector('[data-step="2"]');
-      if(s2){
-        data.age = s2.querySelector('[data-med="age"]')?.value || '';
-        const chronicYN = s2.querySelector('input[name="med-chronic"]:checked')?.value || 'No';
+      const s3 = root.querySelector('[data-step="3"]');
+      if(s3){
+        data.age = s3.querySelector('[data-med="age"]')?.value || '';
+        const chronicYN = s3.querySelector('input[name="med-chronic"]:checked')?.value || 'No';
         data.chronic_yesno = chronicYN;
-        data.chronic_details = s2.querySelector('.mf-chronic-details')?.value || '';
-        const medsYN = s2.querySelector('input[name="med-meds"]:checked')?.value || 'No';
+        data.chronic_details = s3.querySelector('.mf-chronic-details')?.value || '';
+        const medsYN = s3.querySelector('input[name="med-meds"]:checked')?.value || 'No';
         data.meds_yesno = medsYN;
-        data.meds_details = s2.querySelector('.mf-meds-details')?.value || '';
+        data.meds_details = s3.querySelector('.mf-meds-details')?.value || '';
       }
       // photos (urls preferred) + X-ray
-      const drops = root.querySelectorAll('[data-step="3"] .drop');
+      const drops = root.querySelectorAll('[data-step="4"] .drop');
       data.photos = [];
       data.x_ray = '';
       drops.forEach(d=>{
@@ -588,11 +626,11 @@ $uid = uniqid('hj-candidate-');
 
     function populateFluentForm(){
       const data = collectData();
-      const ff = root.querySelector('[data-step="4"] .ff-wrap form');
+      const ff = root.querySelector('[data-step="5"] .ff-wrap form');
       if(!ff) return;
 
       const map = <?php echo wp_json_encode($ff_map); ?> || {};
-      const defaults = { age:'age', chronic_yesno:'chronic_yesno', chronic_details:'chronic_details', meds_yesno:'meds_yesno', meds_details:'meds_details', option:'concern', photo1:'photo_smile', photo2:'photo_anterior', photo3:'photo_left', photo4:'photo_right', photo5:'photo_mandibular', photo6:'photo_maxillary', x_ray:'x_ray' };
+      const defaults = { age:'age', chronic_yesno:'chronic_yesno', chronic_details:'chronic_details', meds_yesno:'meds_yesno', meds_details:'meds_details', option:'concern', description:'description', photo1:'photo_smile', photo2:'photo_anterior', photo3:'photo_left', photo4:'photo_right', photo5:'photo_mandibular', photo6:'photo_maxillary', x_ray:'x_ray' };
       const nameFor = (k)=> (map[k] && map[k].length ? map[k] : defaults[k]);
 
       function setField(name, value){
@@ -619,6 +657,7 @@ $uid = uniqid('hj-candidate-');
       setField(nameFor('meds_yesno'), data.meds_yesno);
       setField(nameFor('meds_details'), data.meds_details);
       setField(nameFor('option'), data.option);
+      setField(nameFor('description'), data.description);
       for(let i=0;i<6;i++){
         setField(nameFor('photo'+(i+1)), data.photos[i] || '');
       }
