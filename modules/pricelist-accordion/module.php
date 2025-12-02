@@ -1,6 +1,8 @@
 <?php
 $module_title = get_sub_field('module_title');
 $module_subtitle = get_sub_field('module_subtitle');
+$module_subtitle_left = get_sub_field('module_subtitle_left');
+$module_subtitle_right = get_sub_field('module_subtitle_right');
 $currency = get_sub_field('currency') ?: '€';
 $sections = get_sub_field('sections') ?: [];
 $uid = uniqid('hj-pa-');
@@ -8,7 +10,23 @@ $uid = uniqid('hj-pa-');
 <section class="hj-pricelist-accordion" id="<?php echo esc_attr($uid); ?>" aria-label="Pricelist">
   <div class="hj-pa-wrap">
     <?php if ($module_title): ?><h2 class="hj-pa-title hj-hd-title"><?php echo esc_html($module_title); ?></h2><?php endif; ?>
-    <?php if (!empty($module_subtitle)): ?><p class="hj-pa-subtitle"><?php echo esc_html($module_subtitle); ?></p><?php endif; ?>
+    <?php if (!empty($module_subtitle)): ?>
+      <p class="hj-pa-subtitle"><?php echo wp_kses_post($module_subtitle); ?></p>
+    <?php endif; ?>
+    <?php 
+      // Two-column subtitle area
+      $has_left = !empty($module_subtitle_left);
+      $has_right = !empty($module_subtitle_right);
+      if ($has_left || $has_right) : ?>
+      <div class="hj-pa-subtitles hj-pa-subtitles--cols">
+        <div class="hj-pa-subtitles__col hj-pa-subtitles__col--left">
+          <?php if ($has_left) { echo wp_kses_post($module_subtitle_left); } ?>
+        </div>
+        <div class="hj-pa-subtitles__col hj-pa-subtitles__col--right">
+          <?php if ($has_right) { echo wp_kses_post($module_subtitle_right); } ?>
+        </div>
+      </div>
+    <?php endif; ?>
 
     <?php if (!empty($sections)): ?>
       <div class="hj-pa-tabs">
@@ -37,7 +55,7 @@ $uid = uniqid('hj-pa-');
                   <div class="hj-pa-package-inner">
                     <?php 
                       $mode = $section['package_content_mode'] ?? 'template';
-                      if (!empty($sintro)) { echo '<p class="hj-pa-section-intro">' . esc_html($sintro) . '</p>'; }
+                      if (!empty($sintro)) { echo '<p class="hj-pa-section-intro">' . wp_kses_post($sintro) . '</p>'; }
                       if ($mode === 'html') {
                         $html = $section['package_content_html'] ?? '';
                         if ($html) { echo do_shortcode($html); }
@@ -308,7 +326,7 @@ $uid = uniqid('hj-pa-');
                 </div>
               <?php else: ?>
                 <ul class="hj-pa-list" role="list">
-                  <?php if (!empty($sintro)) { echo '<li class="hj-pa-item hj-pa-item-intro"><div class="hj-pa-section-intro">' . esc_html($sintro) . '</div></li>'; }
+                  <?php if (!empty($sintro)) { echo '<li class="hj-pa-item hj-pa-item-intro"><div class="hj-pa-section-intro">' . wp_kses_post($sintro) . '</div></li>'; }
                   $idx=0; foreach ($items as $it): $t = $it['item_title'] ?? ''; if (!$t) { $idx++; continue; } $p = $it['item_price'] ?? ''; $d = $it['item_desc'] ?? ''; $is_first = ($idx===0); ?>
                     <li class="hj-pa-item">
                       <details <?php echo $is_first? 'open':''; ?>>
