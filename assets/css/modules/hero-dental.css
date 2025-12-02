@@ -151,4 +151,16 @@
     .hj-hd-right--three .card:nth-child(3){display:none}
     /* Crop first image higher so face/smile is visible */
     .hj-hd-right--three .card:first-child{object-position:center 0%}
+        .hj-hd-title {
+    font-size: 32px;
+}
+.hj-hd-bullet {
+    display: flex;
+    align-items: center;
+    gap: 0px;
+    color: var(--hd-text);
+    flex-direction: column;
+    justify-content: center;
+}
+
 }
