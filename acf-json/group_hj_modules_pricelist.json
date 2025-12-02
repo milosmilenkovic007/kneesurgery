@@ -1344,6 +1344,36 @@
                                                     "rows": 3
                                                 }
                                             ]
+                                        },
+                                        {
+                                            "key": "field_hj_pa_pkg_cta_group",
+                                            "label": "Call to Action Button",
+                                            "name": "cta_button",
+                                            "type": "group",
+                                            "layout": "block",
+                                            "sub_fields": [
+                                                {
+                                                    "key": "field_hj_pa_pkg_cta_text",
+                                                    "label": "Button Text",
+                                                    "name": "text",
+                                                    "type": "text",
+                                                    "default_value": "Book Now",
+                                                    "wrapper": {
+                                                        "width": "50"
+                                                    }
+                                                },
+                                                {
+                                                    "key": "field_hj_pa_pkg_cta_url",
+                                                    "label": "Button URL",
+                                                    "name": "url",
+                                                    "type": "text",
+                                                    "default_value": "#candidate",
+                                                    "wrapper": {
+                                                        "width": "50"
+                                                    },
+                                                    "instructions": "Use #candidate to open the candidate form"
+                                                }
+                                            ]
                                         }
                                     ]
                                 },
@@ -1456,5 +1486,5 @@
     "position": "acf_after_title",
     "style": "seamless",
     "active": true,
-    "modified": 1764708575
+    "modified": 1764709355
 }

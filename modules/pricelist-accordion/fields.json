@@ -82,6 +82,11 @@
             { "key": "field_hj_pa_pkg_price_amount", "label": "Amount", "name": "amount", "type": "text", "wrapper": {"width": "30"} },
             { "key": "field_hj_pa_pkg_price_currency", "label": "Currency", "name": "currency", "type": "text", "wrapper": {"width": "20"}, "default_value": "GBP" },
             { "key": "field_hj_pa_pkg_price_note", "label": "Note", "name": "note", "type": "textarea", "rows": 3 }
+          ]},
+
+          { "key": "field_hj_pa_pkg_cta_group", "label": "Call to Action Button", "name": "cta_button", "type": "group", "layout": "block", "sub_fields": [
+            { "key": "field_hj_pa_pkg_cta_text", "label": "Button Text", "name": "text", "type": "text", "default_value": "Book Now", "wrapper": {"width": "50"} },
+            { "key": "field_hj_pa_pkg_cta_url", "label": "Button URL", "name": "url", "type": "text", "default_value": "#candidate", "wrapper": {"width": "50"}, "instructions": "Use #candidate to open the candidate form" }
           ]}
         ]
       },

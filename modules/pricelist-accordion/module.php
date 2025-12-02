@@ -317,6 +317,17 @@ $uid = uniqid('hj-pa-');
                               <?php endif; ?>
                             </div>
                             <?php if ($pr_note): ?><p class="hj-package__price-note"><?php echo esc_html($pr_note); ?></p><?php endif; ?>
+                            
+                            <?php 
+                              $cta = $pkg['cta_button'] ?? [];
+                              $cta_text = $cta['text'] ?? '';
+                              $cta_url = $cta['url'] ?? '';
+                              if ($cta_text && $cta_url):
+                            ?>
+                            <div class="hj-package__cta">
+                              <a href="<?php echo esc_url($cta_url); ?>" class="hj-package__cta-btn" data-candidate><?php echo esc_html($cta_text); ?></a>
+                            </div>
+                            <?php endif; ?>
                           </section>
                           <?php endif; ?>
                         </section>

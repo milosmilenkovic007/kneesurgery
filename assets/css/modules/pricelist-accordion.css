@@ -170,7 +170,7 @@ line-height: 60px;
 .hj-pa-package .price-final .amt{font-size:22px}
 
 /* Structured Package Template */
-.hj-package {font-size:16px}
+.hj-package {position:relative;font-size:16px}
 .hj-package__header{margin-bottom:10px;display:flex;align-items:flex-start;justify-content:space-between;gap:18px}
 .hj-package__header-text{flex:1 1 auto}
 .hj-package__actions{display:flex;gap:10px;align-items:center}
@@ -202,6 +202,11 @@ line-height: 60px;
 .hj-package__price-amount{font-size:26px}
 .hj-package__price-currency{margin-left:6px;opacity:.85}
 .hj-package__price-note{margin:8px 0 0;color:var(--pa-muted)}
+
+/* Package CTA Button */
+.hj-package__cta{margin-top:20px;display:flex;justify-content:flex-end}
+.hj-package__cta-btn{display:inline-flex;align-items:center;justify-content:center;background:var(--pa-blue);color:#fff;padding:12px 24px;border-radius:12px;text-decoration:none;font-weight:600;font-size:15px;box-shadow:0 4px 14px rgba(59,130,246,.25);transition:all .2s ease}
+.hj-package__cta-btn:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(59,130,246,.35)}
 
 /* Package accordion */
 .hj-package__accordion{border:1px solid var(--pa-border);border-radius:12px;background:#fff;box-shadow:var(--pa-shadow);overflow:hidden}
