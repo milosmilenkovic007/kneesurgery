@@ -29,6 +29,8 @@ add_action('wp_enqueue_scripts', function () {
 
 // Admin setup: disable Gutenberg for the pricelist template
 require_once get_stylesheet_directory() . '/inc/pricelist-setup.php';
+// ACF Options Pages
+require_once get_stylesheet_directory() . '/inc/acf-options.php';
 // Modules
 require_once get_stylesheet_directory() . '/inc/modules.php';
 // PDF generator

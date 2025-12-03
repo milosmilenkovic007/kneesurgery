@@ -1,0 +1,101 @@
+{
+    "key": "group_theme_settings",
+    "title": "Theme Settings",
+    "fields": [
+        {
+            "key": "field_pdf_settings_tab",
+            "label": "PDF Settings",
+            "name": "",
+            "type": "tab",
+            "placement": "top"
+        },
+        {
+            "key": "field_pdf_cover_image",
+            "label": "PDF Cover Image",
+            "name": "pdf_cover_image",
+            "type": "image",
+            "instructions": "Default cover image for package PDFs (recommended size: 800x600px)",
+            "return_format": "url",
+            "preview_size": "medium"
+        },
+        {
+            "key": "field_pdf_cover_title",
+            "label": "PDF Cover Title",
+            "name": "pdf_cover_title",
+            "type": "text",
+            "instructions": "Main title displayed on PDF cover (e.g., \"ACL & MCL Reconstruction Surgery\")",
+            "placeholder": "ACL & MCL Reconstruction Surgery"
+        },
+        {
+            "key": "field_pdf_cover_subtitle",
+            "label": "PDF Cover Subtitle",
+            "name": "pdf_cover_subtitle",
+            "type": "text",
+            "instructions": "Subtitle displayed below main title (e.g., \"Healing Package\")",
+            "placeholder": "Healing Package"
+        },
+        {
+            "key": "field_pdf_cover_tagline",
+            "label": "PDF Cover Tagline",
+            "name": "pdf_cover_tagline",
+            "type": "text",
+            "instructions": "Tagline in top-right blue box",
+            "default_value": "Experience Peace Of Mind Together With Us In Turkey.",
+            "placeholder": "Experience Peace Of Mind Together With Us In Turkey."
+        },
+        {
+            "key": "field_pdf_social_instagram",
+            "label": "Instagram Handle",
+            "name": "pdf_social_instagram",
+            "type": "text",
+            "default_value": "",
+            "placeholder": "@healingjourney"
+        },
+        {
+            "key": "field_pdf_social_youtube",
+            "label": "YouTube Handle",
+            "name": "pdf_social_youtube",
+            "type": "text",
+            "default_value": "",
+            "placeholder": "@healingjourney"
+        },
+        {
+            "key": "field_pdf_social_twitter",
+            "label": "Twitter/X Handle",
+            "name": "pdf_social_twitter",
+            "type": "text",
+            "default_value": "",
+            "placeholder": "@healingjourney"
+        },
+        {
+            "key": "field_pdf_social_facebook",
+            "label": "Facebook Handle",
+            "name": "pdf_social_facebook",
+            "type": "text",
+            "default_value": "",
+            "placeholder": "healingjourney"
+        },
+        {
+            "key": "field_pdf_social_website",
+            "label": "Website URL",
+            "name": "pdf_social_website",
+            "type": "url",
+            "default_value": "www.healingjourney.travel",
+            "placeholder": "www.healingjourney.travel"
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "options_page",
+                "operator": "==",
+                "value": "theme-settings"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label"
+}

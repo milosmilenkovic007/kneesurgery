@@ -248,7 +248,18 @@ function hj_build_package_pdf_html($post_id){
   $site = get_bloginfo('name');
   $date = date_i18n(get_option('date_format'));
   $logo = get_stylesheet_directory_uri() . '/assets/img/HealingJourney-logo.svg';
-  $doc_title = 'Healing Journey® - All on 4 Package';
+  $template_bg = get_stylesheet_directory_uri() . '/assets/files/template/CoverPdf.png';
+  
+  // Get PDF settings from ACF options
+  $cover_image = get_field('pdf_cover_image', 'option') ?: '';
+  $cover_title = get_field('pdf_cover_title', 'option') ?: 'ACL & MCL Reconstruction Surgery';
+  $cover_subtitle = get_field('pdf_cover_subtitle', 'option') ?: 'Healing Package';
+  $cover_tagline = get_field('pdf_cover_tagline', 'option') ?: 'Experience Peace Of Mind Together With Us In Turkey.';
+  $social_instagram = get_field('pdf_social_instagram', 'option') ?: '';
+  $social_youtube = get_field('pdf_social_youtube', 'option') ?: '';
+  $social_twitter = get_field('pdf_social_twitter', 'option') ?: '';
+  $social_facebook = get_field('pdf_social_facebook', 'option') ?: '';
+  $social_website = get_field('pdf_social_website', 'option') ?: 'www.healingjourney.travel';
 
   // Find first package section
   $pkg = [];
@@ -274,11 +285,96 @@ function hj_build_package_pdf_html($post_id){
   <head>
     <meta charset="utf-8">
     <style>
-      @page { margin: 24mm 16mm; }
-      body{ font-family: DejaVu Sans, Helvetica, Arial, sans-serif; color:#111827; font-size:12px; }
-      .head{ display:flex; justify-content:space-between; align-items:flex-start; margin-bottom: 12px; gap:14px; }
-      .head-left{ display:flex; align-items:center; gap:10px; }
-      .head-right{ text-align:right; }
+      @page { margin: 0; size: A4 portrait; }
+      body{ font-family: DejaVu Sans, Helvetica, Arial, sans-serif; color:#111827; font-size:12px; margin:0; padding:0; }
+      
+      /* Cover Page with Template Background */
+      .cover-page{ 
+        width: 210mm;
+        height: 297mm;
+        page-break-after: always;
+        position: relative;
+        <?php if ($cover_image): ?>
+        background-image: url('<?php echo esc_url($cover_image); ?>');
+        background-size: 520px auto;
+        background-position: center 200px;
+        background-repeat: no-repeat;
+        <?php endif; ?>
+      }
+      .cover-overlay{
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url('<?php echo esc_url($template_bg); ?>');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+      }
+      .cover-logo{ 
+        position: absolute;
+        top: 40px;
+        left: 40px;
+        z-index: 20;
+      }
+      .cover-logo img{ 
+        height: 40px;
+        width: auto;
+      }
+      .cover-title-section{
+        position: absolute;
+        top: 620px;
+        left: 50%;
+        margin-left: -325px;
+        width: 650px;
+        text-align: center;
+        z-index: 10;
+      }
+      .cover-title{
+        font-size: 28px;
+        font-weight: 700;
+        color: #4b8ff5;
+        margin: 0 0 12px 0;
+        line-height: 1.3;
+      }
+      .cover-description{
+        font-size: 18px;
+        font-weight: 700;
+        color: #1f2937;
+        margin: 0;
+        line-height: 1.4;
+      }
+      .cover-footer{
+        position: absolute;
+        bottom: 30px;
+        left: 0;
+        right: 0;
+        text-align: center;
+        z-index: 10;
+      }
+      .cover-social{
+        font-size: 10px;
+        color: #6b7280;
+        margin-bottom: 8px;
+      }
+      .cover-social span{
+        margin: 0 8px;
+      }
+      .cover-website{
+        font-size: 11px;
+        color: #1f2937;
+        font-weight: 600;
+      }
+      
+      /* Content Pages Styles */
+      .content-page{
+        padding: 24mm 16mm;
+      }
+      .head{ margin-bottom: 12px; }
+      .head table{ width: 100%; }
+      .head-left{ text-align: left; }
+      .head-right{ text-align: right; }
       .logo{ height:26px; }
       .logo img{ height:26px; width:auto; }
       .title{ font-size: 20px; font-weight:700; line-height:1.25; }
@@ -288,21 +384,61 @@ function hj_build_package_pdf_html($post_id){
       ul{ margin:8px 0 10px 16px; page-break-inside: avoid; }
       li{ margin:4px 0; }
       .note{ color:#6b7280; }
-      .price{ display:flex; justify-content:space-between; align-items:baseline; gap:10px; font-weight:800; }
+      .price{ font-weight:800; }
+      .price table{ width: 100%; }
       .price-amt{ font-size:22px }
       .currency{ opacity:.85 }
       .footer{ text-align:center; font-size:12px; color:#374151; margin-top: 18px; padding-top: 10px; border-top:1px solid #e5e7eb; }
     </style>
   </head>
   <body>
+    
+    <!-- Cover Page -->
+    <div class="cover-page">
+      <div class="cover-overlay"></div>
+      
+      <div class="cover-logo">
+        <img src="<?php echo esc_url($logo); ?>" alt="<?php echo esc_attr($site); ?>" />
+      </div>
+      
+      <div class="cover-title-section">
+        <div class="cover-title"><?php echo esc_html($cover_title); ?></div>
+        <div class="cover-description"><?php echo nl2br(esc_html($cover_subtitle)); ?></div>
+      </div>
+      
+      <div class="cover-footer">
+        <div class="cover-social">
+          <?php if ($social_instagram): ?>
+            <span>📷 <?php echo esc_html($social_instagram); ?></span>
+          <?php endif; ?>
+          <?php if ($social_youtube): ?>
+            <span>▶ <?php echo esc_html($social_youtube); ?></span>
+          <?php endif; ?>
+          <?php if ($social_twitter): ?>
+            <span>𝕏 <?php echo esc_html($social_twitter); ?></span>
+          <?php endif; ?>
+          <?php if ($social_facebook): ?>
+            <span>f <?php echo esc_html($social_facebook); ?></span>
+          <?php endif; ?>
+        </div>
+        <div class="cover-website"><?php echo esc_html($social_website); ?></div>
+      </div>
+    </div>
+    
+    <!-- Content Pages -->
+    <div class="content-page">
     <div class="head">
-      <div class="head-left">
-        <span class="logo"><img src="<?php echo esc_url($logo); ?>" alt="<?php echo esc_attr($site); ?>" /></span>
-      </div>
-      <div class="head-right">
-        <div class="title"><?php echo esc_html($doc_title); ?></div>
-        <div class="muted">Updated: <?php echo esc_html($date); ?></div>
-      </div>
+      <table cellpadding="0" cellspacing="0">
+        <tr>
+          <td class="head-left">
+            <span class="logo"><img src="<?php echo esc_url($logo); ?>" alt="<?php echo esc_attr($site); ?>" /></span>
+          </td>
+          <td class="head-right">
+            <div class="title"><?php echo esc_html($cover_title); ?></div>
+            <div class="muted">Updated: <?php echo esc_html($date); ?></div>
+          </td>
+        </tr>
+      </table>
     </div>
 
     <?php if (!empty($pkg['wysiwyg'])): ?>
@@ -390,6 +526,7 @@ function hj_build_package_pdf_html($post_id){
       <div>(Phone +90242 323 0112)</div>
       <div>email: info@healingjourney.travel</div>
     </div>
+    </div><!-- .content-page -->
   </body>
   </html>
   <?php
