@@ -520,7 +520,14 @@ $uid = uniqid('hj-candidate-');
         console.warn('Camera not available', err);
         cam.hidden = true; wrap.classList.remove('cam-open');
         const status = wrap.querySelector('.status');
-        if(status){ status.textContent = 'Camera unavailable. Use HTTPS/allow camera or use Upload.'; setTimeout(()=>status.textContent='', 5000); }
+        if(status){ 
+          status.innerHTML = 'Camera unavailable.<br><strong>Please use Upload button instead.</strong>'; 
+          status.style.color = '#dc2626';
+          status.style.fontSize = '13px';
+          status.style.fontWeight = '600';
+          status.style.marginTop = '8px';
+        }
+        const cta = wrap.querySelector('.cta'); if(cta) cta.hidden = false;
       }
     }
     function stopCamera(wrap){
