@@ -33,6 +33,10 @@ require_once get_stylesheet_directory() . '/inc/pricelist-setup.php';
 require_once get_stylesheet_directory() . '/inc/acf-options.php';
 // Modules
 require_once get_stylesheet_directory() . '/inc/modules.php';
+// Register ACF blocks
+add_action('init', function () {
+    register_block_type(get_stylesheet_directory() . '/modules/candidate-popup/block.json');
+});
 // Articles grid helpers + AJAX
 require_once get_stylesheet_directory() . '/inc/articles-grid-ajax.php';
 // PDF generator
@@ -60,6 +64,16 @@ add_action('acf/input/admin_enqueue_scripts', function(){
         ['jquery'],
         wp_get_theme()->get('Version'),
         true
+    );
+});
+
+// Admin: force ACF tabs to display in single row
+add_action('admin_enqueue_scripts', function(){
+    wp_enqueue_style(
+        'hj-acf-tabs-admin',
+        get_stylesheet_directory_uri() . '/assets/admin/acf-tabs-single-row.css',
+        [],
+        wp_get_theme()->get('Version')
     );
 });
 

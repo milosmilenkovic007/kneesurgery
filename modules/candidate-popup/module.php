@@ -18,6 +18,14 @@ $u_covers = get_sub_field('upload_covers') ?: [];
 
 $m_title = get_sub_field('medical_title');
 $m_sub   = get_sub_field('medical_subtitle');
+$age_title = get_sub_field('age_title') ?: ($m_title ?: 'Your Medical Background');
+$age_sub   = get_sub_field('age_subtitle') ?: $m_sub;
+$chronic_title = get_sub_field('chronic_title') ?: 'Do you have any chronic illnesses?';
+$chronic_sub   = get_sub_field('chronic_subtitle') ?: 'This information helps our medical team assess your health profile and plan your treatment safely.';
+$meds_title = get_sub_field('medications_title') ?: 'Are You Taking Any Medications?';
+$meds_sub   = get_sub_field('medications_subtitle') ?: 'This information ensures that your treatment plan is safe and medically appropriate.';
+$xray_title = get_sub_field('xray_title') ?: 'X-ray (optional)';
+$xray_sub   = get_sub_field('xray_subtitle') ?: '';
 
 $ff_sc   = get_sub_field('ff_shortcode');
 $ff_map  = get_sub_field('ff_map') ?: [];
@@ -32,6 +40,7 @@ $uid = uniqid('hj-candidate-');
   <div class="hj-cand-overlay" data-close></div>
   <div class="hj-cand-dialog" role="dialog" aria-modal="true" aria-labelledby="<?php echo esc_attr($uid); ?>-title">
     <button class="hj-cand-close" type="button" aria-label="Close" data-close>×</button>
+    <div class="hj-cand-progress" aria-hidden="true"></div>
 
     <!-- Step 1: Welcome -->
     <div class="hj-cand-step is-active" data-step="1">
@@ -69,31 +78,32 @@ $uid = uniqid('hj-candidate-');
       </div>
     </div>
 
-    <!-- Step 3: Medical Background -->
+    <!-- Step 3: Age -->
     <div class="hj-cand-step" data-step="3" hidden>
-      <h2 class="title"><?php echo esc_html($m_title ?: 'Your Medical Background'); ?></h2>
-      <?php if($m_sub): ?><p class="sub"><?php echo esc_html($m_sub); ?></p><?php endif; ?>
+      <h2 class="title"><?php echo esc_html($age_title); ?></h2>
+      <?php if($age_sub): ?><p class="sub"><?php echo esc_html($age_sub); ?></p><?php endif; ?>
       <div class="med-grid">
         <label class="med-field">
           <input type="number" min="1" max="99" inputmode="numeric" pattern="[0-9]*" class="mf-input mf-age" data-med="age" placeholder="Age" />
         </label>
+      </div>
+      <div class="actions">
+        <button class="btn-secondary" data-prev>Back</button>
+        <button class="btn-primary" data-next>Continue</button>
+      </div>
+    </div>
 
+    <!-- Step 4: Chronic illnesses -->
+    <div class="hj-cand-step" data-step="4" hidden>
+      <h2 class="title"><?php echo esc_html($chronic_title); ?></h2>
+      <?php if($chronic_sub): ?><p class="sub"><?php echo esc_html($chronic_sub); ?></p><?php endif; ?>
+      <div class="med-grid">
         <div class="med-field">
-          <span class="mf-lbl">Chronic illnesses</span>
           <div class="mf-row">
             <label><input type="radio" name="med-chronic" value="No" checked> No</label>
             <label><input type="radio" name="med-chronic" value="Yes"> Yes</label>
           </div>
-            <input type="text" class="mf-input mf-chronic-details" data-med="chronic_details" placeholder="Type your chronic illnesses" disabled hidden />
-        </div>
-
-        <div class="med-field">
-          <span class="mf-lbl">Medications</span>
-          <div class="mf-row">
-            <label><input type="radio" name="med-meds" value="No" checked> No</label>
-            <label><input type="radio" name="med-meds" value="Yes"> Yes</label>
-          </div>
-            <input type="text" class="mf-input mf-meds-details" data-med="meds_details" placeholder="Type your medications" disabled hidden />
+          <input type="text" class="mf-input mf-chronic-details" data-med="chronic_details" placeholder="Type your chronic illnesses" disabled hidden />
         </div>
       </div>
       <div class="actions">
@@ -102,8 +112,27 @@ $uid = uniqid('hj-candidate-');
       </div>
     </div>
 
-    <!-- Step 4: Upload -->
-    <div class="hj-cand-step" data-step="4" hidden>
+    <!-- Step 5: Medications -->
+    <div class="hj-cand-step" data-step="5" hidden>
+      <h2 class="title"><?php echo esc_html($meds_title); ?></h2>
+      <?php if($meds_sub): ?><p class="sub"><?php echo esc_html($meds_sub); ?></p><?php endif; ?>
+      <div class="med-grid">
+        <div class="med-field">
+          <div class="mf-row">
+            <label><input type="radio" name="med-meds" value="No" checked> No</label>
+            <label><input type="radio" name="med-meds" value="Yes"> Yes</label>
+          </div>
+          <input type="text" class="mf-input mf-meds-details" data-med="meds_details" placeholder="Type your medications" disabled hidden />
+        </div>
+      </div>
+      <div class="actions">
+        <button class="btn-secondary" data-prev>Back</button>
+        <button class="btn-primary" data-next>Continue</button>
+      </div>
+    </div>
+
+    <!-- Step 6: Upload photos -->
+    <div class="hj-cand-step" data-step="6" hidden>
       <h2 class="title"><?php echo esc_html($u_title); ?></h2>
       <?php if ($u_sub): ?><p class="sub"><?php echo esc_html($u_sub); ?></p><?php endif; ?>
       <div class="uploads">
@@ -159,8 +188,18 @@ $uid = uniqid('hj-candidate-');
             </label>
           </div>
         <?php endfor; ?>
+      </div>
+      <div class="actions">
+        <button class="btn-secondary" data-prev>Back</button>
+        <button class="btn-primary" data-next>Continue</button>
+      </div>
+    </div>
 
-        <!-- X-ray file (optional) -->
+    <!-- Step 7: X-ray (optional) -->
+    <div class="hj-cand-step" data-step="7" hidden>
+      <h2 class="title"><?php echo esc_html($xray_title); ?></h2>
+      <?php if($xray_sub): ?><p class="sub"><?php echo esc_html($xray_sub); ?></p><?php endif; ?>
+      <div class="uploads uploads--single">
         <div class="upload-cell">
           <div class="drop-title" aria-hidden="true">X-ray (optional)</div>
           <label class="drop" data-index="xray">
@@ -184,8 +223,8 @@ $uid = uniqid('hj-candidate-');
       </div>
     </div>
 
-    <!-- Step 5: Booking / Submit -->
-    <div class="hj-cand-step" data-step="5" hidden>
+    <!-- Step 8: Booking / Submit -->
+    <div class="hj-cand-step" data-step="8" hidden>
       <h2 class="title"><?php echo esc_html($b_title); ?></h2>
       <?php if ($b_sub): ?><p class="sub"><?php echo esc_html($b_sub); ?></p><?php endif; ?>
       <?php /* ACF CTA removed – we submit via Fluent Form button below */ ?>
@@ -207,12 +246,36 @@ $uid = uniqid('hj-candidate-');
     const root = document.getElementById('<?php echo esc_js($uid); ?>');
     if(!root) return;
     const steps = Array.from(root.querySelectorAll('.hj-cand-step'));
+    const progressWrap = root.querySelector('.hj-cand-progress');
     const nextBtns = root.querySelectorAll('[data-next]');
     const prevBtns = root.querySelectorAll('[data-prev]');
     const closeEls = root.querySelectorAll('[data-close]');
     let idx = 0; // 0-based
     let lastFocus = null;
     let isOpen = false;
+
+    function buildProgress(){
+      if(!progressWrap) return;
+      progressWrap.style.setProperty('--cand-steps', steps.length);
+      progressWrap.innerHTML = '';
+      steps.forEach((_, i)=>{
+        const seg = document.createElement('span');
+        seg.className = 'seg';
+        seg.dataset.idx = i;
+        progressWrap.appendChild(seg);
+      });
+    }
+
+    function updateProgress(activeIdx){
+      if(!progressWrap) return;
+      progressWrap.querySelectorAll('.seg').forEach((seg, i)=>{
+        seg.classList.toggle('is-active', i === activeIdx);
+        seg.classList.toggle('is-complete', i < activeIdx);
+        seg.classList.toggle('is-upcoming', i > activeIdx);
+      });
+    }
+
+    buildProgress();
 
     function getFocusable(){
       return Array.from(root.querySelectorAll('a[href],button,textarea,input,select,[tabindex]:not([tabindex="-1"])'))
@@ -250,9 +313,10 @@ $uid = uniqid('hj-candidate-');
         if(active){ s.removeAttribute('hidden'); } else { s.setAttribute('hidden',''); }
       });
       idx = i;
+      updateProgress(idx);
 
-      // When we arrive at step 5, attempt to populate Fluent Form
-      if(steps[idx] && steps[idx].dataset.step === '5'){
+      // When we arrive at step 8, attempt to populate Fluent Form
+      if(steps[idx] && steps[idx].dataset.step === '8'){
         setTimeout(populateFluentForm, 150);
       }
     }
@@ -282,23 +346,25 @@ $uid = uniqid('hj-candidate-');
         return true;
       }
       if(stepNo === '3'){
-        // require age
         const ageInput = cur.querySelector('[data-med="age"]');
         const ageVal = (ageInput?.value || '').trim();
         const ageNum = parseInt(ageVal, 10);
         if(!ageVal || isNaN(ageNum) || ageNum < 1 || ageNum > 99){ showError(cur, 'Please enter a valid age (1–99).'); return false; }
-        // if chronic yes -> details required
+        return true;
+      }
+      if(stepNo === '4'){
         const chronicYes = cur.querySelector('input[name="med-chronic"]:checked')?.value === 'Yes';
         const chronicTxt = (cur.querySelector('.mf-chronic-details')?.value || '').trim();
         if(chronicYes && !chronicTxt){ showError(cur, 'Please describe your chronic illnesses.'); return false; }
-        // if meds yes -> details required
+        return true;
+      }
+      if(stepNo === '5'){
         const medsYes = cur.querySelector('input[name="med-meds"]:checked')?.value === 'Yes';
         const medsTxt = (cur.querySelector('.mf-meds-details')?.value || '').trim();
         if(medsYes && !medsTxt){ showError(cur, 'Please list your medications and doses.'); return false; }
         return true;
       }
-      if(stepNo === '4'){
-        // require at least one photo
+      if(stepNo === '6'){
         const drops = cur.querySelectorAll('.drop');
         let has = false;
         drops.forEach(d=>{ if(d.dataset.index !== 'xray' && d.dataset.url) has = true; });
@@ -314,11 +380,11 @@ $uid = uniqid('hj-candidate-');
     prevBtns.forEach(b=> b.addEventListener('click', ()=>{ if(idx>0) show(idx-1); }));
     closeEls.forEach(b=> b.addEventListener('click', doClose));
 
-    // Custom submit button for step 5
+    // Custom submit button for step 8
     const submitBtn = root.querySelector('[data-submit-form]');
     if(submitBtn){
       submitBtn.addEventListener('click', function(){
-        const ffForm = root.querySelector('[data-step="5"] .ff-wrap form');
+        const ffForm = root.querySelector('[data-step="8"] .ff-wrap form');
         if(ffForm){
           const realSubmit = ffForm.querySelector('button[type="submit"]');
           if(realSubmit){ realSubmit.click(); }
@@ -337,21 +403,9 @@ $uid = uniqid('hj-candidate-');
       });
     }
 
-    // Step 3: medical fields enable/disable
+    // Step 3: age input; Step 4/5 medical toggles
     const step3 = root.querySelector('[data-step="3"]');
     if(step3){
-      const chronicRadios = step3.querySelectorAll('input[name="med-chronic"]');
-      const chronicDetails = step3.querySelector('.mf-chronic-details');
-      function toggleChronic(){ const yes = step3.querySelector('input[name="med-chronic"]:checked')?.value === 'Yes'; chronicDetails.disabled = !yes; chronicDetails.hidden = !yes; if(!yes) chronicDetails.value=''; }
-      chronicRadios.forEach(r=>r.addEventListener('change',toggleChronic));
-      toggleChronic();
-      const medsRadios = step3.querySelectorAll('input[name="med-meds"]');
-      const medsDetails = step3.querySelector('.mf-meds-details');
-      function toggleMeds(){ const yes = step3.querySelector('input[name="med-meds"]:checked')?.value === 'Yes'; medsDetails.disabled = !yes; medsDetails.hidden = !yes; if(!yes) medsDetails.value=''; }
-      medsRadios.forEach(r=>r.addEventListener('change',toggleMeds));
-      toggleMeds();
-
-      // limit age input to 2 digits
       const ageInput = step3.querySelector('[data-med="age"]');
       if(ageInput){
         ageInput.addEventListener('input', ()=>{
@@ -359,6 +413,24 @@ $uid = uniqid('hj-candidate-');
           ageInput.value = v;
         });
       }
+    }
+
+    const step4 = root.querySelector('[data-step="4"]');
+    if(step4){
+      const chronicRadios = step4.querySelectorAll('input[name="med-chronic"]');
+      const chronicDetails = step4.querySelector('.mf-chronic-details');
+      function toggleChronic(){ const yes = step4.querySelector('input[name="med-chronic"]:checked')?.value === 'Yes'; chronicDetails.disabled = !yes; chronicDetails.hidden = !yes; if(!yes) chronicDetails.value=''; }
+      chronicRadios.forEach(r=>r.addEventListener('change',toggleChronic));
+      toggleChronic();
+    }
+
+    const step5 = root.querySelector('[data-step="5"]');
+    if(step5){
+      const medsRadios = step5.querySelectorAll('input[name="med-meds"]');
+      const medsDetails = step5.querySelector('.mf-meds-details');
+      function toggleMeds(){ const yes = step5.querySelector('input[name="med-meds"]:checked')?.value === 'Yes'; medsDetails.disabled = !yes; medsDetails.hidden = !yes; if(!yes) medsDetails.value=''; }
+      medsRadios.forEach(r=>r.addEventListener('change',toggleMeds));
+      toggleMeds();
     }
 
     // Open on #candidate click
@@ -369,6 +441,7 @@ $uid = uniqid('hj-candidate-');
       show(0);
       isOpen = true;
       lastFocus = document.activeElement;
+      updateProgress(0);
       setTimeout(()=>{ const f=getFocusable(); if(f[0]) f[0].focus(); }, 0);
       document.addEventListener('keydown', onKeydown, true);
     }
@@ -391,7 +464,7 @@ $uid = uniqid('hj-candidate-');
       if (window.location.hash === '#candidate') { openModal(); }
     });
 
-    // Step 3: upload handling (preview + AJAX upload)
+    // Step 6/7: upload handling (preview + AJAX upload)
     // Image compression helper
     async function compressImage(file, maxW=1280, maxH=1280, quality=0.8){
       return new Promise((resolve)=>{
@@ -610,30 +683,34 @@ $uid = uniqid('hj-candidate-');
       data.description = descInput?.value || '';
       // medical
       const s3 = root.querySelector('[data-step="3"]');
-      if(s3){
-        data.age = s3.querySelector('[data-med="age"]')?.value || '';
-        const chronicYN = s3.querySelector('input[name="med-chronic"]:checked')?.value || 'No';
+      if(s3){ data.age = s3.querySelector('[data-med="age"]')?.value || ''; }
+      const s4 = root.querySelector('[data-step="4"]');
+      if(s4){
+        const chronicYN = s4.querySelector('input[name="med-chronic"]:checked')?.value || 'No';
         data.chronic_yesno = chronicYN;
-        data.chronic_details = s3.querySelector('.mf-chronic-details')?.value || '';
-        const medsYN = s3.querySelector('input[name="med-meds"]:checked')?.value || 'No';
+        data.chronic_details = s4.querySelector('.mf-chronic-details')?.value || '';
+      }
+      const s5 = root.querySelector('[data-step="5"]');
+      if(s5){
+        const medsYN = s5.querySelector('input[name="med-meds"]:checked')?.value || 'No';
         data.meds_yesno = medsYN;
-        data.meds_details = s3.querySelector('.mf-meds-details')?.value || '';
+        data.meds_details = s5.querySelector('.mf-meds-details')?.value || '';
       }
       // photos (urls preferred) + X-ray
-      const drops = root.querySelectorAll('[data-step="4"] .drop');
+      const photoDrops = root.querySelectorAll('[data-step="6"] .drop');
       data.photos = [];
-      data.x_ray = '';
-      drops.forEach(d=>{
+      photoDrops.forEach(d=>{
         const u = d.dataset.url || '';
-        if(d.dataset.index === 'xray'){ data.x_ray = u; }
-        else { data.photos.push(u); }
+        if(d.dataset.index !== 'xray'){ data.photos.push(u); }
       });
+      const xrayDrop = root.querySelector('[data-step="7"] .drop[data-index="xray"]');
+      data.x_ray = xrayDrop ? (xrayDrop.dataset.url || '') : '';
       return data;
     }
 
     function populateFluentForm(){
       const data = collectData();
-      const ff = root.querySelector('[data-step="5"] .ff-wrap form');
+      const ff = root.querySelector('[data-step="8"] .ff-wrap form');
       if(!ff) return;
 
       const map = <?php echo wp_json_encode($ff_map); ?> || {};

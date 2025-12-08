@@ -4,11 +4,13 @@
   "label": "Candidate – Popup Form",
   "display": "block",
   "sub_fields": [
+    { "key": "tab_welcome", "label": "Step 1: Welcome", "name": "", "type": "tab" },
     { "key": "field_hj_cp_w_title", "label": "Welcome Title", "name": "welcome_title", "type": "text", "default_value": "Welcome to Healing Journey" },
     { "key": "field_hj_cp_w_sub", "label": "Welcome Subtitle", "name": "welcome_subtitle", "type": "textarea", "rows": 2, "default_value": "Complete our 30‑second survey to find out if you’re a candidate." },
     { "key": "field_hj_cp_w_logo", "label": "Welcome Logo", "name": "welcome_logo", "type": "image", "return_format": "array", "preview_size": "medium" },
     { "key": "field_hj_cp_w_btn", "label": "Start Button", "name": "start_label", "type": "text", "default_value": "Start" },
 
+    { "key": "tab_dental_needs", "label": "Step 2: Dental Needs", "name": "", "type": "tab" },
     { "key": "field_hj_cp_q_title", "label": "Question Title", "name": "question_title", "type": "text", "default_value": "How would you describe your dental needs?" },
     { "key": "field_hj_cp_q_sub", "label": "Question Subtitle", "name": "question_subtitle", "type": "text", "default_value": "Select the appropriate option." },
     { "key": "field_hj_cp_options", "label": "Options (3)", "name": "options", "type": "repeater", "min": 3, "max": 3, "button_label": "Add Option", "layout": "row", "sub_fields": [
@@ -18,9 +20,19 @@
     { "key": "field_hj_cp_desc_label", "label": "Description Field Label", "name": "description_label", "type": "text", "default_value": "Describe your dental needs in your own words" },
     { "key": "field_hj_cp_desc_placeholder", "label": "Description Placeholder", "name": "description_placeholder", "type": "text", "default_value": "Tell us more about your specific concerns..." },
 
-    { "key": "field_hj_cp_m_title", "label": "Medical Title", "name": "medical_title", "type": "text", "default_value": "Your Medical Background" },
-    { "key": "field_hj_cp_m_sub", "label": "Medical Subtitle", "name": "medical_subtitle", "type": "textarea", "rows": 2, "default_value": "These details help our doctors plan your treatment safely." },
+    { "key": "tab_age", "label": "Step 3: Age", "name": "", "type": "tab" },
+    { "key": "field_hj_cp_age_title", "label": "Age Title", "name": "age_title", "type": "text", "default_value": "Your Medical Background" },
+    { "key": "field_hj_cp_age_sub", "label": "Age Subtitle", "name": "age_subtitle", "type": "textarea", "rows": 2, "default_value": "These details help our doctors plan your treatment safely." },
 
+    { "key": "tab_chronic", "label": "Step 4: Chronic Illnesses", "name": "", "type": "tab" },
+    { "key": "field_hj_cp_chronic_title", "label": "Chronic Title", "name": "chronic_title", "type": "text", "default_value": "Do you have any chronic illnesses?" },
+    { "key": "field_hj_cp_chronic_sub", "label": "Chronic Subtitle", "name": "chronic_subtitle", "type": "textarea", "rows": 2, "default_value": "This information helps our medical team assess your health profile and plan your treatment safely." },
+
+    { "key": "tab_medications", "label": "Step 5: Medications", "name": "", "type": "tab" },
+    { "key": "field_hj_cp_meds_title", "label": "Medications Title", "name": "medications_title", "type": "text", "default_value": "Are You Taking Any Medications?" },
+    { "key": "field_hj_cp_meds_sub", "label": "Medications Subtitle", "name": "medications_subtitle", "type": "textarea", "rows": 2, "default_value": "This information ensures that your treatment plan is safe and medically appropriate." },
+
+    { "key": "tab_photos", "label": "Step 6: Photos", "name": "", "type": "tab" },
     { "key": "field_hj_cp_u_title", "label": "Upload Title", "name": "upload_title", "type": "text", "default_value": "Upload photos" },
     { "key": "field_hj_cp_u_sub", "label": "Upload Subtitle", "name": "upload_subtitle", "type": "text", "default_value": "Attach a few clear photos of your teeth." },
     { "key": "field_hj_cp_u_cover", "label": "Upload Cover Image (optional)", "name": "upload_cover", "type": "image", "return_format": "array", "preview_size": "medium" },
@@ -33,14 +45,20 @@
       { "key": "field_hj_cp_u_cover_max", "label": "Maxillary Occlusal", "name": "cover_maxillary_occlusal", "type": "image", "return_format": "array", "preview_size": "medium" }
     ] },
 
+    { "key": "tab_xray", "label": "Step 7: X-ray", "name": "", "type": "tab" },
+    { "key": "field_hj_cp_xray_title", "label": "X-ray Title", "name": "xray_title", "type": "text", "default_value": "X-ray (optional)" },
+    { "key": "field_hj_cp_xray_sub", "label": "X-ray Subtitle", "name": "xray_subtitle", "type": "textarea", "rows": 2, "default_value": "Upload an X-ray if you have one available." },
+
+    { "key": "tab_booking", "label": "Step 8: Booking", "name": "", "type": "tab" },
     { "key": "field_hj_cp_b_title", "label": "Booking Title", "name": "booking_title", "type": "text", "default_value": "Book appointment" },
     { "key": "field_hj_cp_b_sub", "label": "Booking Subtitle", "name": "booking_subtitle", "type": "text", "default_value": "Choose a convenient time for your free consultation." },
+    { "key": "field_hj_cp_ff_sc", "label": "Fluent Form Shortcode", "name": "ff_shortcode", "type": "text", "placeholder": "[fluentform id=\"13\"]" },
     { "key": "field_hj_cp_b_cta", "label": "Booking Button", "name": "booking_cta", "type": "group", "sub_fields": [
       { "key": "field_hj_cp_b_cta_label", "label": "Label", "name": "label", "type": "text", "default_value": "Book a Free Consultation" },
       { "key": "field_hj_cp_b_cta_url", "label": "URL", "name": "url", "type": "url" }
     ]},
 
-    { "key": "field_hj_cp_ff_sc", "label": "Fluent Form Shortcode", "name": "ff_shortcode", "type": "text", "placeholder": "[fluentform id=\"1\"]" },
+    { "key": "tab_fluent", "label": "Fluent Form Mapping", "name": "", "type": "tab" },
     { "key": "field_hj_cp_ff_map", "label": "Fluent Form Field Map (optional)", "name": "ff_map", "type": "group", "sub_fields": [
       { "key": "field_hj_cp_ff_age", "label": "Age field name", "name": "age", "type": "text", "placeholder": "age" },
       { "key": "field_hj_cp_ff_ci_yesno", "label": "Chronic Yes/No name", "name": "chronic_yesno", "type": "text", "placeholder": "chronic_yesno" },
