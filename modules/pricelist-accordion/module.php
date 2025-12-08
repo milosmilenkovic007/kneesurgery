@@ -6,6 +6,7 @@ $module_subtitle_right = get_sub_field('module_subtitle_right');
 $currency = get_sub_field('currency') ?: '€';
 $sections = get_sub_field('sections') ?: [];
 $uid = uniqid('hj-pa-');
+$subtitle_right_html = $module_subtitle_right ? wp_kses_post($module_subtitle_right) : '';
 ?>
 <section class="hj-pricelist-accordion" id="<?php echo esc_attr($uid); ?>" aria-label="Pricelist">
   <div class="hj-pa-wrap">
@@ -20,10 +21,16 @@ $uid = uniqid('hj-pa-');
       if ($has_left || $has_right) : ?>
       <div class="hj-pa-subtitles hj-pa-subtitles--cols">
         <div class="hj-pa-subtitles__col hj-pa-subtitles__col--left">
-          <?php if ($has_left) { echo wp_kses_post($module_subtitle_left); } ?>
+          <button type="button" class="hj-pa-subtitles__col--left-toggle" aria-expanded="true">
+            <span>All prices include full Healing Journey coordination:</span>
+            <span class="toggle-arrow">▾</span>
+          </button>
+          <div class="hj-pa-subtitles__col--left-content">
+            <?php if ($has_left) { echo wp_kses_post($module_subtitle_left); } ?>
+          </div>
         </div>
         <div class="hj-pa-subtitles__col hj-pa-subtitles__col--right">
-          <?php if ($has_right) { echo wp_kses_post($module_subtitle_right); } ?>
+          <?php if ($has_right) { echo $subtitle_right_html; } ?>
         </div>
       </div>
     <?php endif; ?>
@@ -360,6 +367,12 @@ $uid = uniqid('hj-pa-');
         </div>
       </div>
     <?php endif; ?>
+
+    <?php if ($has_right && $subtitle_right_html): ?>
+      <div class="hj-pa-subtitles__col hj-pa-subtitles__col--right hj-pa-subtitles__col--mobile">
+        <?php echo $subtitle_right_html; ?>
+      </div>
+    <?php endif; ?>
   </div>
 
   <script>
@@ -368,6 +381,24 @@ $uid = uniqid('hj-pa-');
     if(!root) return;
     const cssUrl = '<?php echo esc_js(get_stylesheet_directory_uri().'/assets/css/modules/pricelist-accordion.css'); ?>';
     const fontUrl = 'https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&display=swap';
+
+    // Mobile left column accordion toggle
+    const toggleBtn = root.querySelector('.hj-pa-subtitles__col--left-toggle');
+    const contentBox = root.querySelector('.hj-pa-subtitles__col--left-content');
+    if (toggleBtn && contentBox) {
+      toggleBtn.addEventListener('click', function(){
+        const isClosed = toggleBtn.classList.contains('is-closed');
+        if (isClosed) {
+          toggleBtn.classList.remove('is-closed');
+          contentBox.classList.remove('is-hidden');
+          toggleBtn.setAttribute('aria-expanded', 'true');
+        } else {
+          toggleBtn.classList.add('is-closed');
+          contentBox.classList.add('is-hidden');
+          toggleBtn.setAttribute('aria-expanded', 'false');
+        }
+      });
+    }
     const logoUrl = '<?php echo esc_js(get_stylesheet_directory_uri().'/assets/img/HealingJourney-logo.svg'); ?>';
     const tabs = Array.from(root.querySelectorAll('[role="tab"]'));
     const panels = Array.from(root.querySelectorAll('[role="tabpanel"]'));

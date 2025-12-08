@@ -3,6 +3,7 @@ $title = get_sub_field('title');
 $mode  = get_sub_field('mode') ?: 'category';
 $terms = get_sub_field('category'); // ids
 $pick  = get_sub_field('posts'); // ids
+$filters = get_sub_field('filter_categories'); // ids for filter buttons
 $count = (int) (get_sub_field('count') ?: 3);
 $columns = (int) (get_sub_field('columns') ?: 3);
 $columns = max(1, min(6, $columns));
@@ -14,43 +15,39 @@ $cta   = get_sub_field('cta');
 
 $uid = uniqid('hj-ag-');
 
-function hj_ag_get_posts($mode, $terms, $pick, $count){
-  if($mode === 'manual' && !empty($pick)){
-    $ids = array_map('intval', (array)$pick);
-    $ids = array_slice($ids, 0, $count);
-    $q = new WP_Query([
-      'post_type' => 'post',
-      'post__in' => $ids,
-      'orderby' => 'post__in',
-      'ignore_sticky_posts' => true,
-      'posts_per_page' => $count,
-    ]);
-    return $q->posts;
-  }
-  // category mode
-  $tax_args = [];
-  $term_ids = array_filter(array_map('intval', (array)$terms));
-  if(!empty($term_ids)){
-    $tax_args = [
-      [
-        'taxonomy' => 'category',
-        'field'    => 'term_id',
-        'terms'    => $term_ids,
-      ]
-    ];
-  }
-  $q = new WP_Query([
-    'post_type' => 'post',
-    'posts_per_page' => $count,
-    'ignore_sticky_posts' => true,
-    'tax_query' => $tax_args,
-  ]);
-  return $q->posts;
+$filter_ids = array_slice(hj_ag_normalize_ids($filters), 0, 3);
+$filter_terms = [];
+foreach ($filter_ids as $tid) {
+  $term_obj = get_term($tid, 'category');
+  if ($term_obj && !is_wp_error($term_obj)) { $filter_terms[] = $term_obj; }
 }
 
-$posts = hj_ag_get_posts($mode, $terms, $pick, $count);
+// Front-end script for AJAX filtering
+if (!wp_script_is('hj-articles-grid', 'enqueued')) {
+  wp_enqueue_script(
+    'hj-articles-grid',
+    get_stylesheet_directory_uri() . '/assets/js/articles-grid.js',
+    [],
+    wp_get_theme()->get('Version'),
+    true
+  );
+  wp_localize_script('hj-articles-grid', 'hjAG', [
+    'ajaxUrl' => admin_url('admin-ajax.php'),
+    'nonce'   => wp_create_nonce('hj_ag_filter'),
+  ]);
+}
+
+$config = [
+  'mode'   => $mode,
+  'terms'  => hj_ag_normalize_ids($terms),
+  'pick'   => hj_ag_normalize_ids($pick),
+  'count'  => $count,
+];
+
+$posts = hj_ag_get_posts_filtered($mode, $terms, $pick, $count, 0);
+$cards_html = hj_ag_render_cards($posts);
 ?>
-<section class="hj-articles-grid" id="<?php echo esc_attr($uid); ?>" aria-label="Articles">
+<section class="hj-articles-grid" id="<?php echo esc_attr($uid); ?>" aria-label="Articles" data-config="<?php echo esc_attr(wp_json_encode($config)); ?>">
   <div class="hj-ag-wrap">
     <div class="hj-ag-head">
       <?php if ($title): ?>
@@ -65,51 +62,18 @@ $posts = hj_ag_get_posts($mode, $terms, $pick, $count);
       <?php endif; ?>
     </div>
 
-    <?php if (!empty($posts)): ?>
+    <?php if (!empty($filter_terms)): ?>
+      <div class="hj-ag-filters" role="tablist" aria-label="Article filters">
+        <button class="hj-ag-filter is-active" type="button" data-term="0" aria-pressed="true">All</button>
+        <?php foreach ($filter_terms as $ft): ?>
+          <button class="hj-ag-filter" type="button" data-term="<?php echo esc_attr($ft->term_id); ?>" aria-pressed="false"><?php echo esc_html($ft->name); ?></button>
+        <?php endforeach; ?>
+      </div>
+    <?php endif; ?>
+
+    <?php if (!empty($cards_html)): ?>
       <ul class="hj-ag-grid" role="list" style="--ag-cols: <?php echo esc_attr($columns); ?>; --ag-cols-md: <?php echo esc_attr($columns_md); ?>; --ag-cols-sm: <?php echo esc_attr($columns_sm); ?>;">
-        <?php foreach ($posts as $p): setup_postdata($p); ?>
-          <li class="hj-ag-card">
-            <a class="card-link" href="<?php echo esc_url(get_permalink($p)); ?>">
-              <figure class="card-media">
-                <?php 
-                  $thumb = get_the_post_thumbnail($p, 'large', ['class' => 'img', 'alt' => esc_attr(get_the_title($p))]);
-                  if ($thumb) {
-                    echo $thumb; 
-                  } else {
-                    // Placeholder when no featured image
-                    ?>
-                    <div class="img placeholder" aria-hidden="true">
-                      <svg width="56" height="56" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                        <rect x="3" y="3" width="18" height="18" rx="4" stroke="#94a3b8" stroke-width="1.5"/>
-                        <path d="M7 15l3-3 4 4 3-3 2 2" stroke="#94a3b8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                        <circle cx="8" cy="8" r="1.5" fill="#94a3b8"/>
-                      </svg>
-                    </div>
-                    <?php
-                  }
-                ?>
-              </figure>
-              <div class="card-meta">
-                <span class="author-ico" aria-hidden="true">
-                  <img src="<?php echo esc_url( get_stylesheet_directory_uri() . '/assets/img/author-icon.svg' ); ?>" alt="">
-                </span>
-                <span class="author">
-                  <?php echo esc_html(get_the_author_meta('display_name', $p->post_author)); ?>
-                </span>
-                <span class="date">
-                  <?php echo esc_html(get_the_date('j M, Y', $p)); ?>
-                </span>
-              </div>
-              <h3 class="card-title"><?php echo esc_html(get_the_title($p)); ?></h3>
-              <p class="card-excerpt">
-                <?php echo esc_html(wp_trim_words(get_the_excerpt($p), 24)); ?>
-              </p>
-              <?php $cats = get_the_category($p->ID); if (!empty($cats)): $c = $cats[0]; ?>
-                <span class="card-tag"><?php echo esc_html($c->name); ?></span>
-              <?php endif; ?>
-            </a>
-          </li>
-        <?php endforeach; wp_reset_postdata(); ?>
+        <?php echo $cards_html; ?>
       </ul>
     <?php endif; ?>
   </div>

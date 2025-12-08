@@ -55,6 +55,22 @@
                             ]
                         },
                         {
+                            "key": "field_hj_ag_filters",
+                            "label": "Filter Subcategories",
+                            "name": "filter_categories",
+                            "type": "taxonomy",
+                            "taxonomy": "category",
+                            "field_type": "checkbox",
+                            "add_term": 0,
+                            "save_terms": 0,
+                            "load_terms": 0,
+                            "return_format": "id",
+                            "instructions": "Select up to 3 subcategories to show as filter buttons (leave empty to hide filters).",
+                            "wrapper": {
+                                "width": "60"
+                            }
+                        },
+                        {
                             "key": "field_hj_ag_posts",
                             "label": "Posts",
                             "name": "posts",
@@ -1486,5 +1502,5 @@
     "position": "acf_after_title",
     "style": "seamless",
     "active": true,
-    "modified": 1765182863
+    "modified": 1765191381
 }

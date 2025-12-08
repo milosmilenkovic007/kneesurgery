@@ -33,6 +33,8 @@ require_once get_stylesheet_directory() . '/inc/pricelist-setup.php';
 require_once get_stylesheet_directory() . '/inc/acf-options.php';
 // Modules
 require_once get_stylesheet_directory() . '/inc/modules.php';
+// Articles grid helpers + AJAX
+require_once get_stylesheet_directory() . '/inc/articles-grid-ajax.php';
 // PDF generator
 require_once get_stylesheet_directory() . '/inc/pdf-pricelist.php';
 // Word export
