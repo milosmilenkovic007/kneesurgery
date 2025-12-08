@@ -248,18 +248,27 @@ function hj_build_package_pdf_html($post_id){
   $site = get_bloginfo('name');
   $date = date_i18n(get_option('date_format'));
   $logo = get_stylesheet_directory_uri() . '/assets/img/HealingJourney-logo.svg';
-  $template_bg = get_stylesheet_directory_uri() . '/assets/files/template/CoverPdf.png';
+  $cover_bg = get_stylesheet_directory_uri() . '/assets/files/template/hjcover.jpg';
+  $phone_icon = 'data:image/svg+xml;base64,' . base64_encode('<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M3.77762 11.9424C2.8296 10.2893 2.37185 8.93948 2.09584 7.57121C1.68762 5.54758 2.62181 3.57081 4.16938 2.30947C4.82345 1.77638 5.57323 1.95852 5.96 2.6524L6.83318 4.21891C7.52529 5.46057 7.87134 6.08139 7.8027 6.73959C7.73407 7.39779 7.26737 7.93386 6.33397 9.00601L3.77762 11.9424ZM3.77762 11.9424C5.69651 15.2883 8.70784 18.3013 12.0576 20.2224M12.0576 20.2224C13.7107 21.1704 15.0605 21.6282 16.4288 21.9042C18.4524 22.3124 20.4292 21.3782 21.6905 19.8306C22.2236 19.1766 22.0415 18.4268 21.3476 18.04L19.7811 17.1668C18.5394 16.4747 17.9186 16.1287 17.2604 16.1973C16.6022 16.2659 16.0661 16.7326 14.994 17.666L12.0576 20.2224Z" stroke="#7C7C7C" stroke-width="1.5" stroke-linejoin="round"></path></svg>');
   
-  // Get PDF settings from ACF options
-  $cover_image = get_field('pdf_cover_image', 'option') ?: '';
-  $cover_title = get_field('pdf_cover_title', 'option') ?: 'ACL & MCL Reconstruction Surgery';
-  $cover_subtitle = get_field('pdf_cover_subtitle', 'option') ?: 'Healing Package';
-  $cover_tagline = get_field('pdf_cover_tagline', 'option') ?: 'Experience Peace Of Mind Together With Us In Turkey.';
-  $social_instagram = get_field('pdf_social_instagram', 'option') ?: '';
-  $social_youtube = get_field('pdf_social_youtube', 'option') ?: '';
-  $social_twitter = get_field('pdf_social_twitter', 'option') ?: '';
-  $social_facebook = get_field('pdf_social_facebook', 'option') ?: '';
-  $social_website = get_field('pdf_social_website', 'option') ?: 'www.healingjourney.travel';
+  // Get package title from first package section
+  $package_title = 'Treatment Package';
+  $rows = get_field('modules', $post_id) ?: [];
+  foreach ($rows as $row){
+    if (($row['acf_fc_layout'] ?? '') === 'pricelist_accordion'){
+      $sections = $row['sections'] ?? [];
+      foreach ($sections as $sec){
+        if (!empty($sec['package_view'])){
+          $mode = $sec['package_content_mode'] ?? 'template';
+          if ($mode === 'template') { 
+            $tpl = $sec['package_template'] ?? [];
+            $package_title = $tpl['title'] ?? $package_title;
+          }
+          break 2;
+        }
+      }
+    }
+  }
 
   // Find first package section
   $pkg = [];
@@ -285,91 +294,153 @@ function hj_build_package_pdf_html($post_id){
   <head>
     <meta charset="utf-8">
     <style>
-      @page { margin: 0; size: A4 portrait; }
+      @page { 
+        margin: 0; 
+        size: A4 portrait; 
+      }
+      /* Cover page keeps full-bleed */
+      @page :first { margin: 0; }
+      /* All content pages get consistent top/bottom spacing (~40px top) */
+      @page content { margin: 24mm 0 35mm 0; }
       body{ font-family: DejaVu Sans, Helvetica, Arial, sans-serif; color:#111827; font-size:12px; margin:0; padding:0; }
       
-      /* Cover Page with Template Background */
+      /* Cover Page with Background Image */
       .cover-page{ 
         width: 210mm;
         height: 297mm;
         page-break-after: always;
         position: relative;
-        <?php if ($cover_image): ?>
-        background-image: url('<?php echo esc_url($cover_image); ?>');
-        background-size: 520px auto;
-        background-position: center 200px;
-        background-repeat: no-repeat;
-        <?php endif; ?>
-      }
-      .cover-overlay{
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-image: url('<?php echo esc_url($template_bg); ?>');
+        background-image: url('<?php echo esc_url($cover_bg); ?>');
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
       }
-      .cover-logo{ 
+      .cover-logo{
         position: absolute;
-        top: 40px;
-        left: 40px;
-        z-index: 20;
+        top: 50px;
+        left: 30px;
+        z-index: 10;
       }
-      .cover-logo img{ 
-        height: 40px;
+      .cover-logo img{
+        height: 60px;
         width: auto;
       }
       .cover-title-section{
         position: absolute;
-        top: 620px;
+        top: 20%;
         left: 50%;
-        margin-left: -325px;
+        transform: translate(-50%, -50%);
         width: 650px;
         text-align: center;
         z-index: 10;
       }
       .cover-title{
-        font-size: 28px;
+        font-size: 26px;
         font-weight: 700;
-        color: #4b8ff5;
-        margin: 0 0 12px 0;
+        color: #111827;
+        margin: 0;
         line-height: 1.3;
       }
-      .cover-description{
-        font-size: 18px;
-        font-weight: 700;
-        color: #1f2937;
-        margin: 0;
-        line-height: 1.4;
-      }
-      .cover-footer{
+      .cover-left-text{
         position: absolute;
-        bottom: 30px;
-        left: 0;
-        right: 0;
-        text-align: center;
+        top: 45%;
+        left: 30px;
+        transform: translateY(-50%);
+        font-size: 23px;
+        font-weight: 400;
+        color: #ffffffff;
+        line-height: 1.4;
+        max-width: 340px;
         z-index: 10;
       }
-      .cover-social{
+      .cover-bottom-right{
+        position: absolute;
+        bottom: 65px;
+        right: 30px;
+        font-size: 16px;
+        font-weight: 400;
+        color: #8caaf5;
+        z-index: 10;
+      }
+      .cover-bottom-left{
+        position: absolute;
+        bottom: 20px;
+        left: 30px;
+        font-size: 9px;
+        font-weight: 400;
+        color: #111827;
+        z-index: 10;
+        line-height: 1.3;
+      }
+      .cover-phone{
+        position: absolute;
+        bottom: 20px;
+        right: 30px;
         font-size: 10px;
-        color: #6b7280;
-        margin-bottom: 8px;
+        font-weight: 400;
+        color: #111827;
+        z-index: 10;
+        display: flex;
+        align-items: center;
+        gap: 4px;
       }
-      .cover-social span{
-        margin: 0 8px;
-      }
-      .cover-website{
-        font-size: 11px;
-        color: #1f2937;
-        font-weight: 600;
+      .cover-phone-icon{
+        width: 12px;
+        height: 12px;
       }
       
       /* Content Pages Styles */
       .content-page{
-        padding: 24mm 16mm;
+        padding: 0;
+        position: relative;
+        min-height: 297mm;
+        background-image: url('<?php echo esc_url(get_stylesheet_directory_uri() . "/assets/files/template/hjcoverpage.jpg"); ?>');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        page-break-after: always;
+        display: flex;
+        flex-direction: column;
+        /* Attach to named page definition */
+        page: content;
+      }
+      .content-page:last-of-type {
+        page-break-after: auto;
+      }
+      .content-page-inner{
+        /* Top/bottom spacing handled by @page content margins */
+        padding: 0 24mm 0 14mm;
+        position: relative;
+        z-index: 5;
+        flex: 1;
+      }
+      .content-bottom-left{
+        position: fixed;
+        bottom: 15px;
+        left: 30px;
+        font-size: 9px;
+        font-weight: 400;
+        color: #111827;
+        z-index: 10;
+        line-height: 1.3;
+      }
+      .content-phone{
+        position: fixed;
+        bottom: 15px;
+        right: 30px;
+        font-size: 10px;
+        font-weight: 400;
+        color: #111827;
+        z-index: 10;
+      }
+      .content-bottom-right{
+        position: fixed;
+        bottom: 55px;
+        right: 30px;
+        font-size: 16px;
+        font-weight: 400;
+        color: #8caaf5;
+        z-index: 10;
       }
       .head{ margin-bottom: 12px; }
       .head table{ width: 100%; }
@@ -379,67 +450,66 @@ function hj_build_package_pdf_html($post_id){
       .logo img{ height:26px; width:auto; }
       .title{ font-size: 20px; font-weight:700; line-height:1.25; }
       .muted{ color:#6b7280; font-size:11px; margin-top:4px; }
-      .card{ border:1px solid #e5e7eb; border-radius:12px; padding:12px 14px; margin:0 0 10px; page-break-inside: avoid; }
-      .sect{ font-size:16px; font-weight:700; margin:10px 0 8px; page-break-after: avoid; }
-      ul{ margin:8px 0 10px 16px; page-break-inside: avoid; }
-      li{ margin:4px 0; }
-      .note{ color:#6b7280; }
+      .card{ border:1px solid #e5e7eb; border-radius:12px; padding:10px 12px; margin:0 0 9px; page-break-inside: avoid; }
+      .sect{ font-size:15px; font-weight:700; margin:8px 0 5px; page-break-after: avoid; }
+      ul{ margin:5px 0 8px 16px; page-break-inside: avoid; list-style: none; padding-left: 0; }
+      li{ margin:3px 0; line-height:1.35; padding-left: 22px; position: relative; }
+      li:before{ content: '✓'; position: absolute; left: 0; top: -1px; color: #2563EB; font-weight: bold; font-size: 16px; }
+      .note{ color:#6b7280; font-size:11px; line-height:1.35; }
       .price{ font-weight:800; }
       .price table{ width: 100%; }
-      .price-amt{ font-size:22px }
+      .price-amt{ font-size:20px }
       .currency{ opacity:.85 }
-      .footer{ text-align:center; font-size:12px; color:#374151; margin-top: 18px; padding-top: 10px; border-top:1px solid #e5e7eb; }
+      .footer{ text-align:center; font-size:11px; color:#374151; margin-top: 12px; padding-top: 8px; border-top:1px solid #e5e7eb; }
+      p{ margin:5px 0; line-height:1.35; }
     </style>
   </head>
   <body>
     
     <!-- Cover Page -->
     <div class="cover-page">
-      <div class="cover-overlay"></div>
-      
       <div class="cover-logo">
         <img src="<?php echo esc_url($logo); ?>" alt="<?php echo esc_attr($site); ?>" />
       </div>
       
-      <div class="cover-title-section">
-        <div class="cover-title"><?php echo esc_html($cover_title); ?></div>
-        <div class="cover-description"><?php echo nl2br(esc_html($cover_subtitle)); ?></div>
+      <div class="cover-left-text">
+        Experience Peace Of Mind<br>
+        Together With Us In Turkey.
       </div>
       
-      <div class="cover-footer">
-        <div class="cover-social">
-          <?php if ($social_instagram): ?>
-            <span>📷 <?php echo esc_html($social_instagram); ?></span>
-          <?php endif; ?>
-          <?php if ($social_youtube): ?>
-            <span>▶ <?php echo esc_html($social_youtube); ?></span>
-          <?php endif; ?>
-          <?php if ($social_twitter): ?>
-            <span>𝕏 <?php echo esc_html($social_twitter); ?></span>
-          <?php endif; ?>
-          <?php if ($social_facebook): ?>
-            <span>f <?php echo esc_html($social_facebook); ?></span>
-          <?php endif; ?>
-        </div>
-        <div class="cover-website"><?php echo esc_html($social_website); ?></div>
+      <div class="cover-title-section">
+        <div class="cover-title"><?php echo esc_html($package_title); ?></div>
+      </div>
+      
+      <div class="cover-bottom-right">
+        Healing Journey®
+      </div>
+      
+      <div class="cover-bottom-left">
+        Fener Mah. Fener Cd. No:11, Fener İş Merkezi, B2 Blok, kapı no:204 Muratpaşa/Antalya/TÜRKİYE
+      </div>
+      
+      <div class="cover-phone">
+        Tel. +90 555 086 91 12
       </div>
     </div>
     
     <!-- Content Pages -->
     <div class="content-page">
-    <div class="head">
-      <table cellpadding="0" cellspacing="0">
-        <tr>
-          <td class="head-left">
-            <span class="logo"><img src="<?php echo esc_url($logo); ?>" alt="<?php echo esc_attr($site); ?>" /></span>
-          </td>
-          <td class="head-right">
-            <div class="title"><?php echo esc_html($cover_title); ?></div>
-            <div class="muted">Updated: <?php echo esc_html($date); ?></div>
-          </td>
-        </tr>
-      </table>
+    
+    <div class="content-bottom-right">
+      Healing Journey®
     </div>
+    
+    <div class="content-bottom-left">
+      Fener Mah. Fener Cd. No:11, Fener İş Merkezi, B2 Blok, kapı no:204 Muratpaşa/Antalya/TÜRKİYE
+    </div>
+    
+    <div class="content-phone">
+      Tel. +90 555 086 91 12
+    </div>
+    
+    <div class="content-page-inner">
 
     <?php if (!empty($pkg['wysiwyg'])): ?>
       <div class="card"><?php echo apply_filters('the_content', $pkg['wysiwyg']); ?></div>
@@ -472,6 +542,7 @@ function hj_build_package_pdf_html($post_id){
         <?php endif; ?>
 
         <?php $ms = $pkg['medical'] ?? []; if(!empty($ms['intro']) || !empty($ms['list']) || !empty($ms['note'])): ?>
+          <div class="page-break"></div>
           <div class="sect"><?php echo esc_html($ms['title'] ?? 'Medical Suitability Assessment'); ?></div>
           <div class="card">
             <?php if(!empty($ms['intro'])): ?><p><?php echo wp_kses_post($ms['intro']); ?></p><?php endif; ?>
@@ -517,15 +588,7 @@ function hj_build_package_pdf_html($post_id){
           </div>
         <?php endif; ?>
     <?php endif; ?>
-
-    <div class="footer">
-      <div>Prices are indicative; final quote after consultation.</div>
-      <div style="margin-top:8px; font-weight:700;">Healing Journey®</div>
-      <div>Medical Travel Facilitator</div>
-      <div>Fener Mah. Fener Cd. No:11, Fener İş Merkezi, B2 Blok, kapı no:204 Muratpaşa/Antalya/TÜRKİYE</div>
-      <div>(Phone +90242 323 0112)</div>
-      <div>email: info@healingjourney.travel</div>
-    </div>
+    </div><!-- .content-page-inner -->
     </div><!-- .content-page -->
   </body>
   </html>
