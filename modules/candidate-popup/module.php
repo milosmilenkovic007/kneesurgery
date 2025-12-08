@@ -505,6 +505,26 @@ $uid = uniqid('hj-candidate-');
       });
     }
 
+    function showProgress(wrap, percent){
+      let prog = wrap.querySelector('.upload-progress');
+      if(!prog){
+        prog = document.createElement('div');
+        prog.className = 'upload-progress';
+        prog.innerHTML = '<div class="upload-progress-bar"></div><span class="upload-progress-text">Uploading...</span>';
+        wrap.appendChild(prog);
+      }
+      const bar = prog.querySelector('.upload-progress-bar');
+      const txt = prog.querySelector('.upload-progress-text');
+      if(bar) bar.style.width = percent + '%';
+      if(txt) txt.textContent = percent < 100 ? 'Uploading... ' + percent + '%' : 'Processing...';
+      prog.hidden = false;
+    }
+
+    function hideProgress(wrap){
+      const prog = wrap.querySelector('.upload-progress');
+      if(prog) prog.hidden = true;
+    }
+
     function applyPreview(wrap, fileOrBlob){
       const type = fileOrBlob.type || '';
       wrap.classList.add('has-preview');
@@ -522,13 +542,29 @@ $uid = uniqid('hj-candidate-');
       }
     }
 
-    async function uploadFile(file){
-      const fd = new FormData();
-      fd.append('action','hj_upload_candidate');
-      fd.append('_ajax_nonce','<?php echo esc_js( wp_create_nonce('hj_candidate_upload') ); ?>');
-      fd.append('file', file);
-      const res = await fetch('<?php echo esc_url( admin_url('admin-ajax.php') ); ?>', { method:'POST', body: fd });
-      return res.json();
+    async function uploadFile(file, onProgress){
+      return new Promise((resolve, reject)=>{
+        const fd = new FormData();
+        fd.append('action','hj_upload_candidate');
+        fd.append('_ajax_nonce','<?php echo esc_js( wp_create_nonce('hj_candidate_upload') ); ?>');
+        fd.append('file', file);
+        const xhr = new XMLHttpRequest();
+        xhr.upload.addEventListener('progress', (e)=>{
+          if(e.lengthComputable && onProgress){
+            const percent = Math.round((e.loaded / e.total) * 100);
+            onProgress(percent);
+          }
+        });
+        xhr.addEventListener('load', ()=>{
+          try{
+            const json = JSON.parse(xhr.responseText);
+            resolve(json);
+          }catch(err){ reject(err); }
+        });
+        xhr.addEventListener('error', ()=>reject(new Error('Upload failed')));
+        xhr.open('POST', '<?php echo esc_url( admin_url('admin-ajax.php') ); ?>');
+        xhr.send(fd);
+      });
     }
 
     // Bind change (Upload dialog)
@@ -538,6 +574,7 @@ $uid = uniqid('hj-candidate-');
         if(!file) return;
         const wrap = this.closest('.drop');
         let toSend = file;
+        showProgress(wrap, 0);
         // compress only images
         if(file.type && file.type.startsWith('image/')){
           const blob = await compressImage(file);
@@ -546,9 +583,10 @@ $uid = uniqid('hj-candidate-');
         // preview
         applyPreview(wrap, file);
         try{
-          const json = await uploadFile(toSend);
+          const json = await uploadFile(toSend, (percent)=>showProgress(wrap, percent));
           if(json && json.success && json.data){ wrap.dataset.attachmentId = json.data.id; if(json.data.url){ wrap.dataset.url = json.data.url; } }
-        }catch(err){ console.error('Upload error', err); }
+          hideProgress(wrap);
+        }catch(err){ console.error('Upload error', err); hideProgress(wrap); }
       });
     });
 
@@ -637,6 +675,7 @@ $uid = uniqid('hj-candidate-');
         const wrap = snap.closest('.drop');
         const video = wrap.querySelector('.cam video');
         try{
+          showProgress(wrap, 0);
           const w = video.videoWidth || 1280; const h = video.videoHeight || 720;
           const canvas = document.createElement('canvas');
           const max = 1280; const ratio = Math.min(max/w, max/h, 1);
@@ -646,9 +685,10 @@ $uid = uniqid('hj-candidate-');
           // preview & upload
           applyPreview(wrap, blob);
           const uploadFileObj = new File([blob], 'candidate.jpg', { type: 'image/jpeg' });
-          const json = await uploadFile(uploadFileObj);
+          const json = await uploadFile(uploadFileObj, (percent)=>showProgress(wrap, percent));
           if(json && json.success && json.data){ wrap.dataset.attachmentId = json.data.id; if(json.data.url){ wrap.dataset.url = json.data.url; } }
-        }catch(err){ console.error('Snap error', err); }
+          hideProgress(wrap);
+        }catch(err){ console.error('Snap error', err); hideProgress(wrap); }
         stopCamera(wrap);
         e.preventDefault();
       }

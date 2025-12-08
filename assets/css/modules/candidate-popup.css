@@ -86,6 +86,13 @@
 .hint { display:none !important; }
 .hj-error{color:#dc2626;text-align:center;margin:10px 0}
 
+/* Upload progress bar */
+.upload-progress{position:absolute;bottom:0;left:0;right:0;background:rgba(255,255,255,.95);padding:12px;display:flex;flex-direction:column;gap:6px;align-items:center;z-index:3;backdrop-filter:blur(4px)}
+.upload-progress-bar{width:100%;height:6px;border-radius:999px;background:#e7efff;overflow:hidden;position:relative}
+.upload-progress-bar::after{content:"";position:absolute;top:0;left:0;height:100%;width:0;background:var(--blue);border-radius:999px;transition:width .2s ease;box-shadow:0 0 8px rgba(59,130,246,.4)}
+.upload-progress[data-percent]>.upload-progress-bar::after{width:attr(data-percent)}
+.upload-progress-text{font-size:12px;color:var(--blue);font-weight:600}
+
 /* Simple tooltips for controls */
 .drop [data-tip]{position:relative}
 .drop [data-tip]::after{content:attr(data-tip);position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%);background:rgba(17,24,39,.9);color:#fff;font-size:10.5px;padding:4px 6px;border-radius:6px;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .15s;z-index:5}
