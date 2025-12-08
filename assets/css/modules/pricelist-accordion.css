@@ -375,3 +375,41 @@ line-height: 60px;
     font-size: 12px;
 }
 }
+
+/* Extra small mobile (iPhone 12 and smaller) - scale everything down */
+@media (max-width: 390px){
+    .hj-pricelist-accordion .hj-pa-wrap{margin:28px auto;padding:0 10px}
+    .hj-pa-title{font-size:24px;margin:0 0 12px}
+    .hj-pa-subtitle{font-size:16px;line-height:1.3;padding:0 8px}
+    .hj-pa-subtitles--cols{margin-top:18px}
+    .hj-pa-subtitles__col--left-toggle{padding:10px 0;font-size:13px;gap:4px}
+    .hj-pa-subtitles__col--left-toggle .toggle-arrow{font-size:14px}
+    .hj-pa-subtitles__col--left-content{padding:10px 12px}
+    .hj-pa-subtitles__col--left li{font-size:13px;gap:6px;margin-bottom:8px}
+    .hj-pa-subtitles__col--left li::before{width:16px;height:16px}
+    .hj-highlight{margin-bottom:14px;font-size:13px;padding:8px}
+    .bullets-title{font-size:13px}
+    .hj-pa-list{padding:14px 10px;gap:8px}
+    .hj-pa-section-intro{font-size:11px}
+    .hj-pa-item summary{padding:12px 10px;column-gap:8px}
+    .hj-pa-item .ind{width:24px;height:24px;font-size:15px}
+    .hj-pa-item .t{font-size:14px}
+    .hj-pa-item .price{font-size:14px}
+    .hj-pa-item .desc{padding:12px 10px;font-size:13px}
+    .hj-pa-mob-section{margin:12px 0 8px;padding:10px 12px;font-size:14px}
+    .hj-pa-mob-section::after{font-size:14px;right:12px}
+    .hj-package__title{font-size:20px}
+    .hj-package__subtitle{font-size:13px;margin:6px 0 0}
+    .hj-package__section-title{font-size:16px}
+    .hj-package__subheading{font-size:15px;margin:10px 0 5px}
+    .hj-package__list li{margin:6px 0;font-size:14px;gap:8px}
+    .hj-package__list .ic{width:16px;height:16px}
+    .hj-package__list .ic svg{width:16px;height:16px}
+    .hj-package__price-amount{font-size:20px}
+    .hj-package__price-note{font-size:12px;margin:6px 0 0}
+    .hj-package__cta{margin-top:16px}
+    .hj-package__cta-btn{padding:10px 20px;font-size:14px}
+    .hj-package__accordion summary{padding:10px 12px;font-size:14px}
+    .hj-package__body{padding:0 12px 12px;font-size:13px}
+    .hj-pa-package{padding:14px 12px}
+}

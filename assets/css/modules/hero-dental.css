@@ -167,3 +167,21 @@
         justify-content: center;
     }
 }
+
+/* Extra small mobile (iPhone 12 and smaller) - scale everything down */
+@media(max-width:390px){
+    .hj-hd-wrap{padding:20px;gap:16px}
+    .hj-hd-title{font-size:28px;margin:0 0 14px}
+    .hj-hd-intro{font-size:15px;margin:0 0 20px}
+    .hj-hd-bullets{margin:30px 0 30px;gap:10px}
+    .hj-hd-bullet{gap:8px}
+    .hj-hd-bullet .ic svg{width:18px;height:18px}
+    .hj-hd-bullet span{font-size:13px}
+    .hj-hd-cta .btn-primary{padding:12px 24px;font-size:15px}
+    .hj-hd-cta .note{font-size:12px}
+    .hj-hd-rating .stars{font-size:16px}
+    .hj-hd-rating .sub{font-size:13px;gap:8px}
+    .hj-hd-right{gap:10px}
+    .hj-hd-right .card{height:320px;border-radius:12px}
+    .hj-hd-right--three .card{height:200px}
+}
