@@ -188,6 +188,18 @@
 /* Mobile-only tweaks (do not affect desktop) */
 @media(max-width:640px){
   .hj-cand-step{max-width:520px}
+  .hj-cand-progress {
+    position: sticky;
+    top: 20px;
+    display: grid;
+    grid-template-columns: repeat(var(--cand-steps, 8), 1fr);
+    gap: 8px;
+    width: 70%;
+    max-width: 820px;
+    margin: 4px auto 18px;
+    padding: 0 12px;
+    z-index: 2;
+}
   .hj-cand-step .title{font-size:28px}
   /* Vertically center step 2 on small screens */
   .hj-cand-step[data-step="2"]{

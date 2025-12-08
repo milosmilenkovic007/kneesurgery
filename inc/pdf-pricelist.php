@@ -409,7 +409,7 @@ function hj_build_package_pdf_html($post_id){
       }
       .content-page-inner{
         /* Top/bottom spacing handled by @page content margins */
-        padding: 0 24mm 0 14mm;
+        padding: 0 24mm 120px 14mm;
         position: relative;
         z-index: 5;
         flex: 1;
@@ -462,6 +462,7 @@ function hj_build_package_pdf_html($post_id){
       .currency{ opacity:.85 }
       .footer{ text-align:center; font-size:11px; color:#374151; margin-top: 12px; padding-top: 8px; border-top:1px solid #e5e7eb; }
       p{ margin:5px 0; line-height:1.35; }
+      .page-break{ page-break-before: always; }
     </style>
   </head>
   <body>
@@ -542,7 +543,6 @@ function hj_build_package_pdf_html($post_id){
         <?php endif; ?>
 
         <?php $ms = $pkg['medical'] ?? []; if(!empty($ms['intro']) || !empty($ms['list']) || !empty($ms['note'])): ?>
-          <div class="page-break"></div>
           <div class="sect"><?php echo esc_html($ms['title'] ?? 'Medical Suitability Assessment'); ?></div>
           <div class="card">
             <?php if(!empty($ms['intro'])): ?><p><?php echo wp_kses_post($ms['intro']); ?></p><?php endif; ?>
@@ -550,6 +550,8 @@ function hj_build_package_pdf_html($post_id){
             <?php if(!empty($ms['note'])): ?><p class="note"><?php echo wp_kses_post($ms['note']); ?></p><?php endif; ?>
           </div>
         <?php endif; ?>
+
+        <div class="page-break"></div>
 
         <?php $ov = $pkg['overview'] ?? []; $v1 = $ov['visit1_list'] ?? []; $v2 = $ov['visit2_list'] ?? []; if(!empty($ov) && (!empty($v1) || !empty($v2) || !empty($ov['intro']))): ?>
           <div class="sect"><?php echo esc_html($ov['title'] ?? 'Package Overview'); ?></div>
@@ -574,6 +576,7 @@ function hj_build_package_pdf_html($post_id){
         <?php endif; ?>
 
         <?php $tr = $pkg['travel'] ?? []; if(!empty($tr['list'])): ?>
+          <div class="page-break"></div>
           <div class="sect"><?php echo esc_html($tr['title'] ?? 'Travel & Accommodation'); ?></div>
           <div class="card">
             <ul><?php foreach ($tr['list'] as $li): $t=is_array($li)?($li['text']??''):$li; if(!$t) continue; ?><li><?php echo esc_html($t); ?></li><?php endforeach; ?></ul>

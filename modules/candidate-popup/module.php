@@ -162,7 +162,7 @@ $uid = uniqid('hj-candidate-');
               }
             ?>
             <label class="drop" data-index="<?php echo esc_attr($i); ?>"<?php echo $style_attr; ?>>
-              <input type="file" accept="image/*" capture="environment" />
+                <input type="file" accept="image/*" />
               <span class="hint">Tap to add photo</span>
               <div class="cta">
                 <button type="button" class="btn-ghost open-camera" aria-label="Open camera" title="Take photo" data-tip="Take photo">
