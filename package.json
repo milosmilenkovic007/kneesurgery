@@ -1,0 +1,17 @@
+{
+  "name": "hello-elementor-child",
+  "version": "1.0.0",
+  "description": "Child theme for Hello Elementor",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "wordpress",
+    "theme"
+  ],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {},
+  "dependencies": {}
+}
