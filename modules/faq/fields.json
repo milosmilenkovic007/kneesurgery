@@ -1,0 +1,41 @@
+{
+  "key": "layout_hj_faq",
+  "name": "faq",
+  "label": "FAQ – Accordion",
+  "display": "block",
+  "sub_fields": [
+    { "key": "field_hj_faq_title", "label": "Title", "name": "title", "type": "text", "default_value": "Frequently Asked Questions" },
+    { "key": "field_hj_faq_items", "label": "Items", "name": "items", "type": "repeater", "button_label": "Add FAQ", "layout": "row", "collapsed": "field_hj_faq_question",
+      "default_value": [
+        {
+          "question": "How long will I need to stay in Turkey for knee replacement surgery?",
+          "answer": "The typical stay for knee replacement surgery in Turkey varies but is generally around 7 to 10 days. This duration allows for the post-surgery recovery period and initial follow-up consultations."
+        },
+        {
+          "question": "When can I return to work after knee surgery?",
+          "answer": "Return to work depends on individual factors, but many patients can expect to resume light activities and work within 4 to 6 weeks after hip replacement surgery. This timeline may vary based on the nature of the job and the pace of recovery."
+        },
+        {
+          "question": "How long will it take to recover and walk with ease?",
+          "answer": "Initial recovery and walking with ease usually begin in the first few weeks after surgery. However, complete recovery may take several months. Physical therapy and rehabilitation play a crucial role in restoring mobility and function."
+        },
+        {
+          "question": "What are the potential complications of knee replacement surgery?",
+          "answer": "While knee replacement is generally a safe procedure, potential complications include infection, blood clots, implant loosening, and dislocation. Your surgeon will discuss these risks and steps taken to minimize them during the pre-surgery consultation."
+        },
+        {
+          "question": "What is the cost for knee replacement? Do you have packages?",
+          "answer": "Since we provide customized treatments for every person, The cost of knee replacement or hip replacement price may vary. Please contact us for current packages. And yes, we can arrange anything related to your travel."
+        },
+        {
+          "question": "What kind of aftercare can I expect after my medical procedure in Turkey?",
+          "answer": "At Healing Journey\u00ae, we provide comprehensive aftercare to ensure a smooth and successful recovery. This includes follow-up consultations with your doctor, as well as access to 24/7 support and assistance. Our team will work with you to develop a personalized aftercare plan based on your individual needs and ensure that you receive the best possible care."
+        }
+      ],
+      "sub_fields": [
+        { "key": "field_hj_faq_question", "label": "Question", "name": "question", "type": "text", "required": 1 },
+        { "key": "field_hj_faq_answer", "label": "Answer", "name": "answer", "type": "textarea", "rows": 4 }
+      ]
+    }
+  ]
+}

@@ -1,9 +1,9 @@
-:root{--ls-border:#e6eaf1;--ls-text:#111827;--ls-blue:#60a5fa;--ls-gap:60px;--ls-speed:38s}
+:root{--ls-border:#e6eaf1;--ls-text:#111827;--ls-blue:#4951d5;--ls-gap:60px;--ls-speed:38s}
 .hj-logo-slider{margin:24px 0}
 .hj-logo-slider .hj-ls-wrap{max-width:1200px;margin:0 auto;padding:8px 0;display:flex;align-items:center;gap:30px}
 .hj-ls-head{flex:0 0 auto}
-.hj-ls-title{margin:0;font-size:34px;line-height:1.2;font-family:'Source Serif 4', serif;font-weight:600;color:var(--ls-text)}
-.hj-ls-title .accent-italic{font-style:italic;color:var(--ls-blue)}
+.hj-logo-slider .hj-cb-title{margin:0;font-size:34px;line-height:1.2;font-family:'Source Serif 4', serif;font-weight:600;color:var(--ls-text)}
+.hj-logo-slider .hj-cb-title .accent-italic{font-style:italic;color:var(--ls-blue)}
 .hj-ls-divider{width:1px;align-self:stretch;background:var(--ls-border)}
 .hj-ls-viewport{flex:1 1 auto;overflow:hidden;position:relative}
 .hj-ls-marquee{display:flex;gap:var(--ls-gap);animation:hj-ls-scroll var(--ls-speed) linear infinite}
@@ -24,7 +24,7 @@
   .hj-logo-slider .hj-ls-wrap{padding:0 16px;gap:14px;flex-direction:column;align-items:center}
   .hj-ls-head{width:100%;text-align:center}
   .hj-ls-viewport{width:100%}
-  .hj-ls-title{font-size:28px; margin-bottom: 20px;}
+  .hj-logo-slider .hj-cb-title{font-size:28px; margin-bottom: 20px;}
   .hj-ls-divider{display:none}
   :root{--ls-gap:28px}
   .hj-ls-item img{height: 50px;}

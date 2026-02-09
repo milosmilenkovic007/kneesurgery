@@ -1,12 +1,19 @@
 /*
  Theme Name: Hello Elementor Child
- Theme URI: https://example.com/
- Description: Child theme for Hello Elementor.
- Author: hj
- Author URI: https://example.com/
+ Theme URI: https://example.com/hello-elementor-child
+ Description: Child theme for Hello Elementor — custom single post layout (hero, sticky sidebar, related).
+ Author: Miloš Milenković
  Template: hello-elementor
  Version: 1.0.0
  Text Domain: hello-elementor-child
 */
 
-/* Add your child theme styles below */
+/* Optional base tweaks (safe to keep empty if you prefer) */
+:root{
+  --ortho-primary:#0b726d;
+  --ortho-text:#0b3b3a;
+}
+
+.hj-flex-h2{
+  font-size: 36px !important;
+}

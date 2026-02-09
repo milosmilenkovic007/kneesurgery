@@ -10,7 +10,7 @@ $subtitle_right_html = $module_subtitle_right ? wp_kses_post($module_subtitle_ri
 ?>
 <section class="hj-pricelist-accordion" id="<?php echo esc_attr($uid); ?>" aria-label="Pricelist">
   <div class="hj-pa-wrap">
-    <?php if ($module_title): ?><h2 class="hj-pa-title hj-hd-title"><?php echo esc_html($module_title); ?></h2><?php endif; ?>
+    <?php if ($module_title): ?><h2 class="hj-pa-title hj-hd-title hj-flex-h2"><?php echo esc_html($module_title); ?></h2><?php endif; ?>
     <?php if (!empty($module_subtitle)): ?>
       <p class="hj-pa-subtitle"><?php echo wp_kses_post($module_subtitle); ?></p>
     <?php endif; ?>
@@ -81,7 +81,7 @@ $subtitle_right_html = $module_subtitle_right ? wp_kses_post($module_subtitle_ri
                             if ($pt || $ps): ?>
                             <header class="hj-package__header">
                               <div class="hj-package__header-text">
-                                <?php if ($pt): ?><h2 class="hj-package__title"><?php echo esc_html($pt); ?></h2><?php endif; ?>
+                                <?php if ($pt): ?><h2 class="hj-package__title hj-flex-h2"><?php echo esc_html($pt); ?></h2><?php endif; ?>
                                 <?php if ($ps): ?><p class="hj-package__subtitle"><?php echo wp_kses_post(nl2br($ps)); ?></p><?php endif; ?>
                               </div>
                               <div class="hj-package__actions">

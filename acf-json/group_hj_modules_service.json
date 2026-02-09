@@ -1,9 +1,9 @@
 {
-    "key": "group_hj_modules_pricelist",
-    "title": "Page Modules",
+    "key": "group_hj_modules_service",
+    "title": "Service Modules",
     "fields": [
         {
-            "key": "field_hj_modules_fc",
+            "key": "field_hj_modules_fc_service",
             "label": "Modules",
             "name": "modules",
             "type": "flexible_content",
@@ -2072,9 +2072,9 @@
     "location": [
         [
             {
-                "param": "page_template",
+                "param": "post_type",
                 "operator": "==",
-                "value": "page-pricelist-dental.php"
+                "value": "service"
             }
         ]
     ],

@@ -1,0 +1,34 @@
+/* Colors inherit from single-ortho.css :root (blue scheme) */
+.odw-card{
+  background: linear-gradient(180deg, var(--ortho-bg), #eef0ff);
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+  padding: 18px;
+}
+
+.odw-media{
+  background:#eef1ff;
+  border-radius: 14px;
+  overflow:hidden;
+}
+.odw-media img{display:block;width:100%;height:auto;}
+.odw-media .odw-ph{height:220px;background:#dbe0ff;border-radius:12px;}
+
+.odw-body{padding:14px 6px 2px;text-align:left;}
+.odw-title{
+  margin:6px 0 10px;
+  font-weight:800;
+  color: var(--ortho-text);
+  font-size: 1.15rem;
+}
+.odw-btn{
+  display:flex;align-items:center;justify-content:center;
+  width:100%;
+  margin-top:8px;
+  padding:14px 18px;
+  border-radius:999px;
+  background: var(--ortho-primary);
+  color:#fff!important;text-decoration:none;font-weight:800;
+  box-shadow: 0 6px 22px rgba(72,81,213,.25);
+}
+.odw-btn:hover{filter:brightness(.96);}

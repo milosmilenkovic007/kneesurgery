@@ -29,7 +29,7 @@ foreach ($logos as $logo) {
   <div class="hj-ls-wrap">
     <div class="hj-ls-head">
       <?php if ($prefix || $accent): ?>
-        <h2 class="hj-ls-title hj-hd-title">
+        <h2 class="hj-cb-title">
           <?php if ($prefix): ?><span class="muted"><?php echo esc_html($prefix); ?></span> <?php endif; ?>
           <?php if ($accent): ?><span class="accent-italic"><?php echo esc_html($accent); ?></span><?php endif; ?>
         </h2>

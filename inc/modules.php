@@ -41,6 +41,27 @@ add_action('acf/init', function () {
 
     acf_add_local_field_group($group_array);
 
+    // Services: same modular flexible content field, attached to CPT "service"
+    $service_group_array = [
+        'key' => 'group_hj_modules_service',
+        'title' => 'Service Modules',
+        'fields' => [[
+            'key' => 'field_hj_modules_fc_service',
+            'label' => 'Modules',
+            'name' => 'modules',
+            'type' => 'flexible_content',
+            'button_label' => 'Add Module',
+            'layouts' => $layouts,
+        ]],
+        'location' => [[[ 'param' => 'post_type', 'operator' => '==', 'value' => 'service' ]]],
+        'position' => 'acf_after_title',
+        'style' => 'seamless',
+        'active' => true,
+        'modified' => time()
+    ];
+
+    acf_add_local_field_group($service_group_array);
+
     // Ensure local JSON sync is available and write current group to acf-json
     $json_dir = get_stylesheet_directory() . '/acf-json';
     if (!is_dir($json_dir)) { wp_mkdir_p($json_dir); }
@@ -48,6 +69,9 @@ add_action('acf/init', function () {
     if (is_writable($json_dir)) {
         // Write pretty JSON so it appears under ACF sync
         file_put_contents($json_file, wp_json_encode($group_array, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
+
+        $service_json_file = $json_dir . '/group_hj_modules_service.json';
+        file_put_contents($service_json_file, wp_json_encode($service_group_array, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
     }
 });
 
@@ -90,4 +114,35 @@ add_filter('acf/settings/save_json', function ($path) {
 add_filter('acf/settings/load_json', function ($paths) {
     $paths[] = get_stylesheet_directory() . '/acf-json';
     return $paths;
+});
+
+// Populate FluentForms select (CTA – Image + Form)
+add_filter('acf/load_field/key=field_hj_cfb_fluent_form_id', function ($field) {
+    $field['choices'] = [];
+
+    // FluentForms exposes wpFluent() in most installs.
+    if (!function_exists('wpFluent')) {
+        return $field;
+    }
+
+    try {
+        $forms = wpFluent()
+            ->table('fluentform_forms')
+            ->select(['id', 'title'])
+            ->orderBy('id', 'desc')
+            ->get();
+
+        if (is_array($forms)) {
+            foreach ($forms as $form) {
+                $id = is_object($form) ? ($form->id ?? null) : ($form['id'] ?? null);
+                $title = is_object($form) ? ($form->title ?? '') : ($form['title'] ?? '');
+                if (!$id) { continue; }
+                $field['choices'][(string) $id] = $title ? $title : ('Form #' . $id);
+            }
+        }
+    } catch (Throwable $e) {
+        // Leave choices empty if FluentForms isn't available or DB query fails.
+    }
+
+    return $field;
 });

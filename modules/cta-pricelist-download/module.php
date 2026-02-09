@@ -26,7 +26,7 @@ if ($generate){
   <div class="hj-cpd-wrap">
     <div class="content">
       <?php if ($title): ?>
-        <h2 class="hj-cpd-title hj-hd-title"><?php echo esc_html($title); ?></h2>
+        <h2 class="hj-cpd-title hj-hd-title hj-flex-h2"><?php echo esc_html($title); ?></h2>
       <?php endif; ?>
       <?php if ($subtitle): ?>
         <p class="hj-cpd-sub"><?php echo esc_html($subtitle); ?></p>

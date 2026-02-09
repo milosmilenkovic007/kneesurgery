@@ -1,0 +1,150 @@
+{
+  "key": "layout_hj_video_slider_sections",
+  "name": "video_slider_sections",
+  "label": "Video Slider + Sections",
+  "display": "block",
+  "sub_fields": [
+    {
+      "key": "field_hj_vss_videos",
+      "label": "Videos",
+      "name": "videos",
+      "type": "repeater",
+      "layout": "row",
+      "button_label": "Add Video",
+      "sub_fields": [
+        {
+          "key": "field_hj_vss_video_url",
+          "label": "Video URL",
+          "name": "url",
+          "type": "url",
+          "instructions": "Paste a direct .mp4/.webm link or a YouTube/Vimeo URL.",
+          "required": 1,
+          "wrapper": { "width": "60" }
+        },
+        {
+          "key": "field_hj_vss_video_poster",
+          "label": "Poster (optional)",
+          "name": "poster",
+          "type": "image",
+          "return_format": "array",
+          "preview_size": "medium",
+          "library": "all",
+          "wrapper": { "width": "40" }
+        },
+        {
+          "key": "field_hj_vss_video_caption",
+          "label": "Caption (optional)",
+          "name": "caption",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "key": "field_hj_vss_sections",
+      "label": "Sections",
+      "name": "sections",
+      "type": "repeater",
+      "layout": "block",
+      "button_label": "Add Section",
+      "sub_fields": [
+        {
+          "key": "field_hj_vss_heading",
+          "label": "Heading",
+          "name": "heading",
+          "type": "text",
+          "required": 1
+        },
+        {
+          "key": "field_hj_vss_section_type",
+          "label": "Section Type",
+          "name": "section_type",
+          "type": "radio",
+          "choices": {"content": "Content", "price": "Price"},
+          "default_value": "content",
+          "layout": "horizontal"
+        },
+        {
+          "key": "field_hj_vss_subheading",
+          "label": "Subheading (optional)",
+          "name": "subheading",
+          "type": "text",
+          "conditional_logic": [[{"field":"field_hj_vss_section_type","operator":"==","value":"content"}]]
+        },
+        {
+          "key": "field_hj_vss_content",
+          "label": "Content",
+          "name": "content",
+          "type": "wysiwyg",
+          "tabs": "all",
+          "toolbar": "basic",
+          "media_upload": 0,
+          "conditional_logic": [[{"field":"field_hj_vss_section_type","operator":"==","value":"content"}]]
+        },
+        {
+          "key": "field_hj_vss_button",
+          "label": "Button (optional)",
+          "name": "button",
+          "type": "link",
+          "return_format": "array",
+          "conditional_logic": [[{"field":"field_hj_vss_section_type","operator":"==","value":"content"}]]
+        },
+        {
+          "key": "field_hj_vss_included_title",
+          "label": "Included Title",
+          "name": "included_title",
+          "type": "text",
+          "conditional_logic": [[{"field":"field_hj_vss_section_type","operator":"==","value":"price"}]]
+        },
+        {
+          "key": "field_hj_vss_included_items",
+          "label": "Included Items",
+          "name": "included_items",
+          "type": "repeater",
+          "layout": "table",
+          "button_label": "Add Item",
+          "sub_fields": [
+            {"key": "field_hj_vss_included_item_text", "label": "Text", "name": "text", "type": "text", "required": 1}
+          ],
+          "conditional_logic": [[{"field":"field_hj_vss_section_type","operator":"==","value":"price"}]]
+        },
+        {
+          "key": "field_hj_vss_price",
+          "label": "Price",
+          "name": "price",
+          "type": "text",
+          "placeholder": "£4980",
+          "conditional_logic": [[{"field":"field_hj_vss_section_type","operator":"==","value":"price"}]]
+        },
+        {
+          "key": "field_hj_vss_price_note",
+          "label": "Price Note",
+          "name": "price_note",
+          "type": "text",
+          "placeholder": "(No hidden fees)",
+          "conditional_logic": [[{"field":"field_hj_vss_section_type","operator":"==","value":"price"}]]
+        },
+        {
+          "key": "field_hj_vss_price_button",
+          "label": "Price Button",
+          "name": "price_button",
+          "type": "link",
+          "return_format": "array",
+          "conditional_logic": [[{"field":"field_hj_vss_section_type","operator":"==","value":"price"}]]
+        },
+        {
+          "key": "field_hj_vss_rating",
+          "label": "Rating",
+          "name": "rating",
+          "type": "group",
+          "conditional_logic": [[{"field":"field_hj_vss_section_type","operator":"==","value":"price"}]],
+          "sub_fields": [
+            {"key": "field_hj_vss_rating_value", "label": "Stars (e.g. 5)", "name": "stars", "type": "number", "min": 0, "max": 5, "step": 0.5},
+            {"key": "field_hj_vss_rating_label", "label": "Label", "name": "label", "type": "text", "placeholder": "(5 Stars)"},
+            {"key": "field_hj_vss_reviews_count", "label": "Reviews Count", "name": "reviews_count", "type": "number", "min": 0},
+            {"key": "field_hj_vss_reviews_url", "label": "Reviews URL / Anchor", "name": "reviews_url", "type": "text", "placeholder": "https://… or #anchor"}
+          ]
+        }
+      ]
+    }
+  ]
+}

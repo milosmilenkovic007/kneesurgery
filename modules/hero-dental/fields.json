@@ -1,7 +1,7 @@
 {
   "key": "layout_hj_hero_dental",
   "name": "hero_dental",
-  "label": "Hero – Dental",
+  "label": "Hero",
   "display": "block",
   "sub_fields": [
     { "key": "field_hj_hd_title", "label": "Title", "name": "title", "type": "text", "placeholder": "Dental Care", "required": 1 },

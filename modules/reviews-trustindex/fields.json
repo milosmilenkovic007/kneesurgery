@@ -1,0 +1,10 @@
+{
+  "key": "layout_hj_reviews_trustindex",
+  "name": "reviews_trustindex",
+  "label": "Reviews – Trustindex",
+  "display": "block",
+  "sub_fields": [
+    { "key": "field_hj_rt_title", "label": "Title", "name": "title", "type": "text", "default_value": "Reviews" },
+    { "key": "field_hj_rt_shortcode", "label": "Shortcode", "name": "shortcode", "type": "text", "default_value": "[trustindex data-widget-id=c964936299834096b346c4f654e]" }
+  ]
+}

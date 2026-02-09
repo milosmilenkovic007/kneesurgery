@@ -1,0 +1,22 @@
+{
+  "key": "layout_hj_cta_form_block",
+  "name": "cta_form_block",
+  "label": "CTA – Image + Form",
+  "display": "block",
+  "sub_fields": [
+    { "key": "field_hj_cfb_image", "label": "Left Image", "name": "image", "type": "image", "return_format": "array", "preview_size": "medium" },
+    { "key": "field_hj_cfb_heading", "label": "Heading", "name": "heading", "type": "text", "required": 1, "default_value": "Ready to take the next step to" },
+    { "key": "field_hj_cfb_heading_accent", "label": "Heading (Accent)", "name": "heading_accent", "type": "text", "default_value": "a pain-free & mobile life?" },
+    { "key": "field_hj_cfb_subheading", "label": "Subheading", "name": "subheading", "type": "text", "default_value": "Let's find out together!" },
+    {
+      "key": "field_hj_cfb_fluent_form_id",
+      "label": "Fluent Form",
+      "name": "fluent_form_id",
+      "type": "select",
+      "ui": 1,
+      "allow_null": 1,
+      "choices": { "": "" },
+      "instructions": "Select a Fluent Form to render on the right side."
+    }
+  ]
+}

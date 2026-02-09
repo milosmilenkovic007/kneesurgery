@@ -44,7 +44,7 @@ $uid = uniqid('hj-candidate-');
 
     <!-- Step 1: Welcome -->
     <div class="hj-cand-step is-active" data-step="1">
-      <h2 id="<?php echo esc_attr($uid); ?>-title" class="title"><?php echo esc_html($w_title); ?></h2>
+      <h2 id="<?php echo esc_attr($uid); ?>-title" class="title hj-flex-h2"><?php echo esc_html($w_title); ?></h2>
       <?php if (!empty($w_logo['url'])): ?><div class="brand"><img src="<?php echo esc_url($w_logo['url']); ?>" alt="" /></div><?php endif; ?>
       <?php if ($w_sub): ?><p class="sub"><?php echo esc_html($w_sub); ?></p><?php endif; ?>
       <div class="actions">
@@ -54,7 +54,7 @@ $uid = uniqid('hj-candidate-');
 
     <!-- Step 2: Dental Needs Options + Description -->
     <div class="hj-cand-step" data-step="2" hidden>
-      <h2 class="title"><?php echo esc_html($q_title); ?></h2>
+      <h2 class="title hj-flex-h2"><?php echo esc_html($q_title); ?></h2>
       <?php if ($q_sub): ?><p class="sub"><?php echo esc_html($q_sub); ?></p><?php endif; ?>
       <div class="options">
         <?php foreach ($options as $i => $opt): $label = $opt['label'] ?? ''; $img = $opt['image'] ?? null; $src = $img['url'] ?? ''; ?>
@@ -80,7 +80,7 @@ $uid = uniqid('hj-candidate-');
 
     <!-- Step 3: Age -->
     <div class="hj-cand-step" data-step="3" hidden>
-      <h2 class="title"><?php echo esc_html($age_title); ?></h2>
+      <h2 class="title hj-flex-h2"><?php echo esc_html($age_title); ?></h2>
       <?php if($age_sub): ?><p class="sub"><?php echo esc_html($age_sub); ?></p><?php endif; ?>
       <div class="med-grid">
         <label class="med-field">
@@ -95,7 +95,7 @@ $uid = uniqid('hj-candidate-');
 
     <!-- Step 4: Chronic illnesses -->
     <div class="hj-cand-step" data-step="4" hidden>
-      <h2 class="title"><?php echo esc_html($chronic_title); ?></h2>
+      <h2 class="title hj-flex-h2"><?php echo esc_html($chronic_title); ?></h2>
       <?php if($chronic_sub): ?><p class="sub"><?php echo esc_html($chronic_sub); ?></p><?php endif; ?>
       <div class="med-grid">
         <div class="med-field">
@@ -114,7 +114,7 @@ $uid = uniqid('hj-candidate-');
 
     <!-- Step 5: Medications -->
     <div class="hj-cand-step" data-step="5" hidden>
-      <h2 class="title"><?php echo esc_html($meds_title); ?></h2>
+      <h2 class="title hj-flex-h2"><?php echo esc_html($meds_title); ?></h2>
       <?php if($meds_sub): ?><p class="sub"><?php echo esc_html($meds_sub); ?></p><?php endif; ?>
       <div class="med-grid">
         <div class="med-field">
@@ -133,7 +133,7 @@ $uid = uniqid('hj-candidate-');
 
     <!-- Step 6: Upload photos -->
     <div class="hj-cand-step" data-step="6" hidden>
-      <h2 class="title"><?php echo esc_html($u_title); ?></h2>
+      <h2 class="title hj-flex-h2"><?php echo esc_html($u_title); ?></h2>
       <?php if ($u_sub): ?><p class="sub"><?php echo esc_html($u_sub); ?></p><?php endif; ?>
       <div class="uploads">
         <?php 
@@ -197,7 +197,7 @@ $uid = uniqid('hj-candidate-');
 
     <!-- Step 7: X-ray (optional) -->
     <div class="hj-cand-step" data-step="7" hidden>
-      <h2 class="title"><?php echo esc_html($xray_title); ?></h2>
+      <h2 class="title hj-flex-h2"><?php echo esc_html($xray_title); ?></h2>
       <?php if($xray_sub): ?><p class="sub"><?php echo esc_html($xray_sub); ?></p><?php endif; ?>
       <div class="uploads uploads--single">
         <div class="upload-cell">
@@ -225,7 +225,7 @@ $uid = uniqid('hj-candidate-');
 
     <!-- Step 8: Booking / Submit -->
     <div class="hj-cand-step" data-step="8" hidden>
-      <h2 class="title"><?php echo esc_html($b_title); ?></h2>
+      <h2 class="title hj-flex-h2"><?php echo esc_html($b_title); ?></h2>
       <?php if ($b_sub): ?><p class="sub"><?php echo esc_html($b_sub); ?></p><?php endif; ?>
       <?php /* ACF CTA removed – we submit via Fluent Form button below */ ?>
 

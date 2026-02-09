@@ -51,7 +51,7 @@ $cards_html = hj_ag_render_cards($posts);
   <div class="hj-ag-wrap">
     <div class="hj-ag-head">
       <?php if ($title): ?>
-        <h2 class="hj-ag-title hj-hd-title">
+        <h2 class="hj-ag-title hj-hd-title hj-flex-h2">
           <span class="accent" aria-hidden="true"></span><?php echo esc_html($title); ?>
         </h2>
       <?php endif; ?>
