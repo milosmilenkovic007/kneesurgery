@@ -98,6 +98,11 @@ add_action('wp_enqueue_scripts', function () {
     wp_enqueue_style('ortho-single', get_stylesheet_directory_uri() . '/assets/css/single-ortho.css', ['hello-elementor-child'], $child_ver);
     wp_enqueue_script('ortho-single', get_stylesheet_directory_uri() . '/assets/js/single-ortho.js', [], $child_ver, true);
   }
+
+  // Load Doctor single assets only on doctor pages
+  if (is_singular('doctor')) {
+    wp_enqueue_style('doctor-single', get_stylesheet_directory_uri() . '/assets/css/single-doctor.css', ['hello-elementor-child'], $child_ver);
+  }
 }, 20);
 
 // -----------------------------------------------------------------------------
@@ -158,29 +163,36 @@ add_action('admin_enqueue_scripts', function ($hook) {
 // -----------------------------------------------------------------------------
 require_once get_stylesheet_directory() . '/inc/acf-options.php';
 require_once get_stylesheet_directory() . '/inc/modules.php';
+require_once get_stylesheet_directory() . '/inc/articles-grid-ajax.php';
+require_once get_stylesheet_directory() . '/inc/doctors.php';
+
+// Admin/editor tweaks for the Price List template (includes Gutenberg disable)
+if (is_admin()) {
+  require_once get_stylesheet_directory() . '/inc/pricelist-setup.php';
+}
 
 // -----------------------------------------------------------------------------
-//  CPT: Services
+//  CPT: Treatments (post_type key remains "service")
 // -----------------------------------------------------------------------------
 add_action('init', function () {
   $labels = [
-    'name'                  => __('Services', 'hello-elementor-child'),
-    'singular_name'         => __('Service', 'hello-elementor-child'),
-    'menu_name'             => __('Services', 'hello-elementor-child'),
-    'name_admin_bar'        => __('Service', 'hello-elementor-child'),
+    'name'                  => __('Treatments', 'hello-elementor-child'),
+    'singular_name'         => __('Treatment', 'hello-elementor-child'),
+    'menu_name'             => __('Treatments', 'hello-elementor-child'),
+    'name_admin_bar'        => __('Treatment', 'hello-elementor-child'),
     'add_new'               => __('Add New', 'hello-elementor-child'),
-    'add_new_item'          => __('Add New Service', 'hello-elementor-child'),
-    'new_item'              => __('New Service', 'hello-elementor-child'),
-    'edit_item'             => __('Edit Service', 'hello-elementor-child'),
-    'view_item'             => __('View Service', 'hello-elementor-child'),
-    'all_items'             => __('All Services', 'hello-elementor-child'),
-    'search_items'          => __('Search Services', 'hello-elementor-child'),
-    'not_found'             => __('No services found.', 'hello-elementor-child'),
-    'not_found_in_trash'    => __('No services found in Trash.', 'hello-elementor-child'),
-    'featured_image'        => __('Service Image', 'hello-elementor-child'),
-    'set_featured_image'    => __('Set service image', 'hello-elementor-child'),
-    'remove_featured_image' => __('Remove service image', 'hello-elementor-child'),
-    'use_featured_image'    => __('Use as service image', 'hello-elementor-child'),
+    'add_new_item'          => __('Add New Treatment', 'hello-elementor-child'),
+    'new_item'              => __('New Treatment', 'hello-elementor-child'),
+    'edit_item'             => __('Edit Treatment', 'hello-elementor-child'),
+    'view_item'             => __('View Treatment', 'hello-elementor-child'),
+    'all_items'             => __('All Treatments', 'hello-elementor-child'),
+    'search_items'          => __('Search Treatments', 'hello-elementor-child'),
+    'not_found'             => __('No treatments found.', 'hello-elementor-child'),
+    'not_found_in_trash'    => __('No treatments found in Trash.', 'hello-elementor-child'),
+    'featured_image'        => __('Treatment Image', 'hello-elementor-child'),
+    'set_featured_image'    => __('Set treatment image', 'hello-elementor-child'),
+    'remove_featured_image' => __('Remove treatment image', 'hello-elementor-child'),
+    'use_featured_image'    => __('Use as treatment image', 'hello-elementor-child'),
   ];
 
   $args = [
@@ -188,9 +200,9 @@ add_action('init', function () {
     'public' => true,
     'show_in_rest' => true,
     'menu_icon' => 'dashicons-clipboard',
-    'has_archive' => true,
+    'has_archive' => 'treatments',
     'rewrite' => [
-      'slug' => 'services',
+      'slug' => 'treatments',
       'with_front' => false,
     ],
     'supports' => ['title', 'editor', 'thumbnail', 'excerpt', 'revisions'],
@@ -202,11 +214,125 @@ add_action('init', function () {
 });
 
 // -----------------------------------------------------------------------------
-//  Editor: disable Gutenberg for Services (ACF Modules only)
+//  CPT: Doctors
+// -----------------------------------------------------------------------------
+add_action('init', function () {
+  $labels = [
+    'name'                  => __('Doctors', 'hello-elementor-child'),
+    'singular_name'         => __('Doctor', 'hello-elementor-child'),
+    'menu_name'             => __('Doctors', 'hello-elementor-child'),
+    'name_admin_bar'        => __('Doctor', 'hello-elementor-child'),
+    'add_new'               => __('Add New', 'hello-elementor-child'),
+    'add_new_item'          => __('Add New Doctor', 'hello-elementor-child'),
+    'new_item'              => __('New Doctor', 'hello-elementor-child'),
+    'edit_item'             => __('Edit Doctor', 'hello-elementor-child'),
+    'view_item'             => __('View Doctor', 'hello-elementor-child'),
+    'all_items'             => __('All Doctors', 'hello-elementor-child'),
+    'search_items'          => __('Search Doctors', 'hello-elementor-child'),
+    'not_found'             => __('No doctors found.', 'hello-elementor-child'),
+    'not_found_in_trash'    => __('No doctors found in Trash.', 'hello-elementor-child'),
+    'featured_image'        => __('Doctor Photo', 'hello-elementor-child'),
+    'set_featured_image'    => __('Set doctor photo', 'hello-elementor-child'),
+    'remove_featured_image' => __('Remove doctor photo', 'hello-elementor-child'),
+    'use_featured_image'    => __('Use as doctor photo', 'hello-elementor-child'),
+  ];
+
+  $args = [
+    'labels' => $labels,
+    'public' => true,
+    'show_in_rest' => true,
+    'menu_icon' => 'dashicons-id',
+    'has_archive' => 'doctors',
+    'rewrite' => [
+      'slug' => 'doctors',
+      'with_front' => false,
+    ],
+    'supports' => ['title', 'thumbnail', 'revisions'],
+    'hierarchical' => false,
+    'show_in_nav_menus' => true,
+  ];
+
+  register_post_type('doctor', $args);
+});
+
+// Taxonomy: Treatment Categories (hierarchical)
+add_action('init', function () {
+  $labels = [
+    'name'              => __('Treatment Categories', 'hello-elementor-child'),
+    'singular_name'     => __('Treatment Category', 'hello-elementor-child'),
+    'search_items'      => __('Search Treatment Categories', 'hello-elementor-child'),
+    'all_items'         => __('All Treatment Categories', 'hello-elementor-child'),
+    'parent_item'       => __('Parent Treatment Category', 'hello-elementor-child'),
+    'parent_item_colon' => __('Parent Treatment Category:', 'hello-elementor-child'),
+    'edit_item'         => __('Edit Treatment Category', 'hello-elementor-child'),
+    'update_item'       => __('Update Treatment Category', 'hello-elementor-child'),
+    'add_new_item'      => __('Add New Treatment Category', 'hello-elementor-child'),
+    'new_item_name'     => __('New Treatment Category Name', 'hello-elementor-child'),
+    'menu_name'         => __('Treatment Categories', 'hello-elementor-child'),
+  ];
+
+  $args = [
+    'hierarchical'      => true,
+    'labels'            => $labels,
+    'show_ui'           => true,
+    'show_admin_column' => true,
+    'query_var'         => true,
+    'show_in_rest'      => true,
+    'rewrite'           => [
+      'slug' => 'treatment-category',
+      'with_front' => false,
+      'hierarchical' => true,
+    ],
+  ];
+
+  register_taxonomy('treatment_category', ['service'], $args);
+});
+
+// One-time rewrite flush after changing CPT slug (theme has no activation hook).
+add_action('admin_init', function () {
+  if (!current_user_can('manage_options')) {
+    return;
+  }
+  $key = 'hj_rewrite_flushed_treatments_20260217';
+  if (get_option($key) === '1') {
+    return;
+  }
+  flush_rewrite_rules(false);
+  update_option($key, '1');
+});
+
+// One-time rewrite flush for Doctors permalinks.
+add_action('admin_init', function () {
+  if (!current_user_can('manage_options')) {
+    return;
+  }
+  $key = 'hj_rewrite_flushed_doctors_20260217';
+  if (get_option($key) === '1') {
+    return;
+  }
+  flush_rewrite_rules(false);
+  update_option($key, '1');
+});
+
+// One-time rewrite flush for the taxonomy permalinks.
+add_action('admin_init', function () {
+  if (!current_user_can('manage_options')) {
+    return;
+  }
+  $key = 'hj_rewrite_flushed_treatment_category_20260217';
+  if (get_option($key) === '1') {
+    return;
+  }
+  flush_rewrite_rules(false);
+  update_option($key, '1');
+});
+
+// -----------------------------------------------------------------------------
+//  Editor: disable Gutenberg for Treatments (ACF Modules only)
 // -----------------------------------------------------------------------------
 add_filter('use_block_editor_for_post', function ($use_block_editor, $post) {
   if (!$post) { return $use_block_editor; }
-  if ($post->post_type === 'service') {
+  if (in_array($post->post_type, ['service', 'doctor'], true)) {
     return false;
   }
   return $use_block_editor;
@@ -215,7 +341,7 @@ add_filter('use_block_editor_for_post', function ($use_block_editor, $post) {
 // Back-compat: older Gutenberg filter name
 add_filter('gutenberg_can_edit_post', function ($can_edit, $post) {
   if (!$post) { return $can_edit; }
-  if (!empty($post->post_type) && $post->post_type === 'service') {
+  if (!empty($post->post_type) && in_array($post->post_type, ['service', 'doctor'], true)) {
     return false;
   }
   return $can_edit;

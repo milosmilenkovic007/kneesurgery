@@ -32,7 +32,11 @@ add_action('acf/init', function () {
             'button_label' => 'Add Module',
             'layouts' => $layouts,
         ]],
-        'location' => [[[ 'param' => 'page_template', 'operator' => '==', 'value' => 'page-pricelist-dental.php' ]]],
+        'location' => [
+            [[ 'param' => 'page_template', 'operator' => '==', 'value' => 'page-pricelist.php' ]],
+            // Back-compat for pages still assigned to the legacy template filename.
+            [[ 'param' => 'page_template', 'operator' => '==', 'value' => 'page-pricelist-dental.php' ]],
+        ],
         'position' => 'acf_after_title',
         'style' => 'seamless',
         'active' => true,
@@ -41,10 +45,10 @@ add_action('acf/init', function () {
 
     acf_add_local_field_group($group_array);
 
-    // Services: same modular flexible content field, attached to CPT "service"
+    // Treatments: same modular flexible content field, attached to CPT "service"
     $service_group_array = [
         'key' => 'group_hj_modules_service',
-        'title' => 'Service Modules',
+        'title' => 'Treatment Modules',
         'fields' => [[
             'key' => 'field_hj_modules_fc_service',
             'label' => 'Modules',

@@ -122,6 +122,12 @@
     grid-template-columns:1fr 1fr;
     gap:20px;
 }
+.hj-hd-right--single{
+    grid-template-columns:1fr;
+}
+.hj-hd-right--single .card{
+    height:520px;
+}
 .hj-hd-right--three{grid-template-columns:1fr 1fr 1fr}
 .hj-hd-right--three .card{height:520px}
 .hj-hd-right .card{
@@ -155,12 +161,14 @@
     .hj-hd-right{gap:14px}
     .hj-hd-right--three{grid-template-columns:1fr 1fr 1fr}
     .hj-hd-right--three .card{height:280px}
+    .hj-hd-right--single .card{height:360px}
 }
 
 /* Small mobile: keep three images side by side */
 @media(max-width:600px){
     .hj-hd-right--three{grid-template-columns:1fr 1fr 1fr}
     .hj-hd-right--three .card{height:240px}
+    .hj-hd-right--single .card{height:320px}
     .hj-hd-title {
         font-size: 32px;
     }
@@ -190,4 +198,5 @@
     .hj-hd-right{gap:10px}
     .hj-hd-right .card{height:320px;border-radius:12px}
     .hj-hd-right--three .card{height:200px}
+    .hj-hd-right--single .card{height:280px}
 }

@@ -36,7 +36,9 @@
 }
 
 .hj-cta-form-block .iti__selected-country{
-  padding: 2px;
+  background-color: transparent !important;
+  border: none !important;
+  padding: 0 !important;
 }
 
 /* FluentForms: make select height match other controls */

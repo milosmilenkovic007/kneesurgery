@@ -7,6 +7,37 @@ $currency = get_sub_field('currency') ?: '€';
 $sections = get_sub_field('sections') ?: [];
 $uid = uniqid('hj-pa-');
 $subtitle_right_html = $module_subtitle_right ? wp_kses_post($module_subtitle_right) : '';
+
+$render_desc = static function ($raw_desc) {
+  $raw_desc = is_string($raw_desc) ? trim($raw_desc) : '';
+  if ($raw_desc === '') {
+    return '';
+  }
+
+  $lines = preg_split('/\r\n|\r|\n/', $raw_desc);
+  $items = [];
+  foreach ($lines as $line) {
+    $line = trim((string) $line);
+    if ($line === '') {
+      continue;
+    }
+    // Remove common bullet markers (e.g. "- " or "• ")
+    $line = preg_replace('/^\s*(?:[-*\x{2022}\x{2013}\x{2014}]\s+)/u', '', $line);
+    $items[] = $line;
+  }
+
+  // If user entered multiple lines, render as bullets.
+  if (count($items) >= 2) {
+    $html = '<ul class="hj-pa-desc-list">';
+    foreach ($items as $text) {
+      $html .= '<li>' . esc_html($text) . '</li>';
+    }
+    $html .= '</ul>';
+    return $html;
+  }
+
+  return '<p>' . esc_html($items[0] ?? $raw_desc) . '</p>';
+};
 ?>
 <section class="hj-pricelist-accordion" id="<?php echo esc_attr($uid); ?>" aria-label="Pricelist">
   <div class="hj-pa-wrap">
@@ -36,10 +67,48 @@ $subtitle_right_html = $module_subtitle_right ? wp_kses_post($module_subtitle_ri
     <?php endif; ?>
 
     <?php if (!empty($sections)): ?>
-      <div class="hj-pa-tabs">
+      <?php
+        $first_i = null;
+        $has_package_tab = false;
+        foreach ($sections as $i => $section) {
+          $st = $section['section_title'] ?? '';
+          if (!$st) {
+            continue;
+          }
+          $is_package = !empty($section['package_view']);
+          $items = $section['items'] ?? [];
+          $has_content = $is_package || (!empty($items));
+          if (!$has_content) {
+            continue;
+          }
+
+          if ($first_i === null) {
+            $first_i = $i;
+          }
+          if ($is_package) {
+            $has_package_tab = true;
+          }
+        }
+
+        $tabs_cls = 'hj-pa-tabs' . ($has_package_tab ? ' hj-pa-tabs--has-package' : '');
+      ?>
+      <div class="<?php echo esc_attr($tabs_cls); ?>">
         <div class="tab-list" role="tablist" aria-label="Price sections">
-          <?php foreach ($sections as $i => $section): $st = $section['section_title'] ?? ''; if (!$st) continue; ?>
-            <button type="button" class="tab <?php echo $i===0? 'is-active' : ''; ?>" role="tab" id="<?php echo esc_attr($uid.'-tab-'.$i); ?>" aria-controls="<?php echo esc_attr($uid.'-panel-'.$i); ?>" aria-selected="<?php echo $i===0? 'true':'false'; ?>">
+          <?php foreach ($sections as $i => $section):
+            $st = $section['section_title'] ?? '';
+            if (!$st) {
+              continue;
+            }
+            $is_package = !empty($section['package_view']);
+            $items = $section['items'] ?? [];
+            $has_content = $is_package || (!empty($items));
+            if (!$has_content) {
+              continue;
+            }
+            $is_active = ($first_i !== null && $i === $first_i);
+            $tab_cls = 'tab' . ($is_active ? ' is-active' : '') . ($is_package ? ' is-package' : '');
+          ?>
+            <button type="button" class="<?php echo esc_attr($tab_cls); ?>" role="tab" id="<?php echo esc_attr($uid.'-tab-'.$i); ?>" aria-controls="<?php echo esc_attr($uid.'-panel-'.$i); ?>" aria-selected="<?php echo $is_active ? 'true':'false'; ?>">
               <?php echo esc_html($st); ?>
             </button>
           <?php endforeach; ?>
@@ -54,8 +123,9 @@ $subtitle_right_html = $module_subtitle_right ? wp_kses_post($module_subtitle_ri
             $has_content = $is_package || (!empty($items));
             if (!$has_content) continue;
           ?>
-            <div class="tab-panel <?php echo $i===0? 'is-active' : ''; ?>" role="tabpanel" id="<?php echo esc_attr($uid.'-panel-'.$i); ?>" aria-labelledby="<?php echo esc_attr($uid.'-tab-'.$i); ?>" <?php echo $i===0? '' : 'hidden'; ?>>
-              <?php if ($st): ?><button type="button" class="hj-pa-mob-section" aria-expanded="<?php echo $i===0? 'true':'false'; ?>"><?php echo esc_html($st); ?></button><?php endif; ?>
+            <?php $is_active = ($first_i !== null && $i === $first_i); ?>
+            <div class="tab-panel <?php echo $is_active ? 'is-active' : ''; ?>" role="tabpanel" id="<?php echo esc_attr($uid.'-panel-'.$i); ?>" aria-labelledby="<?php echo esc_attr($uid.'-tab-'.$i); ?>" <?php echo $is_active ? '' : 'hidden'; ?>>
+              <?php if ($st): ?><button type="button" class="hj-pa-mob-section" aria-expanded="<?php echo $is_active ? 'true':'false'; ?>"><?php echo esc_html($st); ?></button><?php endif; ?>
 
               <?php if ($is_package): ?>
                 <div class="hj-pa-list hj-pa-package">
@@ -356,7 +426,7 @@ $subtitle_right_html = $module_subtitle_right ? wp_kses_post($module_subtitle_ri
                             <span class="price"><span class="curr"><?php echo esc_html($currency); ?></span><span class="amt"><?php echo esc_html($p); ?></span></span>
                           <?php endif; ?>
                         </summary>
-                        <?php if ($d): ?><div class="desc"><p><?php echo esc_html($d); ?></p></div><?php endif; ?>
+                        <?php if ($d): ?><div class="desc"><?php echo $render_desc($d); ?></div><?php endif; ?>
                       </details>
                     </li>
                   <?php $idx++; endforeach; ?>

@@ -82,7 +82,13 @@ list($t1, $t2) = hj_hd_split_title($title);
     </div>
 
     <?php $layout = $media['layout'] ?? 'grid4'; ?>
-    <?php if ($layout === 'three'): ?>
+    <?php if ($layout === 'single'): ?>
+      <div class="hj-hd-right hj-hd-right--single">
+        <?php if (!empty($media['single_image'])): $img = $media['single_image']; ?>
+          <img class="card" src="<?php echo esc_url($img['url']); ?>" alt="<?php echo esc_attr($img['alt']); ?>">
+        <?php endif; ?>
+      </div>
+    <?php elseif ($layout === 'three'): ?>
       <div class="hj-hd-right hj-hd-right--three">
         <?php if (!empty($media['img1'])): $img = $media['img1']; ?>
           <img class="card" src="<?php echo esc_url($img['url']); ?>" alt="<?php echo esc_attr($img['alt']); ?>">

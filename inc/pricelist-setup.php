@@ -112,7 +112,7 @@ add_action('admin_print_footer_scripts', function(){
 add_filter('use_block_editor_for_post', function ($use_block_editor, $post) {
 	if (!$post) { return $use_block_editor; }
 	$template = get_page_template_slug($post);
-	if ($template === 'page-pricelist-dental.php') {
+	if (in_array($template, ['page-pricelist.php', 'page-pricelist-dental.php'], true)) {
 		return false; // use Classic editor (or ACF only)
 	}
 	return $use_block_editor;
@@ -122,7 +122,7 @@ add_filter('use_block_editor_for_post', function ($use_block_editor, $post) {
 add_filter('gutenberg_can_edit_post', function ($can_edit, $post) {
 	if (!$post) { return $can_edit; }
 	$template = get_page_template_slug($post);
-	if ($template === 'page-pricelist-dental.php') {
+	if (in_array($template, ['page-pricelist.php', 'page-pricelist-dental.php'], true)) {
 		return false;
 	}
 	return $can_edit;

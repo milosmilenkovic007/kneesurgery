@@ -1,0 +1,123 @@
+{
+    "key": "group_hj_doctors",
+    "title": "Doctor Details",
+    "fields": [
+        {
+            "key": "field_hj_doctor_title",
+            "label": "Title",
+            "name": "doctor_title",
+            "type": "text",
+            "instructions": "Example: Professor of Orthopedics",
+            "required": 0
+        },
+        {
+            "key": "field_hj_doctor_short_bio",
+            "label": "Short Bio",
+            "name": "short_bio",
+            "type": "textarea",
+            "rows": 4,
+            "new_lines": "br",
+            "required": 0
+        },
+        {
+            "key": "field_hj_doctor_education",
+            "label": "Education",
+            "name": "education",
+            "type": "repeater",
+            "button_label": "Add Item",
+            "layout": "table",
+            "sub_fields": [
+                {
+                    "key": "field_hj_doctor_education_item",
+                    "label": "Item",
+                    "name": "item",
+                    "type": "textarea",
+                    "rows": 2,
+                    "new_lines": "br",
+                    "required": 1
+                }
+            ]
+        },
+        {
+            "key": "field_hj_doctor_medical_expertise",
+            "label": "Medical Expertise",
+            "name": "medical_expertise",
+            "type": "repeater",
+            "button_label": "Add Item",
+            "layout": "table",
+            "sub_fields": [
+                {
+                    "key": "field_hj_doctor_medical_expertise_item",
+                    "label": "Item",
+                    "name": "item",
+                    "type": "textarea",
+                    "rows": 2,
+                    "new_lines": "br",
+                    "required": 1
+                }
+            ]
+        },
+        {
+            "key": "field_hj_doctor_clinical_focus",
+            "label": "Clinical Focus",
+            "name": "clinical_focus",
+            "type": "repeater",
+            "button_label": "Add Item",
+            "layout": "table",
+            "sub_fields": [
+                {
+                    "key": "field_hj_doctor_clinical_focus_item",
+                    "label": "Item",
+                    "name": "item",
+                    "type": "textarea",
+                    "rows": 2,
+                    "new_lines": "br",
+                    "required": 1
+                }
+            ]
+        },
+        {
+            "key": "field_hj_doctor_current_position",
+            "label": "Current Position",
+            "name": "current_position",
+            "type": "textarea",
+            "rows": 3,
+            "new_lines": "br",
+            "required": 0,
+            "instructions": "Example: Private Clinic\\nMedstar Hospital, Antalya"
+        },
+        {
+            "key": "field_hj_doctor_treatments",
+            "label": "Treatments",
+            "name": "treatments",
+            "type": "relationship",
+            "instructions": "Select related Treatments for this doctor.",
+            "post_type": [
+                "service"
+            ],
+            "taxonomy": [],
+            "filters": [
+                "search"
+            ],
+            "elements": [
+                "featured_image"
+            ],
+            "return_format": "id",
+            "min": 0,
+            "max": 0
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "doctor"
+            }
+        ]
+    ],
+    "position": "acf_after_title",
+    "style": "seamless",
+    "active": true,
+    "modified": 1771356582
+}

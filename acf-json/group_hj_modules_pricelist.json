@@ -20,7 +20,7 @@
                             "label": "Module Title",
                             "name": "title",
                             "type": "text",
-                            "placeholder": "Dental care articles"
+                            "placeholder": "Articles"
                         },
                         {
                             "key": "field_hj_ag_mode",
@@ -893,7 +893,7 @@
                             "label": "Title",
                             "name": "title",
                             "type": "text",
-                            "placeholder": "Dental Care",
+                            "placeholder": "Title",
                             "required": 1
                         },
                         {
@@ -1000,7 +1000,8 @@
                                     "type": "radio",
                                     "choices": {
                                         "grid4": "4-Image Grid",
-                                        "three": "Three Portrait Images"
+                                        "three": "Three Portrait Images",
+                                        "single": "Single Image"
                                     },
                                     "default_value": "grid4",
                                     "layout": "horizontal"
@@ -1116,6 +1117,22 @@
                                             }
                                         ]
                                     ]
+                                },
+                                {
+                                    "key": "field_hj_hd_img_single",
+                                    "label": "Single Image",
+                                    "name": "single_image",
+                                    "type": "image",
+                                    "return_format": "array",
+                                    "conditional_logic": [
+                                        [
+                                            {
+                                                "field": "field_hj_hd_media_layout",
+                                                "operator": "==",
+                                                "value": "single"
+                                            }
+                                        ]
+                                    ]
                                 }
                             ]
                         }
@@ -1204,7 +1221,7 @@
                             "label": "Module Title",
                             "name": "module_title",
                             "type": "text",
-                            "placeholder": "Dental Care Pricelist"
+                            "placeholder": "Price List"
                         },
                         {
                             "key": "field_hj_pa_subtitle",
@@ -1783,6 +1800,29 @@
                         }
                     ]
                 },
+                "layout_hj_related_doctors": {
+                    "key": "layout_hj_related_doctors",
+                    "name": "related_doctors",
+                    "label": "Doctors \u2013 Related",
+                    "display": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_hj_rd_title",
+                            "label": "Title",
+                            "name": "title",
+                            "type": "text",
+                            "placeholder": "Our Doctors"
+                        },
+                        {
+                            "key": "field_hj_rd_intro",
+                            "label": "Intro",
+                            "name": "intro",
+                            "type": "textarea",
+                            "rows": 2,
+                            "placeholder": "Meet the doctors for this treatment."
+                        }
+                    ]
+                },
                 "layout_hj_reviews_trustindex": {
                     "key": "layout_hj_reviews_trustindex",
                     "name": "reviews_trustindex",
@@ -2074,6 +2114,13 @@
             {
                 "param": "page_template",
                 "operator": "==",
+                "value": "page-pricelist.php"
+            }
+        ],
+        [
+            {
+                "param": "page_template",
+                "operator": "==",
                 "value": "page-pricelist-dental.php"
             }
         ]
@@ -2081,5 +2128,5 @@
     "position": "acf_after_title",
     "style": "seamless",
     "active": true,
-    "modified": 1770668994
+    "modified": 1771356582
 }

@@ -45,7 +45,7 @@ get_header();
         </nav>
       <?php else : ?>
         <div class="hj-services-archive__empty">
-          <p><?php esc_html_e('No services found.', 'hello-elementor-child'); ?></p>
+          <p><?php esc_html_e('No treatments found.', 'hello-elementor-child'); ?></p>
         </div>
       <?php endif; ?>
     </div>

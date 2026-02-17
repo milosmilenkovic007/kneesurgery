@@ -1,0 +1,35 @@
+:root{--hj-card-radius:14px;--hj-border:#e5e7eb;--hj-text:#111827;--hj-muted:#6b7280;--hj-blue:#3b82f6;--hj-shadow:0 8px 30px rgba(15,23,42,.06)}
+
+.hj-related-doctors{margin:24px 0}
+.hj-related-doctors .hj-rd-wrap{max-width:1200px;margin:40px auto;padding:0 16px}
+.hj-rd-title{margin:0 0 10px;text-align:center}
+.hj-rd-intro{margin:0 0 26px;text-align:center;color:var(--hj-muted)}
+
+.hj-rd-grid{
+  display:grid;
+  grid-template-columns:repeat(3, minmax(0, 340px));
+  justify-content:center;
+  gap:22px;
+}
+
+.hj-rd-card{background:#fff;border:1px solid var(--hj-border);border-radius:var(--hj-card-radius);box-shadow:var(--hj-shadow);overflow:hidden}
+.hj-rd-card__link{display:flex;flex-direction:column;color:inherit;text-decoration:none;height:100%}
+.hj-rd-card__media{margin:0;aspect-ratio:4/5;overflow:hidden;background:#fff}
+.hj-rd-card__media img{width:100%;height:100%;object-fit:cover;object-position:center 18%;display:block}
+.hj-rd-card__name{margin:18px 18px 8px;font-size:22px;line-height:1.15;color:var(--hj-text);text-align:center}
+.hj-rd-card__title{margin:0 18px 20px;color:var(--hj-muted);font-size:12px;letter-spacing:.12em;text-transform:uppercase;text-align:center;line-height:1.2;min-height:20px}
+.hj-rd-card__bio{margin:0 18px 18px;color:var(--hj-muted);font-size:14px;line-height:1.6;text-align:center}
+.hj-rd-card__btn{display:inline-flex;align-items:center;justify-content:center;margin:0 auto 18px;padding:12px 18px;border-radius:14px;border:1px solid var(--hj-border);background:#fff;color:var(--hj-text);font-weight:600;font-size:14px}
+
+.hj-rd-card__link:hover .hj-rd-card__name{color:var(--hj-blue)}
+.hj-rd-card__link:hover .hj-rd-card__btn{border-color:var(--hj-blue);color:var(--hj-blue)}
+
+@media (max-width: 1200px){
+  .hj-rd-grid{grid-template-columns:repeat(3, minmax(0, 320px));gap:18px}
+}
+@media (max-width: 980px){
+  .hj-rd-grid{grid-template-columns:repeat(2, minmax(0, 340px));justify-content:center}
+}
+@media (max-width: 640px){
+  .hj-rd-grid{grid-template-columns:minmax(0, 360px);justify-content:center}
+}
