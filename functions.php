@@ -247,12 +247,174 @@ add_action('init', function () {
       'slug' => 'doctors',
       'with_front' => false,
     ],
-    'supports' => ['title', 'thumbnail', 'revisions'],
+    'supports' => ['title', 'thumbnail', 'revisions', 'page-attributes'],
     'hierarchical' => false,
     'show_in_nav_menus' => true,
   ];
 
   register_post_type('doctor', $args);
+});
+
+// -----------------------------------------------------------------------------
+//  Doctors reorder (drag & drop) for service page related-doctors block
+// -----------------------------------------------------------------------------
+add_action('admin_menu', function () {
+  add_submenu_page(
+    'edit.php?post_type=doctor',
+    __('Reorder Doctors', 'hello-elementor-child'),
+    __('Reorder', 'hello-elementor-child'),
+    'edit_posts',
+    'hj-reorder-doctors',
+    'hj_render_reorder_doctors_page'
+  );
+});
+
+function hj_render_reorder_doctors_page() {
+  if (!current_user_can('edit_posts')) {
+    wp_die(esc_html__('You do not have permission to access this page.', 'hello-elementor-child'));
+  }
+
+  wp_enqueue_script('jquery-ui-sortable');
+
+  $doctors = get_posts([
+    'post_type' => 'doctor',
+    'post_status' => ['publish', 'draft', 'pending', 'private'],
+    'posts_per_page' => -1,
+    'orderby' => [
+      'menu_order' => 'ASC',
+      'title' => 'ASC',
+    ],
+    'order' => 'ASC',
+  ]);
+
+  $nonce = wp_create_nonce('hj_doctors_reorder');
+  ?>
+  <div class="wrap">
+    <h1><?php esc_html_e('Reorder Doctors', 'hello-elementor-child'); ?></h1>
+    <p><?php esc_html_e('Drag and drop doctors to set display order for the Service page related doctors block.', 'hello-elementor-child'); ?></p>
+
+    <ul id="hj-doctors-sortable" style="max-width:760px; margin-top:16px;">
+      <?php foreach ($doctors as $doctor): ?>
+        <li class="hj-doctor-item" data-id="<?php echo esc_attr($doctor->ID); ?>" style="background:#fff; border:1px solid #dcdcde; padding:10px 12px; margin-bottom:8px; cursor:move;">
+          <?php echo esc_html($doctor->post_title ?: __('(no title)', 'hello-elementor-child')); ?>
+        </li>
+      <?php endforeach; ?>
+    </ul>
+
+    <p>
+      <button type="button" class="button button-primary" id="hj-save-doctors-order"><?php esc_html_e('Save order', 'hello-elementor-child'); ?></button>
+      <span id="hj-order-status" style="margin-left:8px;"></span>
+    </p>
+  </div>
+
+  <script>
+    jQuery(function ($) {
+      var $list = $('#hj-doctors-sortable');
+      var $status = $('#hj-order-status');
+
+      if ($list.length) {
+        $list.sortable({
+          axis: 'y',
+          placeholder: 'ui-state-highlight'
+        });
+      }
+
+      $('#hj-save-doctors-order').on('click', function () {
+        var ids = $list.find('.hj-doctor-item').map(function () {
+          return $(this).data('id');
+        }).get();
+
+        $status.text('<?php echo esc_js(__('Saving...', 'hello-elementor-child')); ?>');
+
+        $.post(ajaxurl, {
+          action: 'hj_save_doctors_order',
+          nonce: '<?php echo esc_js($nonce); ?>',
+          ids: ids
+        })
+        .done(function (response) {
+          if (response && response.success) {
+            $status.text('<?php echo esc_js(__('Saved.', 'hello-elementor-child')); ?>');
+          } else {
+            $status.text('<?php echo esc_js(__('Error while saving order.', 'hello-elementor-child')); ?>');
+          }
+        })
+        .fail(function () {
+          $status.text('<?php echo esc_js(__('Request failed.', 'hello-elementor-child')); ?>');
+        });
+      });
+    });
+  </script>
+  <?php
+}
+
+add_action('wp_ajax_hj_save_doctors_order', function () {
+  if (!current_user_can('edit_posts')) {
+    wp_send_json_error(['message' => 'Forbidden'], 403);
+  }
+
+  check_ajax_referer('hj_doctors_reorder', 'nonce');
+
+  $ids = isset($_POST['ids']) ? (array) $_POST['ids'] : [];
+  $ids = array_values(array_filter(array_map('intval', $ids)));
+
+  foreach ($ids as $index => $id) {
+    if (get_post_type($id) !== 'doctor') {
+      continue;
+    }
+
+    wp_update_post([
+      'ID' => $id,
+      'menu_order' => $index,
+    ]);
+  }
+
+  wp_send_json_success();
+});
+
+// Doctors admin list: show and sort by display order (menu_order).
+add_filter('manage_edit-doctor_columns', function ($columns) {
+  $new_columns = [];
+
+  foreach ($columns as $key => $label) {
+    $new_columns[$key] = $label;
+
+    if ($key === 'title') {
+      $new_columns['doctor_order'] = __('Order', 'hello-elementor-child');
+    }
+  }
+
+  if (!isset($new_columns['doctor_order'])) {
+    $new_columns['doctor_order'] = __('Order', 'hello-elementor-child');
+  }
+
+  return $new_columns;
+});
+
+add_action('manage_doctor_posts_custom_column', function ($column, $post_id) {
+  if ($column !== 'doctor_order') {
+    return;
+  }
+
+  echo (int) get_post_field('menu_order', $post_id);
+}, 10, 2);
+
+add_filter('manage_edit-doctor_sortable_columns', function ($columns) {
+  $columns['doctor_order'] = 'menu_order';
+  return $columns;
+});
+
+add_action('pre_get_posts', function ($query) {
+  if (!is_admin() || !$query->is_main_query()) {
+    return;
+  }
+
+  if ($query->get('post_type') !== 'doctor') {
+    return;
+  }
+
+  if ($query->get('orderby') === 'menu_order') {
+    $query->set('orderby', ['menu_order' => 'ASC', 'title' => 'ASC']);
+  }
 });
 
 // Taxonomy: Treatment Categories (hierarchical)
