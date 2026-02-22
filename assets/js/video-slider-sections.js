@@ -110,6 +110,37 @@
       INSTANCES.push({ root, wrap, rightCol, isActive });
       bindGlobalWheel();
     }
+
+    // Main accordion: allow only one open at a time
+    const mainAccordions = Array.from(root.querySelectorAll('.hj-vss-main-accordion'));
+    if (mainAccordions.length) {
+      mainAccordions.forEach((acc) => {
+        acc.addEventListener('toggle', () => {
+          if (!acc.open) return;
+          mainAccordions.forEach((other) => {
+            if (other !== acc) {
+              other.open = false;
+            }
+          });
+        });
+      });
+    }
+
+    // Inner accordions: only one open per list, default closed in markup
+    const innerLists = Array.from(root.querySelectorAll('.hj-vss-accordion'));
+    innerLists.forEach((list) => {
+      const items = Array.from(list.querySelectorAll('details'));
+      items.forEach((acc) => {
+        acc.addEventListener('toggle', () => {
+          if (!acc.open) return;
+          items.forEach((other) => {
+            if (other !== acc) {
+              other.open = false;
+            }
+          });
+        });
+      });
+    });
   }
 
   document.addEventListener('DOMContentLoaded', () => {

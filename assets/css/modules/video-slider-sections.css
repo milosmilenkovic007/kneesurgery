@@ -9,6 +9,13 @@
 .hj-vss{
   margin: 36px 0;
   padding: 40px 0;
+  --pa-radius:14px;
+  --pa-border:#e5e7eb;
+  --pa-muted:#6b7280;
+  --pa-text:#111827;
+  --pa-blue:#3b82f6;
+  --pa-card:#fff;
+  --pa-shadow:0 8px 30px rgba(15,23,42,.06);
 }
 
 .hj-vss-wrap{
@@ -140,24 +147,40 @@
   border-bottom: 0;
 }
 
-.hj-vss .hj-cb-title{
+.hj-vss-main-accordion{
+  padding: 8px 0 22px;
+}
+.hj-vss-main-summary{
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  list-style: none;
   margin: 0 0 12px;
-  font-size: clamp(28px, 2.6vw, 36px);
-  line-height: 1.15;
+}
+.hj-vss-main-summary::-webkit-details-marker{display:none}
+.hj-vss-main-ind{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 8px;
+  border: 1px solid var(--vss-border);
+  color: var(--vss-accent);
+  font-weight: 700;
+  line-height: 1;
+  flex: 0 0 auto;
+}
+.hj-vss-main-accordion > summary .hj-vss-main-ind::before{content:"+"}
+.hj-vss-main-accordion[open] > summary .hj-vss-main-ind::before{content:"-"}
+
+.hj-vss .hj-cb-title{
+  margin: 0;
+  font-size: clamp(22px, 2.2vw, 28px);
+  line-height: 1.2;
   color: var(--vss-text);
   font-family: 'Source Serif 4', serif;
-  display: flex;
-  gap: 14px;
-  align-items: flex-start;
-}
-
-.hj-vss-accent{
-  width: 4px;
-  height: 34px;
-  border-radius: 999px;
-  background: var(--vss-accent);
-  margin-top: 6px;
-  flex: 0 0 auto;
 }
 
 .hj-vss-subheading{
@@ -169,9 +192,10 @@
 
 .hj-vss-included-title{
   margin: 0 0 12px;
-  font-size: 18px;
-  font-style: italic;
-  color: var(--vss-text);
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 600;
+  color: var(--pa-text);
 }
 
 .hj-vss-included-list{
@@ -187,8 +211,9 @@
   display: flex;
   align-items: flex-start;
   gap: 10px;
-  color: var(--vss-muted);
-  font-size: 16px;
+  color: var(--pa-muted);
+  font-size: 14px;
+  line-height: 1.6;
 }
 
 .hj-vss-included-item .ic svg{ width: 20px; height: 20px; }
@@ -201,14 +226,15 @@
 }
 
 .hj-vss-price{
-  font-size: 30px;
-  font-weight: 700;
-  color: var(--vss-accent);
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--pa-text);
 }
 
 .hj-vss-price-note{
-  color: var(--vss-text);
-  font-style: italic;
+  color: var(--pa-muted);
+  font-style: normal;
+  font-size: 14px;
 }
 
 .hj-vss-content{
@@ -221,6 +247,37 @@
 .hj-vss-content p:last-child{ margin-bottom: 0; }
 
 .hj-vss-content strong{ font-weight: 700; }
+
+.hj-vss-box{
+  background:#fff;
+  border-radius:14px;
+  box-shadow:var(--pa-shadow);
+  padding:20px 20px;
+}
+
+/* Accordion (same classes as pricelist-accordion) */
+.hj-vss .hj-pa-list{
+  list-style:none;
+  margin:0 0 10px;
+  padding:20px 20px;
+  display:grid;
+  gap:10px;
+  background:#fff;
+  border-radius:14px;
+  box-shadow:var(--pa-shadow);
+}
+.hj-vss .hj-pa-item details{background:var(--pa-card);border:1px solid var(--pa-border);border-radius:var(--pa-radius);box-shadow:var(--pa-shadow)}
+.hj-vss .hj-pa-item summary{cursor:pointer;display:flex;align-items:center;gap:10px;padding:14px 16px;list-style:none}
+.hj-vss .hj-pa-item summary::-webkit-details-marker{display:none}
+.hj-vss .hj-pa-item .ind{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:6px;margin-right:2px;color:var(--pa-blue);font-weight:700;line-height:1}
+.hj-vss .hj-pa-item details summary .ind::before{content:"+"}
+.hj-vss .hj-pa-item details[open] summary .ind::before{content:"-"}
+.hj-vss .hj-pa-item .t{font-weight:600;color:var(--pa-text)}
+.hj-vss .hj-pa-item .dots{flex:1 1 auto;height:1px;border-bottom:1px dashed var(--pa-blue);opacity:.7}
+.hj-vss .hj-pa-item .desc{padding:14px 16px 14px;color:var(--pa-muted);font-size:14px}
+.hj-vss .hj-pa-item .desc p{margin:0 0 12px}
+.hj-vss .hj-pa-item .desc p:last-child{margin-bottom:0}
+.hj-vss .hj-pa-item .desc ul{margin:0 0 10px 18px}
 
 .hj-vss-cta-row{
   margin-top: 14px;
@@ -292,6 +349,6 @@
     padding: 0 10%;
   }
   .hj-vss-slide{ flex-basis: 100%; }
-  .hj-vss .hj-cb-title{ font-size: 24px; }
+  .hj-vss .hj-cb-title{ font-size: 22px; }
   .hj-vss-content{ font-size: 16px; }
 }

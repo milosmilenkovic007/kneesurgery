@@ -28,12 +28,15 @@ if (!$q->have_posts()) {
 ?>
 <section class="hj-related-doctors" aria-label="Related doctors">
   <div class="hj-rd-wrap">
-    <?php if ($title): ?>
-      <h2 class="hj-rd-title hj-flex-h2"><?php echo esc_html($title); ?></h2>
-    <?php endif; ?>
-
-    <?php if ($intro): ?>
-      <p class="hj-rd-intro"><?php echo wp_kses_post($intro); ?></p>
+    <?php if ($title || $intro): ?>
+      <div class="hj-cb-header">
+        <?php if ($title): ?>
+          <h2 class="hj-cb-title"><?php echo esc_html($title); ?></h2>
+        <?php endif; ?>
+        <?php if ($intro): ?>
+          <p class="hj-cb-subheading"><?php echo wp_kses_post($intro); ?></p>
+        <?php endif; ?>
+      </div>
     <?php endif; ?>
 
     <div class="hj-rd-grid">
