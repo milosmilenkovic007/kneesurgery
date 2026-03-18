@@ -46,14 +46,6 @@
       return;
     }
 
-    var firstOpen = items.find(function (item) {
-      return item.open;
-    });
-
-    if (firstOpen) {
-      keepItemInView(firstOpen);
-    }
-
     items.forEach(function (item) {
       item.addEventListener('toggle', function () {
         if (!item.open) {
