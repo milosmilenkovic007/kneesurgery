@@ -50,6 +50,7 @@
       clearModal(modalBody);
       modal.hidden = true;
       document.body.classList.remove('hj-pjm-modal-open');
+      document.documentElement.classList.remove('hj-pjm-modal-open');
     }
 
     openButton.addEventListener('click', function () {
@@ -64,10 +65,21 @@
       modalBody.appendChild(media);
       modal.hidden = false;
       document.body.classList.add('hj-pjm-modal-open');
+      document.documentElement.classList.add('hj-pjm-modal-open');
     });
 
     closeButtons.forEach(function (button) {
-      button.addEventListener('click', closeModal);
+      button.addEventListener('click', function (event) {
+        event.preventDefault();
+        event.stopPropagation();
+        closeModal();
+      });
+
+      button.addEventListener('touchend', function (event) {
+        event.preventDefault();
+        event.stopPropagation();
+        closeModal();
+      }, { passive: false });
     });
 
     document.addEventListener('keydown', function (event) {

@@ -328,6 +328,12 @@ body.hj-pjm-modal-open{
   overflow:hidden;
 }
 
+html.hj-pjm-modal-open,
+body.hj-pjm-modal-open{
+  overflow:hidden;
+  overscroll-behavior:none;
+}
+
 @media (max-width: 1100px){
   .hj-patient-journey-media{
     max-width:none;
@@ -339,6 +345,14 @@ body.hj-pjm-modal-open{
     gap:36px;
     align-items:start;
     padding:0 24px;
+  }
+
+  .hj-pjm-content-col{
+    order:1;
+  }
+
+  .hj-pjm-media-col{
+    order:2;
   }
 
   .hj-pjm-media-col{
@@ -366,8 +380,9 @@ body.hj-pjm-modal-open{
     margin-top:0;
   }
 
-  .hj-pjm-title{
-    font-size:clamp(34px, 5.2vw, 46px) !important;
+  .hj-patient-journey-media .hj-pjm-title{
+    font-size:clamp(32px, 6.8vw, 46px) !important;
+    line-height:1.14 !important;
   }
 
   .hj-pjm-content-col{
@@ -377,20 +392,81 @@ body.hj-pjm-modal-open{
 
 @media (max-width: 767px){
   .hj-pjm-modal{
-    padding:64px 14px 20px;
+    width:100dvw;
+    max-width:100dvw;
+    display:grid;
+    place-items:end center;
+    padding:0;
+    overflow:hidden;
   }
 
   .hj-pjm-modal__dialog{
     width:100%;
-    border-radius:14px;
+    max-width:100dvw;
+    height:100dvh;
+    min-height:100dvh;
+    margin:0;
+    display:grid;
+    align-items:end;
+    justify-items:center;
+    border-radius:0;
+    border:0;
+    background:#000;
+    box-shadow:none;
+    overflow:visible;
   }
 
   .hj-pjm-modal__close{
-    right:14px;
-    top:14px;
-    width:38px;
-    height:38px;
-    font-size:28px;
+    position:absolute !important;
+    right:12px;
+    top:calc(env(safe-area-inset-top, 0px) + 12px);
+    z-index:10020;
+    width:44px;
+    height:44px;
+    font-size:30px;
+    background:rgba(10, 12, 20, .84);
+    border:1px solid rgba(255,255,255,.22);
+    pointer-events:auto;
+    touch-action:manipulation;
+  }
+
+  .hj-pjm-modal__body{
+    width:100%;
+    max-width:100dvw;
+    height:calc(100dvh - 76px);
+    min-height:calc(100dvh - 76px);
+    aspect-ratio:auto;
+    display:grid;
+    place-items:end center;
+    background:#000;
+    overflow:hidden;
+  }
+
+  .hj-pjm-modal__body iframe,
+  .hj-pjm-modal__body video{
+    display:block;
+    margin:0 auto;
+  }
+
+  .hj-pjm-modal__body iframe{
+    width:100%;
+    max-width:100dvw;
+    height:100%;
+    justify-self:center;
+    align-self:end;
+  }
+
+  .hj-pjm-modal__body video{
+    width:auto !important;
+    height:auto !important;
+    max-width:100%;
+    max-height:calc(100dvh - 76px);
+    position:relative;
+    left:50%;
+    transform:translateX(-50%);
+    justify-self:center;
+    align-self:end;
+    object-fit:contain;
   }
 
   .hj-pjm-wrap{
@@ -414,8 +490,9 @@ body.hj-pjm-modal-open{
     margin-top:0;
   }
 
-  .hj-pjm-title{
-    font-size:32px !important;
+  .hj-patient-journey-media .hj-pjm-title{
+    font-size:clamp(24px, 9.1vw, 34px) !important;
+    line-height:1.08 !important;
   }
 
   .hj-pjm-actions{
@@ -430,5 +507,11 @@ body.hj-pjm-modal-open{
     left:14px;
     right:14px;
     bottom:14px;
+  }
+}
+
+@media (max-width: 420px){
+  .hj-patient-journey-media .hj-pjm-title{
+    font-size:clamp(22px, 8.8vw, 30px) !important;
   }
 }
