@@ -63,7 +63,7 @@ add_action('template_redirect', function(){
  */
 function hj_build_pricelist_pdf_html($post_id){
     $site = get_bloginfo('name');
-    $doc_title = 'Healing Journey® - Dental Care Price List';
+  $doc_title = 'Healing Journey® - Price List';
     $date = date_i18n(get_option('date_format'));
   $logo = get_stylesheet_directory_uri() . '/assets/img/HealingJourney-logo.svg';
   $currency = '€';
@@ -172,7 +172,7 @@ function hj_build_pricelist_pdf_html($post_id){
         <div class="sect"><?php echo esc_html($st); ?></div>
         <div class="card">
           <table>
-            <thead><tr><th>Service</th><th class="price">Price</th></tr></thead>
+            <thead><tr><th>Treatment</th><th class="price">Price</th></tr></thead>
             <tbody>
               <?php foreach ($items as $it): $t = $it['item_title'] ?? ''; if (!$t) continue; $p = $it['item_price'] ?? ''; $d = $it['item_desc'] ?? ''; ?>
                 <tr>
@@ -196,7 +196,7 @@ function hj_build_pricelist_pdf_html($post_id){
         <div class="sect"><?php echo esc_html($st); ?></div>
         <div class="card">
           <table>
-            <thead><tr><th>Service</th><th class="price">Price</th></tr></thead>
+            <thead><tr><th>Treatment</th><th class="price">Price</th></tr></thead>
             <tbody>
               <?php foreach ($items as $it): $t = $it['item_title'] ?? ''; if (!$t) continue; $p = $it['item_price'] ?? ''; $d = $it['item_desc'] ?? ''; ?>
                 <tr>

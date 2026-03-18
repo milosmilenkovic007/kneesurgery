@@ -55,13 +55,24 @@
           "required": 1
         },
         {
+          "key": "field_hj_vss_enable_accordion",
+          "label": "Enable Accordion",
+          "name": "enable_accordion",
+          "type": "true_false",
+          "ui": 1,
+          "default_value": 1,
+          "message": "Render this section as accordion",
+          "wrapper": { "width": "30" }
+        },
+        {
           "key": "field_hj_vss_section_type",
           "label": "Section Type",
           "name": "section_type",
           "type": "radio",
           "choices": {"content": "Content", "price": "Price"},
           "default_value": "content",
-          "layout": "horizontal"
+          "layout": "horizontal",
+          "wrapper": { "width": "70" }
         },
         {
           "key": "field_hj_vss_subheading",

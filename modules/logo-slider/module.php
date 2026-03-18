@@ -2,7 +2,23 @@
 $prefix = trim((string) get_sub_field('title_prefix'));
 $accent = trim((string) get_sub_field('title_accent'));
 $logos  = get_sub_field('logos') ?: [];
+$bg_color = (string) get_sub_field('bg_color');
+$padding_top = get_sub_field('padding_top');
+$padding_bottom = get_sub_field('padding_bottom');
 $uid = uniqid('hj-ls-');
+
+$style_vars = [];
+if ($bg_color) {
+  $style_vars[] = '--ls-bg:' . sanitize_hex_color($bg_color);
+}
+if ($padding_top !== '' && $padding_top !== null) {
+  $style_vars[] = '--ls-pt:' . (int) $padding_top . 'px';
+}
+if ($padding_bottom !== '' && $padding_bottom !== null) {
+  $style_vars[] = '--ls-pb:' . (int) $padding_bottom . 'px';
+}
+
+$section_style = $style_vars ? ' style="' . esc_attr(implode(';', $style_vars)) . '"' : '';
 
 // Normalize logos to array: [ url, alt, href, maxw ]
 $items = [];
@@ -25,7 +41,7 @@ foreach ($logos as $logo) {
 }
 ?>
 
-<section class="hj-logo-slider" id="<?php echo esc_attr($uid); ?>" aria-label="Logo Slider">
+<section class="hj-logo-slider" id="<?php echo esc_attr($uid); ?>" aria-label="Logo Slider"<?php echo $section_style; ?>>
   <div class="hj-ls-wrap">
     <div class="hj-ls-head">
       <?php if ($prefix || $accent): ?>

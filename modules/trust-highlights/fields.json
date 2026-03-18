@@ -1,0 +1,52 @@
+{
+  "key": "layout_hj_trust_highlights",
+  "name": "trust_highlights",
+  "label": "Trust Highlights",
+  "display": "block",
+  "sub_fields": [
+    {
+      "key": "field_hj_th_bg_color",
+      "label": "Background Color",
+      "name": "bg_color",
+      "type": "color_picker",
+      "default_value": "#4d55dd"
+    },
+    {
+      "key": "field_hj_th_items",
+      "label": "Items",
+      "name": "items",
+      "type": "repeater",
+      "layout": "table",
+      "button_label": "Add Item",
+      "min": 1,
+      "max": 6,
+      "sub_fields": [
+        {
+          "key": "field_hj_th_item_icon",
+          "label": "Icon",
+          "name": "icon",
+          "type": "image",
+          "return_format": "array",
+          "preview_size": "thumbnail",
+          "required": 1
+        },
+        {
+          "key": "field_hj_th_item_title",
+          "label": "Title",
+          "name": "title",
+          "type": "text",
+          "required": 1,
+          "placeholder": "Expert Doctors"
+        },
+        {
+          "key": "field_hj_th_item_description",
+          "label": "Description",
+          "name": "description",
+          "type": "textarea",
+          "rows": 3,
+          "placeholder": "Surgeons with long experience and proven success."
+        }
+      ]
+    }
+  ]
+}

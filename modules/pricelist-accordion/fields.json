@@ -4,7 +4,7 @@
   "label": "Pricelist – Accordion",
   "display": "block",
   "sub_fields": [
-    { "key": "field_hj_pa_title", "label": "Module Title", "name": "module_title", "type": "text", "placeholder": "Dental Care Pricelist" },
+    { "key": "field_hj_pa_title", "label": "Module Title", "name": "module_title", "type": "text", "placeholder": "Price List" },
     { "key": "field_hj_pa_subtitle", "label": "Module Subtitle", "name": "module_subtitle", "type": "text", "placeholder": "Optional subtitle under the main title" },
     { "key": "field_hj_pa_subtitle_left", "label": "Left Column (HTML)", "name": "module_subtitle_left", "type": "wysiwyg", "tabs": "visual,text", "toolbar": "basic", "media_upload": 0, "wrapper": {"width": "50"}, "instructions": "Left column content (supports HTML). If both left and right are filled, subtitle above will be ignored." },
     { "key": "field_hj_pa_subtitle_right", "label": "Right Column (HTML)", "name": "module_subtitle_right", "type": "wysiwyg", "tabs": "visual,text", "toolbar": "basic", "media_upload": 0, "wrapper": {"width": "50"}, "instructions": "Right column content (supports HTML). If both left and right are filled, subtitle above will be ignored." },

@@ -141,6 +141,13 @@
 .ff-wrap label{font-weight:600;color:var(--text);font-size:15px;margin-bottom:8px;display:block}
 .ff-wrap .ff-btn-submit{display:none !important}
 
+/* FluentForms: remove Elementor Kit background from phone country selector */
+.ff-wrap .iti__selected-country{
+  background-color: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+}
+
 /* Unified input styling inside popup */
 .hj-candidate input[type=date],
 .hj-candidate input[type=email],

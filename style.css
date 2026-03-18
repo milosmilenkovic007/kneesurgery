@@ -17,3 +17,44 @@
 .hj-flex-h2{
   font-size: 36px !important;
 }
+
+
+
+/* -------------------------------------------------------------------------- */
+/* Header menu: keep items in a single line (Elementor/Hello header)           */
+/* -------------------------------------------------------------------------- */
+@media (min-width: 1025px){
+  .elementor-location-header .elementor-nav-menu--main .elementor-nav-menu__container,
+  .elementor-location-header .elementor-nav-menu--main .elementor-nav-menu{
+    flex-wrap: nowrap !important;
+  }
+
+  .elementor-location-header .elementor-nav-menu--main .elementor-nav-menu > li{
+    flex: 0 0 auto;
+  }
+
+  .elementor-location-header .elementor-nav-menu--main .elementor-item{
+    white-space: nowrap;
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+  }
+
+  /* Dropdown submenu (ElementsKit): wider + single-line items + separators */
+  .elementor-135 .elementor-element.elementor-element-4f9cd86a .elementskit-navbar-nav .elementskit-submenu-panel{
+    min-width: 350px !important;
+  }
+  .elementor-135 .elementor-element.elementor-element-4f9cd86a .elementskit-navbar-nav .elementskit-submenu-panel > li > a{
+    white-space: nowrap;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+  .elementor-135 .elementor-element.elementor-element-4f9cd86a .elementskit-navbar-nav .elementskit-submenu-panel > li:first-child > a{
+    padding-top: 0;
+  }
+  .elementor-135 .elementor-element.elementor-element-4f9cd86a .elementskit-navbar-nav .elementskit-submenu-panel > li:last-child > a{
+    padding-bottom: 0;
+  }
+  .elementor-135 .elementor-element.elementor-element-4f9cd86a .elementskit-navbar-nav .elementskit-submenu-panel > li:not(:last-child) > a{
+    border-bottom: 1px solid #4851D524;
+  }
+}

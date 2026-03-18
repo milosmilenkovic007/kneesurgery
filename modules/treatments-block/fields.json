@@ -1,0 +1,21 @@
+{
+  "key": "layout_hj_treatments_block",
+  "name": "treatments_block",
+  "label": "Treatments Block",
+  "display": "block",
+  "sub_fields": [
+    { "key": "field_hj_tb_content_tab", "label": "Content", "name": "", "type": "tab", "placement": "top" },
+    { "key": "field_hj_tb_title", "label": "Title", "name": "title", "type": "text", "required": 1, "placeholder": "Treatments Designed Around Your Needs" },
+    { "key": "field_hj_tb_subtitle", "label": "Subtitle", "name": "subtitle", "type": "textarea", "rows": 3, "placeholder": "Explore our most requested treatments, grouped into elegant card sections for faster comparison." },
+    { "key": "field_hj_tb_sections", "label": "Sections", "name": "sections", "type": "repeater", "layout": "block", "button_label": "Add Section", "sub_fields": [
+      { "key": "field_hj_tb_section_heading", "label": "Heading", "name": "heading", "type": "text", "required": 1, "wrapper": { "width": "40" } },
+      { "key": "field_hj_tb_section_subheading", "label": "Subheading", "name": "subheading", "type": "text", "wrapper": { "width": "60" } },
+      { "key": "field_hj_tb_section_source", "label": "Source", "name": "source", "type": "button_group", "choices": { "category": "Category", "manual": "Manual Selection" }, "default_value": "category", "layout": "horizontal" },
+      { "key": "field_hj_tb_section_category", "label": "Treatment Category", "name": "category", "type": "taxonomy", "taxonomy": "treatment_category", "field_type": "select", "return_format": "id", "add_term": 0, "save_terms": 0, "load_terms": 0, "conditional_logic": [[[{ "field": "field_hj_tb_section_source", "operator": "==", "value": "category" }]]], "wrapper": { "width": "50" } },
+      { "key": "field_hj_tb_section_limit", "label": "Items Limit", "name": "items_limit", "type": "number", "default_value": 6, "min": 1, "max": 18, "step": 1, "wrapper": { "width": "25" } },
+      { "key": "field_hj_tb_section_accordion", "label": "Accordion", "name": "enable_accordion", "type": "true_false", "ui": 1, "message": "Allow this section to collapse", "wrapper": { "width": "25" } },
+      { "key": "field_hj_tb_section_start_collapsed", "label": "Start Collapsed", "name": "start_collapsed", "type": "true_false", "ui": 1, "conditional_logic": [[[{ "field": "field_hj_tb_section_accordion", "operator": "==", "value": "1" }]]], "message": "Section closed on initial load", "wrapper": { "width": "25" } },
+      { "key": "field_hj_tb_section_manual", "label": "Treatments", "name": "manual_treatments", "type": "relationship", "post_type": ["service"], "filters": ["search"], "return_format": "id", "elements": ["featured_image"], "conditional_logic": [[[{ "field": "field_hj_tb_section_source", "operator": "==", "value": "manual" }]]], "wrapper": { "width": "100" } }
+    ]}
+  ]
+}

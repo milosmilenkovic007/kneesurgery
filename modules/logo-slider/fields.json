@@ -4,6 +4,7 @@
   "label": "Logo Slider",
   "display": "block",
   "sub_fields": [
+    { "key": "field_hj_ls_content_tab", "label": "Content", "name": "", "type": "tab", "placement": "top" },
     { "key": "field_hj_ls_title_prefix", "label": "Title Prefix", "name": "title_prefix", "type": "text", "placeholder": "Our", "wrapper": {"width": "20"} },
     { "key": "field_hj_ls_title_accent", "label": "Title Accent", "name": "title_accent", "type": "text", "placeholder": "Accreditations", "wrapper": {"width": "40"} },
     { "key": "field_hj_ls_logos", "label": "Logos", "name": "logos", "type": "repeater", "layout": "table", "button_label": "Add Logo", "sub_fields": [
@@ -11,6 +12,10 @@
       { "key": "field_hj_ls_logo_url", "label": "Link URL (optional)", "name": "url", "type": "url" },
       { "key": "field_hj_ls_logo_alt", "label": "Alt (override)", "name": "alt", "type": "text", "wrapper": {"width": "40"} },
       { "key": "field_hj_ls_logo_width", "label": "Max Width (px)", "name": "max_width", "type": "number", "min": 40, "max": 400, "wrapper": {"width": "20"} }
-    ]}
+    ]},
+    { "key": "field_hj_ls_style_tab", "label": "Style", "name": "", "type": "tab", "placement": "top" },
+    { "key": "field_hj_ls_bg_color", "label": "Background Color", "name": "bg_color", "type": "color_picker", "wrapper": {"width": "34"} },
+    { "key": "field_hj_ls_padding_top", "label": "Padding Top", "name": "padding_top", "type": "number", "default_value": 8, "min": 0, "step": 1, "append": "px", "wrapper": {"width": "33"} },
+    { "key": "field_hj_ls_padding_bottom", "label": "Padding Bottom", "name": "padding_bottom", "type": "number", "default_value": 8, "min": 0, "step": 1, "append": "px", "wrapper": {"width": "33"} }
   ]
 }

@@ -1,0 +1,89 @@
+{
+  "key": "layout_hj_patient_journey_media",
+  "name": "patient_journey_media",
+  "label": "Patient Journey Media",
+  "display": "block",
+  "sub_fields": [
+    {
+      "key": "field_hj_pjm_image",
+      "label": "Left Image",
+      "name": "image",
+      "type": "image",
+      "return_format": "array",
+      "preview_size": "medium",
+      "required": 1
+    },
+    {
+      "key": "field_hj_pjm_image_badge_icon",
+      "label": "Image Badge Icon",
+      "name": "image_badge_icon",
+      "type": "image",
+      "return_format": "array",
+      "preview_size": "thumbnail"
+    },
+    {
+      "key": "field_hj_pjm_image_badge_title",
+      "label": "Image Badge Title",
+      "name": "image_badge_title",
+      "type": "text",
+      "placeholder": "Medical Travel"
+    },
+    {
+      "key": "field_hj_pjm_image_badge_text",
+      "label": "Image Badge Text",
+      "name": "image_badge_text",
+      "type": "text",
+      "placeholder": "Facilitation"
+    },
+    {
+      "key": "field_hj_pjm_video_poster",
+      "label": "Video Poster",
+      "name": "video_poster",
+      "type": "image",
+      "return_format": "array",
+      "preview_size": "medium",
+      "required": 1
+    },
+    {
+      "key": "field_hj_pjm_video_url",
+      "label": "Video URL",
+      "name": "video_url",
+      "type": "url",
+      "required": 1,
+      "instructions": "Paste a direct .mp4/.webm link or a YouTube/Vimeo URL."
+    },
+    {
+      "key": "field_hj_pjm_title",
+      "label": "Title",
+      "name": "title",
+      "type": "textarea",
+      "rows": 4,
+      "required": 1,
+      "placeholder": "Built for International Patients - Because Surgery Abroad Is a Different Journey."
+    },
+    {
+      "key": "field_hj_pjm_content",
+      "label": "Content",
+      "name": "content",
+      "type": "wysiwyg",
+      "tabs": "visual,text",
+      "toolbar": "basic",
+      "media_upload": 0,
+      "required": 1
+    },
+    {
+      "key": "field_hj_pjm_primary_button",
+      "label": "Primary Button",
+      "name": "primary_button",
+      "type": "link",
+      "return_format": "array"
+    },
+    {
+      "key": "field_hj_pjm_secondary_button",
+      "label": "Secondary Button",
+      "name": "secondary_button",
+      "type": "link",
+      "return_format": "array"
+    }
+  ]
+}

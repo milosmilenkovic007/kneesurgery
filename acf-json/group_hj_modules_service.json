@@ -1,6 +1,6 @@
 {
     "key": "group_hj_modules_service",
-    "title": "Service Modules",
+    "title": "Treatment Modules",
     "fields": [
         {
             "key": "field_hj_modules_fc_service",
@@ -20,7 +20,7 @@
                             "label": "Module Title",
                             "name": "title",
                             "type": "text",
-                            "placeholder": "Dental care articles"
+                            "placeholder": "Articles"
                         },
                         {
                             "key": "field_hj_ag_mode",
@@ -773,12 +773,101 @@
                     "display": "block",
                     "sub_fields": [
                         {
+                            "key": "field_hj_cfb_content_tab",
+                            "label": "Content",
+                            "name": "",
+                            "type": "tab",
+                            "placement": "top"
+                        },
+                        {
+                            "key": "field_hj_cfb_media_type",
+                            "label": "Left Media Type",
+                            "name": "media_type",
+                            "type": "button_group",
+                            "choices": {
+                                "image": "Image",
+                                "rating": "Rating"
+                            },
+                            "default_value": "image",
+                            "layout": "horizontal"
+                        },
+                        {
                             "key": "field_hj_cfb_image",
                             "label": "Left Image",
                             "name": "image",
                             "type": "image",
                             "return_format": "array",
-                            "preview_size": "medium"
+                            "preview_size": "medium",
+                            "conditional_logic": [
+                                [
+                                    {
+                                        "field": "field_hj_cfb_media_type",
+                                        "operator": "==",
+                                        "value": "image"
+                                    }
+                                ]
+                            ]
+                        },
+                        {
+                            "key": "field_hj_cfb_rating_slides",
+                            "label": "Rating Slides",
+                            "name": "rating_slides",
+                            "type": "repeater",
+                            "layout": "block",
+                            "button_label": "Add Rating Slide",
+                            "conditional_logic": [
+                                [
+                                    {
+                                        "field": "field_hj_cfb_media_type",
+                                        "operator": "==",
+                                        "value": "rating"
+                                    }
+                                ]
+                            ],
+                            "sub_fields": [
+                                {
+                                    "key": "field_hj_cfb_rating_avatar",
+                                    "label": "Avatar",
+                                    "name": "avatar",
+                                    "type": "image",
+                                    "return_format": "array",
+                                    "preview_size": "thumbnail",
+                                    "wrapper": {
+                                        "width": "25"
+                                    }
+                                },
+                                {
+                                    "key": "field_hj_cfb_rating_name",
+                                    "label": "Name",
+                                    "name": "name",
+                                    "type": "text",
+                                    "required": 1,
+                                    "wrapper": {
+                                        "width": "35"
+                                    }
+                                },
+                                {
+                                    "key": "field_hj_cfb_rating_value",
+                                    "label": "Rating",
+                                    "name": "rating",
+                                    "type": "number",
+                                    "default_value": 5,
+                                    "min": 1,
+                                    "max": 5,
+                                    "step": 1,
+                                    "wrapper": {
+                                        "width": "25"
+                                    }
+                                },
+                                {
+                                    "key": "field_hj_cfb_rating_content",
+                                    "label": "Content",
+                                    "name": "content",
+                                    "type": "textarea",
+                                    "rows": 4,
+                                    "required": 1
+                                }
+                            ]
                         },
                         {
                             "key": "field_hj_cfb_heading",
@@ -801,6 +890,80 @@
                             "name": "subheading",
                             "type": "text",
                             "default_value": "Let's find out together!"
+                        },
+                        {
+                            "key": "field_hj_cfb_style_tab",
+                            "label": "Style",
+                            "name": "",
+                            "type": "tab",
+                            "placement": "top"
+                        },
+                        {
+                            "key": "field_hj_cfb_bg_color",
+                            "label": "Background Color",
+                            "name": "bg_color",
+                            "type": "color_picker",
+                            "default_value": "#ffffff"
+                        },
+                        {
+                            "key": "field_hj_cfb_text_color",
+                            "label": "Text Color",
+                            "name": "text_color",
+                            "type": "color_picker",
+                            "default_value": "#111827",
+                            "wrapper": {
+                                "width": "33"
+                            }
+                        },
+                        {
+                            "key": "field_hj_cfb_accent_color",
+                            "label": "Accent Text Color",
+                            "name": "accent_color",
+                            "type": "color_picker",
+                            "default_value": "#4951d5",
+                            "wrapper": {
+                                "width": "33"
+                            }
+                        },
+                        {
+                            "key": "field_hj_cfb_separator_color",
+                            "label": "Separator Color",
+                            "name": "separator_color",
+                            "type": "color_picker",
+                            "default_value": "#4951d5",
+                            "wrapper": {
+                                "width": "33"
+                            }
+                        },
+                        {
+                            "key": "field_hj_cfb_button_bg_color",
+                            "label": "Button Background Color",
+                            "name": "button_bg_color",
+                            "type": "color_picker",
+                            "default_value": "#4951d5",
+                            "wrapper": {
+                                "width": "33"
+                            }
+                        },
+                        {
+                            "key": "field_hj_cfb_button_text_color",
+                            "label": "Button Text Color",
+                            "name": "button_text_color",
+                            "type": "color_picker",
+                            "default_value": "#ffffff",
+                            "wrapper": {
+                                "width": "33"
+                            }
+                        },
+                        {
+                            "key": "field_hj_cfb_terms_link_color",
+                            "label": "Terms Link Color",
+                            "name": "terms_link_color",
+                            "type": "color_picker",
+                            "default_value": "#ffffff",
+                            "wrapper": {
+                                "width": "33"
+                            }
                         },
                         {
                             "key": "field_hj_cfb_fluent_form_id",
@@ -893,7 +1056,7 @@
                             "label": "Title",
                             "name": "title",
                             "type": "text",
-                            "placeholder": "Dental Care",
+                            "placeholder": "Title",
                             "required": 1
                         },
                         {
@@ -1000,7 +1163,8 @@
                                     "type": "radio",
                                     "choices": {
                                         "grid4": "4-Image Grid",
-                                        "three": "Three Portrait Images"
+                                        "three": "Three Portrait Images",
+                                        "single": "Single Image"
                                     },
                                     "default_value": "grid4",
                                     "layout": "horizontal"
@@ -1116,6 +1280,260 @@
                                             }
                                         ]
                                     ]
+                                },
+                                {
+                                    "key": "field_hj_hd_img_single",
+                                    "label": "Single Image",
+                                    "name": "single_image",
+                                    "type": "image",
+                                    "return_format": "array",
+                                    "conditional_logic": [
+                                        [
+                                            {
+                                                "field": "field_hj_hd_media_layout",
+                                                "operator": "==",
+                                                "value": "single"
+                                            }
+                                        ]
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                "layout_hj_home_hero": {
+                    "key": "layout_hj_home_hero",
+                    "name": "home_hero",
+                    "label": "Home Hero",
+                    "display": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_hj_hh_eyebrow",
+                            "label": "Eyebrow",
+                            "name": "eyebrow",
+                            "type": "text",
+                            "default_value": "SAFE & AFFORDABLE KNEE SURGERY IN TURKEY"
+                        },
+                        {
+                            "key": "field_hj_hh_title",
+                            "label": "Title",
+                            "name": "title",
+                            "type": "textarea",
+                            "rows": 4,
+                            "required": 1,
+                            "placeholder": "Relieve Pain &\nRegain Movement.\nWithout the Wait."
+                        },
+                        {
+                            "key": "field_hj_hh_intro",
+                            "label": "Intro",
+                            "name": "intro",
+                            "type": "textarea",
+                            "rows": 4,
+                            "placeholder": "Facilitating orthopaedic care abroad \u2013 designed to bridge the gap between international patients and hospitals for peace of mind and faster recovery."
+                        },
+                        {
+                            "key": "field_hj_hh_primary_button",
+                            "label": "Primary Button",
+                            "name": "primary_button",
+                            "type": "group",
+                            "layout": "block",
+                            "sub_fields": [
+                                {
+                                    "key": "field_hj_hh_primary_button_label",
+                                    "label": "Label",
+                                    "name": "label",
+                                    "type": "text",
+                                    "default_value": "Book a Free Medical Evaluation"
+                                },
+                                {
+                                    "key": "field_hj_hh_primary_button_url",
+                                    "label": "URL / Anchor",
+                                    "name": "url",
+                                    "type": "text",
+                                    "placeholder": "https://example.com or #candidate"
+                                }
+                            ]
+                        },
+                        {
+                            "key": "field_hj_hh_secondary_button",
+                            "label": "Secondary Button",
+                            "name": "secondary_button",
+                            "type": "group",
+                            "layout": "block",
+                            "sub_fields": [
+                                {
+                                    "key": "field_hj_hh_secondary_button_label",
+                                    "label": "Label",
+                                    "name": "label",
+                                    "type": "text",
+                                    "default_value": "Learn More"
+                                },
+                                {
+                                    "key": "field_hj_hh_secondary_button_url",
+                                    "label": "URL / Anchor",
+                                    "name": "url",
+                                    "type": "text",
+                                    "placeholder": "https://example.com or #about"
+                                }
+                            ]
+                        },
+                        {
+                            "key": "field_hj_hh_doctor_images",
+                            "label": "Doctor Images",
+                            "name": "doctor_images",
+                            "type": "repeater",
+                            "layout": "table",
+                            "button_label": "Add Doctor Image",
+                            "min": 1,
+                            "sub_fields": [
+                                {
+                                    "key": "field_hj_hh_doctor_image_item",
+                                    "label": "Image",
+                                    "name": "image",
+                                    "type": "image",
+                                    "return_format": "array",
+                                    "preview_size": "medium",
+                                    "required": 1
+                                }
+                            ]
+                        },
+                        {
+                            "key": "field_hj_hh_counters",
+                            "label": "Counters",
+                            "name": "counters",
+                            "type": "repeater",
+                            "layout": "table",
+                            "button_label": "Add Counter",
+                            "min": 0,
+                            "max": 3,
+                            "sub_fields": [
+                                {
+                                    "key": "field_hj_hh_counter_value",
+                                    "label": "Number",
+                                    "name": "value",
+                                    "type": "text",
+                                    "required": 1,
+                                    "placeholder": "25+"
+                                },
+                                {
+                                    "key": "field_hj_hh_counter_label",
+                                    "label": "Label",
+                                    "name": "label",
+                                    "type": "textarea",
+                                    "rows": 2,
+                                    "required": 1,
+                                    "placeholder": "Years of\nExperience"
+                                }
+                            ]
+                        },
+                        {
+                            "key": "field_hj_hh_review_card",
+                            "label": "Review Card",
+                            "name": "review_card",
+                            "type": "group",
+                            "layout": "block",
+                            "sub_fields": [
+                                {
+                                    "key": "field_hj_hh_review_avatars",
+                                    "label": "Reviewer Avatars",
+                                    "name": "avatars",
+                                    "type": "repeater",
+                                    "layout": "table",
+                                    "button_label": "Add Avatar",
+                                    "min": 0,
+                                    "max": 4,
+                                    "sub_fields": [
+                                        {
+                                            "key": "field_hj_hh_review_avatar_image",
+                                            "label": "Avatar",
+                                            "name": "image",
+                                            "type": "image",
+                                            "return_format": "array",
+                                            "preview_size": "thumbnail",
+                                            "required": 1
+                                        }
+                                    ]
+                                },
+                                {
+                                    "key": "field_hj_hh_review_stars",
+                                    "label": "Stars",
+                                    "name": "stars",
+                                    "type": "number",
+                                    "default_value": 5,
+                                    "min": 0,
+                                    "max": 5,
+                                    "step": 0.5
+                                },
+                                {
+                                    "key": "field_hj_hh_review_text",
+                                    "label": "Text",
+                                    "name": "text",
+                                    "type": "text",
+                                    "default_value": "5 Stars Rating"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                "layout_hj_image_faq": {
+                    "key": "layout_hj_image_faq",
+                    "name": "image_faq",
+                    "label": "Image + FAQ",
+                    "display": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_hj_ifaq_eyebrow",
+                            "label": "Eyebrow",
+                            "name": "eyebrow",
+                            "type": "text",
+                            "default_value": "FAQs"
+                        },
+                        {
+                            "key": "field_hj_ifaq_title",
+                            "label": "Title",
+                            "name": "title",
+                            "type": "text",
+                            "required": 1,
+                            "default_value": "Frequently Asked Questions"
+                        },
+                        {
+                            "key": "field_hj_ifaq_subtitle",
+                            "label": "Subtitle",
+                            "name": "subtitle",
+                            "type": "text",
+                            "default_value": "Some of the questions our patients initially ask."
+                        },
+                        {
+                            "key": "field_hj_ifaq_image",
+                            "label": "Left Image",
+                            "name": "image",
+                            "type": "image",
+                            "return_format": "array",
+                            "preview_size": "medium",
+                            "required": 1
+                        },
+                        {
+                            "key": "field_hj_ifaq_items",
+                            "label": "Items",
+                            "name": "items",
+                            "type": "repeater",
+                            "button_label": "Add FAQ",
+                            "layout": "row",
+                            "collapsed": "field_hj_ifaq_question",
+                            "sub_fields": [
+                                {
+                                    "key": "field_hj_ifaq_question",
+                                    "label": "Question",
+                                    "name": "question",
+                                    "type": "text",
+                                    "required": 1
+                                },
+                                {
+                                    "key": "field_hj_ifaq_answer",
+                                    "label": "Answer",
+                                    "name": "answer",
+                                    "type": "textarea",
+                                    "rows": 4
                                 }
                             ]
                         }
@@ -1127,6 +1545,13 @@
                     "label": "Logo Slider",
                     "display": "block",
                     "sub_fields": [
+                        {
+                            "key": "field_hj_ls_content_tab",
+                            "label": "Content",
+                            "name": "",
+                            "type": "tab",
+                            "placement": "top"
+                        },
                         {
                             "key": "field_hj_ls_title_prefix",
                             "label": "Title Prefix",
@@ -1190,6 +1615,231 @@
                                     }
                                 }
                             ]
+                        },
+                        {
+                            "key": "field_hj_ls_style_tab",
+                            "label": "Style",
+                            "name": "",
+                            "type": "tab",
+                            "placement": "top"
+                        },
+                        {
+                            "key": "field_hj_ls_bg_color",
+                            "label": "Background Color",
+                            "name": "bg_color",
+                            "type": "color_picker",
+                            "wrapper": {
+                                "width": "34"
+                            }
+                        },
+                        {
+                            "key": "field_hj_ls_padding_top",
+                            "label": "Padding Top",
+                            "name": "padding_top",
+                            "type": "number",
+                            "default_value": 8,
+                            "min": 0,
+                            "step": 1,
+                            "append": "px",
+                            "wrapper": {
+                                "width": "33"
+                            }
+                        },
+                        {
+                            "key": "field_hj_ls_padding_bottom",
+                            "label": "Padding Bottom",
+                            "name": "padding_bottom",
+                            "type": "number",
+                            "default_value": 8,
+                            "min": 0,
+                            "step": 1,
+                            "append": "px",
+                            "wrapper": {
+                                "width": "33"
+                            }
+                        }
+                    ]
+                },
+                "layout_hj_patient_journey_media": {
+                    "key": "layout_hj_patient_journey_media",
+                    "name": "patient_journey_media",
+                    "label": "Patient Journey Media",
+                    "display": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_hj_pjm_image",
+                            "label": "Left Image",
+                            "name": "image",
+                            "type": "image",
+                            "return_format": "array",
+                            "preview_size": "medium",
+                            "required": 1
+                        },
+                        {
+                            "key": "field_hj_pjm_image_badge_icon",
+                            "label": "Image Badge Icon",
+                            "name": "image_badge_icon",
+                            "type": "image",
+                            "return_format": "array",
+                            "preview_size": "thumbnail"
+                        },
+                        {
+                            "key": "field_hj_pjm_image_badge_title",
+                            "label": "Image Badge Title",
+                            "name": "image_badge_title",
+                            "type": "text",
+                            "placeholder": "Medical Travel"
+                        },
+                        {
+                            "key": "field_hj_pjm_image_badge_text",
+                            "label": "Image Badge Text",
+                            "name": "image_badge_text",
+                            "type": "text",
+                            "placeholder": "Facilitation"
+                        },
+                        {
+                            "key": "field_hj_pjm_video_poster",
+                            "label": "Video Poster",
+                            "name": "video_poster",
+                            "type": "image",
+                            "return_format": "array",
+                            "preview_size": "medium",
+                            "required": 1
+                        },
+                        {
+                            "key": "field_hj_pjm_video_url",
+                            "label": "Video URL",
+                            "name": "video_url",
+                            "type": "url",
+                            "required": 1,
+                            "instructions": "Paste a direct .mp4/.webm link or a YouTube/Vimeo URL."
+                        },
+                        {
+                            "key": "field_hj_pjm_title",
+                            "label": "Title",
+                            "name": "title",
+                            "type": "textarea",
+                            "rows": 4,
+                            "required": 1,
+                            "placeholder": "Built for International Patients - Because Surgery Abroad Is a Different Journey."
+                        },
+                        {
+                            "key": "field_hj_pjm_content",
+                            "label": "Content",
+                            "name": "content",
+                            "type": "wysiwyg",
+                            "tabs": "visual,text",
+                            "toolbar": "basic",
+                            "media_upload": 0,
+                            "required": 1
+                        },
+                        {
+                            "key": "field_hj_pjm_primary_button",
+                            "label": "Primary Button",
+                            "name": "primary_button",
+                            "type": "link",
+                            "return_format": "array"
+                        },
+                        {
+                            "key": "field_hj_pjm_secondary_button",
+                            "label": "Secondary Button",
+                            "name": "secondary_button",
+                            "type": "link",
+                            "return_format": "array"
+                        }
+                    ]
+                },
+                "layout_hj_patient_journey_steps": {
+                    "key": "layout_hj_patient_journey_steps",
+                    "name": "patient_journey_steps",
+                    "label": "Patient Journey Steps",
+                    "display": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_hj_pjs_content_tab",
+                            "label": "Content",
+                            "name": "",
+                            "type": "tab",
+                            "placement": "top"
+                        },
+                        {
+                            "key": "field_hj_pjs_bg_color",
+                            "label": "Background Color",
+                            "name": "bg_color",
+                            "type": "color_picker",
+                            "default_value": "#4d55dd"
+                        },
+                        {
+                            "key": "field_hj_pjs_eyebrow",
+                            "label": "Eyebrow",
+                            "name": "eyebrow",
+                            "type": "text",
+                            "default_value": "\u2605\u2605\u2605\u2605\u2605",
+                            "placeholder": "\u2605\u2605\u2605\u2605\u2605"
+                        },
+                        {
+                            "key": "field_hj_pjs_title",
+                            "label": "Title",
+                            "name": "title",
+                            "type": "textarea",
+                            "rows": 3,
+                            "required": 1,
+                            "placeholder": "How we accomplish optimal results:"
+                        },
+                        {
+                            "key": "field_hj_pjs_steps",
+                            "label": "Steps",
+                            "name": "steps",
+                            "type": "repeater",
+                            "layout": "block",
+                            "button_label": "Add Step",
+                            "min": 1,
+                            "max": 6,
+                            "sub_fields": [
+                                {
+                                    "key": "field_hj_pjs_step_icon",
+                                    "label": "Icon",
+                                    "name": "icon",
+                                    "type": "image",
+                                    "return_format": "array",
+                                    "preview_size": "thumbnail",
+                                    "wrapper": {
+                                        "width": "20"
+                                    }
+                                },
+                                {
+                                    "key": "field_hj_pjs_step_number",
+                                    "label": "Step Number",
+                                    "name": "step_number",
+                                    "type": "text",
+                                    "required": 1,
+                                    "default_value": "01.",
+                                    "placeholder": "01.",
+                                    "wrapper": {
+                                        "width": "15"
+                                    }
+                                },
+                                {
+                                    "key": "field_hj_pjs_step_title",
+                                    "label": "Step Title",
+                                    "name": "title",
+                                    "type": "text",
+                                    "required": 1,
+                                    "placeholder": "Free Medical Evaluation",
+                                    "wrapper": {
+                                        "width": "65"
+                                    }
+                                },
+                                {
+                                    "key": "field_hj_pjs_step_text",
+                                    "label": "Description",
+                                    "name": "description",
+                                    "type": "textarea",
+                                    "rows": 4,
+                                    "required": 1,
+                                    "placeholder": "Send us your medical reports or imaging. Your case is personally reviewed by a surgeon..."
+                                }
+                            ]
                         }
                     ]
                 },
@@ -1204,7 +1854,7 @@
                             "label": "Module Title",
                             "name": "module_title",
                             "type": "text",
-                            "placeholder": "Dental Care Pricelist"
+                            "placeholder": "Price List"
                         },
                         {
                             "key": "field_hj_pa_subtitle",
@@ -1783,6 +2433,29 @@
                         }
                     ]
                 },
+                "layout_hj_related_doctors": {
+                    "key": "layout_hj_related_doctors",
+                    "name": "related_doctors",
+                    "label": "Doctors \u2013 Related",
+                    "display": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_hj_rd_title",
+                            "label": "Title",
+                            "name": "title",
+                            "type": "text",
+                            "placeholder": "Our Doctors"
+                        },
+                        {
+                            "key": "field_hj_rd_intro",
+                            "label": "Intro",
+                            "name": "intro",
+                            "type": "textarea",
+                            "rows": 2,
+                            "placeholder": "Meet the doctors for this treatment."
+                        }
+                    ]
+                },
                 "layout_hj_reviews_trustindex": {
                     "key": "layout_hj_reviews_trustindex",
                     "name": "reviews_trustindex",
@@ -1802,6 +2475,326 @@
                             "name": "shortcode",
                             "type": "text",
                             "default_value": "[trustindex data-widget-id=c964936299834096b346c4f654e]"
+                        }
+                    ]
+                },
+                "layout_hj_testimonials_slider": {
+                    "key": "layout_hj_testimonials_slider",
+                    "name": "testimonials_slider",
+                    "label": "Testimonials Slider",
+                    "display": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_hj_ts_content_tab",
+                            "label": "Content",
+                            "name": "",
+                            "type": "tab",
+                            "placement": "top"
+                        },
+                        {
+                            "key": "field_hj_ts_eyebrow",
+                            "label": "Eyebrow",
+                            "name": "eyebrow",
+                            "type": "text",
+                            "default_value": "TESTIMONIALS",
+                            "placeholder": "TESTIMONIALS"
+                        },
+                        {
+                            "key": "field_hj_ts_title",
+                            "label": "Title",
+                            "name": "title",
+                            "type": "text",
+                            "required": 1,
+                            "placeholder": "Reviews From Our Patients"
+                        },
+                        {
+                            "key": "field_hj_ts_items",
+                            "label": "Testimonials",
+                            "name": "items",
+                            "type": "repeater",
+                            "layout": "block",
+                            "button_label": "Add Testimonial",
+                            "min": 1,
+                            "sub_fields": [
+                                {
+                                    "key": "field_hj_ts_item_rating",
+                                    "label": "Rating",
+                                    "name": "rating",
+                                    "type": "number",
+                                    "default_value": 5,
+                                    "min": 1,
+                                    "max": 5,
+                                    "step": 1,
+                                    "wrapper": {
+                                        "width": "20"
+                                    }
+                                },
+                                {
+                                    "key": "field_hj_ts_item_name",
+                                    "label": "Name",
+                                    "name": "name",
+                                    "type": "text",
+                                    "required": 1,
+                                    "placeholder": "Julia",
+                                    "wrapper": {
+                                        "width": "40"
+                                    }
+                                },
+                                {
+                                    "key": "field_hj_ts_item_role",
+                                    "label": "Role",
+                                    "name": "role",
+                                    "type": "text",
+                                    "default_value": "Patient",
+                                    "placeholder": "Patient",
+                                    "wrapper": {
+                                        "width": "40"
+                                    }
+                                },
+                                {
+                                    "key": "field_hj_ts_item_photo",
+                                    "label": "Photo",
+                                    "name": "photo",
+                                    "type": "image",
+                                    "return_format": "array",
+                                    "preview_size": "thumbnail"
+                                },
+                                {
+                                    "key": "field_hj_ts_item_text",
+                                    "label": "Review Text",
+                                    "name": "text",
+                                    "type": "textarea",
+                                    "rows": 6,
+                                    "required": 1,
+                                    "placeholder": "I had extra leg room seats on plane plus ice pack every hr..."
+                                }
+                            ]
+                        }
+                    ]
+                },
+                "layout_hj_treatments_block": {
+                    "key": "layout_hj_treatments_block",
+                    "name": "treatments_block",
+                    "label": "Treatments Block",
+                    "display": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_hj_tb_content_tab",
+                            "label": "Content",
+                            "name": "",
+                            "type": "tab",
+                            "placement": "top"
+                        },
+                        {
+                            "key": "field_hj_tb_title",
+                            "label": "Title",
+                            "name": "title",
+                            "type": "text",
+                            "required": 1,
+                            "placeholder": "Treatments Designed Around Your Needs"
+                        },
+                        {
+                            "key": "field_hj_tb_subtitle",
+                            "label": "Subtitle",
+                            "name": "subtitle",
+                            "type": "textarea",
+                            "rows": 3,
+                            "placeholder": "Explore our most requested treatments, grouped into elegant card sections for faster comparison."
+                        },
+                        {
+                            "key": "field_hj_tb_sections",
+                            "label": "Sections",
+                            "name": "sections",
+                            "type": "repeater",
+                            "layout": "block",
+                            "button_label": "Add Section",
+                            "sub_fields": [
+                                {
+                                    "key": "field_hj_tb_section_heading",
+                                    "label": "Heading",
+                                    "name": "heading",
+                                    "type": "text",
+                                    "required": 1,
+                                    "wrapper": {
+                                        "width": "40"
+                                    }
+                                },
+                                {
+                                    "key": "field_hj_tb_section_subheading",
+                                    "label": "Subheading",
+                                    "name": "subheading",
+                                    "type": "text",
+                                    "wrapper": {
+                                        "width": "60"
+                                    }
+                                },
+                                {
+                                    "key": "field_hj_tb_section_source",
+                                    "label": "Source",
+                                    "name": "source",
+                                    "type": "button_group",
+                                    "choices": {
+                                        "category": "Category",
+                                        "manual": "Manual Selection"
+                                    },
+                                    "default_value": "category",
+                                    "layout": "horizontal"
+                                },
+                                {
+                                    "key": "field_hj_tb_section_category",
+                                    "label": "Treatment Category",
+                                    "name": "category",
+                                    "type": "taxonomy",
+                                    "taxonomy": "treatment_category",
+                                    "field_type": "select",
+                                    "return_format": "id",
+                                    "add_term": 0,
+                                    "save_terms": 0,
+                                    "load_terms": 0,
+                                    "conditional_logic": [
+                                        [
+                                            [
+                                                {
+                                                    "field": "field_hj_tb_section_source",
+                                                    "operator": "==",
+                                                    "value": "category"
+                                                }
+                                            ]
+                                        ]
+                                    ],
+                                    "wrapper": {
+                                        "width": "50"
+                                    }
+                                },
+                                {
+                                    "key": "field_hj_tb_section_limit",
+                                    "label": "Items Limit",
+                                    "name": "items_limit",
+                                    "type": "number",
+                                    "default_value": 6,
+                                    "min": 1,
+                                    "max": 18,
+                                    "step": 1,
+                                    "wrapper": {
+                                        "width": "25"
+                                    }
+                                },
+                                {
+                                    "key": "field_hj_tb_section_accordion",
+                                    "label": "Accordion",
+                                    "name": "enable_accordion",
+                                    "type": "true_false",
+                                    "ui": 1,
+                                    "message": "Allow this section to collapse",
+                                    "wrapper": {
+                                        "width": "25"
+                                    }
+                                },
+                                {
+                                    "key": "field_hj_tb_section_start_collapsed",
+                                    "label": "Start Collapsed",
+                                    "name": "start_collapsed",
+                                    "type": "true_false",
+                                    "ui": 1,
+                                    "conditional_logic": [
+                                        [
+                                            [
+                                                {
+                                                    "field": "field_hj_tb_section_accordion",
+                                                    "operator": "==",
+                                                    "value": "1"
+                                                }
+                                            ]
+                                        ]
+                                    ],
+                                    "message": "Section closed on initial load",
+                                    "wrapper": {
+                                        "width": "25"
+                                    }
+                                },
+                                {
+                                    "key": "field_hj_tb_section_manual",
+                                    "label": "Treatments",
+                                    "name": "manual_treatments",
+                                    "type": "relationship",
+                                    "post_type": [
+                                        "service"
+                                    ],
+                                    "filters": [
+                                        "search"
+                                    ],
+                                    "return_format": "id",
+                                    "elements": [
+                                        "featured_image"
+                                    ],
+                                    "conditional_logic": [
+                                        [
+                                            [
+                                                {
+                                                    "field": "field_hj_tb_section_source",
+                                                    "operator": "==",
+                                                    "value": "manual"
+                                                }
+                                            ]
+                                        ]
+                                    ],
+                                    "wrapper": {
+                                        "width": "100"
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                },
+                "layout_hj_trust_highlights": {
+                    "key": "layout_hj_trust_highlights",
+                    "name": "trust_highlights",
+                    "label": "Trust Highlights",
+                    "display": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_hj_th_bg_color",
+                            "label": "Background Color",
+                            "name": "bg_color",
+                            "type": "color_picker",
+                            "default_value": "#4d55dd"
+                        },
+                        {
+                            "key": "field_hj_th_items",
+                            "label": "Items",
+                            "name": "items",
+                            "type": "repeater",
+                            "layout": "table",
+                            "button_label": "Add Item",
+                            "min": 1,
+                            "max": 6,
+                            "sub_fields": [
+                                {
+                                    "key": "field_hj_th_item_icon",
+                                    "label": "Icon",
+                                    "name": "icon",
+                                    "type": "image",
+                                    "return_format": "array",
+                                    "preview_size": "thumbnail",
+                                    "required": 1
+                                },
+                                {
+                                    "key": "field_hj_th_item_title",
+                                    "label": "Title",
+                                    "name": "title",
+                                    "type": "text",
+                                    "required": 1,
+                                    "placeholder": "Expert Doctors"
+                                },
+                                {
+                                    "key": "field_hj_th_item_description",
+                                    "label": "Description",
+                                    "name": "description",
+                                    "type": "textarea",
+                                    "rows": 3,
+                                    "placeholder": "Surgeons with long experience and proven success."
+                                }
+                            ]
                         }
                     ]
                 },
@@ -1866,6 +2859,18 @@
                                     "required": 1
                                 },
                                 {
+                                    "key": "field_hj_vss_enable_accordion",
+                                    "label": "Enable Accordion",
+                                    "name": "enable_accordion",
+                                    "type": "true_false",
+                                    "ui": 1,
+                                    "default_value": 1,
+                                    "message": "Render this section as accordion",
+                                    "wrapper": {
+                                        "width": "30"
+                                    }
+                                },
+                                {
                                     "key": "field_hj_vss_section_type",
                                     "label": "Section Type",
                                     "name": "section_type",
@@ -1875,7 +2880,10 @@
                                         "price": "Price"
                                     },
                                     "default_value": "content",
-                                    "layout": "horizontal"
+                                    "layout": "horizontal",
+                                    "wrapper": {
+                                        "width": "70"
+                                    }
                                 },
                                 {
                                     "key": "field_hj_vss_subheading",
@@ -2081,5 +3089,5 @@
     "position": "acf_after_title",
     "style": "seamless",
     "active": true,
-    "modified": 1770668994
+    "modified": 1773837468
 }

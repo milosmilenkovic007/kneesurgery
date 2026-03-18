@@ -1,0 +1,25 @@
+{
+  "key": "layout_hj_image_faq",
+  "name": "image_faq",
+  "label": "Image + FAQ",
+  "display": "block",
+  "sub_fields": [
+    { "key": "field_hj_ifaq_eyebrow", "label": "Eyebrow", "name": "eyebrow", "type": "text", "default_value": "FAQs" },
+    { "key": "field_hj_ifaq_title", "label": "Title", "name": "title", "type": "text", "required": 1, "default_value": "Frequently Asked Questions" },
+    { "key": "field_hj_ifaq_subtitle", "label": "Subtitle", "name": "subtitle", "type": "text", "default_value": "Some of the questions our patients initially ask." },
+    { "key": "field_hj_ifaq_image", "label": "Left Image", "name": "image", "type": "image", "return_format": "array", "preview_size": "medium", "required": 1 },
+    {
+      "key": "field_hj_ifaq_items",
+      "label": "Items",
+      "name": "items",
+      "type": "repeater",
+      "button_label": "Add FAQ",
+      "layout": "row",
+      "collapsed": "field_hj_ifaq_question",
+      "sub_fields": [
+        { "key": "field_hj_ifaq_question", "label": "Question", "name": "question", "type": "text", "required": 1 },
+        { "key": "field_hj_ifaq_answer", "label": "Answer", "name": "answer", "type": "textarea", "rows": 4 }
+      ]
+    }
+  ]
+}

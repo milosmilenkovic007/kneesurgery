@@ -1,0 +1,88 @@
+{
+  "key": "layout_hj_testimonials_slider",
+  "name": "testimonials_slider",
+  "label": "Testimonials Slider",
+  "display": "block",
+  "sub_fields": [
+    {
+      "key": "field_hj_ts_content_tab",
+      "label": "Content",
+      "name": "",
+      "type": "tab",
+      "placement": "top"
+    },
+    {
+      "key": "field_hj_ts_eyebrow",
+      "label": "Eyebrow",
+      "name": "eyebrow",
+      "type": "text",
+      "default_value": "TESTIMONIALS",
+      "placeholder": "TESTIMONIALS"
+    },
+    {
+      "key": "field_hj_ts_title",
+      "label": "Title",
+      "name": "title",
+      "type": "text",
+      "required": 1,
+      "placeholder": "Reviews From Our Patients"
+    },
+    {
+      "key": "field_hj_ts_items",
+      "label": "Testimonials",
+      "name": "items",
+      "type": "repeater",
+      "layout": "block",
+      "button_label": "Add Testimonial",
+      "min": 1,
+      "sub_fields": [
+        {
+          "key": "field_hj_ts_item_rating",
+          "label": "Rating",
+          "name": "rating",
+          "type": "number",
+          "default_value": 5,
+          "min": 1,
+          "max": 5,
+          "step": 1,
+          "wrapper": { "width": "20" }
+        },
+        {
+          "key": "field_hj_ts_item_name",
+          "label": "Name",
+          "name": "name",
+          "type": "text",
+          "required": 1,
+          "placeholder": "Julia",
+          "wrapper": { "width": "40" }
+        },
+        {
+          "key": "field_hj_ts_item_role",
+          "label": "Role",
+          "name": "role",
+          "type": "text",
+          "default_value": "Patient",
+          "placeholder": "Patient",
+          "wrapper": { "width": "40" }
+        },
+        {
+          "key": "field_hj_ts_item_photo",
+          "label": "Photo",
+          "name": "photo",
+          "type": "image",
+          "return_format": "array",
+          "preview_size": "thumbnail"
+        },
+        {
+          "key": "field_hj_ts_item_text",
+          "label": "Review Text",
+          "name": "text",
+          "type": "textarea",
+          "rows": 6,
+          "required": 1,
+          "placeholder": "I had extra leg room seats on plane plus ice pack every hr..."
+        }
+      ]
+    }
+  ]
+}

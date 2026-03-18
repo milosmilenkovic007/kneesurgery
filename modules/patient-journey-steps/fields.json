@@ -1,0 +1,88 @@
+{
+  "key": "layout_hj_patient_journey_steps",
+  "name": "patient_journey_steps",
+  "label": "Patient Journey Steps",
+  "display": "block",
+  "sub_fields": [
+    {
+      "key": "field_hj_pjs_content_tab",
+      "label": "Content",
+      "name": "",
+      "type": "tab",
+      "placement": "top"
+    },
+    {
+      "key": "field_hj_pjs_bg_color",
+      "label": "Background Color",
+      "name": "bg_color",
+      "type": "color_picker",
+      "default_value": "#4d55dd"
+    },
+    {
+      "key": "field_hj_pjs_eyebrow",
+      "label": "Eyebrow",
+      "name": "eyebrow",
+      "type": "text",
+      "default_value": "★★★★★",
+      "placeholder": "★★★★★"
+    },
+    {
+      "key": "field_hj_pjs_title",
+      "label": "Title",
+      "name": "title",
+      "type": "textarea",
+      "rows": 3,
+      "required": 1,
+      "placeholder": "How we accomplish optimal results:"
+    },
+    {
+      "key": "field_hj_pjs_steps",
+      "label": "Steps",
+      "name": "steps",
+      "type": "repeater",
+      "layout": "block",
+      "button_label": "Add Step",
+      "min": 1,
+      "max": 6,
+      "sub_fields": [
+        {
+          "key": "field_hj_pjs_step_icon",
+          "label": "Icon",
+          "name": "icon",
+          "type": "image",
+          "return_format": "array",
+          "preview_size": "thumbnail",
+          "wrapper": { "width": "20" }
+        },
+        {
+          "key": "field_hj_pjs_step_number",
+          "label": "Step Number",
+          "name": "step_number",
+          "type": "text",
+          "required": 1,
+          "default_value": "01.",
+          "placeholder": "01.",
+          "wrapper": { "width": "15" }
+        },
+        {
+          "key": "field_hj_pjs_step_title",
+          "label": "Step Title",
+          "name": "title",
+          "type": "text",
+          "required": 1,
+          "placeholder": "Free Medical Evaluation",
+          "wrapper": { "width": "65" }
+        },
+        {
+          "key": "field_hj_pjs_step_text",
+          "label": "Description",
+          "name": "description",
+          "type": "textarea",
+          "rows": 4,
+          "required": 1,
+          "placeholder": "Send us your medical reports or imaging. Your case is personally reviewed by a surgeon..."
+        }
+      ]
+    }
+  ]
+}

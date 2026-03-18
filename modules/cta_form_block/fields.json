@@ -4,10 +4,26 @@
   "label": "CTA – Image + Form",
   "display": "block",
   "sub_fields": [
-    { "key": "field_hj_cfb_image", "label": "Left Image", "name": "image", "type": "image", "return_format": "array", "preview_size": "medium" },
+    { "key": "field_hj_cfb_content_tab", "label": "Content", "name": "", "type": "tab", "placement": "top" },
+    { "key": "field_hj_cfb_media_type", "label": "Left Media Type", "name": "media_type", "type": "button_group", "choices": { "image": "Image", "rating": "Rating" }, "default_value": "image", "layout": "horizontal" },
+    { "key": "field_hj_cfb_image", "label": "Left Image", "name": "image", "type": "image", "return_format": "array", "preview_size": "medium", "conditional_logic": [[{ "field": "field_hj_cfb_media_type", "operator": "==", "value": "image" }]] },
+    { "key": "field_hj_cfb_rating_slides", "label": "Rating Slides", "name": "rating_slides", "type": "repeater", "layout": "block", "button_label": "Add Rating Slide", "conditional_logic": [[{ "field": "field_hj_cfb_media_type", "operator": "==", "value": "rating" }]], "sub_fields": [
+      { "key": "field_hj_cfb_rating_avatar", "label": "Avatar", "name": "avatar", "type": "image", "return_format": "array", "preview_size": "thumbnail", "wrapper": { "width": "25" } },
+      { "key": "field_hj_cfb_rating_name", "label": "Name", "name": "name", "type": "text", "required": 1, "wrapper": { "width": "35" } },
+      { "key": "field_hj_cfb_rating_value", "label": "Rating", "name": "rating", "type": "number", "default_value": 5, "min": 1, "max": 5, "step": 1, "wrapper": { "width": "25" } },
+      { "key": "field_hj_cfb_rating_content", "label": "Content", "name": "content", "type": "textarea", "rows": 4, "required": 1 }
+    ] },
     { "key": "field_hj_cfb_heading", "label": "Heading", "name": "heading", "type": "text", "required": 1, "default_value": "Ready to take the next step to" },
     { "key": "field_hj_cfb_heading_accent", "label": "Heading (Accent)", "name": "heading_accent", "type": "text", "default_value": "a pain-free & mobile life?" },
     { "key": "field_hj_cfb_subheading", "label": "Subheading", "name": "subheading", "type": "text", "default_value": "Let's find out together!" },
+    { "key": "field_hj_cfb_style_tab", "label": "Style", "name": "", "type": "tab", "placement": "top" },
+    { "key": "field_hj_cfb_bg_color", "label": "Background Color", "name": "bg_color", "type": "color_picker", "default_value": "#ffffff" },
+    { "key": "field_hj_cfb_text_color", "label": "Text Color", "name": "text_color", "type": "color_picker", "default_value": "#111827", "wrapper": { "width": "33" } },
+    { "key": "field_hj_cfb_accent_color", "label": "Accent Text Color", "name": "accent_color", "type": "color_picker", "default_value": "#4951d5", "wrapper": { "width": "33" } },
+    { "key": "field_hj_cfb_separator_color", "label": "Separator Color", "name": "separator_color", "type": "color_picker", "default_value": "#4951d5", "wrapper": { "width": "33" } },
+    { "key": "field_hj_cfb_button_bg_color", "label": "Button Background Color", "name": "button_bg_color", "type": "color_picker", "default_value": "#4951d5", "wrapper": { "width": "33" } },
+    { "key": "field_hj_cfb_button_text_color", "label": "Button Text Color", "name": "button_text_color", "type": "color_picker", "default_value": "#ffffff", "wrapper": { "width": "33" } },
+    { "key": "field_hj_cfb_terms_link_color", "label": "Terms Link Color", "name": "terms_link_color", "type": "color_picker", "default_value": "#ffffff", "wrapper": { "width": "33" } },
     {
       "key": "field_hj_cfb_fluent_form_id",
       "label": "Fluent Form",

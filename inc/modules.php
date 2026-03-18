@@ -32,7 +32,12 @@ add_action('acf/init', function () {
             'button_label' => 'Add Module',
             'layouts' => $layouts,
         ]],
-        'location' => [[[ 'param' => 'page_template', 'operator' => '==', 'value' => 'page-pricelist-dental.php' ]]],
+        'location' => [
+            [[ 'param' => 'page_template', 'operator' => '==', 'value' => 'page-home.php' ]],
+            [[ 'param' => 'page_template', 'operator' => '==', 'value' => 'page-pricelist.php' ]],
+            // Back-compat for pages still assigned to the legacy template filename.
+            [[ 'param' => 'page_template', 'operator' => '==', 'value' => 'page-pricelist-dental.php' ]],
+        ],
         'position' => 'acf_after_title',
         'style' => 'seamless',
         'active' => true,
@@ -41,10 +46,10 @@ add_action('acf/init', function () {
 
     acf_add_local_field_group($group_array);
 
-    // Services: same modular flexible content field, attached to CPT "service"
+    // Treatments: same modular flexible content field, attached to CPT "service"
     $service_group_array = [
         'key' => 'group_hj_modules_service',
-        'title' => 'Service Modules',
+        'title' => 'Treatment Modules',
         'fields' => [[
             'key' => 'field_hj_modules_fc_service',
             'label' => 'Modules',
@@ -76,10 +81,18 @@ add_action('acf/init', function () {
 });
 
 // Render helper for modules; include modules/{layout}/module.php and enqueue matching CSS
+function hj_include_module_template($template_path) {
+    include $template_path;
+}
+
 function hj_render_page_modules($post_id = null) {
     if (!function_exists('have_rows')) { return; }
     $post_id = $post_id ?: get_the_ID();
     if (!have_rows('modules', $post_id)) { return; }
+
+    global $post;
+
+    $original_post = $post ?? null;
 
     while (have_rows('modules', $post_id)) { the_row();
         $layout = get_row_layout();
@@ -95,14 +108,44 @@ function hj_render_page_modules($post_id = null) {
             if (file_exists($path)) { wp_enqueue_style('hj-module-' . $layout, $url, [], wp_get_theme()->get('Version')); break; }
         }
 
+        // Enqueue JS: try underscore name first, then dashed variant
+        $js_candidates = [
+            [ $base . '/assets/js/modules/' . $layout . '.js', get_stylesheet_directory_uri() . '/assets/js/modules/' . $layout . '.js' ],
+            [ $base . '/assets/js/modules/' . $layout_dash . '.js', get_stylesheet_directory_uri() . '/assets/js/modules/' . $layout_dash . '.js' ],
+        ];
+        foreach ($js_candidates as [$path, $url]) {
+            if (file_exists($path)) {
+                wp_enqueue_script('hj-module-' . $layout, $url, [], wp_get_theme()->get('Version'), true);
+                break;
+            }
+        }
+
         // Template include: try underscore folder then dashed folder
         $tpl_candidates = [
             $base . '/modules/' . $layout . '/module.php',
             $base . '/modules/' . $layout_dash . '/module.php',
         ];
         foreach ($tpl_candidates as $template) {
-            if (file_exists($template)) { include $template; break; }
+            if (file_exists($template)) {
+                hj_include_module_template($template);
+
+                $post = $original_post;
+                if ($original_post instanceof WP_Post) {
+                    setup_postdata($original_post);
+                } else {
+                    wp_reset_postdata();
+                }
+
+                break;
+            }
         }
+    }
+
+    $post = $original_post;
+    if ($original_post instanceof WP_Post) {
+        setup_postdata($original_post);
+    } else {
+        wp_reset_postdata();
     }
 }
 

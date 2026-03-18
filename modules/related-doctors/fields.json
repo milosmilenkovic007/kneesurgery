@@ -1,0 +1,10 @@
+{
+  "key": "layout_hj_related_doctors",
+  "name": "related_doctors",
+  "label": "Doctors – Related",
+  "display": "block",
+  "sub_fields": [
+    { "key": "field_hj_rd_title", "label": "Title", "name": "title", "type": "text", "placeholder": "Our Doctors" },
+    { "key": "field_hj_rd_intro", "label": "Intro", "name": "intro", "type": "textarea", "rows": 2, "placeholder": "Meet the doctors for this treatment." }
+  ]
+}

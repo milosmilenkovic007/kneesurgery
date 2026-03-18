@@ -13,13 +13,33 @@ if (!wp_script_is('hj-video-slider-sections', 'enqueued')) {
   );
 }
 
-function hj_vss_is_media_url($url) {
+$vss_arrow_left = get_stylesheet_directory_uri() . '/assets/img/icons/arrow-left.svg';
+$vss_arrow_right = get_stylesheet_directory_uri() . '/assets/img/icons/arrow-right.svg';
+
+$vss_is_media_url = static function ($url) {
   $path = (string) wp_parse_url($url, PHP_URL_PATH);
   $ext = strtolower(pathinfo($path, PATHINFO_EXTENSION));
   return in_array($ext, ['mp4', 'webm', 'ogg'], true);
-}
+};
 
-function hj_vss_poster_url($poster) {
+$vss_get_embed_url = static function ($url) {
+  $url = trim((string) $url);
+  if ($url === '') {
+    return '';
+  }
+
+  if (preg_match('~(?:youtube\.com/watch\?v=|youtu\.be/)([^&?/]+)~i', $url, $matches)) {
+    return 'https://www.youtube.com/embed/' . rawurlencode($matches[1]) . '?autoplay=1&rel=0';
+  }
+
+  if (preg_match('~vimeo\.com/(?:video/)?(\d+)~i', $url, $matches)) {
+    return 'https://player.vimeo.com/video/' . rawurlencode($matches[1]) . '?autoplay=1';
+  }
+
+  return '';
+};
+
+$vss_poster_url = static function ($poster) {
   if (is_array($poster) && !empty($poster['url'])) {
     return $poster['url'];
   }
@@ -28,16 +48,224 @@ function hj_vss_poster_url($poster) {
     return $u ? $u[0] : '';
   }
   return '';
-}
+};
+
+$vss_split_content_tabs = static function ($content) {
+  $content = is_string($content) ? trim($content) : '';
+  if ($content === '') {
+    return [];
+  }
+
+  $items = [];
+  $current_title = '';
+  $current_body = '';
+
+  $prev = libxml_use_internal_errors(true);
+  $doc = new DOMDocument('1.0', 'UTF-8');
+  $html = '<div>' . $content . '</div>';
+  $doc->loadHTML(mb_convert_encoding($html, 'HTML-ENTITIES', 'UTF-8'));
+  libxml_clear_errors();
+  libxml_use_internal_errors($prev);
+
+  $root = $doc->getElementsByTagName('div')->item(0);
+  if (!$root) {
+    return [[ 'title' => '', 'body' => $content ]];
+  }
+
+  foreach ($root->childNodes as $node) {
+    if ($node->nodeType === XML_ELEMENT_NODE) {
+      $tag = strtolower($node->nodeName);
+      if (in_array($tag, ['h2', 'h3', 'h4'], true)) {
+        if ($current_title !== '' || trim($current_body) !== '') {
+          $items[] = [
+            'title' => $current_title,
+            'body' => $current_body,
+          ];
+        }
+        $current_title = trim($node->textContent);
+        $current_body = '';
+        continue;
+      }
+    }
+
+    $current_body .= $doc->saveHTML($node);
+  }
+
+  if ($current_title !== '' || trim($current_body) !== '') {
+    $items[] = [
+      'title' => $current_title,
+      'body' => $current_body,
+    ];
+  }
+
+  return $items;
+};
+
+$vss_render_section_body = static function ($section, $enable_accordion) use ($vss_split_content_tabs) {
+  $section_type = $section['section_type'] ?? 'content';
+  $subheading = trim((string) ($section['subheading'] ?? ''));
+  $content = $section['content'] ?? '';
+  $btn = $section['button'] ?? null;
+  $included_title = trim((string) ($section['included_title'] ?? ''));
+  $included_items = $section['included_items'] ?? [];
+  $price = trim((string) ($section['price'] ?? ''));
+  $price_note = trim((string) ($section['price_note'] ?? ''));
+  $price_btn = $section['price_button'] ?? null;
+  $rating = $section['rating'] ?? [];
+  $btn_url = is_array($btn) ? ($btn['url'] ?? '') : '';
+  $btn_title = is_array($btn) ? ($btn['title'] ?? '') : '';
+  $btn_target = is_array($btn) ? ($btn['target'] ?? '') : '';
+  $price_btn_url = is_array($price_btn) ? ($price_btn['url'] ?? '') : '';
+  $price_btn_title = is_array($price_btn) ? ($price_btn['title'] ?? '') : '';
+  $price_btn_target = is_array($price_btn) ? ($price_btn['target'] ?? '') : '';
+  $rating_label = trim((string) ($rating['label'] ?? ''));
+  $rating_reviews_count = (int) ($rating['reviews_count'] ?? 0);
+  $rating_reviews_url = trim((string) ($rating['reviews_url'] ?? ''));
+
+  ob_start();
+
+  if ($section_type === 'price') {
+    ?>
+    <div class="hj-vss-box">
+      <?php if ($included_title): ?>
+        <p class="hj-vss-included-title"><?php echo esc_html($included_title); ?></p>
+      <?php endif; ?>
+
+      <?php if (!empty($included_items)): ?>
+        <ul class="hj-vss-included-list" role="list">
+          <?php foreach ($included_items as $item):
+            $item_text = is_array($item) ? ($item['text'] ?? '') : $item;
+            $item_text = trim((string) $item_text);
+            if (!$item_text) continue;
+          ?>
+            <li class="hj-vss-included-item">
+              <span class="ic" aria-hidden="true">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="12" cy="12" r="11" stroke="#60A5FA" stroke-width="2"/>
+                  <path d="M7 12.5l3 3 7-7" stroke="#2563EB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
+              <span class="tx"><?php echo esc_html($item_text); ?></span>
+            </li>
+          <?php endforeach; ?>
+        </ul>
+      <?php endif; ?>
+
+      <?php if ($price || $price_note): ?>
+        <div class="hj-vss-price-row">
+          <?php if ($price): ?><span class="hj-vss-price"><?php echo esc_html($price); ?></span><?php endif; ?>
+          <?php if ($price_note): ?><span class="hj-vss-price-note"><?php echo esc_html($price_note); ?></span><?php endif; ?>
+        </div>
+      <?php endif; ?>
+
+      <?php if (($price_btn_url && $price_btn_title) || ($rating_label || $rating_reviews_count)): ?>
+        <div class="hj-vss-cta-row">
+          <?php if ($price_btn_url && $price_btn_title): ?>
+            <div class="hj-vss-actions">
+              <a class="hj-vss-btn" href="<?php echo esc_url($price_btn_url); ?>"<?php echo $price_btn_target ? ' target="' . esc_attr($price_btn_target) . '" rel="noopener"' : ''; ?>>
+                <?php echo esc_html($price_btn_title); ?>
+              </a>
+            </div>
+          <?php endif; ?>
+
+          <?php if ($rating_label || $rating_reviews_count): ?>
+            <div class="hj-vss-rating">
+              <div class="row">
+                <span class="stars" aria-hidden="true">★★★★★</span>
+                <?php if ($rating_label): ?><span class="label"><?php echo esc_html($rating_label); ?></span><?php endif; ?>
+              </div>
+              <?php if ($rating_reviews_count): ?>
+                <div class="sub">
+                  <span class="prefix"><?php esc_html_e('Based on', 'hello-elementor-child'); ?></span>
+                  <?php if ($rating_reviews_url): ?>
+                    <a href="<?php echo esc_url($rating_reviews_url); ?>"><?php echo intval($rating_reviews_count); ?> reviews</a>
+                  <?php else: ?>
+                    <span><?php echo intval($rating_reviews_count); ?> reviews</span>
+                  <?php endif; ?>
+                </div>
+              <?php endif; ?>
+            </div>
+          <?php endif; ?>
+        </div>
+      <?php endif; ?>
+    </div>
+    <?php
+  } else {
+    if ($subheading) {
+      echo '<p class="hj-vss-subheading">' . esc_html($subheading) . '</p>';
+    }
+
+    if (!empty($content)) {
+      if ($enable_accordion) {
+        $accordion_items = $vss_split_content_tabs($content);
+        $first_titled_index = null;
+        foreach ($accordion_items as $index => $it) {
+          if (!empty($it['title'])) {
+            $first_titled_index = $index;
+            break;
+          }
+        }
+
+        if ($first_titled_index !== null && empty($accordion_items[0]['title']) && trim((string) $accordion_items[0]['body']) !== '') {
+          $accordion_items[$first_titled_index]['body'] = $accordion_items[0]['body'] . $accordion_items[$first_titled_index]['body'];
+          array_shift($accordion_items);
+        }
+
+        if (empty($accordion_items)) {
+          $accordion_items = [[
+            'title' => $subheading ?: __('Details', 'hello-elementor-child'),
+            'body' => $content,
+          ]];
+        }
+
+        foreach ($accordion_items as $index => $it) {
+          if (empty($it['title'])) {
+            $accordion_items[$index]['title'] = $subheading ?: __('Details', 'hello-elementor-child');
+          }
+        }
+        ?>
+        <ul class="hj-pa-list hj-vss-accordion" role="list">
+          <?php foreach ($accordion_items as $it): ?>
+            <li class="hj-pa-item">
+              <details>
+                <summary>
+                  <span class="ind" aria-hidden="true"></span>
+                  <span class="t"><?php echo esc_html($it['title']); ?></span>
+                  <span class="dots" aria-hidden="true"></span>
+                </summary>
+                <div class="desc">
+                  <?php echo wp_kses_post($it['body']); ?>
+                </div>
+              </details>
+            </li>
+          <?php endforeach; ?>
+        </ul>
+        <?php
+      } else {
+        echo '<div class="hj-vss-content">' . wp_kses_post($content) . '</div>';
+      }
+    }
+
+    if ($btn_url && $btn_title) {
+      echo '<div class="hj-vss-actions"><a class="hj-vss-btn" href="' . esc_url($btn_url) . '"' . ($btn_target ? ' target="' . esc_attr($btn_target) . '" rel="noopener"' : '') . '>' . esc_html($btn_title) . '</a></div>';
+    }
+  }
+
+  return ob_get_clean();
+};
 
 // Normalize videos to a clean sequential list (so dots match slides)
 $items = [];
 foreach ($videos as $row) {
   $url = trim((string) ($row['url'] ?? ''));
   if (!$url) { continue; }
+  $video_type = $vss_is_media_url($url) ? 'file' : 'embed';
   $items[] = [
     'url' => $url,
-    'poster' => hj_vss_poster_url($row['poster'] ?? null),
+    'poster' => $vss_poster_url($row['poster'] ?? null),
+    'caption' => trim((string) ($row['caption'] ?? '')),
+    'type' => $video_type,
+    'src' => $video_type === 'file' ? $url : $vss_get_embed_url($url),
   ];
 }
 ?>
@@ -48,38 +276,42 @@ foreach ($videos as $row) {
     <div class="hj-vss-left">
       <?php if (!empty($items)): ?>
         <div class="hj-vss-slider" data-vss-slider>
-          <div class="hj-vss-track" data-vss-track>
+          <div class="hj-vss-stage">
+            <button class="hj-vss-arrow hj-vss-arrow--prev" type="button" data-vss-prev aria-label="<?php esc_attr_e('Previous slide', 'hello-elementor-child'); ?>">
+              <img src="<?php echo esc_url($vss_arrow_left); ?>" alt="" aria-hidden="true" loading="lazy" decoding="async">
+            </button>
+
+            <div class="hj-vss-track" data-vss-track>
             <?php foreach ($items as $i => $row):
-              $url = $row['url'];
               $poster = $row['poster'];
-              $is_media = hj_vss_is_media_url($url);
-              $embed = '';
-              if (!$is_media) {
-                $embed = wp_oembed_get($url);
-                if (!$embed) {
-                  $embed = sprintf(
-                    '<iframe src="%s" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen title="%s"></iframe>',
-                    esc_url($url),
-                    esc_attr__('Video', 'hello-elementor-child')
-                  );
-                }
-              }
             ?>
               <div class="hj-vss-slide" data-vss-slide>
-                <div class="hj-vss-card">
-                  <?php if ($is_media): ?>
-                    <video class="hj-vss-video" controls playsinline preload="metadata" <?php if($poster) echo 'poster="' . esc_url($poster) . '"'; ?>>
-                      <source src="<?php echo esc_url($url); ?>" />
-                    </video>
+                <button
+                  class="hj-vss-card hj-vss-card--poster"
+                  type="button"
+                  data-vss-open
+                  data-video-type="<?php echo esc_attr($row['type']); ?>"
+                  data-video-src="<?php echo esc_url($row['src']); ?>"
+                  aria-label="<?php esc_attr_e('Open video', 'hello-elementor-child'); ?>"
+                >
+                  <?php if ($poster): ?>
+                    <img class="hj-vss-poster" src="<?php echo esc_url($poster); ?>" alt="<?php echo esc_attr($row['caption']); ?>" loading="lazy" decoding="async">
                   <?php else: ?>
-                    <div class="hj-vss-embed">
-                      <?php echo $embed; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
-                    </div>
+                    <span class="hj-vss-poster hj-vss-poster--fallback"></span>
                   <?php endif; ?>
-
-                </div>
+                  <span class="hj-vss-play" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M9 7.75V16.25L16 12L9 7.75Z" fill="currentColor"/>
+                    </svg>
+                  </span>
+                </button>
               </div>
             <?php endforeach; ?>
+            </div>
+
+            <button class="hj-vss-arrow hj-vss-arrow--next" type="button" data-vss-next aria-label="<?php esc_attr_e('Next slide', 'hello-elementor-child'); ?>">
+              <img src="<?php echo esc_url($vss_arrow_right); ?>" alt="" aria-hidden="true" loading="lazy" decoding="async">
+            </button>
           </div>
 
           <div class="hj-vss-dots" role="tablist" aria-label="<?php esc_attr_e('Video slides', 'hello-elementor-child'); ?>" data-vss-dots>
@@ -92,120 +324,43 @@ foreach ($videos as $row) {
     </div>
 
     <div class="hj-vss-right" data-vss-right>
-      <?php foreach ($sections as $s):
+      <?php foreach ($sections as $i => $s):
         $heading = trim((string) ($s['heading'] ?? ''));
         $section_type = $s['section_type'] ?? 'content';
-        $subheading = trim((string) ($s['subheading'] ?? ''));
-        $content = $s['content'] ?? '';
-        $btn = $s['button'] ?? null;
-        $included_title = trim((string) ($s['included_title'] ?? ''));
-        $included_items = $s['included_items'] ?? [];
-        $price = trim((string) ($s['price'] ?? ''));
-        $price_note = trim((string) ($s['price_note'] ?? ''));
-        $price_btn = $s['price_button'] ?? null;
-        $rating = $s['rating'] ?? [];
-        $has_content_block = ($section_type !== 'price') && ($subheading || $content || !empty($btn));
-        $has_price_block = ($section_type === 'price') && ($included_title || !empty($included_items) || $price || $price_note || !empty($price_btn) || !empty($rating));
+        $enable_accordion = array_key_exists('enable_accordion', $s) ? !empty($s['enable_accordion']) : true;
+        $has_content_block = ($section_type !== 'price') && (!empty($s['subheading']) || !empty($s['content']) || !empty($s['button']));
+        $has_price_block = ($section_type === 'price') && (!empty($s['included_title']) || !empty($s['included_items']) || !empty($s['price']) || !empty($s['price_note']) || !empty($s['price_button']) || !empty($s['rating']));
         if (!$heading && !$has_content_block && !$has_price_block) continue;
-        $btn_url = is_array($btn) ? ($btn['url'] ?? '') : '';
-        $btn_title = is_array($btn) ? ($btn['title'] ?? '') : '';
-        $btn_target = is_array($btn) ? ($btn['target'] ?? '') : '';
-        $price_btn_url = is_array($price_btn) ? ($price_btn['url'] ?? '') : '';
-        $price_btn_title = is_array($price_btn) ? ($price_btn['title'] ?? '') : '';
-        $price_btn_target = is_array($price_btn) ? ($price_btn['target'] ?? '') : '';
-        $rating_label = trim((string) ($rating['label'] ?? ''));
-        $rating_reviews_count = (int) ($rating['reviews_count'] ?? 0);
-        $rating_reviews_url = trim((string) ($rating['reviews_url'] ?? ''));
+        $section_body = $vss_render_section_body($s, $enable_accordion);
       ?>
-        <div class="hj-vss-section">
-          <?php if ($heading): ?>
-            <h2 class="hj-cb-title"><span class="hj-vss-accent" aria-hidden="true"></span><?php echo esc_html($heading); ?></h2>
-          <?php endif; ?>
-
-          <?php if ($section_type === 'price'): ?>
-            <?php if ($included_title): ?>
-              <p class="hj-vss-included-title"><?php echo esc_html($included_title); ?></p>
+        <?php if ($enable_accordion): ?>
+          <details class="hj-vss-section hj-vss-main-accordion" <?php echo $i === 0 ? 'open' : ''; ?>>
+            <summary class="hj-vss-main-summary">
+              <span class="hj-vss-main-ind" aria-hidden="true"></span>
+              <?php if ($heading): ?>
+                <h2 class="hj-cb-title"><?php echo esc_html($heading); ?></h2>
+              <?php endif; ?>
+            </summary>
+            <?php echo $section_body; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+          </details>
+        <?php else: ?>
+          <section class="hj-vss-section hj-vss-section--static">
+            <?php if ($heading): ?>
+              <h2 class="hj-cb-title hj-vss-static-title"><?php echo esc_html($heading); ?></h2>
             <?php endif; ?>
-
-            <?php if (!empty($included_items)): ?>
-              <ul class="hj-vss-included-list" role="list">
-                <?php foreach ($included_items as $item):
-                  $item_text = is_array($item) ? ($item['text'] ?? '') : $item;
-                  $item_text = trim((string) $item_text);
-                  if (!$item_text) continue;
-                ?>
-                  <li class="hj-vss-included-item">
-                    <span class="ic" aria-hidden="true">
-                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="12" cy="12" r="11" stroke="#60A5FA" stroke-width="2"/>
-                        <path d="M7 12.5l3 3 7-7" stroke="#2563EB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                      </svg>
-                    </span>
-                    <span class="tx"><?php echo esc_html($item_text); ?></span>
-                  </li>
-                <?php endforeach; ?>
-              </ul>
-            <?php endif; ?>
-
-            <?php if ($price || $price_note): ?>
-              <div class="hj-vss-price-row">
-                <?php if ($price): ?><span class="hj-vss-price"><?php echo esc_html($price); ?></span><?php endif; ?>
-                <?php if ($price_note): ?><span class="hj-vss-price-note"><?php echo esc_html($price_note); ?></span><?php endif; ?>
-              </div>
-            <?php endif; ?>
-
-            <?php if (($price_btn_url && $price_btn_title) || ($rating_label || $rating_reviews_count)): ?>
-              <div class="hj-vss-cta-row">
-                <?php if ($price_btn_url && $price_btn_title): ?>
-                  <div class="hj-vss-actions">
-                    <a class="hj-vss-btn" href="<?php echo esc_url($price_btn_url); ?>"<?php echo $price_btn_target ? ' target="' . esc_attr($price_btn_target) . '" rel="noopener"' : ''; ?>>
-                      <?php echo esc_html($price_btn_title); ?>
-                    </a>
-                  </div>
-                <?php endif; ?>
-
-                <?php if ($rating_label || $rating_reviews_count): ?>
-                  <div class="hj-vss-rating">
-                    <div class="row">
-                      <span class="stars" aria-hidden="true">★★★★★</span>
-                      <?php if ($rating_label): ?><span class="label"><?php echo esc_html($rating_label); ?></span><?php endif; ?>
-                    </div>
-                    <?php if ($rating_reviews_count): ?>
-                      <div class="sub">
-                        <span class="prefix"><?php esc_html_e('Based on', 'hello-elementor-child'); ?></span>
-                        <?php if ($rating_reviews_url): ?>
-                          <a href="<?php echo esc_url($rating_reviews_url); ?>"><?php echo intval($rating_reviews_count); ?> reviews</a>
-                        <?php else: ?>
-                          <span><?php echo intval($rating_reviews_count); ?> reviews</span>
-                        <?php endif; ?>
-                      </div>
-                    <?php endif; ?>
-                  </div>
-                <?php endif; ?>
-              </div>
-            <?php endif; ?>
-          <?php else: ?>
-            <?php if ($subheading): ?>
-              <p class="hj-vss-subheading"><?php echo esc_html($subheading); ?></p>
-            <?php endif; ?>
-
-            <?php if (!empty($content)): ?>
-              <div class="hj-vss-content">
-                <?php echo wp_kses_post($content); ?>
-              </div>
-            <?php endif; ?>
-
-            <?php if ($btn_url && $btn_title): ?>
-              <div class="hj-vss-actions">
-                <a class="hj-vss-btn" href="<?php echo esc_url($btn_url); ?>"<?php echo $btn_target ? ' target="' . esc_attr($btn_target) . '" rel="noopener"' : ''; ?>>
-                  <?php echo esc_html($btn_title); ?>
-                </a>
-              </div>
-            <?php endif; ?>
-          <?php endif; ?>
-        </div>
+            <?php echo $section_body; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+          </section>
+        <?php endif; ?>
       <?php endforeach; ?>
     </div>
 
+  </div>
+
+  <div class="hj-vss-modal" data-vss-modal hidden>
+    <div class="hj-vss-modal__backdrop" data-vss-close></div>
+    <div class="hj-vss-modal__dialog" role="dialog" aria-modal="true" aria-label="<?php esc_attr_e('Video player', 'hello-elementor-child'); ?>">
+      <button class="hj-vss-modal__close" type="button" data-vss-close aria-label="<?php esc_attr_e('Close video', 'hello-elementor-child'); ?>">×</button>
+      <div class="hj-vss-modal__body" data-vss-modal-body></div>
+    </div>
   </div>
 </section>

@@ -108,22 +108,58 @@ add_action('admin_print_footer_scripts', function(){
 	})();</script>';
 }, 999);
 
-// Disable Gutenberg block editor for pages using our custom Pricelist template
+function hj_is_modules_template_page($post = null) {
+	if (!$post) {
+		return false;
+	}
+
+	$post_obj = is_numeric($post) ? get_post((int) $post) : $post;
+	if (!$post_obj instanceof WP_Post || $post_obj->post_type !== 'page') {
+		return false;
+	}
+
+	$template = get_page_template_slug($post_obj->ID);
+	if (!$template) {
+		$template = (string) get_post_meta($post_obj->ID, '_wp_page_template', true);
+	}
+
+	return in_array($template, ['page-home.php', 'page-pricelist.php', 'page-pricelist-dental.php'], true);
+}
+
+// Disable Gutenberg block editor for pages using our module-based templates.
 add_filter('use_block_editor_for_post', function ($use_block_editor, $post) {
-	if (!$post) { return $use_block_editor; }
-	$template = get_page_template_slug($post);
-	if ($template === 'page-pricelist-dental.php') {
+	if (hj_is_modules_template_page($post)) {
 		return false; // use Classic editor (or ACF only)
 	}
+
 	return $use_block_editor;
-}, 10, 2);
+}, 1000, 2);
+
+// Also short-circuit page post type editor loading when we already know the edited page ID.
+add_filter('use_block_editor_for_post_type', function ($use_block_editor, $post_type) {
+	if ($post_type !== 'page') {
+		return $use_block_editor;
+	}
+
+	$requested_post_id = 0;
+	if (isset($_GET['post'])) {
+		$requested_post_id = (int) $_GET['post'];
+	} elseif (isset($_POST['post_ID'])) {
+		$requested_post_id = (int) $_POST['post_ID'];
+	}
+
+	if ($requested_post_id && hj_is_modules_template_page($requested_post_id)) {
+		return false;
+	}
+
+	return $use_block_editor;
+}, 1000, 2);
 
 // Back-compat: older Gutenberg filter name
 add_filter('gutenberg_can_edit_post', function ($can_edit, $post) {
-	if (!$post) { return $can_edit; }
-	$template = get_page_template_slug($post);
-	if ($template === 'page-pricelist-dental.php') {
+	if (hj_is_modules_template_page($post)) {
 		return false;
 	}
+
 	return $can_edit;
-}, 10, 2);
+}, 1000, 2);

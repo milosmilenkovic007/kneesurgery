@@ -1,0 +1,174 @@
+{
+  "key": "layout_hj_home_hero",
+  "name": "home_hero",
+  "label": "Home Hero",
+  "display": "block",
+  "sub_fields": [
+    {
+      "key": "field_hj_hh_eyebrow",
+      "label": "Eyebrow",
+      "name": "eyebrow",
+      "type": "text",
+      "default_value": "SAFE & AFFORDABLE KNEE SURGERY IN TURKEY"
+    },
+    {
+      "key": "field_hj_hh_title",
+      "label": "Title",
+      "name": "title",
+      "type": "textarea",
+      "rows": 4,
+      "required": 1,
+      "placeholder": "Relieve Pain &\nRegain Movement.\nWithout the Wait."
+    },
+    {
+      "key": "field_hj_hh_intro",
+      "label": "Intro",
+      "name": "intro",
+      "type": "textarea",
+      "rows": 4,
+      "placeholder": "Facilitating orthopaedic care abroad – designed to bridge the gap between international patients and hospitals for peace of mind and faster recovery."
+    },
+    {
+      "key": "field_hj_hh_primary_button",
+      "label": "Primary Button",
+      "name": "primary_button",
+      "type": "group",
+      "layout": "block",
+      "sub_fields": [
+        {
+          "key": "field_hj_hh_primary_button_label",
+          "label": "Label",
+          "name": "label",
+          "type": "text",
+          "default_value": "Book a Free Medical Evaluation"
+        },
+        {
+          "key": "field_hj_hh_primary_button_url",
+          "label": "URL / Anchor",
+          "name": "url",
+          "type": "text",
+          "placeholder": "https://example.com or #candidate"
+        }
+      ]
+    },
+    {
+      "key": "field_hj_hh_secondary_button",
+      "label": "Secondary Button",
+      "name": "secondary_button",
+      "type": "group",
+      "layout": "block",
+      "sub_fields": [
+        {
+          "key": "field_hj_hh_secondary_button_label",
+          "label": "Label",
+          "name": "label",
+          "type": "text",
+          "default_value": "Learn More"
+        },
+        {
+          "key": "field_hj_hh_secondary_button_url",
+          "label": "URL / Anchor",
+          "name": "url",
+          "type": "text",
+          "placeholder": "https://example.com or #about"
+        }
+      ]
+    },
+    {
+      "key": "field_hj_hh_doctor_images",
+      "label": "Doctor Images",
+      "name": "doctor_images",
+      "type": "repeater",
+      "layout": "table",
+      "button_label": "Add Doctor Image",
+      "min": 1,
+      "sub_fields": [
+        {
+          "key": "field_hj_hh_doctor_image_item",
+          "label": "Image",
+          "name": "image",
+          "type": "image",
+          "return_format": "array",
+          "preview_size": "medium",
+          "required": 1
+        }
+      ]
+    },
+    {
+      "key": "field_hj_hh_counters",
+      "label": "Counters",
+      "name": "counters",
+      "type": "repeater",
+      "layout": "table",
+      "button_label": "Add Counter",
+      "min": 0,
+      "max": 3,
+      "sub_fields": [
+        {
+          "key": "field_hj_hh_counter_value",
+          "label": "Number",
+          "name": "value",
+          "type": "text",
+          "required": 1,
+          "placeholder": "25+"
+        },
+        {
+          "key": "field_hj_hh_counter_label",
+          "label": "Label",
+          "name": "label",
+          "type": "textarea",
+          "rows": 2,
+          "required": 1,
+          "placeholder": "Years of\nExperience"
+        }
+      ]
+    },
+    {
+      "key": "field_hj_hh_review_card",
+      "label": "Review Card",
+      "name": "review_card",
+      "type": "group",
+      "layout": "block",
+      "sub_fields": [
+        {
+          "key": "field_hj_hh_review_avatars",
+          "label": "Reviewer Avatars",
+          "name": "avatars",
+          "type": "repeater",
+          "layout": "table",
+          "button_label": "Add Avatar",
+          "min": 0,
+          "max": 4,
+          "sub_fields": [
+            {
+              "key": "field_hj_hh_review_avatar_image",
+              "label": "Avatar",
+              "name": "image",
+              "type": "image",
+              "return_format": "array",
+              "preview_size": "thumbnail",
+              "required": 1
+            }
+          ]
+        },
+        {
+          "key": "field_hj_hh_review_stars",
+          "label": "Stars",
+          "name": "stars",
+          "type": "number",
+          "default_value": 5,
+          "min": 0,
+          "max": 5,
+          "step": 0.5
+        },
+        {
+          "key": "field_hj_hh_review_text",
+          "label": "Text",
+          "name": "text",
+          "type": "text",
+          "default_value": "5 Stars Rating"
+        }
+      ]
+    }
+  ]
+}

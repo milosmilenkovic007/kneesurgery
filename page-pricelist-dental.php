@@ -1,17 +1,5 @@
 <?php
-/*
-Template Name: Price List – Dental Care
-*/
-
-get_header();
-?>
-
-<main id="primary" class="site-main">
-    <article <?php post_class('hj-pricelist'); ?>>
-        <?php if (have_posts()) : while (have_posts()) : the_post(); ?>
-            <?php hj_render_page_modules(get_the_ID()); ?>
-        <?php endwhile; endif; ?>
-    </article>
-</main>
-
-<?php get_footer(); ?>
+// Back-compat: keep old template file working for pages already assigned to it.
+// Intentionally no "Template Name" header here so it doesn't appear in admin UI.
+require get_stylesheet_directory() . '/page-pricelist.php';
+return;
