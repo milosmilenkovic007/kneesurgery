@@ -51,14 +51,7 @@ $cards_html = hj_ag_render_cards($posts);
   <div class="hj-ag-wrap">
     <div class="hj-ag-head">
       <?php if ($title): ?>
-        <h2 class="hj-ag-title hj-hd-title hj-flex-h2">
-          <span class="accent" aria-hidden="true"></span><?php echo esc_html($title); ?>
-        </h2>
-      <?php endif; ?>
-      <?php if (!empty($cta['label']) && !empty($cta['url'])): ?>
-        <a class="hj-ag-all" href="<?php echo esc_url($cta['url']); ?>">
-          <?php echo esc_html($cta['label']); ?> <span aria-hidden="true">↗</span>
-        </a>
+        <h2 class="hj-ag-title hj-hd-title hj-flex-h2"><?php echo esc_html($title); ?></h2>
       <?php endif; ?>
     </div>
 
@@ -75,6 +68,14 @@ $cards_html = hj_ag_render_cards($posts);
       <ul class="hj-ag-grid" role="list" style="--ag-cols: <?php echo esc_attr($columns); ?>; --ag-cols-md: <?php echo esc_attr($columns_md); ?>; --ag-cols-sm: <?php echo esc_attr($columns_sm); ?>;">
         <?php echo $cards_html; ?>
       </ul>
+    <?php endif; ?>
+
+    <?php if (!empty($cta['label']) && !empty($cta['url'])): ?>
+      <div class="hj-ag-footer">
+        <a class="hj-ag-all btn-primary" href="<?php echo esc_url($cta['url']); ?>">
+          <?php echo esc_html($cta['label']); ?>
+        </a>
+      </div>
     <?php endif; ?>
   </div>
 </section>

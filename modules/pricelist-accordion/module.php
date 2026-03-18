@@ -155,9 +155,6 @@ $render_desc = static function ($raw_desc) {
                                 <?php if ($ps): ?><p class="hj-package__subtitle"><?php echo wp_kses_post(nl2br($ps)); ?></p><?php endif; ?>
                               </div>
                               <div class="hj-package__actions">
-                                <a class="hj-package__act hj-package__act--pdf" href="<?php echo esc_url(function_exists('hj_get_package_pdf_url') ? hj_get_package_pdf_url(get_the_ID()) : '#'); ?>" title="Download PDF" target="_blank" rel="noopener">
-                                  <img src="<?php echo esc_url(get_stylesheet_directory_uri().'/assets/img/pdf-93.png'); ?>" alt="PDF" />
-                                </a>
                                 <a class="hj-package__act hj-package__act--print" href="#" title="Print Package Offer">
                                   <img src="<?php echo esc_url(get_stylesheet_directory_uri().'/assets/img/print.svg'); ?>" alt="Print" />
                                 </a>
@@ -171,8 +168,8 @@ $render_desc = static function ($raw_desc) {
                             if (!empty($highs)):
                           ?>
                           <section class="hj-package__section hj-package__section--highlights">
-                            <details class="hj-package__accordion">
-                              <summary><h3 class="hj-package__section-title">Highlights</h3></summary>
+                            <div class="hj-package__accordion hj-package__accordion--always-open">
+                              <div class="hj-package__summary-static"><h3 class="hj-package__section-title">Package includes</h3></div>
                               <div class="hj-package__body">
                                 <ul class="hj-package__list">
                                   <?php foreach ($highs as $h): $text = is_array($h) ? ($h['text'] ?? '') : $h; if (!$text) continue; ?>
@@ -188,192 +185,8 @@ $render_desc = static function ($raw_desc) {
                                   <?php endforeach; ?>
                                 </ul>
                               </div>
-                            </details>
+                            </div>
                           </section>
-                          <?php endif; ?>
-
-                          <?php $fd = $pkg['full_details'] ?? [];
-                            $fd_title = $fd['title'] ?? '';
-                            $fd_sub = $fd['subheading'] ?? '';
-                            $fd_ps = $fd['paragraphs'] ?? [];
-                            if ($fd_title || $fd_sub || !empty($fd_ps)):
-                          ?>
-                          <section class="hj-package__section">
-                            <details class="hj-package__accordion">
-                              <summary><h3 class="hj-package__section-title"><?php echo esc_html($fd_title ?: 'Full Details'); ?></h3></summary>
-                              <div class="hj-package__body">
-                                <?php if ($fd_sub): ?><h4 class="hj-package__subheading"><?php echo esc_html($fd_sub); ?></h4><?php endif; ?>
-                                <?php foreach ($fd_ps as $p): $txt = is_array($p) ? ($p['p'] ?? '') : $p; if (!$txt) continue; ?>
-                                  <p><?php echo wp_kses_post($txt); ?></p>
-                                <?php endforeach; ?>
-                              </div>
-                            </details>
-                          </section>
-                          <?php endif; ?>
-
-                          <?php $ms = $pkg['medical'] ?? [];
-                            $ms_title = $ms['title'] ?? '';
-                            $ms_intro = $ms['intro'] ?? '';
-                            $ms_list = $ms['list'] ?? [];
-                            $ms_note = $ms['note'] ?? '';
-                            if ($ms_title || $ms_intro || !empty($ms_list) || $ms_note):
-                          ?>
-                          <section class="hj-package__section">
-                            <details class="hj-package__accordion">
-                              <summary><h3 class="hj-package__section-title"><?php echo esc_html($ms_title ?: 'Medical Suitability Assessment'); ?></h3></summary>
-                              <div class="hj-package__body">
-                                <?php if ($ms_intro): ?><p><?php echo wp_kses_post($ms_intro); ?></p><?php endif; ?>
-                                <?php if (!empty($ms_list)): ?>
-                                  <ul class="hj-package__list">
-                                    <?php foreach ($ms_list as $li): $txt = is_array($li) ? ($li['text'] ?? '') : $li; if (!$txt) continue; ?>
-                                      <li>
-                                        <span class="ic">
-                                          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <circle cx="12" cy="12" r="11" stroke="#60A5FA" stroke-width="2"></circle>
-                                            <path d="M7 12.5l3 3 7-7" stroke="#2563EB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-                                          </svg>
-                                        </span>
-                                        <span class="tx"><?php echo esc_html($txt); ?></span>
-                                      </li>
-                                    <?php endforeach; ?>
-                                  </ul>
-                                <?php endif; ?>
-                                <?php if ($ms_note): ?><p><?php echo wp_kses_post($ms_note); ?></p><?php endif; ?>
-                              </div>
-                            </details>
-                          </section>
-                          <?php endif; ?>
-
-                          <?php $ov = $pkg['overview'] ?? [];
-                            $ov_title = $ov['title'] ?? '';
-                            $ov_intro = $ov['intro'] ?? '';
-                            $v1_title = $ov['visit1_title'] ?? '';
-                            $v1_list = $ov['visit1_list'] ?? [];
-                            $v2_title = $ov['visit2_title'] ?? '';
-                            $v2_list = $ov['visit2_list'] ?? [];
-                            $ov_note = $ov['note'] ?? '';
-                            if ($ov_title || $ov_intro || $v1_title || !empty($v1_list) || $v2_title || !empty($v2_list) || $ov_note):
-                          ?>
-                          <section class="hj-package__section">
-                            <details class="hj-package__accordion">
-                              <summary><h3 class="hj-package__section-title"><?php echo esc_html($ov_title ?: 'All-on-4 Package Overview (Single Arch)'); ?></h3></summary>
-                              <div class="hj-package__body">
-                                <?php if ($ov_intro): ?><p><?php echo wp_kses_post($ov_intro); ?></p><?php endif; ?>
-                                <?php if ($v1_title): ?><h4 class="hj-package__subheading"><?php echo esc_html($v1_title); ?></h4><?php endif; ?>
-                                <?php if (!empty($v1_list)): ?>
-                                  <ul class="hj-package__list">
-                                    <?php foreach ($v1_list as $li): $txt = is_array($li) ? ($li['text'] ?? '') : $li; if (!$txt) continue; ?>
-                                      <li>
-                                        <span class="ic">
-                                          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <circle cx="12" cy="12" r="11" stroke="#60A5FA" stroke-width="2"></circle>
-                                            <path d="M7 12.5l3 3 7-7" stroke="#2563EB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-                                          </svg>
-                                        </span>
-                                        <span class="tx"><?php echo esc_html($txt); ?></span>
-                                      </li>
-                                    <?php endforeach; ?>
-                                  </ul>
-                                <?php endif; ?>
-                                <?php if ($v2_title): ?><h4 class="hj-package__subheading"><?php echo esc_html($v2_title); ?></h4><?php endif; ?>
-                                <?php if (!empty($v2_list)): ?>
-                                  <ul class="hj-package__list">
-                                    <?php foreach ($v2_list as $li): $txt = is_array($li) ? ($li['text'] ?? '') : $li; if (!$txt) continue; ?>
-                                      <li>
-                                        <span class="ic">
-                                          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <circle cx="12" cy="12" r="11" stroke="#60A5FA" stroke-width="2"></circle>
-                                            <path d="M7 12.5l3 3 7-7" stroke="#2563EB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-                                          </svg>
-                                        </span>
-                                        <span class="tx"><?php echo esc_html($txt); ?></span>
-                                      </li>
-                                    <?php endforeach; ?>
-                                  </ul>
-                                <?php endif; ?>
-                                <?php if ($ov_note): ?><p><?php echo esc_html($ov_note); ?></p><?php endif; ?>
-                              </div>
-                            </details>
-                          </section>
-                          <?php endif; ?>
-
-                          <?php $in = $pkg['inclusions'] ?? [];
-                            $in_title = $in['title'] ?? '';
-                            $surg_title = $in['surg_title'] ?? '';
-                            $surg_list = $in['surg_list'] ?? [];
-                            $sup_title = $in['sup_title'] ?? '';
-                            $sup_list = $in['sup_list'] ?? [];
-                            if ($in_title || $surg_title || !empty($surg_list) || $sup_title || !empty($sup_list)):
-                          ?>
-                          <section class="hj-package__section">
-                            <details class="hj-package__accordion">
-                              <summary><h3 class="hj-package__section-title"><?php echo esc_html($in_title ?: 'What the Package Includes (Single Arch)'); ?></h3></summary>
-                              <div class="hj-package__body">
-                                <?php if ($surg_title): ?><h4 class="hj-package__subheading"><?php echo esc_html($surg_title); ?></h4><?php endif; ?>
-                                <?php if (!empty($surg_list)): ?>
-                                  <ul class="hj-package__list">
-                                    <?php foreach ($surg_list as $li): $txt = is_array($li) ? ($li['text'] ?? '') : $li; if (!$txt) continue; ?>
-                                      <li>
-                                        <span class="ic">
-                                          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <circle cx="12" cy="12" r="11" stroke="#60A5FA" stroke-width="2"></circle>
-                                            <path d="M7 12.5l3 3 7-7" stroke="#2563EB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-                                          </svg>
-                                        </span>
-                                        <span class="tx"><?php echo esc_html($txt); ?></span>
-                                      </li>
-                                    <?php endforeach; ?>
-                                  </ul>
-                                <?php endif; ?>
-                                <?php if ($sup_title): ?><h4 class="hj-package__subheading"><?php echo esc_html($sup_title); ?></h4><?php endif; ?>
-                                <?php if (!empty($sup_list)): ?>
-                                  <ul class="hj-package__list">
-                                    <?php foreach ($sup_list as $li): $txt = is_array($li) ? ($li['text'] ?? '') : $li; if (!$txt) continue; ?>
-                                      <li>
-                                        <span class="ic">
-                                          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <circle cx="12" cy="12" r="11" stroke="#60A5FA" stroke-width="2"></circle>
-                                            <path d="M7 12.5l3 3 7-7" stroke="#2563EB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-                                          </svg>
-                                        </span>
-                                        <span class="tx"><?php echo esc_html($txt); ?></span>
-                                      </li>
-                                    <?php endforeach; ?>
-                                  </ul>
-                                <?php endif; ?>
-                              </div>
-                            </details>
-                          </section>
-                          <?php endif; ?>
-
-                          <?php $tr = $pkg['travel'] ?? [];
-                            $tr_title = $tr['title'] ?? '';
-                            $tr_list = $tr['list'] ?? [];
-                            if ($tr_title || !empty($tr_list)):
-                          ?>
-                          <section class="hj-package__section">
-                            <details class="hj-package__accordion">
-                              <summary><h3 class="hj-package__section-title"><?php echo esc_html($tr_title ?: 'Travel & Accommodation'); ?></h3></summary>
-                              <div class="hj-package__body">
-                                <?php if (!empty($tr_list)): ?>
-                                  <ul class="hj-package__list">
-                                    <?php foreach ($tr_list as $li): $txt = is_array($li) ? ($li['text'] ?? '') : $li; if (!$txt) continue; ?>
-                                      <li>
-                                        <span class="ic">
-                                          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <circle cx="12" cy="12" r="11" stroke="#60A5FA" stroke-width="2"></circle>
-                                            <path d="M7 12.5l3 3 7-7" stroke="#2563EB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-                                          </svg>
-                                        </span>
-                                        <span class="tx"><?php echo esc_html($txt); ?></span>
-                                      </li>
-                                    <?php endforeach; ?>
-                                  </ul>
-                                <?php endif; ?>
-                              </div>
-                            </details>
-                          </section>
-                          
                           <?php endif; ?>
 
                           <?php $pr = $pkg['price'] ?? [];
@@ -385,7 +198,7 @@ $render_desc = static function ($raw_desc) {
                           ?>
                           <section class="hj-package__section hj-package__section--price">
                             <div class="hj-package__price-header">
-                              <h3 class="hj-package__section-title"><?php echo esc_html($pr_title ?: 'Final Full-Arch Restoration (Single Arch)'); ?></h3>
+                              <h3 class="hj-package__section-title"><?php echo esc_html($pr_title ?: 'Final package price:'); ?></h3>
                               <?php if ($pr_amount || $pr_curr): ?>
                                 <p class="hj-package__price">
                                   <?php if ($pr_amount): ?><span class="hj-package__price-amount"><?php echo esc_html($pr_amount); ?></span><?php endif; ?>

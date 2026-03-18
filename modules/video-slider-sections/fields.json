@@ -52,7 +52,8 @@
           "label": "Heading",
           "name": "heading",
           "type": "text",
-          "required": 1
+          "required": 1,
+          "conditional_logic": [[{"field":"field_hj_vss_section_type","operator":"==","value":"content"}]]
         },
         {
           "key": "field_hj_vss_enable_accordion",
@@ -98,41 +99,6 @@
           "type": "link",
           "return_format": "array",
           "conditional_logic": [[{"field":"field_hj_vss_section_type","operator":"==","value":"content"}]]
-        },
-        {
-          "key": "field_hj_vss_included_title",
-          "label": "Included Title",
-          "name": "included_title",
-          "type": "text",
-          "conditional_logic": [[{"field":"field_hj_vss_section_type","operator":"==","value":"price"}]]
-        },
-        {
-          "key": "field_hj_vss_included_items",
-          "label": "Included Items",
-          "name": "included_items",
-          "type": "repeater",
-          "layout": "table",
-          "button_label": "Add Item",
-          "sub_fields": [
-            {"key": "field_hj_vss_included_item_text", "label": "Text", "name": "text", "type": "text", "required": 1}
-          ],
-          "conditional_logic": [[{"field":"field_hj_vss_section_type","operator":"==","value":"price"}]]
-        },
-        {
-          "key": "field_hj_vss_price",
-          "label": "Price",
-          "name": "price",
-          "type": "text",
-          "placeholder": "£4980",
-          "conditional_logic": [[{"field":"field_hj_vss_section_type","operator":"==","value":"price"}]]
-        },
-        {
-          "key": "field_hj_vss_price_note",
-          "label": "Price Note",
-          "name": "price_note",
-          "type": "text",
-          "placeholder": "(No hidden fees)",
-          "conditional_logic": [[{"field":"field_hj_vss_section_type","operator":"==","value":"price"}]]
         },
         {
           "key": "field_hj_vss_price_button",

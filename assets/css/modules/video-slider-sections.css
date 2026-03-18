@@ -259,6 +259,13 @@
   margin: 0 0 12px;
 }
 .hj-vss-main-summary::-webkit-details-marker{display:none}
+.hj-vss-main-summary:focus,
+.hj-vss-main-summary:focus-visible,
+.hj-vss .hj-pa-item summary:focus,
+.hj-vss .hj-pa-item summary:focus-visible{
+  outline:none;
+  box-shadow:none;
+}
 .hj-vss-main-ind{
   display: inline-flex;
   align-items: center;
@@ -377,7 +384,7 @@
 .hj-vss .hj-pa-item details summary .ind::before{content:"+"}
 .hj-vss .hj-pa-item details[open] summary .ind::before{content:"-"}
 .hj-vss .hj-pa-item .t{font-weight:600;color:var(--pa-text)}
-.hj-vss .hj-pa-item .dots{flex:1 1 auto;height:1px;border-bottom:1px dashed var(--pa-blue);opacity:.7}
+.hj-vss .hj-pa-item .dots{display:none}
 .hj-vss .hj-pa-item .desc{padding:14px 16px 14px;color:var(--pa-muted);font-size:14px}
 .hj-vss .hj-pa-item .desc p{margin:0 0 12px}
 .hj-vss .hj-pa-item .desc p:last-child{margin-bottom:0}
@@ -389,6 +396,10 @@
   align-items: center;
   gap: 18px;
   flex-wrap: wrap;
+}
+
+.hj-vss-cta-row--price-only{
+  margin-top: 0;
 }
 
 .hj-vss-actions{ margin-top: 0; }
@@ -420,8 +431,16 @@
   color: var(--vss-text);
 }
 
+.hj-vss-rating--inline{
+  justify-content: center;
+  margin-left: auto;
+  align-items: flex-end;
+  text-align: right;
+}
+
 .hj-vss-rating .row{ display: flex; align-items: center; gap: 6px; }
 .hj-vss-rating .stars{ letter-spacing: 3px; color: #fbbf24; font-size: 16px; }
+.hj-vss-rating .label{ font-weight: 600; color: var(--vss-text); }
 .hj-vss-rating .sub{ display: flex; align-items: center; gap: 8px; }
 .hj-vss-rating .sub a{ color: var(--vss-accent); text-decoration: underline; }
 

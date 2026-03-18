@@ -106,18 +106,15 @@ $vss_render_section_body = static function ($section, $enable_accordion) use ($v
   $subheading = trim((string) ($section['subheading'] ?? ''));
   $content = $section['content'] ?? '';
   $btn = $section['button'] ?? null;
-  $included_title = trim((string) ($section['included_title'] ?? ''));
-  $included_items = $section['included_items'] ?? [];
-  $price = trim((string) ($section['price'] ?? ''));
-  $price_note = trim((string) ($section['price_note'] ?? ''));
   $price_btn = $section['price_button'] ?? null;
   $rating = $section['rating'] ?? [];
   $btn_url = is_array($btn) ? ($btn['url'] ?? '') : '';
   $btn_title = is_array($btn) ? ($btn['title'] ?? '') : '';
   $btn_target = is_array($btn) ? ($btn['target'] ?? '') : '';
   $price_btn_url = is_array($price_btn) ? ($price_btn['url'] ?? '') : '';
-  $price_btn_title = is_array($price_btn) ? ($price_btn['title'] ?? '') : '';
+  $price_btn_title = is_array($price_btn) ? trim((string) ($price_btn['title'] ?? '')) : '';
   $price_btn_target = is_array($price_btn) ? ($price_btn['target'] ?? '') : '';
+  $rating_stars = max(0, min(5, (float) ($rating['stars'] ?? 0)));
   $rating_label = trim((string) ($rating['label'] ?? ''));
   $rating_reviews_count = (int) ($rating['reviews_count'] ?? 0);
   $rating_reviews_url = trim((string) ($rating['reviews_url'] ?? ''));
@@ -125,70 +122,43 @@ $vss_render_section_body = static function ($section, $enable_accordion) use ($v
   ob_start();
 
   if ($section_type === 'price') {
+    $price_cta_label = $price_btn_title;
+    $has_rating = $rating_stars > 0 || $rating_label !== '' || $rating_reviews_count > 0;
+    $rating_stars_text = $rating_stars > 0 ? str_repeat('★', (int) round($rating_stars)) : '';
+
+    if ($price_cta_label === '') {
+      $price_cta_label = __('View Surgery Pricing', 'hello-elementor-child');
+    }
     ?>
-    <div class="hj-vss-box">
-      <?php if ($included_title): ?>
-        <p class="hj-vss-included-title"><?php echo esc_html($included_title); ?></p>
-      <?php endif; ?>
+    <?php if ($price_btn_url || $has_rating): ?>
+      <div class="hj-vss-cta-row hj-vss-cta-row--price-only">
+        <?php if ($price_btn_url): ?>
+          <div class="hj-vss-actions hj-vss-actions--price-only">
+            <a class="hj-vss-btn" href="<?php echo esc_url($price_btn_url); ?>"<?php echo $price_btn_target ? ' target="' . esc_attr($price_btn_target) . '" rel="noopener"' : ''; ?>>
+              <?php echo esc_html($price_cta_label); ?>
+            </a>
+          </div>
+        <?php endif; ?>
 
-      <?php if (!empty($included_items)): ?>
-        <ul class="hj-vss-included-list" role="list">
-          <?php foreach ($included_items as $item):
-            $item_text = is_array($item) ? ($item['text'] ?? '') : $item;
-            $item_text = trim((string) $item_text);
-            if (!$item_text) continue;
-          ?>
-            <li class="hj-vss-included-item">
-              <span class="ic" aria-hidden="true">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <circle cx="12" cy="12" r="11" stroke="#60A5FA" stroke-width="2"/>
-                  <path d="M7 12.5l3 3 7-7" stroke="#2563EB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-              </span>
-              <span class="tx"><?php echo esc_html($item_text); ?></span>
-            </li>
-          <?php endforeach; ?>
-        </ul>
-      <?php endif; ?>
-
-      <?php if ($price || $price_note): ?>
-        <div class="hj-vss-price-row">
-          <?php if ($price): ?><span class="hj-vss-price"><?php echo esc_html($price); ?></span><?php endif; ?>
-          <?php if ($price_note): ?><span class="hj-vss-price-note"><?php echo esc_html($price_note); ?></span><?php endif; ?>
-        </div>
-      <?php endif; ?>
-
-      <?php if (($price_btn_url && $price_btn_title) || ($rating_label || $rating_reviews_count)): ?>
-        <div class="hj-vss-cta-row">
-          <?php if ($price_btn_url && $price_btn_title): ?>
-            <div class="hj-vss-actions">
-              <a class="hj-vss-btn" href="<?php echo esc_url($price_btn_url); ?>"<?php echo $price_btn_target ? ' target="' . esc_attr($price_btn_target) . '" rel="noopener"' : ''; ?>>
-                <?php echo esc_html($price_btn_title); ?>
-              </a>
+        <?php if ($has_rating): ?>
+          <div class="hj-vss-rating hj-vss-rating--inline">
+            <div class="row">
+              <?php if ($rating_stars_text !== ''): ?><span class="stars" aria-hidden="true"><?php echo esc_html($rating_stars_text); ?></span><?php endif; ?>
+              <?php if ($rating_label !== ''): ?><span class="label"><?php echo esc_html($rating_label); ?></span><?php endif; ?>
             </div>
-          <?php endif; ?>
-
-          <?php if ($rating_label || $rating_reviews_count): ?>
-            <div class="hj-vss-rating">
-              <div class="row">
-                <span class="stars" aria-hidden="true">★★★★★</span>
-                <?php if ($rating_label): ?><span class="label"><?php echo esc_html($rating_label); ?></span><?php endif; ?>
+            <?php if ($rating_reviews_count > 0): ?>
+              <div class="sub">
+                <?php if ($rating_reviews_url !== ''): ?>
+                  <a href="<?php echo esc_url($rating_reviews_url); ?>"><?php echo esc_html(sprintf(_n('%d review', '%d reviews', $rating_reviews_count, 'hello-elementor-child'), $rating_reviews_count)); ?></a>
+                <?php else: ?>
+                  <span><?php echo esc_html(sprintf(_n('%d review', '%d reviews', $rating_reviews_count, 'hello-elementor-child'), $rating_reviews_count)); ?></span>
+                <?php endif; ?>
               </div>
-              <?php if ($rating_reviews_count): ?>
-                <div class="sub">
-                  <span class="prefix"><?php esc_html_e('Based on', 'hello-elementor-child'); ?></span>
-                  <?php if ($rating_reviews_url): ?>
-                    <a href="<?php echo esc_url($rating_reviews_url); ?>"><?php echo intval($rating_reviews_count); ?> reviews</a>
-                  <?php else: ?>
-                    <span><?php echo intval($rating_reviews_count); ?> reviews</span>
-                  <?php endif; ?>
-                </div>
-              <?php endif; ?>
-            </div>
-          <?php endif; ?>
-        </div>
-      <?php endif; ?>
-    </div>
+            <?php endif; ?>
+          </div>
+        <?php endif; ?>
+      </div>
+    <?php endif; ?>
     <?php
   } else {
     if ($subheading) {
@@ -325,15 +295,21 @@ foreach ($videos as $row) {
 
     <div class="hj-vss-right" data-vss-right>
       <?php foreach ($sections as $i => $s):
-        $heading = trim((string) ($s['heading'] ?? ''));
         $section_type = $s['section_type'] ?? 'content';
+        $heading = $section_type === 'price' ? '' : trim((string) ($s['heading'] ?? ''));
         $enable_accordion = array_key_exists('enable_accordion', $s) ? !empty($s['enable_accordion']) : true;
         $has_content_block = ($section_type !== 'price') && (!empty($s['subheading']) || !empty($s['content']) || !empty($s['button']));
-        $has_price_block = ($section_type === 'price') && (!empty($s['included_title']) || !empty($s['included_items']) || !empty($s['price']) || !empty($s['price_note']) || !empty($s['price_button']) || !empty($s['rating']));
+        $price_button = $s['price_button'] ?? [];
+        $rating = $s['rating'] ?? [];
+        $has_price_block = ($section_type === 'price') && (!empty($price_button['url']) || !empty($rating['label']) || !empty($rating['reviews_count']) || !empty($rating['stars']));
         if (!$heading && !$has_content_block && !$has_price_block) continue;
         $section_body = $vss_render_section_body($s, $enable_accordion);
       ?>
-        <?php if ($enable_accordion): ?>
+        <?php if ($section_type === 'price'): ?>
+          <section class="hj-vss-section hj-vss-section--price-only">
+            <?php echo $section_body; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+          </section>
+        <?php elseif ($enable_accordion): ?>
           <details class="hj-vss-section hj-vss-main-accordion" <?php echo $i === 0 ? 'open' : ''; ?>>
             <summary class="hj-vss-main-summary">
               <span class="hj-vss-main-ind" aria-hidden="true"></span>

@@ -84,6 +84,34 @@
     });
   }
 
+  function keepDetailsInView(container, details, offset){
+    if (!container || !details) return;
+
+    const topOffset = typeof offset === 'number' ? offset : 12;
+
+    requestAnimationFrame(() => {
+      const detailsTop = details.offsetTop;
+      const detailsBottom = detailsTop + details.offsetHeight;
+      const visibleTop = container.scrollTop;
+      const visibleBottom = visibleTop + container.clientHeight;
+
+      if (detailsTop < visibleTop + topOffset) {
+        container.scrollTo({
+          top: Math.max(0, detailsTop - topOffset),
+          behavior: 'smooth'
+        });
+        return;
+      }
+
+      if (detailsBottom > visibleBottom - topOffset) {
+        container.scrollTo({
+          top: Math.max(0, detailsBottom - container.clientHeight + topOffset),
+          behavior: 'smooth'
+        });
+      }
+    });
+  }
+
   function init(root){
     const track = root.querySelector('[data-vss-track]');
     const slides = Array.from(root.querySelectorAll('[data-vss-slide]'));
@@ -228,6 +256,8 @@
               other.open = false;
             }
           });
+
+          keepDetailsInView(rightCol, acc, 16);
         });
       });
     }
@@ -244,6 +274,8 @@
               other.open = false;
             }
           });
+
+          keepDetailsInView(rightCol, acc, 20);
         });
       });
     });

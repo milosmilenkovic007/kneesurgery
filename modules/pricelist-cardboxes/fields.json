@@ -1,0 +1,105 @@
+{
+  "key": "layout_hj_pricelist_cardboxes",
+  "name": "pricelist_cardboxes",
+  "label": "Pricelist - Cardboxes",
+  "display": "block",
+  "sub_fields": [
+    {
+      "key": "field_hj_pcb_title",
+      "label": "Block Heading",
+      "name": "title",
+      "type": "text",
+      "placeholder": "Choose your treatment package"
+    },
+    {
+      "key": "field_hj_pcb_subheading",
+      "label": "Block Subheading",
+      "name": "subheading",
+      "type": "textarea",
+      "rows": 2,
+      "placeholder": "Compare the available packages and get in touch for your personalized treatment plan."
+    },
+    {
+      "key": "field_hj_pcb_background_color",
+      "label": "Background Color",
+      "name": "background_color",
+      "type": "color_picker"
+    },
+    {
+      "key": "field_hj_pcb_cards",
+      "label": "Cards",
+      "name": "cards",
+      "type": "repeater",
+      "layout": "block",
+      "button_label": "Add Card",
+      "sub_fields": [
+        {
+          "key": "field_hj_pcb_treatment_name",
+          "label": "Treatment Name",
+          "name": "treatment_name",
+          "type": "text",
+          "required": 1
+        },
+        {
+          "key": "field_hj_pcb_package_includes",
+          "label": "Package Includes",
+          "name": "package_includes",
+          "type": "textarea",
+          "rows": 7,
+          "default_value": "Transfers\nMedical Translations\nKnee Implant & Medications\nPersonal Support & Coordination\nUnlimited Post Op Care Private Nurse Companion (For patients without a companion)",
+          "instructions": "One bullet per line."
+        },
+        {
+          "key": "field_hj_pcb_package_price",
+          "label": "Package Price",
+          "name": "package_price",
+          "type": "text",
+          "required": 1,
+          "placeholder": "4900 GBP"
+        },
+        {
+          "key": "field_hj_pcb_currency_symbol",
+          "label": "Currency Symbol",
+          "name": "currency_symbol",
+          "type": "text",
+          "placeholder": "£",
+          "wrapper": {
+            "width": "30"
+          }
+        },
+        {
+          "key": "field_hj_pcb_button",
+          "label": "Get in Touch Button",
+          "name": "button",
+          "type": "group",
+          "layout": "row",
+          "wrapper": {
+            "width": "70"
+          },
+          "sub_fields": [
+            {
+              "key": "field_hj_pcb_button_text",
+              "label": "Button Text",
+              "name": "text",
+              "type": "text",
+              "default_value": "Get in touch",
+              "wrapper": {
+                "width": "50"
+              }
+            },
+            {
+              "key": "field_hj_pcb_button_url",
+              "label": "Button URL",
+              "name": "url",
+              "type": "text",
+              "default_value": "/contact",
+              "wrapper": {
+                "width": "50"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

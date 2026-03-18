@@ -1,5 +1,5 @@
 <?php
-$media_type = get_sub_field('media_type') ?: 'image';
+$media_type = get_sub_field('media_type') ?: 'animation';
 $image = get_sub_field('image');
 $rating_slides = get_sub_field('rating_slides') ?: [];
 $heading = trim((string) get_sub_field('heading'));
@@ -11,9 +11,29 @@ $accent_color = trim((string) get_sub_field('accent_color')) ?: '#4951d5';
 $separator_color = trim((string) get_sub_field('separator_color')) ?: '#4951d5';
 $button_bg_color = trim((string) get_sub_field('button_bg_color')) ?: '#4951d5';
 $button_text_color = trim((string) get_sub_field('button_text_color')) ?: '#ffffff';
-$terms_link_color = trim((string) get_sub_field('terms_link_color')) ?: '#ffffff';
+$terms_link_color = trim((string) get_sub_field('terms_link_color')) ?: '#4951d5';
+$animation_speed = (float) get_sub_field('animation_speed');
+$animation_loop = get_sub_field('animation_loop');
 $form_id = get_sub_field('fluent_form_id');
 $uid = uniqid('hj-cfb-');
+$animation_url = get_stylesheet_directory_uri() . '/assets/animation/contactmail.lottie';
+
+if ($animation_speed <= 0) {
+  $animation_speed = 0.4;
+}
+
+$animation_speed = max(0.1, min(5, $animation_speed));
+$animation_loop_enabled = $animation_loop === null ? true : !empty($animation_loop);
+
+if ($media_type === 'animation' && !defined('HJ_CFB_DOTLOTTIE_PLAYER_LOADED')) {
+  define('HJ_CFB_DOTLOTTIE_PLAYER_LOADED', true);
+
+  add_action('wp_footer', static function () {
+    ?>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs"></script>
+    <?php
+  }, 1);
+}
 
 $image_url = is_array($image) ? ($image['url'] ?? '') : '';
 $image_alt = is_array($image) ? ($image['alt'] ?? '') : '';
@@ -30,7 +50,7 @@ $accent_color_clean = $sanitize_color($accent_color, '#4951d5');
 $separator_color_clean = $sanitize_color($separator_color, '#4951d5');
 $button_bg_color_clean = $sanitize_color($button_bg_color, '#4951d5');
 $button_text_color_clean = $sanitize_color($button_text_color, '#ffffff');
-$terms_link_color_clean = $sanitize_color($terms_link_color, '#ffffff');
+$terms_link_color_clean = $sanitize_color($terms_link_color, '#4951d5');
 
 $hex = ltrim($bg_color_clean, '#');
 if (strlen($hex) === 3) {
@@ -50,7 +70,7 @@ $style_vars .= '--cfb-button-bg:' . $button_bg_color_clean . ';';
 $style_vars .= '--cfb-button-text:' . $button_text_color_clean . ';';
 $style_vars .= '--cfb-link:' . $terms_link_color_clean . ';';
 ?>
-<section class="hj-cta-form-block<?php echo $is_dark ? ' is-dark' : ''; ?><?php echo $media_type === 'rating' ? ' is-rating' : ' is-image'; ?>" id="<?php echo esc_attr($uid); ?>" style="<?php echo esc_attr($style_vars); ?>" aria-label="CTA">
+<section class="hj-cta-form-block<?php echo $is_dark ? ' is-dark' : ''; ?><?php echo $media_type === 'rating' ? ' is-rating' : ($media_type === 'animation' ? ' is-animation' : ' is-image'); ?>" id="<?php echo esc_attr($uid); ?>" style="<?php echo esc_attr($style_vars); ?>" aria-label="CTA">
   <div class="hj-cfb-wrap">
     <div class="hj-cfb-grid">
       <div class="hj-cfb-media" aria-hidden="true">
@@ -105,6 +125,17 @@ $style_vars .= '--cfb-link:' . $terms_link_color_clean . ';';
                 </div>
               </div>
             <?php endif; ?>
+          </div>
+        <?php elseif ($media_type === 'animation'): ?>
+          <div class="hj-cfb-animation-wrap">
+            <dotlottie-player
+              class="hj-cfb-animation"
+              src="<?php echo esc_url($animation_url); ?>"
+              autoplay
+              background="transparent"
+              speed="<?php echo esc_attr((string) $animation_speed); ?>"
+              <?php echo $animation_loop_enabled ? 'loop' : ''; ?>
+            ></dotlottie-player>
           </div>
         <?php elseif ($image_url): ?>
           <img class="hj-cfb-img" src="<?php echo esc_url($image_url); ?>" alt="<?php echo esc_attr($image_alt); ?>" loading="lazy" />

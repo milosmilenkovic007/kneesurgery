@@ -786,9 +786,10 @@
                             "type": "button_group",
                             "choices": {
                                 "image": "Image",
-                                "rating": "Rating"
+                                "rating": "Rating",
+                                "animation": "Animation"
                             },
-                            "default_value": "image",
+                            "default_value": "animation",
                             "layout": "horizontal"
                         },
                         {
@@ -867,6 +868,49 @@
                                     "rows": 4,
                                     "required": 1
                                 }
+                            ]
+                        },
+                        {
+                            "key": "field_hj_cfb_animation_speed",
+                            "label": "Animation Speed",
+                            "name": "animation_speed",
+                            "type": "number",
+                            "default_value": 0.40000000000000002,
+                            "min": 0.10000000000000001,
+                            "max": 5,
+                            "step": 0.10000000000000001,
+                            "wrapper": {
+                                "width": "50"
+                            },
+                            "conditional_logic": [
+                                [
+                                    {
+                                        "field": "field_hj_cfb_media_type",
+                                        "operator": "==",
+                                        "value": "animation"
+                                    }
+                                ]
+                            ]
+                        },
+                        {
+                            "key": "field_hj_cfb_animation_loop",
+                            "label": "Loop Animation",
+                            "name": "animation_loop",
+                            "type": "true_false",
+                            "ui": 1,
+                            "default_value": 1,
+                            "message": "Repeat animation continuously",
+                            "wrapper": {
+                                "width": "50"
+                            },
+                            "conditional_logic": [
+                                [
+                                    {
+                                        "field": "field_hj_cfb_media_type",
+                                        "operator": "==",
+                                        "value": "animation"
+                                    }
+                                ]
                             ]
                         },
                         {
@@ -960,7 +1004,7 @@
                             "label": "Terms Link Color",
                             "name": "terms_link_color",
                             "type": "color_picker",
-                            "default_value": "#ffffff",
+                            "default_value": "#4951d5",
                             "wrapper": {
                                 "width": "33"
                             }
@@ -2002,10 +2046,10 @@
                                         },
                                         {
                                             "key": "field_hj_pa_pkg_highlights",
-                                            "label": "Highlights",
+                                            "label": "Package Includes",
                                             "name": "highlights",
                                             "type": "repeater",
-                                            "button_label": "Add Highlight",
+                                            "button_label": "Add Include",
                                             "layout": "table",
                                             "sub_fields": [
                                                 {
@@ -2014,254 +2058,6 @@
                                                     "name": "text",
                                                     "type": "textarea",
                                                     "rows": 2
-                                                }
-                                            ]
-                                        },
-                                        {
-                                            "key": "field_hj_pa_pkg_fd_group",
-                                            "label": "Full Details",
-                                            "name": "full_details",
-                                            "type": "group",
-                                            "layout": "block",
-                                            "sub_fields": [
-                                                {
-                                                    "key": "field_hj_pa_pkg_fd_title",
-                                                    "label": "Section Title",
-                                                    "name": "title",
-                                                    "type": "text",
-                                                    "default_value": "Full Details"
-                                                },
-                                                {
-                                                    "key": "field_hj_pa_pkg_fd_subheading",
-                                                    "label": "Subheading",
-                                                    "name": "subheading",
-                                                    "type": "text"
-                                                },
-                                                {
-                                                    "key": "field_hj_pa_pkg_fd_paragraphs",
-                                                    "label": "Paragraphs",
-                                                    "name": "paragraphs",
-                                                    "type": "repeater",
-                                                    "button_label": "Add Paragraph",
-                                                    "sub_fields": [
-                                                        {
-                                                            "key": "field_hj_pa_pkg_fd_p",
-                                                            "label": "Paragraph",
-                                                            "name": "p",
-                                                            "type": "textarea",
-                                                            "rows": 4
-                                                        }
-                                                    ]
-                                                }
-                                            ]
-                                        },
-                                        {
-                                            "key": "field_hj_pa_pkg_ms_group",
-                                            "label": "Medical Suitability",
-                                            "name": "medical",
-                                            "type": "group",
-                                            "layout": "block",
-                                            "sub_fields": [
-                                                {
-                                                    "key": "field_hj_pa_pkg_ms_title",
-                                                    "label": "Section Title",
-                                                    "name": "title",
-                                                    "type": "text",
-                                                    "default_value": "Medical Suitability Assessment"
-                                                },
-                                                {
-                                                    "key": "field_hj_pa_pkg_ms_intro",
-                                                    "label": "Intro",
-                                                    "name": "intro",
-                                                    "type": "textarea",
-                                                    "rows": 2
-                                                },
-                                                {
-                                                    "key": "field_hj_pa_pkg_ms_list",
-                                                    "label": "Requirements List",
-                                                    "name": "list",
-                                                    "type": "repeater",
-                                                    "button_label": "Add Item",
-                                                    "sub_fields": [
-                                                        {
-                                                            "key": "field_hj_pa_pkg_ms_li",
-                                                            "label": "Item",
-                                                            "name": "text",
-                                                            "type": "text"
-                                                        }
-                                                    ]
-                                                },
-                                                {
-                                                    "key": "field_hj_pa_pkg_ms_note",
-                                                    "label": "Note",
-                                                    "name": "note",
-                                                    "type": "textarea",
-                                                    "rows": 2
-                                                }
-                                            ]
-                                        },
-                                        {
-                                            "key": "field_hj_pa_pkg_ov_group",
-                                            "label": "Package Overview",
-                                            "name": "overview",
-                                            "type": "group",
-                                            "layout": "block",
-                                            "sub_fields": [
-                                                {
-                                                    "key": "field_hj_pa_pkg_ov_title",
-                                                    "label": "Section Title",
-                                                    "name": "title",
-                                                    "type": "text",
-                                                    "default_value": "All-on-4 Package Overview (Single Arch)"
-                                                },
-                                                {
-                                                    "key": "field_hj_pa_pkg_ov_intro",
-                                                    "label": "Intro",
-                                                    "name": "intro",
-                                                    "type": "textarea",
-                                                    "rows": 2
-                                                },
-                                                {
-                                                    "key": "field_hj_pa_pkg_ov_v1_title",
-                                                    "label": "Visit 1 Title",
-                                                    "name": "visit1_title",
-                                                    "type": "text",
-                                                    "default_value": "Visit 1 \u2013 Surgical Phase (7 Nights)"
-                                                },
-                                                {
-                                                    "key": "field_hj_pa_pkg_ov_v1_list",
-                                                    "label": "Visit 1 List",
-                                                    "name": "visit1_list",
-                                                    "type": "repeater",
-                                                    "button_label": "Add Item",
-                                                    "sub_fields": [
-                                                        {
-                                                            "key": "field_hj_pa_pkg_ov_v1_li",
-                                                            "label": "Item",
-                                                            "name": "text",
-                                                            "type": "text"
-                                                        }
-                                                    ]
-                                                },
-                                                {
-                                                    "key": "field_hj_pa_pkg_ov_v2_title",
-                                                    "label": "Visit 2 Title",
-                                                    "name": "visit2_title",
-                                                    "type": "text",
-                                                    "default_value": "Visit 2 \u2013 Prosthetic Phase (7 Nights)"
-                                                },
-                                                {
-                                                    "key": "field_hj_pa_pkg_ov_v2_list",
-                                                    "label": "Visit 2 List",
-                                                    "name": "visit2_list",
-                                                    "type": "repeater",
-                                                    "button_label": "Add Item",
-                                                    "sub_fields": [
-                                                        {
-                                                            "key": "field_hj_pa_pkg_ov_v2_li",
-                                                            "label": "Item",
-                                                            "name": "text",
-                                                            "type": "text"
-                                                        }
-                                                    ]
-                                                },
-                                                {
-                                                    "key": "field_hj_pa_pkg_ov_note",
-                                                    "label": "Note",
-                                                    "name": "note",
-                                                    "type": "textarea",
-                                                    "rows": 2
-                                                }
-                                            ]
-                                        },
-                                        {
-                                            "key": "field_hj_pa_pkg_incl_group",
-                                            "label": "Inclusions",
-                                            "name": "inclusions",
-                                            "type": "group",
-                                            "layout": "block",
-                                            "sub_fields": [
-                                                {
-                                                    "key": "field_hj_pa_pkg_incl_title",
-                                                    "label": "Section Title",
-                                                    "name": "title",
-                                                    "type": "text",
-                                                    "default_value": "What the Package Includes (Single Arch)"
-                                                },
-                                                {
-                                                    "key": "field_hj_pa_pkg_incl_surg_title",
-                                                    "label": "Surgical & Clinical Title",
-                                                    "name": "surg_title",
-                                                    "type": "text",
-                                                    "default_value": "Surgical & Clinical Inclusions"
-                                                },
-                                                {
-                                                    "key": "field_hj_pa_pkg_incl_surg_list",
-                                                    "label": "Surgical & Clinical List",
-                                                    "name": "surg_list",
-                                                    "type": "repeater",
-                                                    "button_label": "Add Item",
-                                                    "sub_fields": [
-                                                        {
-                                                            "key": "field_hj_pa_pkg_incl_surg_li",
-                                                            "label": "Item",
-                                                            "name": "text",
-                                                            "type": "text"
-                                                        }
-                                                    ]
-                                                },
-                                                {
-                                                    "key": "field_hj_pa_pkg_incl_sup_title",
-                                                    "label": "Support & Coordination Title",
-                                                    "name": "sup_title",
-                                                    "type": "text",
-                                                    "default_value": "Support & Coordination"
-                                                },
-                                                {
-                                                    "key": "field_hj_pa_pkg_incl_sup_list",
-                                                    "label": "Support & Coordination List",
-                                                    "name": "sup_list",
-                                                    "type": "repeater",
-                                                    "button_label": "Add Item",
-                                                    "sub_fields": [
-                                                        {
-                                                            "key": "field_hj_pa_pkg_incl_sup_li",
-                                                            "label": "Item",
-                                                            "name": "text",
-                                                            "type": "text"
-                                                        }
-                                                    ]
-                                                }
-                                            ]
-                                        },
-                                        {
-                                            "key": "field_hj_pa_pkg_travel_group",
-                                            "label": "Travel & Accommodation",
-                                            "name": "travel",
-                                            "type": "group",
-                                            "layout": "block",
-                                            "sub_fields": [
-                                                {
-                                                    "key": "field_hj_pa_pkg_travel_title",
-                                                    "label": "Section Title",
-                                                    "name": "title",
-                                                    "type": "text",
-                                                    "default_value": "Travel & Accommodation"
-                                                },
-                                                {
-                                                    "key": "field_hj_pa_pkg_travel_list",
-                                                    "label": "List",
-                                                    "name": "list",
-                                                    "type": "repeater",
-                                                    "button_label": "Add Item",
-                                                    "sub_fields": [
-                                                        {
-                                                            "key": "field_hj_pa_pkg_travel_li",
-                                                            "label": "Item",
-                                                            "name": "text",
-                                                            "type": "text"
-                                                        }
-                                                    ]
                                                 }
                                             ]
                                         },
@@ -2277,7 +2073,7 @@
                                                     "label": "Title",
                                                     "name": "title",
                                                     "type": "text",
-                                                    "default_value": "Final Full-Arch Restoration (Single Arch)"
+                                                    "default_value": "Final package price:"
                                                 },
                                                 {
                                                     "key": "field_hj_pa_pkg_price_amount",
@@ -2426,6 +2222,111 @@
                                             "name": "item_desc",
                                             "type": "textarea",
                                             "rows": 2
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                "layout_hj_pricelist_cardboxes": {
+                    "key": "layout_hj_pricelist_cardboxes",
+                    "name": "pricelist_cardboxes",
+                    "label": "Pricelist - Cardboxes",
+                    "display": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_hj_pcb_title",
+                            "label": "Block Heading",
+                            "name": "title",
+                            "type": "text",
+                            "placeholder": "Choose your treatment package"
+                        },
+                        {
+                            "key": "field_hj_pcb_subheading",
+                            "label": "Block Subheading",
+                            "name": "subheading",
+                            "type": "textarea",
+                            "rows": 2,
+                            "placeholder": "Compare the available packages and get in touch for your personalized treatment plan."
+                        },
+                        {
+                            "key": "field_hj_pcb_background_color",
+                            "label": "Background Color",
+                            "name": "background_color",
+                            "type": "color_picker"
+                        },
+                        {
+                            "key": "field_hj_pcb_cards",
+                            "label": "Cards",
+                            "name": "cards",
+                            "type": "repeater",
+                            "layout": "block",
+                            "button_label": "Add Card",
+                            "sub_fields": [
+                                {
+                                    "key": "field_hj_pcb_treatment_name",
+                                    "label": "Treatment Name",
+                                    "name": "treatment_name",
+                                    "type": "text",
+                                    "required": 1
+                                },
+                                {
+                                    "key": "field_hj_pcb_package_includes",
+                                    "label": "Package Includes",
+                                    "name": "package_includes",
+                                    "type": "textarea",
+                                    "rows": 7,
+                                    "default_value": "Transfers\nMedical Translations\nKnee Implant & Medications\nPersonal Support & Coordination\nUnlimited Post Op Care Private Nurse Companion (For patients without a companion)",
+                                    "instructions": "One bullet per line."
+                                },
+                                {
+                                    "key": "field_hj_pcb_package_price",
+                                    "label": "Package Price",
+                                    "name": "package_price",
+                                    "type": "text",
+                                    "required": 1,
+                                    "placeholder": "4900 GBP"
+                                },
+                                {
+                                    "key": "field_hj_pcb_currency_symbol",
+                                    "label": "Currency Symbol",
+                                    "name": "currency_symbol",
+                                    "type": "text",
+                                    "placeholder": "\u00a3",
+                                    "wrapper": {
+                                        "width": "30"
+                                    }
+                                },
+                                {
+                                    "key": "field_hj_pcb_button",
+                                    "label": "Get in Touch Button",
+                                    "name": "button",
+                                    "type": "group",
+                                    "layout": "row",
+                                    "wrapper": {
+                                        "width": "70"
+                                    },
+                                    "sub_fields": [
+                                        {
+                                            "key": "field_hj_pcb_button_text",
+                                            "label": "Button Text",
+                                            "name": "text",
+                                            "type": "text",
+                                            "default_value": "Get in touch",
+                                            "wrapper": {
+                                                "width": "50"
+                                            }
+                                        },
+                                        {
+                                            "key": "field_hj_pcb_button_url",
+                                            "label": "Button URL",
+                                            "name": "url",
+                                            "type": "text",
+                                            "default_value": "/contact",
+                                            "wrapper": {
+                                                "width": "50"
+                                            }
                                         }
                                     ]
                                 }
@@ -2856,7 +2757,16 @@
                                     "label": "Heading",
                                     "name": "heading",
                                     "type": "text",
-                                    "required": 1
+                                    "required": 1,
+                                    "conditional_logic": [
+                                        [
+                                            {
+                                                "field": "field_hj_vss_section_type",
+                                                "operator": "==",
+                                                "value": "content"
+                                            }
+                                        ]
+                                    ]
                                 },
                                 {
                                     "key": "field_hj_vss_enable_accordion",
@@ -2930,79 +2840,6 @@
                                                 "field": "field_hj_vss_section_type",
                                                 "operator": "==",
                                                 "value": "content"
-                                            }
-                                        ]
-                                    ]
-                                },
-                                {
-                                    "key": "field_hj_vss_included_title",
-                                    "label": "Included Title",
-                                    "name": "included_title",
-                                    "type": "text",
-                                    "conditional_logic": [
-                                        [
-                                            {
-                                                "field": "field_hj_vss_section_type",
-                                                "operator": "==",
-                                                "value": "price"
-                                            }
-                                        ]
-                                    ]
-                                },
-                                {
-                                    "key": "field_hj_vss_included_items",
-                                    "label": "Included Items",
-                                    "name": "included_items",
-                                    "type": "repeater",
-                                    "layout": "table",
-                                    "button_label": "Add Item",
-                                    "sub_fields": [
-                                        {
-                                            "key": "field_hj_vss_included_item_text",
-                                            "label": "Text",
-                                            "name": "text",
-                                            "type": "text",
-                                            "required": 1
-                                        }
-                                    ],
-                                    "conditional_logic": [
-                                        [
-                                            {
-                                                "field": "field_hj_vss_section_type",
-                                                "operator": "==",
-                                                "value": "price"
-                                            }
-                                        ]
-                                    ]
-                                },
-                                {
-                                    "key": "field_hj_vss_price",
-                                    "label": "Price",
-                                    "name": "price",
-                                    "type": "text",
-                                    "placeholder": "\u00a34980",
-                                    "conditional_logic": [
-                                        [
-                                            {
-                                                "field": "field_hj_vss_section_type",
-                                                "operator": "==",
-                                                "value": "price"
-                                            }
-                                        ]
-                                    ]
-                                },
-                                {
-                                    "key": "field_hj_vss_price_note",
-                                    "label": "Price Note",
-                                    "name": "price_note",
-                                    "type": "text",
-                                    "placeholder": "(No hidden fees)",
-                                    "conditional_logic": [
-                                        [
-                                            {
-                                                "field": "field_hj_vss_section_type",
-                                                "operator": "==",
-                                                "value": "price"
                                             }
                                         ]
                                     ]
@@ -3103,5 +2940,5 @@
     "position": "acf_after_title",
     "style": "seamless",
     "active": true,
-    "modified": 1773842093
+    "modified": 1773869463
 }

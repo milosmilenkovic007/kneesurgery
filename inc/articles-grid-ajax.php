@@ -60,45 +60,37 @@ if (!function_exists('hj_ag_render_cards')) {
         ob_start();
         foreach ($posts as $p) {
             setup_postdata($p);
+            $cats = get_the_category($p->ID);
             ?>
             <li class="hj-ag-card">
-              <a class="card-link" href="<?php echo esc_url(get_permalink($p)); ?>">
-                <figure class="card-media">
+              <a class="hj-ag-card__link" href="<?php echo esc_url(get_permalink($p)); ?>">
+                <figure class="hj-ag-card__media">
                   <?php
                     $thumb = get_the_post_thumbnail($p, 'large', ['class' => 'img', 'alt' => esc_attr(get_the_title($p))]);
                     if ($thumb) {
                       echo $thumb;
                     } else {
                       ?>
-                      <div class="img placeholder" aria-hidden="true">
-                        <svg width="56" height="56" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                          <rect x="3" y="3" width="18" height="18" rx="4" stroke="#94a3b8" stroke-width="1.5"/>
-                          <path d="M7 15l3-3 4 4 3-3 2 2" stroke="#94a3b8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                          <circle cx="8" cy="8" r="1.5" fill="#94a3b8"/>
-                        </svg>
-                      </div>
+                      <span class="hj-ag-card__media-fallback" aria-hidden="true"></span>
                       <?php
                     }
                   ?>
                 </figure>
-                <div class="card-meta">
-                  <span class="author-ico" aria-hidden="true">
-                    <img src="<?php echo esc_url(get_stylesheet_directory_uri() . '/assets/img/author-icon.svg'); ?>" alt="">
-                  </span>
-                  <span class="author">
-                    <?php echo esc_html(get_the_author_meta('display_name', $p->post_author)); ?>
-                  </span>
-                  <span class="date">
-                    <?php echo esc_html(get_the_date('j M, Y', $p)); ?>
-                  </span>
+                <div class="hj-ag-card__content">
+                  <div class="hj-ag-card__meta">
+                    <span class="hj-ag-card__author-ico" aria-hidden="true">
+                      <img src="<?php echo esc_url(get_stylesheet_directory_uri() . '/assets/img/author-icon.svg'); ?>" alt="">
+                    </span>
+                    <span class="hj-ag-card__author"><?php echo esc_html(get_the_author_meta('display_name', $p->post_author)); ?></span>
+                    <span class="hj-ag-card__date"><?php echo esc_html(get_the_date('j M, Y', $p)); ?></span>
+                  </div>
+                  <h3 class="hj-ag-card__title"><?php echo esc_html(get_the_title($p)); ?></h3>
+                  <p class="hj-ag-card__excerpt"><?php echo esc_html(wp_trim_words(get_the_excerpt($p), 24)); ?></p>
+                  <?php if (!empty($cats)): $c = $cats[0]; ?>
+                    <span class="hj-ag-card__tag"><?php echo esc_html($c->name); ?></span>
+                  <?php endif; ?>
+                  <span class="hj-ag-card__button">Learn More</span>
                 </div>
-                <h3 class="card-title"><?php echo esc_html(get_the_title($p)); ?></h3>
-                <p class="card-excerpt">
-                  <?php echo esc_html(wp_trim_words(get_the_excerpt($p), 24)); ?>
-                </p>
-                <?php $cats = get_the_category($p->ID); if (!empty($cats)): $c = $cats[0]; ?>
-                  <span class="card-tag"><?php echo esc_html($c->name); ?></span>
-                <?php endif; ?>
               </a>
             </li>
             <?php
