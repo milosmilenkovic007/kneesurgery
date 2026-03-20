@@ -5,6 +5,67 @@
 
 if (!defined('ABSPATH')) exit;
 
+if (!function_exists('hj_get_theme_asset')) {
+  function hj_get_theme_asset_manifest() {
+    static $manifest = null;
+
+    if ($manifest !== null) {
+      return $manifest;
+    }
+
+    $manifest_path = get_stylesheet_directory() . '/dist/asset-manifest.json';
+    if (!file_exists($manifest_path)) {
+      $manifest = [];
+      return $manifest;
+    }
+
+    $contents = file_get_contents($manifest_path);
+    $decoded = json_decode($contents, true);
+    $manifest = is_array($decoded) ? $decoded : [];
+
+    return $manifest;
+  }
+
+  function hj_get_theme_asset($relative_path) {
+    $relative_path = ltrim((string) $relative_path, '/');
+
+    $theme_dir = get_stylesheet_directory();
+    $theme_uri = get_stylesheet_directory_uri();
+    $manifest = hj_get_theme_asset_manifest();
+
+    $candidates = [
+      [
+        'path' => $theme_dir . '/dist/' . $relative_path,
+        'url' => $theme_uri . '/dist/' . $relative_path,
+      ],
+      [
+        'path' => $theme_dir . '/' . $relative_path,
+        'url' => $theme_uri . '/' . $relative_path,
+      ],
+    ];
+
+    foreach ($candidates as $asset) {
+      if (file_exists($asset['path'])) {
+        $manifest_entry = $manifest[$relative_path] ?? null;
+
+        return [
+          'exists' => true,
+          'path' => $asset['path'],
+          'url' => $asset['url'],
+          'version' => !empty($manifest_entry['version']) ? (string) $manifest_entry['version'] : (string) filemtime($asset['path']),
+        ];
+      }
+    }
+
+    return [
+      'exists' => false,
+      'path' => $theme_dir . '/' . $relative_path,
+      'url' => $theme_uri . '/' . $relative_path,
+      'version' => wp_get_theme(get_stylesheet())->get('Version') ?: '1.0.0',
+    ];
+  }
+}
+
 // -----------------------------------------------------------------------------
 //  Google Tag Manager (GTM) – <head> i posle <body>
 // -----------------------------------------------------------------------------
@@ -74,8 +135,10 @@ add_filter('wp_check_filetype_and_ext', function ($data, $file, $filename, $mime
 //  Enqueue parent & child assets
 // -----------------------------------------------------------------------------
 add_action('wp_enqueue_scripts', function () {
-  $child = wp_get_theme(get_stylesheet());
-  $child_ver = $child->get('Version') ?: '1.0.0';
+  $child_style = hj_get_theme_asset('style.css');
+  $ortho_style = hj_get_theme_asset('assets/css/single-ortho.css');
+  $ortho_script = hj_get_theme_asset('assets/js/single-ortho.js');
+  $doctor_style = hj_get_theme_asset('assets/css/single-doctor.css');
 
   // Parent Hello Elementor style
   wp_enqueue_style(
@@ -88,20 +151,20 @@ add_action('wp_enqueue_scripts', function () {
   // Child style.css
   wp_enqueue_style(
     'hello-elementor-child',
-    get_stylesheet_uri(),
+    $child_style['url'],
     ['hello-elementor-parent'],
-    $child_ver
+    $child_style['version']
   );
 
   // Load Ortho single assets only on our custom template
   if (is_singular('post') && get_page_template_slug(get_queried_object_id()) === 'single-ortho.php') {
-    wp_enqueue_style('ortho-single', get_stylesheet_directory_uri() . '/assets/css/single-ortho.css', ['hello-elementor-child'], $child_ver);
-    wp_enqueue_script('ortho-single', get_stylesheet_directory_uri() . '/assets/js/single-ortho.js', [], $child_ver, true);
+    wp_enqueue_style('ortho-single', $ortho_style['url'], ['hello-elementor-child'], $ortho_style['version']);
+    wp_enqueue_script('ortho-single', $ortho_script['url'], [], $ortho_script['version'], true);
   }
 
   // Load Doctor single assets only on doctor pages
   if (is_singular('doctor')) {
-    wp_enqueue_style('doctor-single', get_stylesheet_directory_uri() . '/assets/css/single-doctor.css', ['hello-elementor-child'], $child_ver);
+    wp_enqueue_style('doctor-single', $doctor_style['url'], ['hello-elementor-child'], $doctor_style['version']);
   }
 }, 20);
 
@@ -137,23 +200,26 @@ add_action('widgets_init', function () {
 
 /* ---------- Front styles for the widget ---------- */
 add_action('wp_enqueue_scripts', function () {
+  $widget_style = hj_get_theme_asset('assets/css/widget-doctors-cta.css');
+
   wp_enqueue_style(
     'ortho-widget-doctors-cta',
-    get_stylesheet_directory_uri() . '/assets/css/widget-doctors-cta.css',
+    $widget_style['url'],
     ['hello-elementor-child'],
-    '1.0.0'
+    $widget_style['version']
   );
 }, 30);
 
 /* ---------- Admin media uploader for widget ---------- */
 add_action('admin_enqueue_scripts', function ($hook) {
   if ($hook !== 'widgets.php' && $hook !== 'customize.php') return;
+  $widget_media_script = hj_get_theme_asset('assets/js/widget-media.js');
   wp_enqueue_media();
   wp_enqueue_script(
     'ortho-widget-media',
-    get_stylesheet_directory_uri() . '/assets/js/widget-media.js',
+    $widget_media_script['url'],
     ['jquery'],
-    '1.0.0',
+    $widget_media_script['version'],
     true
   );
 });

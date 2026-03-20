@@ -1,4 +1,47 @@
 (function () {
+  function getScrollTopWithOffset(target) {
+    const header = document.querySelector('.elementor-location-header');
+    const headerHeight = header ? header.getBoundingClientRect().height : 0;
+    const targetTop = target.getBoundingClientRect().top + window.pageYOffset;
+
+    return Math.max(targetTop - headerHeight - 12, 0);
+  }
+
+  function getNextBlock(root) {
+    let next = root ? root.nextElementSibling : null;
+
+    while (next) {
+      if (next.offsetParent !== null || next.getClientRects().length > 0) {
+        return next;
+      }
+
+      next = next.nextElementSibling;
+    }
+
+    return null;
+  }
+
+  function initNextBlockScroll(root) {
+    const button = root.querySelector('[data-hh-scroll-next]');
+    if (!button) {
+      return;
+    }
+
+    button.addEventListener('click', function (event) {
+      const nextBlock = getNextBlock(root);
+      if (!nextBlock) {
+        return;
+      }
+
+      event.preventDefault();
+
+      window.scrollTo({
+        top: getScrollTopWithOffset(nextBlock),
+        behavior: 'smooth'
+      });
+    });
+  }
+
   function animateCounter(node) {
     if (!node || node.dataset.hhCounted === '1') {
       return;
@@ -78,6 +121,7 @@
   function initHomeHero(root) {
     initCounters(root);
     initSlider(root);
+    initNextBlockScroll(root);
   }
 
   document.addEventListener('DOMContentLoaded', function () {

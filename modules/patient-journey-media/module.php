@@ -118,7 +118,7 @@ $video_embed_url = $video_type === 'embed' ? $pjm_get_embed_url($video_url) : ''
           <?php endif; ?>
 
           <?php if (!empty($secondary_button['url']) && !empty($secondary_button['title'])): ?>
-            <a class="hj-pjm-btn hj-pjm-btn--secondary" href="<?php echo esc_url($secondary_button['url']); ?>"<?php echo !empty($secondary_button['target']) ? ' target="' . esc_attr($secondary_button['target']) . '" rel="noopener"' : ''; ?>>
+            <a class="hj-pjm-btn hj-pjm-btn--secondary" href="<?php echo esc_url($secondary_button['url']); ?>" data-pjm-scroll-next="1"<?php echo !empty($secondary_button['target']) ? ' target="' . esc_attr($secondary_button['target']) . '" rel="noopener"' : ''; ?>>
               <?php echo esc_html($secondary_button['title']); ?>
             </a>
           <?php endif; ?>

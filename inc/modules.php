@@ -101,21 +101,26 @@ function hj_render_page_modules($post_id = null) {
 
         // Enqueue CSS: try underscore name first, then dashed variant
         $css_candidates = [
-            [ $base . '/assets/css/modules/' . $layout . '.css', get_stylesheet_directory_uri() . '/assets/css/modules/' . $layout . '.css' ],
-            [ $base . '/assets/css/modules/' . $layout_dash . '.css', get_stylesheet_directory_uri() . '/assets/css/modules/' . $layout_dash . '.css' ],
+            'assets/css/modules/' . $layout . '.css',
+            'assets/css/modules/' . $layout_dash . '.css',
         ];
-        foreach ($css_candidates as [$path, $url]) {
-            if (file_exists($path)) { wp_enqueue_style('hj-module-' . $layout, $url, [], wp_get_theme()->get('Version')); break; }
+        foreach ($css_candidates as $relative_path) {
+            $asset = hj_get_theme_asset($relative_path);
+            if ($asset['exists']) {
+                wp_enqueue_style('hj-module-' . $layout, $asset['url'], [], $asset['version']);
+                break;
+            }
         }
 
         // Enqueue JS: try underscore name first, then dashed variant
         $js_candidates = [
-            [ $base . '/assets/js/modules/' . $layout . '.js', get_stylesheet_directory_uri() . '/assets/js/modules/' . $layout . '.js' ],
-            [ $base . '/assets/js/modules/' . $layout_dash . '.js', get_stylesheet_directory_uri() . '/assets/js/modules/' . $layout_dash . '.js' ],
+            'assets/js/modules/' . $layout . '.js',
+            'assets/js/modules/' . $layout_dash . '.js',
         ];
-        foreach ($js_candidates as [$path, $url]) {
-            if (file_exists($path)) {
-                wp_enqueue_script('hj-module-' . $layout, $url, [], wp_get_theme()->get('Version'), true);
+        foreach ($js_candidates as $relative_path) {
+            $asset = hj_get_theme_asset($relative_path);
+            if ($asset['exists']) {
+                wp_enqueue_script('hj-module-' . $layout, $asset['url'], [], $asset['version'], true);
                 break;
             }
         }

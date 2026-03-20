@@ -12,6 +12,7 @@
 /* Wrapper */
 .hj-hero-dental{
     margin:36px 0;
+    width:100%;
 }
 .hj-hd-wrap {
     max-width: 1200px;
@@ -27,10 +28,17 @@
     grid-template-columns: 1fr 1fr;
     gap: 20px;
     align-items: center;
+    width:100%;
+    min-width:0;
+    box-sizing:border-box;
 }
 
 /* Left */
-.hj-hd-left{max-width:520px;}
+.hj-hd-left{
+    max-width:520px;
+    width:100%;
+    min-width:0;
+}
 
 .hj-hero-dental .hj-hd-title{
     font-size:clamp(32px, 3.2vw, 42px) !important;
@@ -38,6 +46,7 @@
     font-family:'Source Serif 4';
     font-weight:600;
     line-height:1.15;
+    overflow-wrap:anywhere;
 }
 .hj-hd-title .accent-italic{
     font-style:italic;
@@ -50,6 +59,7 @@
     line-height:1.65;
     color:var(--hd-text);
     max-width:480px;
+    overflow-wrap:anywhere;
 }
 
 /* Bullets */
@@ -67,6 +77,11 @@
     gap:12px;
     color:var(--hd-text);
     font-size:15px;
+    min-width:0;
+}
+
+.hj-hd-bullet span:last-child{
+    overflow-wrap:anywhere;
 }
 
 .hj-hd-bullet .ic{display:inline-flex}
@@ -78,12 +93,14 @@
     align-items: center;
     margin: 30px 0 0;
     justify-content: flex-start;
+    min-width:0;
 }
 
 /* CTA */
 .hj-hd-cta .btn-primary{
     display:inline-flex;
     align-items:center;
+    justify-content:center;
     gap:10px;
     padding: 14px 32px;
     background:var(--hd-blue);
@@ -94,6 +111,8 @@
     text-decoration:none;
     white-space:nowrap;
     box-shadow:var(--hd-shadow);
+    max-width:100%;
+    box-sizing:border-box;
 }
 .hj-hd-cta .btn-primary:hover {
   color: #a1a1a1!important;
@@ -120,6 +139,7 @@
     display:flex;
     flex-direction:column;
     gap:14px;
+    min-width:0;
 }
 .hj-hd-rating--under-image{
     align-self:flex-end;
@@ -144,6 +164,8 @@
     display:grid;
     grid-template-columns:1fr 1fr;
     gap:20px;
+    width:100%;
+    min-width:0;
 }
 .hj-hd-right--single{
     grid-template-columns:1fr;
@@ -166,23 +188,31 @@
 @media(max-width:900px){
     .hj-hd-wrap{
         grid-template-columns:1fr;
-        padding:26px;
+        padding:26px 18px;
         border-radius:24px;
         display:flex;
         flex-direction:column;
     }
     .hj-hd-left{max-width:none;margin:0 auto;order:2}
+    .hj-hd-left,
+    .hj-hd-right,
+    .hj-hd-right-col{
+        width:100%;
+        max-width:100%;
+        min-width:0;
+    }
     .hj-hd-right{order:1;margin-bottom:30px}
     .hj-hd-title, .hj-hd-intro{ text-align:center; margin-left:auto; margin-right:auto }
     .hj-hd-bullets{
         grid-template-columns: 1fr;
         justify-items: center;
+        width:100%;
     }
     .hj-hd-bullet{ justify-content:center }
     .hj-hd-cta-rating{flex-direction:column;align-items:center;gap:14px}
     .hj-hd-rating{align-items:center;text-align:center}
     .hj-hd-right-col{width:100%}
-    .hj-hd-rating--under-image{align-self:flex-end;text-align:right}
+    .hj-hd-rating--under-image{align-self:center;text-align:center;width:100%}
     .hj-hd-right{gap:14px}
     .hj-hd-right--three{grid-template-columns:1fr 1fr 1fr}
     .hj-hd-right--three .card{height:280px}
@@ -191,6 +221,7 @@
 
 /* Small mobile: keep three images side by side */
 @media(max-width:600px){
+    .hj-hd-wrap{padding:22px 16px}
     .hj-hd-right--three{grid-template-columns:1fr 1fr 1fr}
     .hj-hd-right--three .card{height:240px}
     .hj-hd-right--single .card{height:320px}
@@ -205,6 +236,15 @@
         flex-direction: column;
         justify-content: center;
     }
+    .hj-hd-cta .btn-primary{
+        width:auto;
+        max-width:320px;
+        padding:12px 22px;
+        font-size:15px;
+        line-height:1.35;
+        white-space:normal;
+        text-align:center;
+    }
     .hj-hd-rating--under-image .row{gap:8px;font-size:14px}
     .hj-hd-rating--under-image .stars{font-size:16px}
 }
@@ -218,7 +258,7 @@
     .hj-hd-bullet{gap:8px}
     .hj-hd-bullet .ic svg{width:18px;height:18px}
     .hj-hd-bullet span{font-size:13px}
-    .hj-hd-cta .btn-primary{padding:12px 24px;font-size:15px}
+    .hj-hd-cta .btn-primary{max-width:280px;padding:11px 20px;font-size:14px}
     .hj-hd-cta .note{font-size:12px}
     .hj-hd-rating .stars{font-size:16px}
     .hj-hd-rating .sub{font-size:13px;gap:8px}

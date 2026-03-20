@@ -2,9 +2,11 @@
   "name": "hello-elementor-child",
   "version": "1.0.0",
   "description": "Child theme for Hello Elementor",
-  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "npm run build:assets",
+    "build:assets": "node scripts/build-assets.mjs",
+    "watch:assets": "node scripts/build-assets.mjs --watch",
+    "clean:assets": "rm -rf dist"
   },
   "keywords": [
     "wordpress",
@@ -12,6 +14,8 @@
   ],
   "author": "",
   "license": "ISC",
-  "devDependencies": {},
+  "devDependencies": {
+    "esbuild": "^0.25.10"
+  },
   "dependencies": {}
 }

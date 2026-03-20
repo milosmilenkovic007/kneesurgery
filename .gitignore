@@ -24,5 +24,4 @@ composer.phar
 *.log
 
 # Build
-dist/
 .cache/

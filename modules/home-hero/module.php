@@ -86,7 +86,7 @@ $parse_counter = static function ($value) {
           <?php endif; ?>
 
           <?php if (!empty($secondary_button['label']) && $secondary_href !== ''): ?>
-            <a class="hj-hh-btn hj-hh-btn--secondary" href="<?php echo esc_attr($secondary_href); ?>">
+            <a class="hj-hh-btn hj-hh-btn--secondary" href="<?php echo esc_attr($secondary_href); ?>" data-hh-scroll-next="1">
               <?php echo esc_html($secondary_button['label']); ?>
             </a>
           <?php endif; ?>
