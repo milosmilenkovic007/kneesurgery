@@ -1,0 +1,174 @@
+:root{
+  --ty-bg:#f7f7ff;
+  --ty-surface:#ffffff;
+  --ty-text:#121432;
+  --ty-muted:#70748a;
+  --ty-accent:#4d55dd;
+  --ty-border:#dfe3f0;
+  --ty-shadow:0 16px 40px rgba(18, 20, 50, .05);
+}
+
+.page-template-page-thank-you .site-main{
+  width:100%;
+  max-width:none !important;
+  padding:0 !important;
+}
+
+.page-template-page-thank-you .hj-thank-you-page{
+  width:100%;
+  margin:0;
+}
+
+.hj-thank-you{
+  padding:64px 0 90px;
+}
+
+.hj-thank-you__wrap{
+  max-width:1200px;
+  margin:0 auto;
+  padding:0 24px;
+}
+
+.hj-thank-you__message{
+  max-width:980px;
+  text-align:center;
+  margin:0 auto;
+}
+
+.hj-thank-you__title{
+  margin:0;
+  color:var(--ty-text) !important;
+  font-family:"Manrope", sans-serif !important;
+  font-size:clamp(28px, 2.8vw, 38px) !important;
+  line-height:1.12 !important;
+  font-weight:500 !important;
+  letter-spacing:-.04em !important;
+}
+
+.hj-thank-you__content{
+  margin-top:6px;
+}
+
+.hj-thank-you__content > *:first-child{
+  margin-top:0;
+}
+
+.hj-thank-you__content p{
+  margin:0;
+  color:var(--ty-text);
+  font-family:"Manrope", sans-serif;
+  font-size:clamp(42px, 4.8vw, 62px);
+  line-height:1.12;
+  font-weight:500;
+  letter-spacing:-.04em;
+}
+
+.hj-thank-you__card{
+  margin-top:84px;
+  padding:32px 24px;
+  border:1px solid var(--ty-border);
+  border-radius:20px;
+  background:var(--ty-surface);
+  box-shadow:var(--ty-shadow);
+  text-align:center;
+}
+
+.hj-thank-you__card-title{
+  margin:0;
+  color:var(--ty-text) !important;
+  font-family:"Manrope", sans-serif !important;
+  font-size:clamp(26px, 2.8vw, 34px) !important;
+  line-height:1.18 !important;
+  font-weight:500 !important;
+}
+
+.hj-thank-you__card-copy{
+  margin:10px 0 0;
+  color:#4f566f;
+  font-family:"Manrope", sans-serif;
+  font-size:18px;
+  line-height:1.6;
+}
+
+.hj-thank-you__card-phone{
+  margin:10px 0 0;
+  color:#6f6f77;
+  font-family:"Manrope", sans-serif;
+  font-size:24px;
+  line-height:1.35;
+  font-weight:700;
+}
+
+.hj-thank-you__actions{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:14px;
+  flex-wrap:wrap;
+  margin-top:18px;
+}
+
+.hj-thank-you__btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:58px;
+  min-width:194px;
+  padding:14px 28px;
+  border-radius:999px;
+  text-decoration:none;
+  font-family:"Manrope", sans-serif;
+  font-size:16px;
+  line-height:1.2;
+  font-weight:700;
+  transition:transform .18s ease, border-color .18s ease, box-shadow .18s ease;
+}
+
+.hj-thank-you__btn:hover{
+  transform:translateY(-1px);
+}
+
+.hj-thank-you__btn--primary{
+  background:var(--ty-accent);
+  color:#fff !important;
+  box-shadow:inset 0 0 0 3px rgba(215, 220, 255, .55);
+}
+
+.hj-thank-you__btn--secondary{
+  background:transparent;
+  color:var(--ty-accent);
+  border:2px solid rgba(77, 85, 221, .18);
+}
+
+@media (max-width: 767px){
+  .hj-thank-you{
+    padding:40px 0 56px;
+  }
+
+  .hj-thank-you__wrap{
+    padding:0 16px;
+  }
+
+  .hj-thank-you__title,
+  .hj-thank-you__content p{
+    font-size:clamp(26px, 8vw, 32px) !important;
+  }
+
+  .hj-thank-you__card{
+    margin-top:44px;
+    padding:24px 18px;
+  }
+
+  .hj-thank-you__card-copy{
+    font-size:16px;
+  }
+
+  .hj-thank-you__card-phone{
+    font-size:20px;
+  }
+
+  .hj-thank-you__btn{
+    width:100%;
+    min-width:0;
+  }
+}

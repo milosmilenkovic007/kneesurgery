@@ -66,6 +66,42 @@ if (!function_exists('hj_get_theme_asset')) {
   }
 }
 
+if (!function_exists('hj_is_ortho_single_template')) {
+  function hj_is_ortho_single_template() {
+    return is_singular('post') && get_page_template_slug(get_queried_object_id()) === 'single-ortho.php';
+  }
+}
+
+if (!function_exists('hj_get_header_cta')) {
+  function hj_get_header_cta() {
+    $cta = [
+      'label' => __('Let\'s Get in Touch', 'hello-elementor-child'),
+      'url' => home_url('/contact/'),
+      'target' => '',
+    ];
+
+    if (function_exists('get_field')) {
+      $label = trim((string) get_field('header_cta_label', 'option'));
+      $url = trim((string) get_field('header_cta_url', 'option'));
+      $target = trim((string) get_field('header_cta_target', 'option'));
+
+      if ($label !== '') {
+        $cta['label'] = $label;
+      }
+
+      if ($url !== '') {
+        $cta['url'] = $url;
+      }
+
+      if ($target !== '') {
+        $cta['target'] = $target;
+      }
+    }
+
+    return apply_filters('hj_header_cta', $cta);
+  }
+}
+
 // -----------------------------------------------------------------------------
 //  Google Tag Manager (GTM) – <head> i posle <body>
 // -----------------------------------------------------------------------------
@@ -138,7 +174,12 @@ add_action('wp_enqueue_scripts', function () {
   $child_style = hj_get_theme_asset('style.css');
   $ortho_style = hj_get_theme_asset('assets/css/single-ortho.css');
   $ortho_script = hj_get_theme_asset('assets/js/single-ortho.js');
+  $blog_single_style = hj_get_theme_asset('assets/css/single-article.css');
+  $thank_you_style = hj_get_theme_asset('assets/css/page-thank-you.css');
   $doctor_style = hj_get_theme_asset('assets/css/single-doctor.css');
+  $site_header_style = hj_get_theme_asset('assets/css/site-header.css');
+  $site_footer_style = hj_get_theme_asset('assets/css/site-footer.css');
+  $site_header_script = hj_get_theme_asset('assets/js/site-header.js');
 
   // Parent Hello Elementor style
   wp_enqueue_style(
@@ -156,10 +197,22 @@ add_action('wp_enqueue_scripts', function () {
     $child_style['version']
   );
 
+  wp_enqueue_style('hj-site-header', $site_header_style['url'], ['hello-elementor-child'], $site_header_style['version']);
+  wp_enqueue_style('hj-site-footer', $site_footer_style['url'], ['hello-elementor-child'], $site_footer_style['version']);
+  wp_enqueue_script('hj-site-header', $site_header_script['url'], [], $site_header_script['version'], true);
+
   // Load Ortho single assets only on our custom template
-  if (is_singular('post') && get_page_template_slug(get_queried_object_id()) === 'single-ortho.php') {
+  if (hj_is_ortho_single_template()) {
     wp_enqueue_style('ortho-single', $ortho_style['url'], ['hello-elementor-child'], $ortho_style['version']);
     wp_enqueue_script('ortho-single', $ortho_script['url'], [], $ortho_script['version'], true);
+  }
+
+  if (is_singular('post') && !hj_is_ortho_single_template()) {
+    wp_enqueue_style('hj-blog-single', $blog_single_style['url'], ['hello-elementor-child'], $blog_single_style['version']);
+  }
+
+  if (is_page_template('page-thank-you.php')) {
+    wp_enqueue_style('hj-thank-you-page', $thank_you_style['url'], ['hello-elementor-child'], $thank_you_style['version']);
   }
 
   // Load Doctor single assets only on doctor pages
@@ -200,6 +253,10 @@ add_action('widgets_init', function () {
 
 /* ---------- Front styles for the widget ---------- */
 add_action('wp_enqueue_scripts', function () {
+  if (!hj_is_ortho_single_template() || !is_active_sidebar('ortho-sidebar')) {
+    return;
+  }
+
   $widget_style = hj_get_theme_asset('assets/css/widget-doctors-cta.css');
 
   wp_enqueue_style(
@@ -209,6 +266,57 @@ add_action('wp_enqueue_scripts', function () {
     $widget_style['version']
   );
 }, 30);
+
+// -----------------------------------------------------------------------------
+//  Frontend performance: trim non-critical core assets and defer safe scripts
+// -----------------------------------------------------------------------------
+add_action('wp_enqueue_scripts', function () {
+  if (is_admin()) {
+    return;
+  }
+
+  wp_dequeue_style('wp-block-library');
+  wp_dequeue_style('wp-block-library-theme');
+  wp_dequeue_style('classic-theme-styles');
+  wp_dequeue_style('global-styles');
+  wp_dequeue_script('wp-embed');
+}, 100);
+
+add_action('wp_default_scripts', function ($scripts) {
+  if (is_admin() || empty($scripts->registered['jquery'])) {
+    return;
+  }
+
+  $jquery = $scripts->registered['jquery'];
+  if (!empty($jquery->deps)) {
+    $jquery->deps = array_values(array_diff($jquery->deps, ['jquery-migrate']));
+  }
+});
+
+add_filter('script_loader_tag', function ($tag, $handle, $src) {
+  if (is_admin() || !$src) {
+    return $tag;
+  }
+
+  $defer_src_patterns = [
+    '/owl.carousel.min.js',
+    '/allscripts.js',
+    '/price-table.js',
+    '/v4-shims.min.js',
+  ];
+
+  foreach ($defer_src_patterns as $pattern) {
+    if (strpos($src, $pattern) !== false) {
+      if (strpos($tag, ' defer') !== false) {
+        return $tag;
+      }
+
+      return str_replace('<script ', '<script defer ', $tag);
+    }
+  }
+
+  return $tag;
+}, 10, 3);
 
 /* ---------- Admin media uploader for widget ---------- */
 add_action('admin_enqueue_scripts', function ($hook) {
@@ -574,3 +682,11 @@ add_filter('gutenberg_can_edit_post', function ($can_edit, $post) {
   }
   return $can_edit;
 }, 10, 2);
+
+// -----------------------------------------------------------------------------
+//  Editor: globally disable Gutenberg block editor
+// -----------------------------------------------------------------------------
+add_filter('use_block_editor_for_post', '__return_false', 9999);
+add_filter('use_block_editor_for_post_type', '__return_false', 9999);
+add_filter('gutenberg_can_edit_post', '__return_false', 9999);
+add_filter('gutenberg_can_edit_post_type', '__return_false', 9999);

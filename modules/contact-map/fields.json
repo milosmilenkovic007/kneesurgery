@@ -1,0 +1,37 @@
+{
+  "key": "layout_hj_contact_map",
+  "name": "contact_map",
+  "label": "Contact Map",
+  "display": "block",
+  "sub_fields": [
+    {
+      "key": "field_hj_cm_embed_code",
+      "label": "Map Embed Code",
+      "name": "embed_code",
+      "type": "textarea",
+      "rows": 8,
+      "instructions": "Paste Google Maps iframe embed code.",
+      "new_lines": ""
+    },
+    {
+      "key": "field_hj_cm_height",
+      "label": "Desktop Height",
+      "name": "height",
+      "type": "number",
+      "default_value": 720,
+      "min": 320,
+      "max": 1200,
+      "step": 10
+    },
+    {
+      "key": "field_hj_cm_mobile_height",
+      "label": "Mobile Height",
+      "name": "mobile_height",
+      "type": "number",
+      "default_value": 420,
+      "min": 240,
+      "max": 900,
+      "step": 10
+    }
+  ]
+}

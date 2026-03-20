@@ -1,0 +1,61 @@
+{
+  "key": "layout_hj_about_cta",
+  "name": "about_cta",
+  "label": "About CTA",
+  "display": "block",
+  "sub_fields": [
+    {
+      "key": "field_hj_acta_eyebrow",
+      "label": "Eyebrow",
+      "name": "eyebrow",
+      "type": "text",
+      "default_value": "GET STARTED"
+    },
+    {
+      "key": "field_hj_acta_title",
+      "label": "Title",
+      "name": "title",
+      "type": "textarea",
+      "rows": 3,
+      "required": 1,
+      "default_value": "Let's Do this Journey Together"
+    },
+    {
+      "key": "field_hj_acta_subheading",
+      "label": "Subheading",
+      "name": "subheading",
+      "type": "text",
+      "default_value": "It's not just about the surgery, it's so much more."
+    },
+    {
+      "key": "field_hj_acta_primary_button",
+      "label": "Primary Button",
+      "name": "primary_button",
+      "type": "link",
+      "return_format": "array"
+    },
+    {
+      "key": "field_hj_acta_secondary_button",
+      "label": "Secondary Button",
+      "name": "secondary_button",
+      "type": "link",
+      "return_format": "array"
+    },
+    {
+      "key": "field_hj_acta_image",
+      "label": "Right Image",
+      "name": "image",
+      "type": "image",
+      "return_format": "array",
+      "preview_size": "large",
+      "library": "all"
+    },
+    {
+      "key": "field_hj_acta_bg_color",
+      "label": "Background Color",
+      "name": "bg_color",
+      "type": "color_picker",
+      "default_value": "#f4f5ff"
+    }
+  ]
+}

@@ -82,6 +82,130 @@
             "type": "url",
             "default_value": "www.healingjourney.travel",
             "placeholder": "www.healingjourney.travel"
+        },
+        {
+            "key": "field_footer_settings_tab",
+            "label": "Footer",
+            "name": "",
+            "type": "tab",
+            "placement": "top"
+        },
+        {
+            "key": "field_footer_col1_top_image",
+            "label": "Column 1 Top Image",
+            "name": "footer_col1_top_image",
+            "type": "image",
+            "return_format": "array",
+            "preview_size": "medium",
+            "library": "all"
+        },
+        {
+            "key": "field_footer_col1_text",
+            "label": "Column 1 Text",
+            "name": "footer_col1_text",
+            "type": "textarea",
+            "rows": 3,
+            "default_value": "Medical Tourism Agency Tursab No: 5422"
+        },
+        {
+            "key": "field_footer_col1_bottom_image",
+            "label": "Column 1 Bottom Image",
+            "name": "footer_col1_bottom_image",
+            "type": "image",
+            "return_format": "array",
+            "preview_size": "medium",
+            "library": "all"
+        },
+        {
+            "key": "field_footer_social_links",
+            "label": "Social Links",
+            "name": "footer_social_links",
+            "type": "repeater",
+            "layout": "table",
+            "button_label": "Add Social Link",
+            "sub_fields": [
+                {
+                    "key": "field_footer_social_network",
+                    "label": "Network",
+                    "name": "network",
+                    "type": "select",
+                    "choices": {
+                        "facebook": "Facebook",
+                        "youtube": "YouTube",
+                        "instagram": "Instagram",
+                        "linkedin": "LinkedIn",
+                        "twitter": "Twitter / X"
+                    },
+                    "default_value": "facebook",
+                    "ui": 1,
+                    "wrapper": {
+                        "width": "35"
+                    }
+                },
+                {
+                    "key": "field_footer_social_url",
+                    "label": "URL",
+                    "name": "url",
+                    "type": "url",
+                    "wrapper": {
+                        "width": "65"
+                    }
+                }
+            ]
+        },
+        {
+            "key": "field_footer_col2_content",
+            "label": "Column 2 Content",
+            "name": "footer_col2_content",
+            "type": "wysiwyg",
+            "default_value": "<h4>Address</h4><p>Fener Mah. Fener Cd. No:11, Fener Is Merkezi, B2 Blok, kapi no:204<br>Muratpasa/Antalya/TURKIYE</p><h4>Contact</h4><p><a href=\"tel:+905550869112\">+90 555 086 91 12</a><br><a href=\"mailto:info@kneesurgery.local\">info@kneesurgery.local</a></p>",
+            "toolbar": "basic",
+            "media_upload": 0,
+            "tabs": "all"
+        },
+        {
+            "key": "field_footer_col3_content",
+            "label": "Column 3 Content",
+            "name": "footer_col3_content",
+            "type": "wysiwyg",
+            "default_value": "<h4>Explore</h4><p><a href=\"/\">Home</a><br><a href=\"/about/\">About</a><br><a href=\"/services/\">Services</a><br><a href=\"/patient-stories/\">Patient Stories</a></p>",
+            "toolbar": "basic",
+            "media_upload": 0,
+            "tabs": "all"
+        },
+        {
+            "key": "field_footer_col4_content",
+            "label": "Column 4 Content",
+            "name": "footer_col4_content",
+            "type": "wysiwyg",
+            "default_value": "<h4>Resources</h4><p><a href=\"/terms/\">Terms</a><br><a href=\"/privacy-policy/\">Privacy Policy</a><br><a href=\"/contact/\">Contact</a></p>",
+            "toolbar": "basic",
+            "media_upload": 0,
+            "tabs": "all"
+        },
+        {
+            "key": "field_footer_bottom_left_text",
+            "label": "Bottom Bar Left Text",
+            "name": "footer_bottom_left_text",
+            "type": "text",
+            "default_value": "Copyright © 2026 Knee Surgery Turkey"
+        },
+        {
+            "key": "field_footer_bottom_links",
+            "label": "Bottom Bar Links",
+            "name": "footer_bottom_links",
+            "type": "repeater",
+            "layout": "table",
+            "button_label": "Add Bottom Link",
+            "sub_fields": [
+                {
+                    "key": "field_footer_bottom_link",
+                    "label": "Link",
+                    "name": "link",
+                    "type": "link",
+                    "return_format": "array"
+                }
+            ]
         }
     ],
     "location": [
@@ -97,5 +221,6 @@
     "position": "normal",
     "style": "default",
     "label_placement": "top",
-    "instruction_placement": "label"
+    "instruction_placement": "label",
+    "modified": 1774029900
 }

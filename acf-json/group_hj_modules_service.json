@@ -9,6 +9,135 @@
             "type": "flexible_content",
             "button_label": "Add Module",
             "layouts": {
+                "layout_hj_about_cta": {
+                    "key": "layout_hj_about_cta",
+                    "name": "about_cta",
+                    "label": "About CTA",
+                    "display": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_hj_acta_eyebrow",
+                            "label": "Eyebrow",
+                            "name": "eyebrow",
+                            "type": "text",
+                            "default_value": "GET STARTED"
+                        },
+                        {
+                            "key": "field_hj_acta_title",
+                            "label": "Title",
+                            "name": "title",
+                            "type": "textarea",
+                            "rows": 3,
+                            "required": 1,
+                            "default_value": "Let's Do this Journey Together"
+                        },
+                        {
+                            "key": "field_hj_acta_subheading",
+                            "label": "Subheading",
+                            "name": "subheading",
+                            "type": "text",
+                            "default_value": "It's not just about the surgery, it's so much more."
+                        },
+                        {
+                            "key": "field_hj_acta_primary_button",
+                            "label": "Primary Button",
+                            "name": "primary_button",
+                            "type": "link",
+                            "return_format": "array"
+                        },
+                        {
+                            "key": "field_hj_acta_secondary_button",
+                            "label": "Secondary Button",
+                            "name": "secondary_button",
+                            "type": "link",
+                            "return_format": "array"
+                        },
+                        {
+                            "key": "field_hj_acta_image",
+                            "label": "Right Image",
+                            "name": "image",
+                            "type": "image",
+                            "return_format": "array",
+                            "preview_size": "large",
+                            "library": "all"
+                        },
+                        {
+                            "key": "field_hj_acta_bg_color",
+                            "label": "Background Color",
+                            "name": "bg_color",
+                            "type": "color_picker",
+                            "default_value": "#f4f5ff"
+                        }
+                    ]
+                },
+                "layout_hj_about_highlights": {
+                    "key": "layout_hj_about_highlights",
+                    "name": "about_highlights",
+                    "label": "About Highlights",
+                    "display": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_hj_ah_eyebrow",
+                            "label": "Eyebrow",
+                            "name": "eyebrow",
+                            "type": "text",
+                            "default_value": "OUR VALUES"
+                        },
+                        {
+                            "key": "field_hj_ah_title",
+                            "label": "Title",
+                            "name": "title",
+                            "type": "text",
+                            "required": 1,
+                            "default_value": "What Makes Us Different"
+                        },
+                        {
+                            "key": "field_hj_ah_items",
+                            "label": "Items",
+                            "name": "items",
+                            "type": "repeater",
+                            "layout": "block",
+                            "button_label": "Add Highlight",
+                            "min": 1,
+                            "sub_fields": [
+                                {
+                                    "key": "field_hj_ah_item_icon",
+                                    "label": "Icon",
+                                    "name": "icon",
+                                    "type": "image",
+                                    "return_format": "array",
+                                    "preview_size": "thumbnail",
+                                    "library": "all",
+                                    "required": 1,
+                                    "wrapper": {
+                                        "width": "20"
+                                    }
+                                },
+                                {
+                                    "key": "field_hj_ah_item_title",
+                                    "label": "Title",
+                                    "name": "title",
+                                    "type": "text",
+                                    "required": 1,
+                                    "wrapper": {
+                                        "width": "40"
+                                    }
+                                },
+                                {
+                                    "key": "field_hj_ah_item_description",
+                                    "label": "Description",
+                                    "name": "description",
+                                    "type": "textarea",
+                                    "rows": 4,
+                                    "required": 1,
+                                    "wrapper": {
+                                        "width": "40"
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                },
                 "layout_hj_articles_grid": {
                     "key": "layout_hj_articles_grid",
                     "name": "articles_grid",
@@ -674,6 +803,150 @@
                         }
                     ]
                 },
+                "layout_hj_contact_info_form": {
+                    "key": "layout_hj_contact_info_form",
+                    "name": "contact_info_form",
+                    "label": "Contact Info + Form",
+                    "display": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_hj_cif_heading",
+                            "label": "Heading",
+                            "name": "heading",
+                            "type": "text",
+                            "default_value": "Contact Us"
+                        },
+                        {
+                            "key": "field_hj_cif_intro",
+                            "label": "Intro",
+                            "name": "intro",
+                            "type": "text",
+                            "default_value": "Find out if travelling abroad for knee surgery is for you!"
+                        },
+                        {
+                            "key": "field_hj_cif_form_shortcode",
+                            "label": "Form Shortcode",
+                            "name": "form_shortcode",
+                            "type": "text",
+                            "instructions": "Paste Fluent Form shortcode, e.g. [fluentform id=\"3\"]"
+                        },
+                        {
+                            "key": "field_hj_cif_cards",
+                            "label": "Contact Cards",
+                            "name": "cards",
+                            "type": "repeater",
+                            "layout": "block",
+                            "button_label": "Add Card",
+                            "sub_fields": [
+                                {
+                                    "key": "field_hj_cif_card_type",
+                                    "label": "Icon Type",
+                                    "name": "type",
+                                    "type": "select",
+                                    "choices": {
+                                        "phone": "Phone",
+                                        "address": "Address",
+                                        "whatsapp": "WhatsApp",
+                                        "email": "Email",
+                                        "custom": "Custom"
+                                    },
+                                    "default_value": "phone",
+                                    "ui": 1
+                                },
+                                {
+                                    "key": "field_hj_cif_card_title",
+                                    "label": "Title",
+                                    "name": "title",
+                                    "type": "text",
+                                    "required": 1
+                                },
+                                {
+                                    "key": "field_hj_cif_card_content",
+                                    "label": "Content",
+                                    "name": "content",
+                                    "type": "textarea",
+                                    "rows": 5,
+                                    "instructions": "Use a new line for each row."
+                                }
+                            ]
+                        },
+                        {
+                            "key": "field_hj_cif_social_links",
+                            "label": "Social Links",
+                            "name": "social_links",
+                            "type": "repeater",
+                            "layout": "table",
+                            "button_label": "Add Social Link",
+                            "sub_fields": [
+                                {
+                                    "key": "field_hj_cif_social_network",
+                                    "label": "Network",
+                                    "name": "network",
+                                    "type": "select",
+                                    "choices": {
+                                        "facebook": "Facebook",
+                                        "twitter": "Twitter / X",
+                                        "youtube": "YouTube",
+                                        "linkedin": "LinkedIn",
+                                        "instagram": "Instagram",
+                                        "custom": "Custom"
+                                    },
+                                    "default_value": "facebook",
+                                    "ui": 1
+                                },
+                                {
+                                    "key": "field_hj_cif_social_url",
+                                    "label": "URL",
+                                    "name": "url",
+                                    "type": "url"
+                                },
+                                {
+                                    "key": "field_hj_cif_social_label",
+                                    "label": "Accessible Label",
+                                    "name": "label",
+                                    "type": "text"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                "layout_hj_contact_map": {
+                    "key": "layout_hj_contact_map",
+                    "name": "contact_map",
+                    "label": "Contact Map",
+                    "display": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_hj_cm_embed_code",
+                            "label": "Map Embed Code",
+                            "name": "embed_code",
+                            "type": "textarea",
+                            "rows": 8,
+                            "instructions": "Paste Google Maps iframe embed code.",
+                            "new_lines": ""
+                        },
+                        {
+                            "key": "field_hj_cm_height",
+                            "label": "Desktop Height",
+                            "name": "height",
+                            "type": "number",
+                            "default_value": 720,
+                            "min": 320,
+                            "max": 1200,
+                            "step": 10
+                        },
+                        {
+                            "key": "field_hj_cm_mobile_height",
+                            "label": "Mobile Height",
+                            "name": "mobile_height",
+                            "type": "number",
+                            "default_value": 420,
+                            "min": 240,
+                            "max": 900,
+                            "step": 10
+                        }
+                    ]
+                },
                 "layout_hj_cta_pricelist_download": {
                     "key": "layout_hj_cta_pricelist_download",
                     "name": "cta_pricelist_download",
@@ -1086,6 +1359,39 @@
                                     "rows": 4
                                 }
                             ]
+                        }
+                    ]
+                },
+                "layout_hj_hero_about": {
+                    "key": "layout_hj_hero_about",
+                    "name": "hero_about",
+                    "label": "Hero About",
+                    "display": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_hj_ha_background_image",
+                            "label": "Background Image",
+                            "name": "background_image",
+                            "type": "image",
+                            "return_format": "array",
+                            "preview_size": "large",
+                            "library": "all"
+                        },
+                        {
+                            "key": "field_hj_ha_title",
+                            "label": "Title",
+                            "name": "title",
+                            "type": "text",
+                            "required": 1,
+                            "default_value": "About Us"
+                        },
+                        {
+                            "key": "field_hj_ha_subheading",
+                            "label": "Subheading",
+                            "name": "subheading",
+                            "type": "textarea",
+                            "rows": 3,
+                            "placeholder": "Short supporting copy below the heading."
                         }
                     ]
                 },
@@ -2699,6 +3005,114 @@
                         }
                     ]
                 },
+                "layout_hj_video_grid": {
+                    "key": "layout_hj_video_grid",
+                    "name": "video_grid",
+                    "label": "Video Grid",
+                    "display": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_hj_vg_heading",
+                            "label": "Heading",
+                            "name": "heading",
+                            "type": "text"
+                        },
+                        {
+                            "key": "field_hj_vg_intro",
+                            "label": "Intro",
+                            "name": "intro",
+                            "type": "textarea",
+                            "rows": 3,
+                            "new_lines": "br"
+                        },
+                        {
+                            "key": "field_hj_vg_desktop_columns",
+                            "label": "Desktop Columns",
+                            "name": "desktop_columns",
+                            "type": "select",
+                            "choices": {
+                                "2": "2 Columns",
+                                "3": "3 Columns",
+                                "4": "4 Columns"
+                            },
+                            "default_value": "4",
+                            "ui": 1,
+                            "wrapper": {
+                                "width": "30"
+                            }
+                        },
+                        {
+                            "key": "field_hj_vg_tablet_columns",
+                            "label": "Tablet Columns",
+                            "name": "tablet_columns",
+                            "type": "select",
+                            "choices": {
+                                "1": "1 Column",
+                                "2": "2 Columns",
+                                "3": "3 Columns"
+                            },
+                            "default_value": "2",
+                            "ui": 1,
+                            "wrapper": {
+                                "width": "30"
+                            }
+                        },
+                        {
+                            "key": "field_hj_vg_mobile_columns",
+                            "label": "Mobile Columns",
+                            "name": "mobile_columns",
+                            "type": "select",
+                            "choices": {
+                                "1": "1 Column",
+                                "2": "2 Columns"
+                            },
+                            "default_value": "1",
+                            "ui": 1,
+                            "wrapper": {
+                                "width": "30"
+                            }
+                        },
+                        {
+                            "key": "field_hj_vg_items",
+                            "label": "Videos",
+                            "name": "items",
+                            "type": "repeater",
+                            "layout": "block",
+                            "button_label": "Add Video",
+                            "sub_fields": [
+                                {
+                                    "key": "field_hj_vg_video_url",
+                                    "label": "Video URL",
+                                    "name": "video_url",
+                                    "type": "url",
+                                    "instructions": "Paste a direct .mp4/.webm link or a YouTube/Vimeo URL.",
+                                    "required": 1,
+                                    "wrapper": {
+                                        "width": "60"
+                                    }
+                                },
+                                {
+                                    "key": "field_hj_vg_poster",
+                                    "label": "Poster",
+                                    "name": "poster",
+                                    "type": "image",
+                                    "return_format": "array",
+                                    "preview_size": "medium",
+                                    "library": "all",
+                                    "wrapper": {
+                                        "width": "40"
+                                    }
+                                },
+                                {
+                                    "key": "field_hj_vg_title",
+                                    "label": "Card Title",
+                                    "name": "title",
+                                    "type": "text"
+                                }
+                            ]
+                        }
+                    ]
+                },
                 "layout_hj_video_slider_sections": {
                     "key": "layout_hj_video_slider_sections",
                     "name": "video_slider_sections",
@@ -2926,5 +3340,5 @@
     "position": "acf_after_title",
     "style": "seamless",
     "active": true,
-    "modified": 1773997617
+    "modified": 1774033376
 }

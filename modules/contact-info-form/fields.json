@@ -1,0 +1,107 @@
+{
+  "key": "layout_hj_contact_info_form",
+  "name": "contact_info_form",
+  "label": "Contact Info + Form",
+  "display": "block",
+  "sub_fields": [
+    {
+      "key": "field_hj_cif_heading",
+      "label": "Heading",
+      "name": "heading",
+      "type": "text",
+      "default_value": "Contact Us"
+    },
+    {
+      "key": "field_hj_cif_intro",
+      "label": "Intro",
+      "name": "intro",
+      "type": "text",
+      "default_value": "Find out if travelling abroad for knee surgery is for you!"
+    },
+    {
+      "key": "field_hj_cif_form_shortcode",
+      "label": "Form Shortcode",
+      "name": "form_shortcode",
+      "type": "text",
+      "instructions": "Paste Fluent Form shortcode, e.g. [fluentform id=\"3\"]"
+    },
+    {
+      "key": "field_hj_cif_cards",
+      "label": "Contact Cards",
+      "name": "cards",
+      "type": "repeater",
+      "layout": "block",
+      "button_label": "Add Card",
+      "sub_fields": [
+        {
+          "key": "field_hj_cif_card_type",
+          "label": "Icon Type",
+          "name": "type",
+          "type": "select",
+          "choices": {
+            "phone": "Phone",
+            "address": "Address",
+            "whatsapp": "WhatsApp",
+            "email": "Email",
+            "custom": "Custom"
+          },
+          "default_value": "phone",
+          "ui": 1
+        },
+        {
+          "key": "field_hj_cif_card_title",
+          "label": "Title",
+          "name": "title",
+          "type": "text",
+          "required": 1
+        },
+        {
+          "key": "field_hj_cif_card_content",
+          "label": "Content",
+          "name": "content",
+          "type": "textarea",
+          "rows": 5,
+          "instructions": "Use a new line for each row."
+        }
+      ]
+    },
+    {
+      "key": "field_hj_cif_social_links",
+      "label": "Social Links",
+      "name": "social_links",
+      "type": "repeater",
+      "layout": "table",
+      "button_label": "Add Social Link",
+      "sub_fields": [
+        {
+          "key": "field_hj_cif_social_network",
+          "label": "Network",
+          "name": "network",
+          "type": "select",
+          "choices": {
+            "facebook": "Facebook",
+            "twitter": "Twitter / X",
+            "youtube": "YouTube",
+            "linkedin": "LinkedIn",
+            "instagram": "Instagram",
+            "custom": "Custom"
+          },
+          "default_value": "facebook",
+          "ui": 1
+        },
+        {
+          "key": "field_hj_cif_social_url",
+          "label": "URL",
+          "name": "url",
+          "type": "url"
+        },
+        {
+          "key": "field_hj_cif_social_label",
+          "label": "Accessible Label",
+          "name": "label",
+          "type": "text"
+        }
+      ]
+    }
+  ]
+}

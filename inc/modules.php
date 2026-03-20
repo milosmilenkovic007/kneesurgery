@@ -33,7 +33,10 @@ add_action('acf/init', function () {
             'layouts' => $layouts,
         ]],
         'location' => [
+            [[ 'param' => 'page_template', 'operator' => '==', 'value' => 'default' ]],
             [[ 'param' => 'page_template', 'operator' => '==', 'value' => 'page-home.php' ]],
+            [[ 'param' => 'page_template', 'operator' => '==', 'value' => 'page-contact.php' ]],
+            [[ 'param' => 'page_template', 'operator' => '==', 'value' => 'page-stories.php' ]],
             [[ 'param' => 'page_template', 'operator' => '==', 'value' => 'page-pricelist.php' ]],
             // Back-compat for pages still assigned to the legacy template filename.
             [[ 'param' => 'page_template', 'operator' => '==', 'value' => 'page-pricelist-dental.php' ]],

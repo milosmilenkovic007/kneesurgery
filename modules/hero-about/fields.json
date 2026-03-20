@@ -1,0 +1,33 @@
+{
+  "key": "layout_hj_hero_about",
+  "name": "hero_about",
+  "label": "Hero About",
+  "display": "block",
+  "sub_fields": [
+    {
+      "key": "field_hj_ha_background_image",
+      "label": "Background Image",
+      "name": "background_image",
+      "type": "image",
+      "return_format": "array",
+      "preview_size": "large",
+      "library": "all"
+    },
+    {
+      "key": "field_hj_ha_title",
+      "label": "Title",
+      "name": "title",
+      "type": "text",
+      "required": 1,
+      "default_value": "About Us"
+    },
+    {
+      "key": "field_hj_ha_subheading",
+      "label": "Subheading",
+      "name": "subheading",
+      "type": "textarea",
+      "rows": 3,
+      "placeholder": "Short supporting copy below the heading."
+    }
+  ]
+}

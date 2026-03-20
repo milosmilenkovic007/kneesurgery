@@ -1,0 +1,68 @@
+{
+  "key": "layout_hj_about_highlights",
+  "name": "about_highlights",
+  "label": "About Highlights",
+  "display": "block",
+  "sub_fields": [
+    {
+      "key": "field_hj_ah_eyebrow",
+      "label": "Eyebrow",
+      "name": "eyebrow",
+      "type": "text",
+      "default_value": "OUR VALUES"
+    },
+    {
+      "key": "field_hj_ah_title",
+      "label": "Title",
+      "name": "title",
+      "type": "text",
+      "required": 1,
+      "default_value": "What Makes Us Different"
+    },
+    {
+      "key": "field_hj_ah_items",
+      "label": "Items",
+      "name": "items",
+      "type": "repeater",
+      "layout": "block",
+      "button_label": "Add Highlight",
+      "min": 1,
+      "sub_fields": [
+        {
+          "key": "field_hj_ah_item_icon",
+          "label": "Icon",
+          "name": "icon",
+          "type": "image",
+          "return_format": "array",
+          "preview_size": "thumbnail",
+          "library": "all",
+          "required": 1,
+          "wrapper": {
+            "width": "20"
+          }
+        },
+        {
+          "key": "field_hj_ah_item_title",
+          "label": "Title",
+          "name": "title",
+          "type": "text",
+          "required": 1,
+          "wrapper": {
+            "width": "40"
+          }
+        },
+        {
+          "key": "field_hj_ah_item_description",
+          "label": "Description",
+          "name": "description",
+          "type": "textarea",
+          "rows": 4,
+          "required": 1,
+          "wrapper": {
+            "width": "40"
+          }
+        }
+      ]
+    }
+  ]
+}

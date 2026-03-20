@@ -1,0 +1,108 @@
+{
+  "key": "layout_hj_video_grid",
+  "name": "video_grid",
+  "label": "Video Grid",
+  "display": "block",
+  "sub_fields": [
+    {
+      "key": "field_hj_vg_heading",
+      "label": "Heading",
+      "name": "heading",
+      "type": "text"
+    },
+    {
+      "key": "field_hj_vg_intro",
+      "label": "Intro",
+      "name": "intro",
+      "type": "textarea",
+      "rows": 3,
+      "new_lines": "br"
+    },
+    {
+      "key": "field_hj_vg_desktop_columns",
+      "label": "Desktop Columns",
+      "name": "desktop_columns",
+      "type": "select",
+      "choices": {
+        "2": "2 Columns",
+        "3": "3 Columns",
+        "4": "4 Columns"
+      },
+      "default_value": "4",
+      "ui": 1,
+      "wrapper": {
+        "width": "30"
+      }
+    },
+    {
+      "key": "field_hj_vg_tablet_columns",
+      "label": "Tablet Columns",
+      "name": "tablet_columns",
+      "type": "select",
+      "choices": {
+        "1": "1 Column",
+        "2": "2 Columns",
+        "3": "3 Columns"
+      },
+      "default_value": "2",
+      "ui": 1,
+      "wrapper": {
+        "width": "30"
+      }
+    },
+    {
+      "key": "field_hj_vg_mobile_columns",
+      "label": "Mobile Columns",
+      "name": "mobile_columns",
+      "type": "select",
+      "choices": {
+        "1": "1 Column",
+        "2": "2 Columns"
+      },
+      "default_value": "1",
+      "ui": 1,
+      "wrapper": {
+        "width": "30"
+      }
+    },
+    {
+      "key": "field_hj_vg_items",
+      "label": "Videos",
+      "name": "items",
+      "type": "repeater",
+      "layout": "block",
+      "button_label": "Add Video",
+      "sub_fields": [
+        {
+          "key": "field_hj_vg_video_url",
+          "label": "Video URL",
+          "name": "video_url",
+          "type": "url",
+          "instructions": "Paste a direct .mp4/.webm link or a YouTube/Vimeo URL.",
+          "required": 1,
+          "wrapper": {
+            "width": "60"
+          }
+        },
+        {
+          "key": "field_hj_vg_poster",
+          "label": "Poster",
+          "name": "poster",
+          "type": "image",
+          "return_format": "array",
+          "preview_size": "medium",
+          "library": "all",
+          "wrapper": {
+            "width": "40"
+          }
+        },
+        {
+          "key": "field_hj_vg_title",
+          "label": "Card Title",
+          "name": "title",
+          "type": "text"
+        }
+      ]
+    }
+  ]
+}
