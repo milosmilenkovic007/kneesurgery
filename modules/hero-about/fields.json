@@ -14,6 +14,27 @@
       "library": "all"
     },
     {
+      "key": "field_hj_ha_background_video",
+      "label": "Background Video",
+      "name": "background_video",
+      "type": "file",
+      "return_format": "array",
+      "library": "all",
+      "mime_types": "mp4,webm,ogg",
+      "instructions": "Optional. If set, the video is used as the background while the image remains available as poster/fallback."
+    },
+    {
+      "key": "field_hj_ha_use_video_on_mobile",
+      "label": "Use Video on Mobile",
+      "name": "use_video_on_mobile",
+      "type": "true_false",
+      "ui": 1,
+      "default_value": 0,
+      "ui_on_text": "Use Video on Mobile",
+      "ui_off_text": "Disable Video on Mobile",
+      "instructions": "Enable this if the background video should stay visible on mobile screens."
+    },
+    {
       "key": "field_hj_ha_title",
       "label": "Title",
       "name": "title",

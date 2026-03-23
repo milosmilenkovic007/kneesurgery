@@ -20,9 +20,24 @@
   overflow:hidden;
 }
 
+.hj-ha-media{
+  position:absolute;
+  inset:0;
+  z-index:0;
+  overflow:hidden;
+}
+
+.hj-ha-video{
+  width:100%;
+  height:100%;
+  display:block;
+  object-fit:cover;
+}
+
 .hj-ha-overlay{
   position:absolute;
   inset:0;
+  z-index:0;
   background:
     radial-gradient(circle at 50% 42%, rgba(255,255,255,.04) 0%, rgba(255,255,255,0) 30%),
     linear-gradient(135deg, rgba(8, 11, 30, .3) 0%, var(--ha-overlay-accent) 42%, rgba(9, 14, 36, .34) 100%),
@@ -67,6 +82,10 @@
 @media (max-width: 767px){
   .hj-hero-about{
     min-height:min(var(--hj-ha-height, 400px), 400px);
+  }
+
+  .hj-hero-about--video-mobile-off .hj-ha-media{
+    display:none;
   }
 
   .hj-ha-wrap{
