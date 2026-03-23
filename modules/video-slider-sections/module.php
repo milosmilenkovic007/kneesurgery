@@ -28,8 +28,40 @@ $vss_get_embed_url = static function ($url) {
     return '';
   }
 
-  if (preg_match('~(?:youtube\.com/watch\?v=|youtu\.be/)([^&?/]+)~i', $url, $matches)) {
-    return 'https://www.youtube.com/embed/' . rawurlencode($matches[1]) . '?autoplay=1&rel=0';
+  $host = strtolower((string) wp_parse_url($url, PHP_URL_HOST));
+  $path = trim((string) wp_parse_url($url, PHP_URL_PATH), '/');
+  $query = [];
+  parse_str((string) wp_parse_url($url, PHP_URL_QUERY), $query);
+
+  $youtube_hosts = [
+    'youtube.com',
+    'www.youtube.com',
+    'm.youtube.com',
+    'youtu.be',
+    'www.youtu.be',
+    'youtube-nocookie.com',
+    'www.youtube-nocookie.com',
+  ];
+
+  if (in_array($host, $youtube_hosts, true)) {
+    $video_id = '';
+
+    if (!empty($query['v']) && is_string($query['v'])) {
+      $video_id = $query['v'];
+    } elseif ($host === 'youtu.be' || $host === 'www.youtu.be') {
+      $segments = explode('/', $path);
+      $video_id = $segments[0] ?? '';
+    } else {
+      $segments = explode('/', $path);
+      if (($segments[0] ?? '') === 'shorts' || ($segments[0] ?? '') === 'embed' || ($segments[0] ?? '') === 'live') {
+        $video_id = $segments[1] ?? '';
+      }
+    }
+
+    $video_id = preg_replace('~[^A-Za-z0-9_-]~', '', (string) $video_id);
+    if ($video_id !== '') {
+      return 'https://www.youtube.com/embed/' . rawurlencode($video_id) . '?autoplay=1&rel=0';
+    }
   }
 
   if (preg_match('~vimeo\.com/(?:video/)?(\d+)~i', $url, $matches)) {

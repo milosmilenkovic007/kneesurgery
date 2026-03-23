@@ -52,6 +52,18 @@ if (!function_exists('hj_spc_build_response_url')) {
     }
 }
 
+if (!function_exists('hj_spc_get_success_redirect_url')) {
+    function hj_spc_get_success_redirect_url($treatment_id = 0)
+    {
+        $thank_you_page = get_page_by_path('thank-you');
+        $thank_you_url = $thank_you_page instanceof WP_Post
+            ? get_permalink($thank_you_page)
+            : home_url('/thank-you/');
+
+        return apply_filters('hj_spc_success_redirect_url', $thank_you_url, $treatment_id);
+    }
+}
+
 if (!function_exists('hj_spc_handle_lead_submission')) {
     function hj_spc_handle_lead_submission()
     {
@@ -68,7 +80,7 @@ if (!function_exists('hj_spc_handle_lead_submission')) {
 
         $honeypot = isset($_POST['company']) ? trim((string) wp_unslash($_POST['company'])) : '';
         if ($honeypot !== '') {
-            wp_safe_redirect(hj_spc_build_response_url($redirect_to, 'success', $treatment_id));
+            wp_safe_redirect(hj_spc_get_success_redirect_url($treatment_id));
             exit;
         }
 
@@ -82,6 +94,23 @@ if (!function_exists('hj_spc_handle_lead_submission')) {
 
         if ($full_name === '' || $country_code === '' || $formatted_phone === '' || !is_email($email)) {
             wp_safe_redirect(hj_spc_build_response_url($redirect_to, 'invalid', $treatment_id));
+            exit;
+        }
+
+        $submission_id = function_exists('hj_bfs_create_submission')
+            ? hj_bfs_create_submission([
+                'full_name' => $full_name,
+                'email' => $email,
+                'phone' => $formatted_phone,
+                'country_code' => $country_code,
+                'treatment_id' => $treatment_id,
+                'treatment_title' => $treatment_title,
+                'source_url' => $redirect_to,
+            ])
+            : 0;
+
+        if (is_wp_error($submission_id)) {
+            wp_safe_redirect(hj_spc_build_response_url($redirect_to, 'error', $treatment_id));
             exit;
         }
 
@@ -107,7 +136,12 @@ if (!function_exists('hj_spc_handle_lead_submission')) {
 
         $sent = wp_mail($recipient, $subject, implode("\n", $message_lines), $headers);
 
-        wp_safe_redirect(hj_spc_build_response_url($redirect_to, $sent ? 'success' : 'error', $treatment_id));
+        if ($sent) {
+            wp_safe_redirect(hj_spc_get_success_redirect_url($treatment_id));
+            exit;
+        }
+
+        wp_safe_redirect(hj_spc_build_response_url($redirect_to, 'error', $treatment_id));
         exit;
     }
 }

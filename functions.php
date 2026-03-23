@@ -340,6 +340,7 @@ require_once get_stylesheet_directory() . '/inc/modules.php';
 require_once get_stylesheet_directory() . '/inc/articles-grid-ajax.php';
 require_once get_stylesheet_directory() . '/inc/doctors.php';
 require_once get_stylesheet_directory() . '/inc/treatment-package-includes.php';
+require_once get_stylesheet_directory() . '/inc/booking-form-submissions.php';
 require_once get_stylesheet_directory() . '/inc/single-package-cardbox-leads.php';
 
 // Admin/editor tweaks for the Price List template (includes Gutenberg disable)

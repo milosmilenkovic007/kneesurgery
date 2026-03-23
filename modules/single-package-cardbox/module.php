@@ -133,6 +133,7 @@ $uid = uniqid('hj-spc-');
 
                     <div class="hj-spc-form__field hj-spc-form__field--phone">
                       <label class="screen-reader-text" for="hj-spc-phone-<?php echo esc_attr($uid); ?>"><?php echo esc_html__('Mobile number', 'hello-elementor-child'); ?></label>
+                      <input type="hidden" name="phone" value="">
                       <input type="hidden" name="country_code" value="">
                       <input id="hj-spc-phone-<?php echo esc_attr($uid); ?>" class="hj-spc-phone-input" type="tel" name="phone_display" required autocomplete="tel" placeholder="Mobile number">
                     </div>

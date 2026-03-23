@@ -28,6 +28,14 @@
       "type": "textarea",
       "rows": 3,
       "placeholder": "Short supporting copy below the heading."
+    },
+    {
+      "key": "field_hj_ha_block_height",
+      "label": "Block Height",
+      "name": "block_height",
+      "type": "text",
+      "default_value": "400px",
+      "instructions": "Enter any valid CSS height value, for example 400px, 50vh or 32rem."
     }
   ]
 }
