@@ -4,14 +4,18 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
+if (!defined('HJ_BFS_POST_TYPE')) {
+    define('HJ_BFS_POST_TYPE', 'hj_booking_form');
+}
+
 if (!function_exists('hj_bfs_register_post_type')) {
     function hj_bfs_register_post_type()
     {
-        register_post_type('hj_booking_submission', [
+        register_post_type(HJ_BFS_POST_TYPE, [
             'labels' => [
                 'name' => __('Submissions', 'hello-elementor-child'),
                 'singular_name' => __('Submission', 'hello-elementor-child'),
-                'menu_name' => __('Booking Form', 'hello-elementor-child'),
+                'menu_name' => __('Forms', 'hello-elementor-child'),
                 'all_items' => __('Submissions', 'hello-elementor-child'),
                 'edit_item' => __('View Submission', 'hello-elementor-child'),
                 'view_item' => __('View Submission', 'hello-elementor-child'),
@@ -41,6 +45,31 @@ if (!function_exists('hj_bfs_register_post_type')) {
 }
 add_action('init', 'hj_bfs_register_post_type');
 
+    if (!function_exists('hj_bfs_redirect_legacy_admin_url')) {
+        function hj_bfs_redirect_legacy_admin_url()
+        {
+            if (!is_admin()) {
+                return;
+            }
+
+            $post_type = isset($_GET['post_type']) ? sanitize_key(wp_unslash($_GET['post_type'])) : '';
+            if ($post_type !== 'hj_booking_submission') {
+                return;
+            }
+
+            $redirect_url = add_query_arg(
+                [
+                    'post_type' => HJ_BFS_POST_TYPE,
+                ],
+                admin_url('edit.php')
+            );
+
+            wp_safe_redirect($redirect_url);
+            exit;
+    }
+}
+    add_action('admin_init', 'hj_bfs_redirect_legacy_admin_url');
+
 if (!function_exists('hj_bfs_create_submission')) {
     function hj_bfs_create_submission(array $data)
     {
@@ -60,7 +89,7 @@ if (!function_exists('hj_bfs_create_submission')) {
         );
 
         $submission_id = wp_insert_post([
-            'post_type' => 'hj_booking_submission',
+            'post_type' => HJ_BFS_POST_TYPE,
             'post_status' => 'publish',
             'post_title' => $submission_title,
         ], true);
@@ -88,7 +117,7 @@ if (!function_exists('hj_bfs_get_submission_meta')) {
     }
 }
 
-add_filter('manage_hj_booking_submission_posts_columns', function ($columns) {
+add_filter('manage_' . HJ_BFS_POST_TYPE . '_posts_columns', function ($columns) {
     return [
         'cb' => $columns['cb'] ?? '<input type="checkbox" />',
         'title' => __('Submission', 'hello-elementor-child'),
@@ -99,7 +128,7 @@ add_filter('manage_hj_booking_submission_posts_columns', function ($columns) {
     ];
 });
 
-add_action('manage_hj_booking_submission_posts_custom_column', function ($column, $post_id) {
+add_action('manage_' . HJ_BFS_POST_TYPE . '_posts_custom_column', function ($column, $post_id) {
     switch ($column) {
         case 'hj_bfs_treatment':
             echo esc_html(hj_bfs_get_submission_meta($post_id, '_hj_bfs_treatment_title'));
@@ -117,7 +146,7 @@ add_action('manage_hj_booking_submission_posts_custom_column', function ($column
 }, 10, 2);
 
 add_filter('post_row_actions', function ($actions, $post) {
-    if (!$post instanceof WP_Post || $post->post_type !== 'hj_booking_submission') {
+    if (!$post instanceof WP_Post || $post->post_type !== HJ_BFS_POST_TYPE) {
         return $actions;
     }
 
@@ -127,7 +156,7 @@ add_filter('post_row_actions', function ($actions, $post) {
     return $actions;
 }, 10, 2);
 
-add_action('add_meta_boxes_hj_booking_submission', function () {
+add_action('add_meta_boxes_' . HJ_BFS_POST_TYPE, function () {
     add_meta_box(
         'hj-bfs-details',
         __('Submission Details', 'hello-elementor-child'),
@@ -159,22 +188,22 @@ add_action('add_meta_boxes_hj_booking_submission', function () {
             }
             echo '</table>';
         },
-        'hj_booking_submission',
+        HJ_BFS_POST_TYPE,
         'normal',
         'high'
     );
 });
 
 add_action('admin_menu', function () {
-    remove_submenu_page('edit.php?post_type=hj_booking_submission', 'post-new.php?post_type=hj_booking_submission');
+    remove_submenu_page('edit.php?post_type=' . HJ_BFS_POST_TYPE, 'post-new.php?post_type=' . HJ_BFS_POST_TYPE);
 }, 99);
 
 add_action('admin_head', function () {
     $screen = get_current_screen();
 
-    if (!$screen || $screen->post_type !== 'hj_booking_submission') {
+    if (!$screen || $screen->post_type !== HJ_BFS_POST_TYPE) {
         return;
     }
 
-    echo '<style>.post-type-hj_booking_submission .page-title-action,.post-type-hj_booking_submission #minor-publishing-actions,.post-type-hj_booking_submission #misc-publishing-actions .misc-pub-post-status,.post-type-hj_booking_submission #misc-publishing-actions .misc-pub-visibility{display:none!important;}</style>';
+    echo '<style>.post-type-' . esc_attr(HJ_BFS_POST_TYPE) . ' .page-title-action,.post-type-' . esc_attr(HJ_BFS_POST_TYPE) . ' #minor-publishing-actions,.post-type-' . esc_attr(HJ_BFS_POST_TYPE) . ' #misc-publishing-actions .misc-pub-post-status,.post-type-' . esc_attr(HJ_BFS_POST_TYPE) . ' #misc-publishing-actions .misc-pub-visibility{display:none!important;}</style>';
 });

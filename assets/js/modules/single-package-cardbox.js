@@ -13,13 +13,24 @@ document.addEventListener('DOMContentLoaded', function () {
     var submitButton = document.querySelector('.hj-spc-form__submit[form="' + form.id + '"]');
     var phoneInput = form.querySelector('.hj-spc-phone-input');
     var phoneField = phoneInput ? phoneInput.closest('.hj-spc-form__field--phone') : null;
+    var hiddenPhoneInput = form.querySelector('input[type="hidden"][name="phone"]');
+    var hiddenCountryInput = form.querySelector('input[type="hidden"][name="country_code"]');
 
     if (!submitButton || !phoneInput || typeof intlTelInputFactory !== 'function') {
+      if (hiddenPhoneInput && phoneInput) {
+        hiddenPhoneInput.value = phoneInput.value.trim();
+      }
       syncFallbackButtonState(form, submitButton);
       form.addEventListener('input', function () {
+        if (hiddenPhoneInput && phoneInput) {
+          hiddenPhoneInput.value = phoneInput.value.trim();
+        }
         syncFallbackButtonState(form, submitButton);
       });
       form.addEventListener('change', function () {
+        if (hiddenPhoneInput && phoneInput) {
+          hiddenPhoneInput.value = phoneInput.value.trim();
+        }
         syncFallbackButtonState(form, submitButton);
       });
       return;
@@ -33,18 +44,21 @@ document.addEventListener('DOMContentLoaded', function () {
       placeholderNumberType: 'MOBILE',
       strictMode: true,
       countrySearch: true,
-      fixDropdownWidth: false,
-      hiddenInput: function () {
-        return {
-          phone: 'phone',
-          country: 'country_code'
-        };
-      }
+      fixDropdownWidth: false
     });
 
     var syncPhoneState = function () {
       var hasValue = phoneInput.value.trim() !== '';
       var isPhoneValid = hasValue && iti.isValidNumber();
+      var selectedCountry = iti.getSelectedCountryData();
+
+      if (hiddenPhoneInput) {
+        hiddenPhoneInput.value = hasValue ? iti.getNumber() : '';
+      }
+
+      if (hiddenCountryInput) {
+        hiddenCountryInput.value = selectedCountry && selectedCountry.iso2 ? selectedCountry.iso2 : '';
+      }
 
       if (hasValue && !isPhoneValid) {
         phoneInput.setCustomValidity('Please enter a valid mobile number.');

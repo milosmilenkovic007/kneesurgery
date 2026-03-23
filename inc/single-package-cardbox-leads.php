@@ -4,6 +4,54 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
+if (!function_exists('hj_spc_normalize_phone_input')) {
+    function hj_spc_normalize_phone_input($value)
+    {
+        $value = trim((string) $value);
+
+        return preg_replace('/[^0-9+()\-\s]/', '', $value);
+    }
+}
+
+if (!function_exists('hj_spc_guess_country_code_from_phone')) {
+    function hj_spc_guess_country_code_from_phone($phone)
+    {
+        $phone = trim((string) $phone);
+        if ($phone === '' || strpos($phone, '+') !== 0) {
+            return '';
+        }
+
+        $normalized_phone = preg_replace('/\s+/', '', $phone);
+        $country_map = [
+            '+44' => 'gb',
+            '+1' => 'us',
+            '+353' => 'ie',
+            '+49' => 'de',
+            '+33' => 'fr',
+            '+34' => 'es',
+            '+39' => 'it',
+            '+381' => 'rs',
+            '+385' => 'hr',
+            '+387' => 'ba',
+            '+382' => 'me',
+            '+389' => 'mk',
+            '+355' => 'al',
+        ];
+
+        uksort($country_map, static function ($left, $right) {
+            return strlen($right) <=> strlen($left);
+        });
+
+        foreach ($country_map as $prefix => $country_code) {
+            if (strpos($normalized_phone, $prefix) === 0) {
+                return $country_code;
+            }
+        }
+
+        return '';
+    }
+}
+
 if (!function_exists('hj_spc_get_form_feedback')) {
     function hj_spc_get_form_feedback($treatment_id = 0)
     {
@@ -88,11 +136,19 @@ if (!function_exists('hj_spc_handle_lead_submission')) {
         $email = isset($_POST['email']) ? sanitize_email(wp_unslash($_POST['email'])) : '';
         $country_code = isset($_POST['country_code']) ? sanitize_key(wp_unslash($_POST['country_code'])) : '';
         $phone_raw = isset($_POST['phone']) ? sanitize_text_field(wp_unslash($_POST['phone'])) : '';
-        $formatted_phone = preg_replace('/[^0-9+()\-\s]/', '', $phone_raw);
+        $phone_display = isset($_POST['phone_display']) ? sanitize_text_field(wp_unslash($_POST['phone_display'])) : '';
+        $formatted_phone = hj_spc_normalize_phone_input($phone_raw);
+        if ($formatted_phone === '') {
+            $formatted_phone = hj_spc_normalize_phone_input($phone_display);
+        }
+
+        if ($country_code === '') {
+            $country_code = hj_spc_guess_country_code_from_phone($formatted_phone);
+        }
         $treatment_title = isset($_POST['treatment_title']) ? sanitize_text_field(wp_unslash($_POST['treatment_title'])) : '';
         $treatment_title = $treatment_id > 0 ? get_the_title($treatment_id) : $treatment_title;
 
-        if ($full_name === '' || $country_code === '' || $formatted_phone === '' || !is_email($email)) {
+        if ($full_name === '' || $formatted_phone === '' || !is_email($email)) {
             wp_safe_redirect(hj_spc_build_response_url($redirect_to, 'invalid', $treatment_id));
             exit;
         }
