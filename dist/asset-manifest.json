@@ -83,6 +83,10 @@
     "path": "assets/css/modules/reviews-trustindex.css",
     "version": "17353634e9cb"
   },
+  "assets/css/modules/single-package-cardbox.css": {
+    "path": "assets/css/modules/single-package-cardbox.css",
+    "version": "193f8702d77e"
+  },
   "assets/css/modules/testimonials-slider.css": {
     "path": "assets/css/modules/testimonials-slider.css",
     "version": "84da96a09963"
@@ -150,6 +154,10 @@
   "assets/js/modules/patient-journey-media.js": {
     "path": "assets/js/modules/patient-journey-media.js",
     "version": "3e8a02a4a7ed"
+  },
+  "assets/js/modules/single-package-cardbox.js": {
+    "path": "assets/js/modules/single-package-cardbox.js",
+    "version": "9127114331a6"
   },
   "assets/js/modules/testimonials-slider.js": {
     "path": "assets/js/modules/testimonials-slider.js",

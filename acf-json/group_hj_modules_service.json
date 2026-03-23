@@ -2685,6 +2685,36 @@
                         }
                     ]
                 },
+                "layout_hj_single_package_cardbox": {
+                    "key": "layout_hj_single_package_cardbox",
+                    "name": "single_package_cardbox",
+                    "label": "Single Package Cardbox",
+                    "display": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_hj_spc_treatment",
+                            "label": "Treatment",
+                            "name": "treatment",
+                            "type": "post_object",
+                            "post_type": [
+                                "service"
+                            ],
+                            "return_format": "id",
+                            "ui": 1,
+                            "required": 0,
+                            "instructions": "Select the Treatment whose package data should be displayed. If left empty on a single Treatment page, the current Treatment is used."
+                        },
+                        {
+                            "key": "field_hj_spc_message",
+                            "label": "Module Source",
+                            "name": "module_source_message",
+                            "type": "message",
+                            "message": "This module renders content from the selected Treatment's Package Includes fields and outputs the built-in booking form in the right column.",
+                            "new_lines": "wpautop",
+                            "esc_html": 0
+                        }
+                    ]
+                },
                 "layout_hj_testimonials_slider": {
                     "key": "layout_hj_testimonials_slider",
                     "name": "testimonials_slider",
@@ -3303,7 +3333,7 @@
                                             "label": "Label",
                                             "name": "label",
                                             "type": "text",
-                                            "placeholder": "(5 Stars)"
+                                            "placeholder": "5 Stars"
                                         },
                                         {
                                             "key": "field_hj_vss_reviews_count",
@@ -3317,7 +3347,7 @@
                                             "label": "Reviews URL / Anchor",
                                             "name": "reviews_url",
                                             "type": "text",
-                                            "placeholder": "https://\u2026 or #anchor"
+                                            "placeholder": "https://... or #anchor"
                                         }
                                     ]
                                 }
@@ -3340,5 +3370,5 @@
     "position": "acf_after_title",
     "style": "seamless",
     "active": true,
-    "modified": 1774033376
+    "modified": 1774272504
 }

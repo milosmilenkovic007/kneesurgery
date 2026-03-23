@@ -17,5 +17,7 @@
   "devDependencies": {
     "esbuild": "^0.25.10"
   },
-  "dependencies": {}
+  "dependencies": {
+    "intl-tel-input": "^26.8.1"
+  }
 }

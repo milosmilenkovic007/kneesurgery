@@ -116,9 +116,9 @@
           "conditional_logic": [[{"field":"field_hj_vss_section_type","operator":"==","value":"price"}]],
           "sub_fields": [
             {"key": "field_hj_vss_rating_value", "label": "Stars (e.g. 5)", "name": "stars", "type": "number", "min": 0, "max": 5, "step": 0.5},
-            {"key": "field_hj_vss_rating_label", "label": "Label", "name": "label", "type": "text", "placeholder": "(5 Stars)"},
+            {"key": "field_hj_vss_rating_label", "label": "Label", "name": "label", "type": "text", "placeholder": "5 Stars"},
             {"key": "field_hj_vss_reviews_count", "label": "Reviews Count", "name": "reviews_count", "type": "number", "min": 0},
-            {"key": "field_hj_vss_reviews_url", "label": "Reviews URL / Anchor", "name": "reviews_url", "type": "text", "placeholder": "https://… or #anchor"}
+            {"key": "field_hj_vss_reviews_url", "label": "Reviews URL / Anchor", "name": "reviews_url", "type": "text", "placeholder": "https://... or #anchor"}
           ]
         }
       ]

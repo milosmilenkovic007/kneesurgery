@@ -1,0 +1,128 @@
+{
+    "key": "group_hj_treatment_package_includes",
+    "title": "Treatment Package Includes",
+    "fields": [
+        {
+            "key": "field_hj_tpi_heading",
+            "label": "Heading",
+            "name": "package_includes_heading",
+            "type": "text",
+            "required": 0
+        },
+        {
+            "key": "field_hj_tpi_content",
+            "label": "Content",
+            "name": "package_includes_content",
+            "type": "textarea",
+            "rows": 5,
+            "default_value": "Many patients choose knee surgery abroad for better affordability \u2014 but the price is only one small part of the treatment journey. Long-term surgical results depend on clinical expertise, implant quality, surgical precision and structured rehabilitation follow-up. We manage the entire process to keep your treatment consistent, medically supervised and focused on long-term mobility, stability, and joint function.",
+            "required": 0
+        },
+        {
+            "key": "field_hj_tpi_included_title",
+            "label": "Included Title",
+            "name": "package_includes_included_title",
+            "type": "text",
+            "required": 0
+        },
+        {
+            "key": "field_hj_tpi_included_items",
+            "label": "Included Items",
+            "name": "package_includes_included_items",
+            "type": "repeater",
+            "button_label": "Add Item",
+            "layout": "table",
+            "sub_fields": [
+                {
+                    "key": "field_hj_tpi_included_item_text",
+                    "label": "Text",
+                    "name": "text",
+                    "type": "text",
+                    "required": 1
+                }
+            ]
+        },
+        {
+            "key": "field_hj_tpi_price",
+            "label": "Price",
+            "name": "package_includes_price",
+            "type": "text",
+            "required": 0
+        },
+        {
+            "key": "field_hj_tpi_price_symbol",
+            "label": "Price Symbol",
+            "name": "package_includes_price_symbol",
+            "type": "text",
+            "default_value": "\u00a3",
+            "required": 0,
+            "wrapper": {
+                "width": "25"
+            }
+        },
+        {
+            "key": "field_hj_tpi_price_note",
+            "label": "Price Note",
+            "name": "package_includes_price_note",
+            "type": "text",
+            "required": 0
+        },
+        {
+            "key": "field_hj_tpi_button",
+            "label": "Price Button",
+            "name": "package_includes_price_button",
+            "type": "link",
+            "return_format": "array",
+            "required": 0
+        },
+        {
+            "key": "field_hj_tpi_rating",
+            "label": "Rating",
+            "name": "package_includes_rating",
+            "type": "group",
+            "sub_fields": [
+                {
+                    "key": "field_hj_tpi_rating_stars",
+                    "label": "Stars (e.g. 5)",
+                    "name": "stars",
+                    "type": "number",
+                    "min": 0,
+                    "max": 5,
+                    "step": 0.5
+                },
+                {
+                    "key": "field_hj_tpi_rating_label",
+                    "label": "Label",
+                    "name": "label",
+                    "type": "text"
+                },
+                {
+                    "key": "field_hj_tpi_rating_reviews_count",
+                    "label": "Reviews Count",
+                    "name": "reviews_count",
+                    "type": "number",
+                    "min": 0
+                },
+                {
+                    "key": "field_hj_tpi_rating_reviews_url",
+                    "label": "Reviews URL / Anchor",
+                    "name": "reviews_url",
+                    "type": "text"
+                }
+            ]
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "service"
+            }
+        ]
+    ],
+    "position": "normal",
+    "style": "default",
+    "active": true,
+    "modified": 1774272504
+}
