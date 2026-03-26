@@ -5,6 +5,13 @@
   "display": "block",
   "sub_fields": [
     {
+      "key": "field_hj_th_heading",
+      "label": "Heading",
+      "name": "heading",
+      "type": "text",
+      "placeholder": "Why Patients Choose Us"
+    },
+    {
       "key": "field_hj_th_bg_color",
       "label": "Background Color",
       "name": "bg_color",

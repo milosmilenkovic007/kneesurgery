@@ -1,7 +1,8 @@
 <?php
 $media_type = get_sub_field('media_type') ?: 'animation';
 $image = get_sub_field('image');
-$rating_slides = get_sub_field('rating_slides') ?: [];
+$rating_trustindex_shortcode = trim((string) get_sub_field('rating_trustindex_shortcode'));
+$rating_style = trim((string) get_sub_field('rating_style')) ?: 'default';
 $heading = trim((string) get_sub_field('heading'));
 $heading_accent = trim((string) get_sub_field('heading_accent'));
 $subheading = trim((string) get_sub_field('subheading'));
@@ -52,6 +53,9 @@ $button_bg_color_clean = $sanitize_color($button_bg_color, '#4951d5');
 $button_text_color_clean = $sanitize_color($button_text_color, '#ffffff');
 $terms_link_color_clean = $sanitize_color($terms_link_color, '#4951d5');
 
+$use_trustindex_reviews = $media_type === 'rating' && $rating_trustindex_shortcode !== '';
+$media_is_decorative = $media_type === 'animation' || ($media_type === 'image' && $image_url !== '');
+
 $hex = ltrim($bg_color_clean, '#');
 if (strlen($hex) === 3) {
   $hex = $hex[0] . $hex[0] . $hex[1] . $hex[1] . $hex[2] . $hex[2];
@@ -70,61 +74,13 @@ $style_vars .= '--cfb-button-bg:' . $button_bg_color_clean . ';';
 $style_vars .= '--cfb-button-text:' . $button_text_color_clean . ';';
 $style_vars .= '--cfb-link:' . $terms_link_color_clean . ';';
 ?>
-<section class="hj-cta-form-block<?php echo $is_dark ? ' is-dark' : ''; ?><?php echo $media_type === 'rating' ? ' is-rating' : ($media_type === 'animation' ? ' is-animation' : ' is-image'); ?>" id="<?php echo esc_attr($uid); ?>" style="<?php echo esc_attr($style_vars); ?>" aria-label="CTA">
+<section class="hj-cta-form-block<?php echo $is_dark ? ' is-dark' : ''; ?><?php echo $media_type === 'rating' ? ' is-rating' : ($media_type === 'animation' ? ' is-animation' : ' is-image'); ?><?php echo $use_trustindex_reviews ? ' is-rating-trustindex' : ''; ?><?php echo $media_type === 'rating' ? ' is-rating-style-' . esc_attr(sanitize_html_class($rating_style)) : ''; ?>" id="<?php echo esc_attr($uid); ?>" style="<?php echo esc_attr($style_vars); ?>" aria-label="CTA">
   <div class="hj-cfb-wrap">
     <div class="hj-cfb-grid">
-      <div class="hj-cfb-media" aria-hidden="true">
-        <?php if ($media_type === 'rating' && !empty($rating_slides)): ?>
-          <div class="hj-cfb-rating-slider" data-cfb-slider>
-            <div class="hj-cfb-rating-track" data-cfb-track>
-              <?php foreach ($rating_slides as $index => $slide):
-                $slide_name = trim((string) ($slide['name'] ?? ''));
-                $slide_text = trim((string) ($slide['content'] ?? ($slide['text'] ?? '')));
-                $slide_stars = max(1, min(5, (int) ($slide['rating'] ?? ($slide['stars'] ?? 5))));
-                $slide_avatar = $slide['avatar'] ?? ($slide['photo'] ?? null);
-                if ($slide_name === '' && $slide_text === '') { continue; }
-              ?>
-                <article class="hj-cfb-rating-card<?php echo $index === 0 ? ' is-active' : ''; ?>" data-cfb-slide>
-                  <div class="hj-cfb-rating-head">
-                    <div class="hj-cfb-rating-person">
-                      <span class="hj-cfb-rating-avatar">
-                        <?php if (is_array($slide_avatar) && !empty($slide_avatar['ID'])): ?>
-                          <?php echo wp_get_attachment_image((int) $slide_avatar['ID'], 'thumbnail', false, ['loading' => 'lazy', 'decoding' => 'async']); ?>
-                        <?php elseif (is_array($slide_avatar) && !empty($slide_avatar['url'])): ?>
-                          <img src="<?php echo esc_url($slide_avatar['url']); ?>" alt="<?php echo esc_attr($slide_avatar['alt'] ?? $slide_name); ?>" loading="lazy" decoding="async">
-                        <?php else: ?>
-                          <span class="hj-cfb-rating-avatar__fallback"><?php echo esc_html(mb_substr($slide_name ?: 'P', 0, 1)); ?></span>
-                        <?php endif; ?>
-                      </span>
-                      <span class="hj-cfb-rating-meta">
-                        <?php if ($slide_name !== ''): ?><span class="hj-cfb-rating-name"><?php echo esc_html($slide_name); ?></span><?php endif; ?>
-                      </span>
-                    </div>
-                    <div class="hj-cfb-rating-stars" aria-hidden="true"><?php echo esc_html(str_repeat('★', $slide_stars)); ?></div>
-                  </div>
-                  <?php if ($slide_text !== ''): ?>
-                    <div class="hj-cfb-rating-copy"><?php echo nl2br(esc_html($slide_text)); ?></div>
-                  <?php endif; ?>
-                </article>
-              <?php endforeach; ?>
-            </div>
-            <?php if (count($rating_slides) > 1): ?>
-              <div class="hj-cfb-rating-nav">
-                <div class="hj-cfb-rating-dots" data-cfb-dots>
-                  <?php foreach ($rating_slides as $index => $slide): ?>
-                    <button class="hj-cfb-rating-dot<?php echo $index === 0 ? ' is-active' : ''; ?>" type="button" data-cfb-dot="<?php echo esc_attr($index); ?>" aria-label="<?php echo esc_attr(sprintf(__('Rating slide %d', 'hello-elementor-child'), $index + 1)); ?>"></button>
-                  <?php endforeach; ?>
-                </div>
-                <div class="hj-cfb-rating-arrows">
-                  <button class="hj-cfb-rating-arrow is-prev" type="button" data-cfb-prev aria-label="<?php echo esc_attr__('Previous rating', 'hello-elementor-child'); ?>">
-                    <span aria-hidden="true">&#8592;</span>
-                  </button>
-                  <button class="hj-cfb-rating-arrow is-next" type="button" data-cfb-next aria-label="<?php echo esc_attr__('Next rating', 'hello-elementor-child'); ?>">
-                    <span aria-hidden="true">&#8594;</span>
-                  </button>
-                </div>
-              </div>
-            <?php endif; ?>
+      <div class="hj-cfb-media"<?php echo $media_is_decorative ? ' aria-hidden="true"' : ''; ?>>
+        <?php if ($use_trustindex_reviews): ?>
+          <div class="hj-cfb-trustindex">
+            <?php echo apply_filters('the_content', $rating_trustindex_shortcode); ?>
           </div>
         <?php elseif ($media_type === 'animation'): ?>
           <div class="hj-cfb-animation-wrap">

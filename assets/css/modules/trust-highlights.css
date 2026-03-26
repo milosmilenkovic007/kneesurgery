@@ -11,38 +11,55 @@
 .hj-th-wrap {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 60px 0px;
+    padding: 44px 0px;
+}
+
+.hj-th-heading{
+  margin:0 0 26px;
+  color:#ffffff !important;
+  font-family:"Manrope", sans-serif !important;
+  font-size:clamp(28px, 3.4vw, 38px) !important;
+  line-height:1.2em !important;
+  font-weight:500 !important;
+  letter-spacing:-.03em !important;
+  text-align:left;
 }
 
 .hj-th-grid{
   display:grid;
   grid-template-columns:repeat(3, minmax(0, 1fr));
-  gap:44px;
-  align-items:start;
+  gap:30px;
+  align-items:stretch;
 }
 
 .hj-th-item{
   display:grid;
-  grid-template-columns:118px minmax(0, 1fr);
-  gap:28px;
-  align-items:start;
+  grid-template-columns:78px minmax(0, 1fr);
+  gap:18px;
+  align-items:center;
+  height:100%;
+  padding:18px 20px;
+  border:1px solid rgba(255,255,255,.2);
+  border-radius:20px;
+  background:linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.03));
+  box-shadow:0 14px 34px rgba(17, 24, 39, .08);
 }
 
 .hj-th-item__icon-wrap{
   display:flex;
   justify-content:center;
-  padding-top:2px;
+  align-items:center;
 }
 
 .hj-th-item__icon{
-  width:90px;
-  height:90px;
+  width:58px;
+  height:58px;
   border-radius:999px;
   background:var(--th-icon-bg);
   display:flex;
   align-items:center;
   justify-content:center;
-  box-shadow:0 12px 30px rgba(16, 26, 88, .12);
+  box-shadow:0 8px 20px rgba(16, 26, 88, .14);
 }
 
 .hj-th-item__icon img{
@@ -50,7 +67,7 @@
   width:1em;
   height:1em;
   position:relative;
-  font-size:38px;
+  font-size:24px;
   object-fit:contain;
 }
 
@@ -59,11 +76,11 @@
 }
 
 .hj-th-item__title{
-  margin:0 0 18px;
+  margin:0 0 10px;
   color:#ffffff!important;
   font-family:"Manrope", sans-serif;
-  font-size:22px !important;
-  line-height:1.5em;
+  font-size:18px !important;
+  line-height:1.45em;
   font-weight:500;
 }
 
@@ -71,68 +88,84 @@
   margin:0;
   color:rgba(255,255,255,.96);
   font-family:"Manrope", sans-serif;
-  font-size:16px;
-  line-height:1.8em;
+  font-size:15px;
+  line-height:1.65em;
   font-weight:400;
 }
 
 @media (max-width: 1280px){
   .hj-th-wrap{
-    padding:42px 30px;
+    padding:38px 30px;
+  }
+
+  .hj-th-heading{
+    margin-bottom:24px;
   }
 
   .hj-th-grid{
-    gap:34px 28px;
+    gap:24px 22px;
   }
 
   .hj-th-item{
-    grid-template-columns:96px minmax(0, 1fr);
-    gap:22px;
+    grid-template-columns:72px minmax(0, 1fr);
+    gap:16px;
+    padding:16px 18px;
   }
 
   .hj-th-item__icon{
-    width:92px;
-    height:92px;
+    width:54px;
+    height:54px;
   }
 
   .hj-th-item__title{
-    font-size:22px !important;
+    font-size:18px !important;
   }
 
   .hj-th-item__description{
-    font-size:16px;
+    font-size:15px;
   }
 }
 
 @media (max-width: 980px){
+  .hj-th-heading{
+    font-size:clamp(28px, 5vw, 34px) !important;
+  }
+
   .hj-th-grid{
     grid-template-columns:1fr;
-    gap:28px;
+    gap:22px;
   }
 
   .hj-th-item{
-    grid-template-columns:84px minmax(0, 1fr);
-    gap:18px;
+    grid-template-columns:72px minmax(0, 1fr);
+    gap:16px;
+    padding:15px 16px;
   }
 
   .hj-th-item__icon{
-    width:84px;
-    height:84px;
+    width:50px;
+    height:50px;
   }
 
   .hj-th-item__icon img{
-    font-size:42px;
+    font-size:22px;
   }
 }
 
 @media (max-width: 640px){
   .hj-th-wrap{
-    padding:34px 16px;
+    padding:30px 16px;
+  }
+
+  .hj-th-heading{
+    margin-bottom:20px;
+    font-size:clamp(24px, 9vw, 30px) !important;
   }
 
   .hj-th-item{
     grid-template-columns:1fr;
-    gap:12px;
+    gap:10px;
+    padding:16px 14px;
     justify-items:center;
     text-align:center;
   }
@@ -142,12 +175,12 @@
   }
 
   .hj-th-item__icon{
-    width:72px;
-    height:72px;
+    width:48px;
+    height:48px;
   }
 
   .hj-th-item__icon img{
-    font-size:31px;
+    font-size:20px;
   }
 
   .hj-th-item__content{
@@ -155,12 +188,12 @@
   }
 
   .hj-th-item__title{
-    margin-bottom:10px;
-    font-size:20px !important;
+    margin-bottom:8px;
+    font-size:17px !important;
   }
 
   .hj-th-item__description{
-    font-size:15px;
-    line-height:1.7em;
+    font-size:14px;
+    line-height:1.6em;
   }
 }

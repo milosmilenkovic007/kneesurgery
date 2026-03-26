@@ -1,28 +1,59 @@
 :root{
-  --rt-text:#111827;
+  --rt-text:#141634;
+  --rt-accent:#4d55dd;
 }
 
 .hj-reviews-trustindex{
-  margin: 36px 0;
-  padding: 20px 0;
+  margin:72px 0;
+  padding:0;
 }
 
 .hj-rt-wrap{
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 0 20px;
+  max-width:1200px;
+  margin:0 auto;
+  padding:0 20px;
 }
 
-.hj-rt-title,
-.hj-reviews-trustindex .hj-cb-title{
-  margin: 0 0 18px;
-  font-size: clamp(26px, 2.4vw, 32px) !important;
-  color: var(--rt-text);
-  font-family: 'Source Serif 4', serif;
-  font-weight: 600;
-  text-align: center;
+.hj-rt-header{
+  max-width:720px;
+  margin:0 auto 48px;
+  text-align:center;
+}
+
+.hj-rt-subheading{
+  margin:0 0 14px;
+  color:var(--rt-accent) !important;
+  font-family:'Manrope', sans-serif !important;
+  font-size:14px !important;
+  line-height:1.3 !important;
+  font-weight:700 !important;
+  letter-spacing:.24em !important;
+}
+
+.hj-rt-title{
+  margin:0;
+  color:var(--rt-text) !important;
+  font-family:'Manrope', sans-serif !important;
+  font-size:clamp(38px, 4vw, 45px) !important;
+  line-height:1.4em !important;
+  font-weight:500 !important;
+  letter-spacing:-.03em !important;
 }
 
 .hj-rt-embed{
-  display: block;
+  display:block;
+}
+
+@media (max-width:640px){
+  .hj-reviews-trustindex{
+    margin:56px 0;
+  }
+
+  .hj-rt-header{
+    margin-bottom:30px;
+  }
+
+  .hj-rt-title{
+    font-size:clamp(30px, 9vw, 40px) !important;
+  }
 }

@@ -56,10 +56,31 @@
   align-items:center;
 }
 
-.hj-cta-form-block.is-rating .hj-cfb-media{
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
+.hj-cta-form-block.is-rating .hj-cfb-media{display:flex;flex-direction:column;justify-content:center}
+.hj-cfb-trustindex{width:100%;overflow:hidden;border-radius:18px}
+.hj-cfb-trustindex > *{max-width:100%}
+.hj-cta-form-block.is-rating-trustindex .hj-cfb-media{align-items:stretch}
+
+.hj-cta-form-block.is-rating-style-transparent::before{
+  background:transparent;
+}
+
+.hj-cta-form-block.is-rating-style-transparent{
+  padding:20px 0;
+}
+
+.hj-cta-form-block.is-rating-style-transparent .hj-cfb-trustindex{
+  border-radius:0;
+  background:transparent;
+  box-shadow:none;
+}
+
+.hj-cta-form-block.is-rating-style-transparent .hj-cfb-content{
+  max-width:580px;
+}
+
+.hj-cta-form-block.is-rating-style-transparent .hj-cfb-subheading{
+  opacity:.84;
 }
 
 .hj-cfb-rating-slider{

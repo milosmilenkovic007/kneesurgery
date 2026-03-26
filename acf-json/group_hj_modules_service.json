@@ -1083,12 +1083,12 @@
                             ]
                         },
                         {
-                            "key": "field_hj_cfb_rating_slides",
-                            "label": "Rating Slides",
-                            "name": "rating_slides",
-                            "type": "repeater",
-                            "layout": "block",
-                            "button_label": "Add Rating Slide",
+                            "key": "field_hj_cfb_rating_trustindex_shortcode",
+                            "label": "Trustindex Shortcode",
+                            "name": "rating_trustindex_shortcode",
+                            "type": "text",
+                            "default_value": "[trustindex data-widget-id=c964936299834096b346c4f654e]",
+                            "instructions": "Used when Left Media Type is set to Rating.",
                             "conditional_logic": [
                                 [
                                     {
@@ -1097,50 +1097,27 @@
                                         "value": "rating"
                                     }
                                 ]
-                            ],
-                            "sub_fields": [
-                                {
-                                    "key": "field_hj_cfb_rating_avatar",
-                                    "label": "Avatar",
-                                    "name": "avatar",
-                                    "type": "image",
-                                    "return_format": "array",
-                                    "preview_size": "thumbnail",
-                                    "wrapper": {
-                                        "width": "25"
+                            ]
+                        },
+                        {
+                            "key": "field_hj_cfb_rating_style",
+                            "label": "Rating Design",
+                            "name": "rating_style",
+                            "type": "button_group",
+                            "choices": {
+                                "default": "Default",
+                                "transparent": "Transparent"
+                            },
+                            "default_value": "default",
+                            "layout": "horizontal",
+                            "conditional_logic": [
+                                [
+                                    {
+                                        "field": "field_hj_cfb_media_type",
+                                        "operator": "==",
+                                        "value": "rating"
                                     }
-                                },
-                                {
-                                    "key": "field_hj_cfb_rating_name",
-                                    "label": "Name",
-                                    "name": "name",
-                                    "type": "text",
-                                    "required": 1,
-                                    "wrapper": {
-                                        "width": "35"
-                                    }
-                                },
-                                {
-                                    "key": "field_hj_cfb_rating_value",
-                                    "label": "Rating",
-                                    "name": "rating",
-                                    "type": "number",
-                                    "default_value": 5,
-                                    "min": 1,
-                                    "max": 5,
-                                    "step": 1,
-                                    "wrapper": {
-                                        "width": "25"
-                                    }
-                                },
-                                {
-                                    "key": "field_hj_cfb_rating_content",
-                                    "label": "Content",
-                                    "name": "content",
-                                    "type": "textarea",
-                                    "rows": 4,
-                                    "required": 1
-                                }
+                                ]
                             ]
                         },
                         {
@@ -2699,11 +2676,20 @@
                     "display": "block",
                     "sub_fields": [
                         {
+                            "key": "field_hj_rt_subheading",
+                            "label": "Subheading",
+                            "name": "subheading",
+                            "type": "text",
+                            "default_value": "TESTIMONIALS",
+                            "placeholder": "TESTIMONIALS"
+                        },
+                        {
                             "key": "field_hj_rt_title",
-                            "label": "Title",
+                            "label": "Heading",
                             "name": "title",
                             "type": "text",
-                            "default_value": "Reviews"
+                            "default_value": "Reviews",
+                            "placeholder": "Reviews"
                         },
                         {
                             "key": "field_hj_rt_shortcode",
@@ -3018,6 +3004,13 @@
                     "label": "Trust Highlights",
                     "display": "block",
                     "sub_fields": [
+                        {
+                            "key": "field_hj_th_heading",
+                            "label": "Heading",
+                            "name": "heading",
+                            "type": "text",
+                            "placeholder": "Why Patients Choose Us"
+                        },
                         {
                             "key": "field_hj_th_bg_color",
                             "label": "Background Color",
@@ -3399,5 +3392,5 @@
     "position": "acf_after_title",
     "style": "seamless",
     "active": true,
-    "modified": 1774303265
+    "modified": 1774516647
 }

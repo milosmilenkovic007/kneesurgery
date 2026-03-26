@@ -1,6 +1,7 @@
 <?php
 if (!defined('ABSPATH')) exit;
 
+$heading = trim((string) get_sub_field('heading'));
 $bg_color = trim((string) get_sub_field('bg_color')) ?: '#4d55dd';
 $items = get_sub_field('items') ?: [];
 
@@ -10,6 +11,10 @@ if (empty($items) || !is_array($items)) {
 ?>
 <section class="hj-trust-highlights" style="--th-bg: <?php echo esc_attr($bg_color); ?>;" aria-label="Trust highlights">
   <div class="hj-th-wrap">
+    <?php if ($heading !== ''): ?>
+      <h2 class="hj-th-heading"><?php echo esc_html($heading); ?></h2>
+    <?php endif; ?>
+
     <div class="hj-th-grid">
       <?php foreach ($items as $item):
         $icon = $item['icon'] ?? null;
