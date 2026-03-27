@@ -50,7 +50,7 @@ if ($image_alt === '' && is_array($image)) {
             $answer = trim((string) ($item['answer'] ?? ''));
             if ($question === '') { continue; }
           ?>
-            <details class="hj-ifaq-item">
+            <details class="hj-ifaq-item" <?php echo $index === 0 ? 'open' : ''; ?>>
               <summary>
                 <span class="hj-ifaq-question"><?php echo esc_html($question); ?></span>
                 <span class="hj-ifaq-icon" aria-hidden="true">
