@@ -18,6 +18,20 @@ if ($image_alt === '' && is_array($image)) {
 ?>
 <section class="hj-image-faq" id="<?php echo esc_attr($uid); ?>" aria-label="Image and FAQ">
   <div class="hj-ifaq-wrap">
+    <div class="hj-ifaq-header">
+      <?php if ($eyebrow !== ''): ?>
+        <p class="hj-ifaq-eyebrow"><?php echo esc_html($eyebrow); ?></p>
+      <?php endif; ?>
+
+      <?php if ($title !== ''): ?>
+        <h2 class="hj-ifaq-title"><?php echo esc_html($title); ?></h2>
+      <?php endif; ?>
+
+      <?php if ($subtitle !== ''): ?>
+        <p class="hj-ifaq-subtitle"><?php echo esc_html($subtitle); ?></p>
+      <?php endif; ?>
+    </div>
+
     <div class="hj-ifaq-grid">
       <?php if ($image_url): ?>
         <div class="hj-ifaq-media">
@@ -29,46 +43,32 @@ if ($image_alt === '' && is_array($image)) {
         </div>
       <?php endif; ?>
 
-      <div class="hj-ifaq-content">
-        <?php if ($eyebrow !== ''): ?>
-          <p class="hj-ifaq-eyebrow"><?php echo esc_html($eyebrow); ?></p>
-        <?php endif; ?>
-
-        <?php if ($title !== ''): ?>
-          <h2 class="hj-ifaq-title"><?php echo esc_html($title); ?></h2>
-        <?php endif; ?>
-
-        <?php if ($subtitle !== ''): ?>
-          <p class="hj-ifaq-subtitle"><?php echo esc_html($subtitle); ?></p>
-        <?php endif; ?>
-
-        <?php if (!empty($items)): ?>
-          <div class="hj-ifaq-list" data-image-faq-accordion>
-            <?php foreach ($items as $index => $item):
-              $question = trim((string) ($item['question'] ?? ''));
-              $answer = trim((string) ($item['answer'] ?? ''));
-              if ($question === '') { continue; }
-            ?>
-              <details class="hj-ifaq-item" <?php echo $index === 0 ? 'open' : ''; ?>>
-                <summary>
-                  <span class="hj-ifaq-question"><?php echo esc_html($question); ?></span>
-                  <span class="hj-ifaq-icon" aria-hidden="true">
-                    <img class="hj-ifaq-icon__img hj-ifaq-icon__img--closed" src="<?php echo esc_url($arrow_down_icon); ?>" alt="" loading="lazy" decoding="async">
-                    <img class="hj-ifaq-icon__img hj-ifaq-icon__img--open" src="<?php echo esc_url($arrow_up_icon); ?>" alt="" loading="lazy" decoding="async">
-                  </span>
-                </summary>
-                <?php if ($answer !== ''): ?>
-                  <div class="hj-ifaq-answer">
-                    <div class="hj-ifaq-answer__inner">
-                      <?php echo wp_kses_post(wpautop($answer)); ?>
-                    </div>
+      <?php if (!empty($items)): ?>
+        <div class="hj-ifaq-list" data-image-faq-accordion>
+          <?php foreach ($items as $index => $item):
+            $question = trim((string) ($item['question'] ?? ''));
+            $answer = trim((string) ($item['answer'] ?? ''));
+            if ($question === '') { continue; }
+          ?>
+            <details class="hj-ifaq-item">
+              <summary>
+                <span class="hj-ifaq-question"><?php echo esc_html($question); ?></span>
+                <span class="hj-ifaq-icon" aria-hidden="true">
+                  <img class="hj-ifaq-icon__img hj-ifaq-icon__img--closed" src="<?php echo esc_url($arrow_down_icon); ?>" alt="" loading="lazy" decoding="async">
+                  <img class="hj-ifaq-icon__img hj-ifaq-icon__img--open" src="<?php echo esc_url($arrow_up_icon); ?>" alt="" loading="lazy" decoding="async">
+                </span>
+              </summary>
+              <?php if ($answer !== ''): ?>
+                <div class="hj-ifaq-answer">
+                  <div class="hj-ifaq-answer__inner">
+                    <?php echo wp_kses_post(wpautop($answer)); ?>
                   </div>
-                <?php endif; ?>
-              </details>
-            <?php endforeach; ?>
-          </div>
-        <?php endif; ?>
-      </div>
+                </div>
+              <?php endif; ?>
+            </details>
+          <?php endforeach; ?>
+        </div>
+      <?php endif; ?>
     </div>
   </div>
 </section>
