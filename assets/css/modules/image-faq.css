@@ -1,11 +1,11 @@
 :root{--ifaq-section:#f6f7fc;--ifaq-surface:#ffffff;--ifaq-border:#e7e9f3;--ifaq-text:#171938;--ifaq-muted:#6f7285;--ifaq-accent:#4d55dd;--ifaq-shadow:0 18px 45px rgba(17,24,39,.06)}
 
-.hj-image-faq{margin:56px 0;position:relative;z-index:0}
+.hj-image-faq{margin:0;position:relative;z-index:0}
 .hj-image-faq::before{content:"";position:absolute;inset:0;left:50%;width:100vw;transform:translateX(-50%);background:var(--ifaq-section);z-index:-1}
 .hj-ifaq-wrap{max-width:1260px;margin:0 auto;padding:54px 20px}
-.hj-ifaq-grid{display:grid;grid-template-columns:minmax(300px,540px) minmax(0,1fr);gap:56px;align-items:center}
+.hj-ifaq-grid{display:grid;grid-template-columns:minmax(300px,540px) minmax(0,1fr);gap:56px;align-items:stretch}
 
-.hj-ifaq-media{width:100%;max-width:540px;overflow:hidden;border-radius:18px}
+.hj-ifaq-media{width:100%;max-width:540px;overflow:hidden;border-radius:18px;display:flex;align-items:center;align-self:center}
 .hj-ifaq-image{display:block;width:100%;aspect-ratio:568 / 690;object-fit:cover;border-radius:18px;box-shadow:var(--ifaq-shadow);transform:scale(1);transition:transform .7s cubic-bezier(.22,1,.36,1)}
 .hj-ifaq-media.is-animating .hj-ifaq-image{transform:scale(1.045)}
 
@@ -43,7 +43,7 @@
 }
 
 @media (max-width:767px){
-  .hj-image-faq{margin:40px 0}
+  .hj-image-faq{margin:0}
   .hj-ifaq-wrap{padding:34px 16px}
   .hj-ifaq-title{font-size:clamp(34px,10vw,46px)}
   .hj-ifaq-list{margin-top:30px}
