@@ -50,13 +50,26 @@
 
       anchor.insertAdjacentElement('afterend', button);
 
+      const toggleSubmenu = function () {
+        const isExpanded = item.classList.contains('is-expanded');
+        item.classList.toggle('is-expanded', !isExpanded);
+        button.setAttribute('aria-expanded', String(!isExpanded));
+      };
+
       button.addEventListener('click', function (event) {
         event.preventDefault();
         event.stopPropagation();
 
-        const isExpanded = item.classList.contains('is-expanded');
-        item.classList.toggle('is-expanded', !isExpanded);
-        button.setAttribute('aria-expanded', String(!isExpanded));
+        toggleSubmenu();
+      });
+
+      anchor.addEventListener('click', function (event) {
+        if (window.innerWidth > 1024) {
+          return;
+        }
+
+        event.preventDefault();
+        toggleSubmenu();
       });
     });
 
@@ -78,7 +91,11 @@
     });
 
     panelLinks.forEach(function (link) {
-      link.addEventListener('click', function () {
+      link.addEventListener('click', function (event) {
+        if (event.defaultPrevented) {
+          return;
+        }
+
         closePanel(root, toggle, panel);
       });
     });
