@@ -2032,6 +2032,15 @@
                             "required": 1
                         },
                         {
+                            "key": "field_hj_pjm_image_show_on_mobile",
+                            "label": "Left Image Show On Mobile",
+                            "name": "image_show_on_mobile",
+                            "type": "true_false",
+                            "ui": 1,
+                            "default_value": 1,
+                            "message": "Show left image and badge on mobile"
+                        },
+                        {
                             "key": "field_hj_pjm_image_badge_icon",
                             "label": "Image Badge Icon",
                             "name": "image_badge_icon",
@@ -2760,13 +2769,41 @@
                             "placeholder": "Reviews From Our Patients"
                         },
                         {
+                            "key": "field_hj_ts_selected_testimonials",
+                            "label": "Selected Testimonials",
+                            "name": "selected_testimonials",
+                            "type": "relationship",
+                            "instructions": "Optional. Leave empty to show all testimonials. Select posts here to control exactly which testimonials appear and in what order.",
+                            "post_type": [
+                                "testimonial"
+                            ],
+                            "taxonomy": [],
+                            "filters": [
+                                "search"
+                            ],
+                            "elements": [
+                                "featured_image"
+                            ],
+                            "return_format": "id",
+                            "min": 0,
+                            "max": 0
+                        },
+                        {
+                            "key": "field_hj_ts_legacy_tab",
+                            "label": "Legacy Fallback",
+                            "name": "",
+                            "type": "tab",
+                            "placement": "top"
+                        },
+                        {
                             "key": "field_hj_ts_items",
-                            "label": "Testimonials",
+                            "label": "Legacy Testimonials",
                             "name": "items",
                             "type": "repeater",
                             "layout": "block",
                             "button_label": "Add Testimonial",
-                            "min": 1,
+                            "instructions": "Legacy fallback only. The slider now reads from the Testimonials CPT and this repeater is used only if no testimonial posts are available.",
+                            "min": 0,
                             "sub_fields": [
                                 {
                                     "key": "field_hj_ts_item_rating",
@@ -3427,5 +3464,5 @@
     "position": "acf_after_title",
     "style": "seamless",
     "active": true,
-    "modified": 1775064548
+    "modified": 1775066990
 }

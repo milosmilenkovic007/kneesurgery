@@ -3,14 +3,51 @@ if (!defined('ABSPATH')) exit;
 
 $eyebrow = trim((string) get_sub_field('eyebrow'));
 $title = trim((string) get_sub_field('title'));
-$items = get_sub_field('items') ?: [];
+$selected_testimonials = get_sub_field('selected_testimonials') ?: [];
+$legacy_items = get_sub_field('items') ?: [];
 $uid = uniqid('hj-ts-');
 
 $arrow_left = get_stylesheet_directory_uri() . '/assets/img/icons/arrow-left.svg';
 $arrow_right = get_stylesheet_directory_uri() . '/assets/img/icons/arrow-right.svg';
 $quote_icon = get_stylesheet_directory_uri() . '/assets/img/icons/quote.svg';
 
-if ($title === '' && empty($items)) {
+$items = function_exists('hj_get_testimonials_for_slider') ? hj_get_testimonials_for_slider($selected_testimonials) : [];
+
+if (empty($items) && empty($selected_testimonials) && !empty($legacy_items)) {
+  $items = $legacy_items;
+}
+
+$slides = [];
+foreach ($items as $item) {
+  $rating = max(1, min(5, (int) ($item['rating'] ?? 5)));
+  $name = trim((string) ($item['name'] ?? ''));
+  $role = trim((string) ($item['role'] ?? ''));
+  $text = trim((string) ($item['text'] ?? ''));
+  $photo = null;
+
+  if (!empty($item['photo_id'])) {
+    $photo = [
+      'ID' => (int) $item['photo_id'],
+      'alt' => (string) ($item['photo_alt'] ?? $name),
+    ];
+  } elseif (is_array($item['photo'] ?? null)) {
+    $photo = $item['photo'];
+  }
+
+  if ($name === '' && $text === '') {
+    continue;
+  }
+
+  $slides[] = [
+    'rating' => $rating,
+    'name' => $name,
+    'role' => $role,
+    'text' => $text,
+    'photo' => $photo,
+  ];
+}
+
+if ($title === '' && empty($slides)) {
     return;
 }
 ?>
@@ -28,7 +65,7 @@ if ($title === '' && empty($items)) {
       </header>
     <?php endif; ?>
 
-    <?php if (!empty($items)): ?>
+    <?php if (!empty($slides)): ?>
       <div class="hj-ts-slider" data-ts-slider>
         <div class="hj-ts-stage">
           <button class="hj-ts-arrow hj-ts-arrow--prev" type="button" data-ts-prev aria-label="<?php esc_attr_e('Previous testimonials', 'hello-elementor-child'); ?>">
@@ -36,16 +73,12 @@ if ($title === '' && empty($items)) {
           </button>
 
           <div class="hj-ts-track" data-ts-track>
-            <?php foreach ($items as $item):
-              $rating = max(1, min(5, (int) ($item['rating'] ?? 5)));
-              $name = trim((string) ($item['name'] ?? ''));
-              $role = trim((string) ($item['role'] ?? ''));
-              $text = trim((string) ($item['text'] ?? ''));
-              $photo = $item['photo'] ?? null;
-
-              if ($name === '' && $text === '') {
-                continue;
-              }
+            <?php foreach ($slides as $item):
+              $rating = (int) $item['rating'];
+              $name = $item['name'];
+              $role = $item['role'];
+              $text = $item['text'];
+              $photo = $item['photo'];
             ?>
               <article class="hj-ts-slide" data-ts-slide>
                 <div class="hj-ts-card">
@@ -97,7 +130,7 @@ if ($title === '' && empty($items)) {
         </div>
 
         <div class="hj-ts-dots" role="tablist" aria-label="<?php esc_attr_e('Testimonials slides', 'hello-elementor-child'); ?>" data-ts-dots>
-          <?php foreach ($items as $index => $item): ?>
+          <?php foreach ($slides as $index => $item): ?>
             <button class="hj-ts-dot<?php echo $index === 0 ? ' is-active' : ''; ?>" type="button" data-ts-dot="<?php echo esc_attr($index); ?>" aria-label="<?php echo esc_attr(sprintf(__('Testimonial %d', 'hello-elementor-child'), $index + 1)); ?>" aria-pressed="<?php echo $index === 0 ? 'true' : 'false'; ?>"></button>
           <?php endforeach; ?>
         </div>

@@ -494,6 +494,15 @@ body.hj-pjm-modal-open{
     aspect-ratio:1.1;
   }
 
+  .hj-pjm-card--video{
+    aspect-ratio:.92;
+  }
+
+  .hj-pjm-card--video img{
+    object-position:center top;
+    transform:scale(1.01);
+  }
+
   .hj-pjm-card--image{
     margin-top:0;
   }

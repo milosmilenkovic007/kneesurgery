@@ -339,6 +339,7 @@ require_once get_stylesheet_directory() . '/inc/acf-options.php';
 require_once get_stylesheet_directory() . '/inc/modules.php';
 require_once get_stylesheet_directory() . '/inc/articles-grid-ajax.php';
 require_once get_stylesheet_directory() . '/inc/doctors.php';
+require_once get_stylesheet_directory() . '/inc/testimonials.php';
 require_once get_stylesheet_directory() . '/inc/treatment-package-includes.php';
 require_once get_stylesheet_directory() . '/inc/booking-form-submissions.php';
 require_once get_stylesheet_directory() . '/inc/single-package-cardbox-leads.php';
@@ -430,6 +431,48 @@ add_action('init', function () {
   ];
 
   register_post_type('doctor', $args);
+});
+
+// -----------------------------------------------------------------------------
+//  CPT: Testimonials
+// -----------------------------------------------------------------------------
+add_action('init', function () {
+  $labels = [
+    'name'                  => __('Testimonials', 'hello-elementor-child'),
+    'singular_name'         => __('Testimonial', 'hello-elementor-child'),
+    'menu_name'             => __('Testimonials', 'hello-elementor-child'),
+    'name_admin_bar'        => __('Testimonial', 'hello-elementor-child'),
+    'add_new'               => __('Add New', 'hello-elementor-child'),
+    'add_new_item'          => __('Add New Testimonial', 'hello-elementor-child'),
+    'new_item'              => __('New Testimonial', 'hello-elementor-child'),
+    'edit_item'             => __('Edit Testimonial', 'hello-elementor-child'),
+    'view_item'             => __('View Testimonial', 'hello-elementor-child'),
+    'all_items'             => __('All Testimonials', 'hello-elementor-child'),
+    'search_items'          => __('Search Testimonials', 'hello-elementor-child'),
+    'not_found'             => __('No testimonials found.', 'hello-elementor-child'),
+    'not_found_in_trash'    => __('No testimonials found in Trash.', 'hello-elementor-child'),
+    'featured_image'        => __('Testimonial Photo', 'hello-elementor-child'),
+    'set_featured_image'    => __('Set testimonial photo', 'hello-elementor-child'),
+    'remove_featured_image' => __('Remove testimonial photo', 'hello-elementor-child'),
+    'use_featured_image'    => __('Use as testimonial photo', 'hello-elementor-child'),
+  ];
+
+  $args = [
+    'labels' => $labels,
+    'public' => false,
+    'show_ui' => true,
+    'show_in_rest' => true,
+    'menu_icon' => 'dashicons-testimonial',
+    'has_archive' => false,
+    'rewrite' => false,
+    'supports' => ['title', 'thumbnail', 'revisions', 'page-attributes'],
+    'hierarchical' => false,
+    'show_in_nav_menus' => false,
+    'publicly_queryable' => false,
+    'exclude_from_search' => true,
+  ];
+
+  register_post_type('testimonial', $args);
 });
 
 // -----------------------------------------------------------------------------
