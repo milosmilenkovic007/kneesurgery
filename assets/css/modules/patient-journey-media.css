@@ -478,6 +478,14 @@ body.hj-pjm-modal-open{
     gap:18px;
   }
 
+  .hj-patient-journey-media--mobile-video-only .hj-pjm-media-col{
+    grid-template-columns:1fr;
+  }
+
+  .hj-patient-journey-media--mobile-video-only .hj-pjm-card--image{
+    display:none;
+  }
+
   .hj-pjm-card--image,
   .hj-pjm-card--video{
     width:100%;

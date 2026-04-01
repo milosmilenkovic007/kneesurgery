@@ -2,6 +2,7 @@
 if (!defined('ABSPATH')) exit;
 
 $image = get_sub_field('image');
+$image_show_on_mobile = get_sub_field('image_show_on_mobile');
 $image_badge_icon = get_sub_field('image_badge_icon');
 $image_badge_title = trim((string) get_sub_field('image_badge_title'));
 $image_badge_text = trim((string) get_sub_field('image_badge_text'));
@@ -42,8 +43,9 @@ $pjm_get_embed_url = static function ($url) {
 
 $video_type = $pjm_is_media_url($video_url) ? 'file' : 'embed';
 $video_embed_url = $video_type === 'embed' ? $pjm_get_embed_url($video_url) : '';
+$show_image_on_mobile = $image_show_on_mobile !== null ? !empty($image_show_on_mobile) : true;
 ?>
-<section class="hj-patient-journey-media" id="<?php echo esc_attr($uid); ?>" aria-label="Patient journey media">
+<section class="hj-patient-journey-media<?php echo !$show_image_on_mobile ? ' hj-patient-journey-media--mobile-video-only' : ''; ?>" id="<?php echo esc_attr($uid); ?>" aria-label="Patient journey media">
   <div class="hj-pjm-wrap">
     <div class="hj-pjm-media-col">
       <?php if (!empty($image)): ?>

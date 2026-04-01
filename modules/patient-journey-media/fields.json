@@ -14,6 +14,15 @@
       "required": 1
     },
     {
+      "key": "field_hj_pjm_image_show_on_mobile",
+      "label": "Left Image Show On Mobile",
+      "name": "image_show_on_mobile",
+      "type": "true_false",
+      "ui": 1,
+      "default_value": 1,
+      "message": "Show left image and badge on mobile"
+    },
+    {
       "key": "field_hj_pjm_image_badge_icon",
       "label": "Image Badge Icon",
       "name": "image_badge_icon",
