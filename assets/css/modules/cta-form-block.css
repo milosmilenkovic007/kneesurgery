@@ -282,10 +282,11 @@
 }
 
 /* FluentForms: make select height match other controls */
+/* Keep this section stable; asset hash should change when we need a fresh frontend reload. */
 .hj-cta-form-block select.ff-el-form-control{
   box-sizing: border-box;
-  min-height: 56px;
-  padding: 14px 16px;
+  min-height: 45px;
+  padding: 10px 16px;
 }
 
 /* FluentForms: submit button style */
