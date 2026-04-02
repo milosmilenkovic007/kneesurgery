@@ -117,6 +117,10 @@ $style_vars .= '--cfb-link:' . $terms_link_color_clean . ';';
           <div class="hj-cfb-form">
             <?php echo do_shortcode('[fluentform id="' . esc_attr($form_id) . '"]'); ?>
           </div>
+        <?php else: ?>
+          <div class="hj-cfb-form">
+            <p style="color: red; font-weight: bold;">Fluent Forms ni nameščen ali ni izbran noben obrazec. Prosimo, preverite nastavitve modula.</p>
+          </div>
         <?php endif; ?>
       </div>
     </div>

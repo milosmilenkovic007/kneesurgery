@@ -14,14 +14,6 @@
     { "key": "field_hj_cfb_heading", "label": "Heading", "name": "heading", "type": "text", "required": 1, "default_value": "Ready to take the next step to" },
     { "key": "field_hj_cfb_heading_accent", "label": "Heading (Accent)", "name": "heading_accent", "type": "text", "default_value": "a pain-free & mobile life?" },
     { "key": "field_hj_cfb_subheading", "label": "Subheading", "name": "subheading", "type": "text", "default_value": "Let's find out together!" },
-    { "key": "field_hj_cfb_style_tab", "label": "Style", "name": "", "type": "tab", "placement": "top" },
-    { "key": "field_hj_cfb_bg_color", "label": "Background Color", "name": "bg_color", "type": "color_picker", "default_value": "#ffffff" },
-    { "key": "field_hj_cfb_text_color", "label": "Text Color", "name": "text_color", "type": "color_picker", "default_value": "#111827", "wrapper": { "width": "33" } },
-    { "key": "field_hj_cfb_accent_color", "label": "Accent Text Color", "name": "accent_color", "type": "color_picker", "default_value": "#4951d5", "wrapper": { "width": "33" } },
-    { "key": "field_hj_cfb_separator_color", "label": "Separator Color", "name": "separator_color", "type": "color_picker", "default_value": "#4951d5", "wrapper": { "width": "33" } },
-    { "key": "field_hj_cfb_button_bg_color", "label": "Button Background Color", "name": "button_bg_color", "type": "color_picker", "default_value": "#4951d5", "wrapper": { "width": "33" } },
-    { "key": "field_hj_cfb_button_text_color", "label": "Button Text Color", "name": "button_text_color", "type": "color_picker", "default_value": "#ffffff", "wrapper": { "width": "33" } },
-    { "key": "field_hj_cfb_terms_link_color", "label": "Terms Link Color", "name": "terms_link_color", "type": "color_picker", "default_value": "#4951d5", "wrapper": { "width": "33" } },
     {
       "key": "field_hj_cfb_fluent_form_id",
       "label": "Fluent Form",
@@ -31,6 +23,14 @@
       "allow_null": 1,
       "choices": { "": "" },
       "instructions": "Select a Fluent Form to render on the right side."
-    }
+    },
+    { "key": "field_hj_cfb_style_tab", "label": "Style", "name": "", "type": "tab", "placement": "top" },
+    { "key": "field_hj_cfb_bg_color", "label": "Background Color", "name": "bg_color", "type": "color_picker", "default_value": "#ffffff" },
+    { "key": "field_hj_cfb_text_color", "label": "Text Color", "name": "text_color", "type": "color_picker", "default_value": "#111827", "wrapper": { "width": "33" } },
+    { "key": "field_hj_cfb_accent_color", "label": "Accent Text Color", "name": "accent_color", "type": "color_picker", "default_value": "#4951d5", "wrapper": { "width": "33" } },
+    { "key": "field_hj_cfb_separator_color", "label": "Separator Color", "name": "separator_color", "type": "color_picker", "default_value": "#4951d5", "wrapper": { "width": "33" } },
+    { "key": "field_hj_cfb_button_bg_color", "label": "Button Background Color", "name": "button_bg_color", "type": "color_picker", "default_value": "#4951d5", "wrapper": { "width": "33" } },
+    { "key": "field_hj_cfb_button_text_color", "label": "Button Text Color", "name": "button_text_color", "type": "color_picker", "default_value": "#ffffff", "wrapper": { "width": "33" } },
+    { "key": "field_hj_cfb_terms_link_color", "label": "Terms Link Color", "name": "terms_link_color", "type": "color_picker", "default_value": "#4951d5", "wrapper": { "width": "33" } }
   ]
 }

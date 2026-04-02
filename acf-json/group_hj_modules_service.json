@@ -1186,6 +1186,18 @@
                             "default_value": "Let's find out together!"
                         },
                         {
+                            "key": "field_hj_cfb_fluent_form_id",
+                            "label": "Fluent Form",
+                            "name": "fluent_form_id",
+                            "type": "select",
+                            "ui": 1,
+                            "allow_null": 1,
+                            "choices": {
+                                "": ""
+                            },
+                            "instructions": "Select a Fluent Form to render on the right side."
+                        },
+                        {
                             "key": "field_hj_cfb_style_tab",
                             "label": "Style",
                             "name": "",
@@ -1258,18 +1270,6 @@
                             "wrapper": {
                                 "width": "33"
                             }
-                        },
-                        {
-                            "key": "field_hj_cfb_fluent_form_id",
-                            "label": "Fluent Form",
-                            "name": "fluent_form_id",
-                            "type": "select",
-                            "ui": 1,
-                            "allow_null": 1,
-                            "choices": {
-                                "": ""
-                            },
-                            "instructions": "Select a Fluent Form to render on the right side."
                         }
                     ]
                 },
@@ -3429,5 +3429,5 @@
     "position": "acf_after_title",
     "style": "seamless",
     "active": true,
-    "modified": 1775066990
+    "modified": 1775139112
 }
