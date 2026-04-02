@@ -3,6 +3,22 @@
     "title": "Theme Settings",
     "fields": [
         {
+            "key": "field_header_settings_tab",
+            "label": "Header",
+            "name": "",
+            "type": "tab",
+            "placement": "top"
+        },
+        {
+            "key": "field_header_cta_label",
+            "label": "Header CTA Button Label",
+            "name": "header_cta_label",
+            "type": "text",
+            "instructions": "Text shown on the header CTA button.",
+            "default_value": "Let's Get in Touch",
+            "placeholder": "Let's Get in Touch"
+        },
+        {
             "key": "field_pdf_settings_tab",
             "label": "PDF Settings",
             "name": "",
@@ -222,5 +238,5 @@
     "style": "default",
     "label_placement": "top",
     "instruction_placement": "label",
-    "modified": 1774029900
+    "modified": 1775140800
 }
