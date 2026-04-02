@@ -6,6 +6,7 @@
   function initFaqPage(root) {
     const searchInput = root.querySelector('[data-hj-faq-search]');
     const sections = Array.from(root.querySelectorAll('[data-hj-faq-section]'));
+    const items = Array.from(root.querySelectorAll('[data-hj-faq-item]'));
     const resultNode = root.querySelector('[data-hj-faq-results]');
     const emptyNode = root.querySelector('[data-hj-faq-empty]');
 
@@ -50,6 +51,20 @@
         emptyNode.hidden = visibleItems !== 0;
       }
     }
+
+    items.forEach((item) => {
+      item.addEventListener('toggle', () => {
+        if (!item.open) {
+          return;
+        }
+
+        items.forEach((otherItem) => {
+          if (otherItem !== item) {
+            otherItem.open = false;
+          }
+        });
+      });
+    });
 
     searchInput.addEventListener('input', updateResults);
     updateResults();
