@@ -45,7 +45,7 @@
   },
   "assets/css/modules/hero-dental.css": {
     "path": "assets/css/modules/hero-dental.css",
-    "version": "78c10ee123c0"
+    "version": "9bb11bd35c26"
   },
   "assets/css/modules/home-hero.css": {
     "path": "assets/css/modules/home-hero.css",
@@ -142,6 +142,10 @@
   "assets/js/modules/cta-form-block.js": {
     "path": "assets/js/modules/cta-form-block.js",
     "version": "33dc0c9e098a"
+  },
+  "assets/js/modules/hero-dental.js": {
+    "path": "assets/js/modules/hero-dental.js",
+    "version": "e9fb49ec6ecd"
   },
   "assets/js/modules/home-hero.js": {
     "path": "assets/js/modules/home-hero.js",

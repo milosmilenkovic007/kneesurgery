@@ -1475,34 +1475,99 @@
                             "type": "group",
                             "sub_fields": [
                                 {
+                                    "key": "field_hj_hd_rating_mode",
+                                    "label": "Source",
+                                    "name": "mode",
+                                    "type": "button_group",
+                                    "choices": {
+                                        "manual": "Manual",
+                                        "dynamic": "Dynamic"
+                                    },
+                                    "default_value": "manual",
+                                    "layout": "horizontal"
+                                },
+                                {
                                     "key": "field_hj_hd_rating_value",
                                     "label": "Stars (e.g. 5)",
                                     "name": "stars",
                                     "type": "number",
                                     "min": 0,
                                     "max": 5,
-                                    "step": 0.5
+                                    "step": 0.5,
+                                    "conditional_logic": [
+                                        [
+                                            {
+                                                "field": "field_hj_hd_rating_mode",
+                                                "operator": "==",
+                                                "value": "manual"
+                                            }
+                                        ]
+                                    ]
                                 },
                                 {
                                     "key": "field_hj_hd_rating_label",
                                     "label": "Label",
                                     "name": "label",
                                     "type": "text",
-                                    "placeholder": "(5 Stars)"
+                                    "placeholder": "5 stars",
+                                    "conditional_logic": [
+                                        [
+                                            {
+                                                "field": "field_hj_hd_rating_mode",
+                                                "operator": "==",
+                                                "value": "manual"
+                                            }
+                                        ]
+                                    ]
                                 },
                                 {
                                     "key": "field_hj_hd_reviews_count",
                                     "label": "Reviews Count",
                                     "name": "reviews_count",
                                     "type": "number",
-                                    "min": 0
+                                    "min": 0,
+                                    "conditional_logic": [
+                                        [
+                                            {
+                                                "field": "field_hj_hd_rating_mode",
+                                                "operator": "==",
+                                                "value": "manual"
+                                            }
+                                        ]
+                                    ]
                                 },
                                 {
                                     "key": "field_hj_hd_reviews_url",
                                     "label": "Reviews URL / Anchor",
                                     "name": "reviews_url",
                                     "type": "text",
-                                    "placeholder": "https://\u2026 or #anchor"
+                                    "placeholder": "https://\u2026 or #anchor",
+                                    "conditional_logic": [
+                                        [
+                                            {
+                                                "field": "field_hj_hd_rating_mode",
+                                                "operator": "==",
+                                                "value": "manual"
+                                            }
+                                        ]
+                                    ]
+                                },
+                                {
+                                    "key": "field_hj_hd_rating_trustindex_shortcode",
+                                    "label": "Trustindex Shortcode",
+                                    "name": "trustindex_shortcode",
+                                    "type": "text",
+                                    "default_value": "[trustindex data-widget-id=c964936299834096b346c4f654e]",
+                                    "instructions": "Used when Source is set to Dynamic. The hero reads the rating summary from the rendered Trustindex widget.",
+                                    "conditional_logic": [
+                                        [
+                                            {
+                                                "field": "field_hj_hd_rating_mode",
+                                                "operator": "==",
+                                                "value": "dynamic"
+                                            }
+                                        ]
+                                    ]
                                 }
                             ]
                         },
@@ -3429,5 +3494,5 @@
     "position": "acf_after_title",
     "style": "seamless",
     "active": true,
-    "modified": 1775143243
+    "modified": 1775148071
 }

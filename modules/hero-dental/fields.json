@@ -15,10 +15,12 @@
       { "key": "field_hj_hd_cta_note", "label": "Small Note", "name": "note", "type": "text", "placeholder": "100% Free medical online consultation" }
     ]},
     { "key": "field_hj_hd_rating", "label": "Rating", "name": "rating", "type": "group", "sub_fields": [
-      { "key": "field_hj_hd_rating_value", "label": "Stars (e.g. 5)", "name": "stars", "type": "number", "min": 0, "max": 5, "step": 0.5 },
-      { "key": "field_hj_hd_rating_label", "label": "Label", "name": "label", "type": "text", "placeholder": "(5 Stars)" },
-      { "key": "field_hj_hd_reviews_count", "label": "Reviews Count", "name": "reviews_count", "type": "number", "min": 0 },
-      { "key": "field_hj_hd_reviews_url", "label": "Reviews URL / Anchor", "name": "reviews_url", "type": "text", "placeholder": "https://… or #anchor" }
+      { "key": "field_hj_hd_rating_mode", "label": "Source", "name": "mode", "type": "button_group", "choices": { "manual": "Manual", "dynamic": "Dynamic" }, "default_value": "manual", "layout": "horizontal" },
+      { "key": "field_hj_hd_rating_value", "label": "Stars (e.g. 5)", "name": "stars", "type": "number", "min": 0, "max": 5, "step": 0.5, "conditional_logic": [[{ "field": "field_hj_hd_rating_mode", "operator": "==", "value": "manual" }]] },
+      { "key": "field_hj_hd_rating_label", "label": "Label", "name": "label", "type": "text", "placeholder": "5 stars", "conditional_logic": [[{ "field": "field_hj_hd_rating_mode", "operator": "==", "value": "manual" }]] },
+      { "key": "field_hj_hd_reviews_count", "label": "Reviews Count", "name": "reviews_count", "type": "number", "min": 0, "conditional_logic": [[{ "field": "field_hj_hd_rating_mode", "operator": "==", "value": "manual" }]] },
+      { "key": "field_hj_hd_reviews_url", "label": "Reviews URL / Anchor", "name": "reviews_url", "type": "text", "placeholder": "https://… or #anchor", "conditional_logic": [[{ "field": "field_hj_hd_rating_mode", "operator": "==", "value": "manual" }]] },
+      { "key": "field_hj_hd_rating_trustindex_shortcode", "label": "Trustindex Shortcode", "name": "trustindex_shortcode", "type": "text", "default_value": "[trustindex data-widget-id=c964936299834096b346c4f654e]", "instructions": "Used when Source is set to Dynamic. The hero reads the rating summary from the rendered Trustindex widget.", "conditional_logic": [[{ "field": "field_hj_hd_rating_mode", "operator": "==", "value": "dynamic" }]] }
     ]},
     { "key": "field_hj_hd_media", "label": "Media", "name": "media", "type": "group", "sub_fields": [
       { "key": "field_hj_hd_media_layout", "label": "Layout", "name": "layout", "type": "radio", "choices": {"grid4": "4-Image Grid", "three": "Three Portrait Images", "single": "Single Image"}, "default_value": "grid4", "layout": "horizontal" },
