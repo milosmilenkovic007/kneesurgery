@@ -107,6 +107,10 @@
     "path": "assets/css/modules/video-slider-sections.css",
     "version": "01ba3043024d"
   },
+  "assets/css/page-faq.css": {
+    "path": "assets/css/page-faq.css",
+    "version": "e2126ee6e660"
+  },
   "assets/css/page-thank-you.css": {
     "path": "assets/css/page-thank-you.css",
     "version": "78c9f091b505"
@@ -179,6 +183,10 @@
     "path": "assets/js/modules/video-grid.js",
     "version": "2925f9d42d34"
   },
+  "assets/js/page-faq.js": {
+    "path": "assets/js/page-faq.js",
+    "version": "d18a86f3c587"
+  },
   "assets/js/single-ortho.js": {
     "path": "assets/js/single-ortho.js",
     "version": "f93e7992091e"
@@ -197,6 +205,6 @@
   },
   "style.css": {
     "path": "style.css",
-    "version": "41771643910b"
+    "version": "469fe34d5f79"
   }
 }

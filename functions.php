@@ -176,10 +176,12 @@ add_action('wp_enqueue_scripts', function () {
   $ortho_script = hj_get_theme_asset('assets/js/single-ortho.js');
   $blog_single_style = hj_get_theme_asset('assets/css/single-article.css');
   $thank_you_style = hj_get_theme_asset('assets/css/page-thank-you.css');
+  $faq_page_style = hj_get_theme_asset('assets/css/page-faq.css');
   $doctor_style = hj_get_theme_asset('assets/css/single-doctor.css');
   $site_header_style = hj_get_theme_asset('assets/css/site-header.css');
   $site_footer_style = hj_get_theme_asset('assets/css/site-footer.css');
   $site_header_script = hj_get_theme_asset('assets/js/site-header.js');
+  $faq_page_script = hj_get_theme_asset('assets/js/page-faq.js');
 
   // Parent Hello Elementor style
   wp_enqueue_style(
@@ -213,6 +215,11 @@ add_action('wp_enqueue_scripts', function () {
 
   if (is_page_template('page-thank-you.php')) {
     wp_enqueue_style('hj-thank-you-page', $thank_you_style['url'], ['hello-elementor-child'], $thank_you_style['version']);
+  }
+
+  if (is_page_template('page-faq.php')) {
+    wp_enqueue_style('hj-faq-page', $faq_page_style['url'], ['hello-elementor-child'], $faq_page_style['version']);
+    wp_enqueue_script('hj-faq-page', $faq_page_script['url'], [], $faq_page_script['version'], true);
   }
 
   // Load Doctor single assets only on doctor pages

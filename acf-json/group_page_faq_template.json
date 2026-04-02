@@ -1,0 +1,121 @@
+{
+    "key": "group_page_faq_template",
+    "title": "FAQ Page Template",
+    "fields": [
+        {
+            "key": "field_hj_faq_page_content_tab",
+            "label": "FAQ Content",
+            "name": "",
+            "type": "tab",
+            "placement": "top"
+        },
+        {
+            "key": "field_hj_faq_page_title",
+            "label": "FAQ Title",
+            "name": "faq_page_title",
+            "type": "text",
+            "default_value": "Frequently Asked Questions",
+            "placeholder": "Frequently Asked Questions"
+        },
+        {
+            "key": "field_hj_faq_page_intro",
+            "label": "Intro Text",
+            "name": "faq_page_intro",
+            "type": "textarea",
+            "rows": 3,
+            "new_lines": "wpautop"
+        },
+        {
+            "key": "field_hj_faq_search_placeholder",
+            "label": "Search Placeholder",
+            "name": "faq_search_placeholder",
+            "type": "text",
+            "default_value": "Search questions...",
+            "placeholder": "Search questions..."
+        },
+        {
+            "key": "field_hj_faq_results_label",
+            "label": "Results Label",
+            "name": "faq_results_label",
+            "type": "text",
+            "default_value": "Found:",
+            "placeholder": "Found:"
+        },
+        {
+            "key": "field_hj_faq_results_all_label",
+            "label": "Results Value When Empty Search",
+            "name": "faq_results_all_label",
+            "type": "text",
+            "default_value": "all",
+            "placeholder": "all"
+        },
+        {
+            "key": "field_hj_faq_empty_results_text",
+            "label": "Empty Results Text",
+            "name": "faq_empty_results_text",
+            "type": "text",
+            "default_value": "No questions match your search.",
+            "placeholder": "No questions match your search."
+        },
+        {
+            "key": "field_hj_faq_sections",
+            "label": "Sections",
+            "name": "faq_sections",
+            "type": "repeater",
+            "layout": "block",
+            "button_label": "Add Section",
+            "collapsed": "field_hj_faq_section_title",
+            "sub_fields": [
+                {
+                    "key": "field_hj_faq_section_title",
+                    "label": "Section Title",
+                    "name": "title",
+                    "type": "text",
+                    "required": 1
+                },
+                {
+                    "key": "field_hj_faq_section_items",
+                    "label": "Questions",
+                    "name": "items",
+                    "type": "repeater",
+                    "layout": "row",
+                    "button_label": "Add Question",
+                    "collapsed": "field_hj_faq_section_question",
+                    "sub_fields": [
+                        {
+                            "key": "field_hj_faq_section_question",
+                            "label": "Question",
+                            "name": "question",
+                            "type": "text",
+                            "required": 1
+                        },
+                        {
+                            "key": "field_hj_faq_section_answer",
+                            "label": "Answer",
+                            "name": "answer",
+                            "type": "textarea",
+                            "rows": 4,
+                            "new_lines": "wpautop"
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "page_template",
+                "operator": "==",
+                "value": "page-faq.php"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "acf_after_title",
+    "style": "seamless",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "active": true,
+    "modified": 1775141700
+}
