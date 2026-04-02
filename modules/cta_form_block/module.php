@@ -80,7 +80,7 @@ $style_vars .= '--cfb-link:' . $terms_link_color_clean . ';';
       <div class="hj-cfb-media"<?php echo $media_is_decorative ? ' aria-hidden="true"' : ''; ?>>
         <?php if ($use_trustindex_reviews): ?>
           <div class="hj-cfb-trustindex">
-            <?php echo apply_filters('the_content', $rating_trustindex_shortcode); ?>
+            <?php echo do_shortcode($rating_trustindex_shortcode); ?>
           </div>
         <?php elseif ($media_type === 'animation'): ?>
           <div class="hj-cfb-animation-wrap">
