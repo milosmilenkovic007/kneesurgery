@@ -480,6 +480,22 @@ add_action('admin_enqueue_scripts', function ($hook) {
   );
 });
 
+add_action('admin_enqueue_scripts', function ($hook) {
+  if ($hook !== 'post.php' && $hook !== 'post-new.php') {
+    return;
+  }
+
+  $acf_collapse_script = hj_get_theme_asset('assets/admin/acf-flexible-collapse.js');
+
+  wp_enqueue_script(
+    'hj-acf-flexible-collapse',
+    $acf_collapse_script['url'],
+    ['jquery'],
+    $acf_collapse_script['version'],
+    true
+  );
+}, 20);
+
 // -----------------------------------------------------------------------------
 //  Includes (ACF options + flexible modules)
 // -----------------------------------------------------------------------------

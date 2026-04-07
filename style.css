@@ -12,6 +12,18 @@
 :root{
   --ortho-primary:#0b726d;
   --ortho-text:#0b3b3a;
+  --hj-anchor-offset:120px;
+}
+
+html{
+  scroll-behavior:smooth;
+  scroll-padding-top:var(--hj-anchor-offset);
+}
+
+@media (prefers-reduced-motion: reduce){
+  html{
+    scroll-behavior:auto;
+  }
 }
 
 .hj-flex-h2{
