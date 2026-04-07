@@ -1,4 +1,46 @@
 (function () {
+  function positionDesktopSubmenu(item) {
+    if (!item || window.innerWidth <= 1024) {
+      return;
+    }
+
+    const submenu = item.querySelector(':scope > .sub-menu');
+
+    if (!submenu) {
+      return;
+    }
+
+    const viewportPadding = 24;
+    const itemRect = item.getBoundingClientRect();
+    const panelWidth = submenu.getBoundingClientRect().width;
+
+    if (!panelWidth) {
+      return;
+    }
+
+    const minCenter = viewportPadding + (panelWidth / 2);
+    const maxCenter = window.innerWidth - viewportPadding - (panelWidth / 2);
+    const preferredCenter = window.innerWidth / 2;
+    const clampedCenter = Math.min(Math.max(preferredCenter, minCenter), maxCenter);
+    const left = clampedCenter - itemRect.left;
+
+    submenu.style.left = left + 'px';
+  }
+
+  function resetDesktopSubmenuPosition(item) {
+    if (!item) {
+      return;
+    }
+
+    const submenu = item.querySelector(':scope > .sub-menu');
+
+    if (!submenu) {
+      return;
+    }
+
+    submenu.style.left = '';
+  }
+
   function closePanel(root, toggle, panel) {
     if (!root || !toggle || !panel) {
       return;
@@ -24,12 +66,13 @@
     const panel = root.querySelector('[data-hj-header-panel]');
     const closeButtons = root.querySelectorAll('[data-hj-header-close]');
     const panelLinks = root.querySelectorAll('.hj-site-header__mobile-menu a:not(.hj-site-header__mobile-submenu-toggle), .hj-site-header__cta--mobile');
+    const desktopItems = root.querySelectorAll('.hj-site-header__menu > .menu-item-has-children');
 
     if (!toggle || !panel) {
       return;
     }
 
-    panel.querySelectorAll('.hj-site-header__mobile-menu > .menu-item-has-children').forEach(function (item, index) {
+    panel.querySelectorAll('.hj-site-header__mobile-menu .menu-item-has-children').forEach(function (item, index) {
       const existingToggle = item.querySelector(':scope > .hj-site-header__mobile-submenu-toggle');
       const submenu = item.querySelector(':scope > .sub-menu');
       const anchor = item.querySelector(':scope > a');
@@ -73,6 +116,15 @@
       });
     });
 
+    desktopItems.forEach(function (item) {
+      const reposition = function () {
+        positionDesktopSubmenu(item);
+      };
+
+      item.addEventListener('mouseenter', reposition);
+      item.addEventListener('focusin', reposition);
+    });
+
     toggle.addEventListener('click', function () {
       const isOpen = toggle.getAttribute('aria-expanded') === 'true';
 
@@ -107,6 +159,15 @@
     });
 
     window.addEventListener('resize', function () {
+      desktopItems.forEach(function (item) {
+        if (window.innerWidth > 1024) {
+          positionDesktopSubmenu(item);
+          return;
+        }
+
+        resetDesktopSubmenuPosition(item);
+      });
+
       if (window.innerWidth > 1024) {
         closePanel(root, toggle, panel);
       }

@@ -102,6 +102,147 @@ if (!function_exists('hj_get_header_cta')) {
   }
 }
 
+if (!function_exists('hj_is_desktop_header_menu_args')) {
+  function hj_is_desktop_header_menu_args($args) {
+    return is_object($args)
+      && !empty($args->menu_class)
+      && strpos((string) $args->menu_class, 'hj-site-header__menu') !== false;
+  }
+}
+
+if (!function_exists('hj_get_menu_item_initials')) {
+  function hj_get_menu_item_initials($title) {
+    $title = trim(wp_strip_all_tags((string) $title));
+    if ($title === '') {
+      return 'T';
+    }
+
+    $words = preg_split('/[\s\-&]+/u', $title, -1, PREG_SPLIT_NO_EMPTY);
+    if (empty($words)) {
+      $words = [$title];
+    }
+
+    $initials = '';
+
+    foreach (array_slice($words, 0, 2) as $word) {
+      $letter = function_exists('mb_substr') ? mb_substr($word, 0, 1) : substr($word, 0, 1);
+      $initials .= function_exists('mb_strtoupper') ? mb_strtoupper($letter) : strtoupper($letter);
+    }
+
+    return $initials !== '' ? $initials : 'T';
+  }
+}
+
+if (!function_exists('hj_get_mega_menu_item_type_label')) {
+  function hj_get_mega_menu_item_type_label($item) {
+    $item_id = !empty($item->object_id) ? absint($item->object_id) : 0;
+
+    if ($item_id > 0) {
+      $post_type = get_post_type($item_id);
+      $post_type_object = $post_type ? get_post_type_object($post_type) : null;
+
+      if ($post_type_object && !empty($post_type_object->labels->singular_name)) {
+        return (string) $post_type_object->labels->singular_name;
+      }
+    }
+
+    return __('Explore', 'hello-elementor-child');
+  }
+}
+
+if (!function_exists('hj_get_mega_menu_item_media')) {
+  function hj_get_mega_menu_item_media($item, $title) {
+    $item_id = !empty($item->object_id) ? absint($item->object_id) : 0;
+
+    if ($item_id > 0 && has_post_thumbnail($item_id)) {
+      return sprintf(
+        '<span class="hj-mega-card__media">%s</span>',
+        get_the_post_thumbnail($item_id, 'thumbnail', [
+          'class' => 'hj-mega-card__image',
+          'loading' => 'lazy',
+          'decoding' => 'async',
+        ])
+      );
+    }
+
+    return sprintf(
+      '<span class="hj-mega-card__media hj-mega-card__media--placeholder" aria-hidden="true"><span>%s</span></span>',
+      esc_html(hj_get_menu_item_initials($title))
+    );
+  }
+}
+
+add_filter('nav_menu_submenu_css_class', function ($classes, $args, $depth) {
+  if (!hj_is_desktop_header_menu_args($args)) {
+    return $classes;
+  }
+
+  if ((int) $depth === 0) {
+    $classes[] = 'hj-site-header__mega-panel';
+  }
+
+  if ((int) $depth === 1) {
+    $classes[] = 'hj-site-header__mega-links';
+  }
+
+  return array_values(array_unique($classes));
+}, 10, 3);
+
+add_filter('nav_menu_css_class', function ($classes, $item, $args, $depth) {
+  if (!hj_is_desktop_header_menu_args($args)) {
+    return $classes;
+  }
+
+  if ((int) $depth === 1) {
+    $classes[] = 'hj-site-header__mega-group';
+  }
+
+  if ((int) $depth === 2) {
+    $classes[] = 'hj-site-header__mega-item';
+  }
+
+  return array_values(array_unique($classes));
+}, 10, 4);
+
+add_filter('nav_menu_link_attributes', function ($atts, $item, $args, $depth) {
+  if (!hj_is_desktop_header_menu_args($args)) {
+    return $atts;
+  }
+
+  $classes = trim((string) ($atts['class'] ?? ''));
+
+  if ((int) $depth === 1) {
+    $classes .= in_array('menu-item-has-children', (array) $item->classes, true)
+      ? ' hj-site-header__mega-group-link'
+      : ' hj-site-header__mega-standalone-link';
+  }
+
+  if ((int) $depth === 2) {
+    $classes .= ' hj-mega-card';
+  }
+
+  if ($classes !== '') {
+    $atts['class'] = trim($classes);
+  }
+
+  return $atts;
+}, 10, 4);
+
+add_filter('nav_menu_item_title', function ($title, $item, $args, $depth) {
+  if (!hj_is_desktop_header_menu_args($args) || (int) $depth !== 2) {
+    return $title;
+  }
+
+  $plain_title = trim(wp_strip_all_tags((string) $title));
+
+  return sprintf(
+    '<span class="hj-mega-card__inner">%1$s<span class="hj-mega-card__content"><span class="hj-mega-card__eyebrow">%2$s</span><span class="hj-mega-card__title">%3$s</span></span><span class="hj-mega-card__arrow" aria-hidden="true"></span></span>',
+    hj_get_mega_menu_item_media($item, $plain_title),
+    esc_html(hj_get_mega_menu_item_type_label($item)),
+    esc_html($plain_title)
+  );
+}, 10, 4);
+
 // -----------------------------------------------------------------------------
 //  Google Tag Manager (GTM) – <head> i posle <body>
 // -----------------------------------------------------------------------------

@@ -60,7 +60,7 @@ $header_cta_target = trim((string) ($header_cta['target'] ?? ''));
                 'container' => false,
                 'menu_class' => 'hj-site-header__menu',
                 'fallback_cb' => false,
-                'depth' => 2,
+                'depth' => 3,
             ]);
             ?>
         </nav>
@@ -110,7 +110,7 @@ $header_cta_target = trim((string) ($header_cta['target'] ?? ''));
                     'container' => false,
                     'menu_class' => 'hj-site-header__mobile-menu',
                     'fallback_cb' => false,
-                    'depth' => 2,
+                    'depth' => 3,
                 ]);
                 ?>
             </nav>
