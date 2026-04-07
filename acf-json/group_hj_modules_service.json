@@ -1186,6 +1186,14 @@
                             "default_value": "Let's find out together!"
                         },
                         {
+                            "key": "field_hj_cfb_anchor_id",
+                            "label": "Anchor ID",
+                            "name": "anchor_id",
+                            "type": "text",
+                            "instructions": "Optional. Use for button links to this section, e.g. candidate-form or #candidate-form.",
+                            "placeholder": "candidate-form"
+                        },
+                        {
                             "key": "field_hj_cfb_fluent_form_id",
                             "label": "Fluent Form",
                             "name": "fluent_form_id",
@@ -3494,5 +3502,5 @@
     "position": "acf_after_title",
     "style": "seamless",
     "active": true,
-    "modified": 1775556550
+    "modified": 1775557475
 }

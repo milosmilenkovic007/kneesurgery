@@ -6,6 +6,7 @@ $rating_style = trim((string) get_sub_field('rating_style')) ?: 'default';
 $heading = trim((string) get_sub_field('heading'));
 $heading_accent = trim((string) get_sub_field('heading_accent'));
 $subheading = trim((string) get_sub_field('subheading'));
+$anchor_id = trim((string) get_sub_field('anchor_id'));
 $bg_color = trim((string) get_sub_field('bg_color')) ?: '#ffffff';
 $text_color = trim((string) get_sub_field('text_color')) ?: '#111827';
 $accent_color = trim((string) get_sub_field('accent_color')) ?: '#4951d5';
@@ -16,7 +17,9 @@ $terms_link_color = trim((string) get_sub_field('terms_link_color')) ?: '#4951d5
 $animation_speed = (float) get_sub_field('animation_speed');
 $animation_loop = get_sub_field('animation_loop');
 $form_id = get_sub_field('fluent_form_id');
-$uid = uniqid('hj-cfb-');
+$anchor_id = ltrim($anchor_id, '#');
+$anchor_id = $anchor_id !== '' ? sanitize_html_class($anchor_id) : '';
+$section_id = $anchor_id !== '' ? $anchor_id : 'candidate-form';
 $animation_url = get_stylesheet_directory_uri() . '/assets/animation/contactmail.lottie';
 
 if ($animation_speed <= 0) {
@@ -74,7 +77,7 @@ $style_vars .= '--cfb-button-bg:' . $button_bg_color_clean . ';';
 $style_vars .= '--cfb-button-text:' . $button_text_color_clean . ';';
 $style_vars .= '--cfb-link:' . $terms_link_color_clean . ';';
 ?>
-<section class="hj-cta-form-block<?php echo $is_dark ? ' is-dark' : ''; ?><?php echo $media_type === 'rating' ? ' is-rating' : ($media_type === 'animation' ? ' is-animation' : ' is-image'); ?><?php echo $use_trustindex_reviews ? ' is-rating-trustindex' : ''; ?><?php echo $media_type === 'rating' ? ' is-rating-style-' . esc_attr(sanitize_html_class($rating_style)) : ''; ?>" id="<?php echo esc_attr($uid); ?>" style="<?php echo esc_attr($style_vars); ?>" aria-label="CTA">
+<section class="hj-cta-form-block<?php echo $is_dark ? ' is-dark' : ''; ?><?php echo $media_type === 'rating' ? ' is-rating' : ($media_type === 'animation' ? ' is-animation' : ' is-image'); ?><?php echo $use_trustindex_reviews ? ' is-rating-trustindex' : ''; ?><?php echo $media_type === 'rating' ? ' is-rating-style-' . esc_attr(sanitize_html_class($rating_style)) : ''; ?>" id="<?php echo esc_attr($section_id); ?>" style="<?php echo esc_attr($style_vars); ?>" aria-label="CTA">
   <div class="hj-cfb-wrap">
     <div class="hj-cfb-grid">
       <div class="hj-cfb-media"<?php echo $media_is_decorative ? ' aria-hidden="true"' : ''; ?>>
