@@ -76,6 +76,7 @@ if (!function_exists('hj_bfs_create_submission')) {
         $full_name = trim((string) ($data['full_name'] ?? ''));
         $email = trim((string) ($data['email'] ?? ''));
         $phone = trim((string) ($data['phone'] ?? ''));
+        $preferred_contact_method = trim((string) ($data['preferred_contact_method'] ?? ''));
         $country_code = trim((string) ($data['country_code'] ?? ''));
         $treatment_id = absint($data['treatment_id'] ?? 0);
         $treatment_title = trim((string) ($data['treatment_title'] ?? ''));
@@ -101,6 +102,7 @@ if (!function_exists('hj_bfs_create_submission')) {
         update_post_meta($submission_id, '_hj_bfs_full_name', $full_name);
         update_post_meta($submission_id, '_hj_bfs_email', $email);
         update_post_meta($submission_id, '_hj_bfs_phone', $phone);
+        update_post_meta($submission_id, '_hj_bfs_preferred_contact_method', $preferred_contact_method);
         update_post_meta($submission_id, '_hj_bfs_country_code', $country_code);
         update_post_meta($submission_id, '_hj_bfs_treatment_id', $treatment_id);
         update_post_meta($submission_id, '_hj_bfs_treatment_title', $treatment_title);
@@ -165,6 +167,7 @@ add_action('add_meta_boxes_' . HJ_BFS_POST_TYPE, function () {
                 __('Full name', 'hello-elementor-child') => hj_bfs_get_submission_meta($post->ID, '_hj_bfs_full_name'),
                 __('Email', 'hello-elementor-child') => hj_bfs_get_submission_meta($post->ID, '_hj_bfs_email'),
                 __('Mobile', 'hello-elementor-child') => hj_bfs_get_submission_meta($post->ID, '_hj_bfs_phone'),
+                __('Preferred contact method', 'hello-elementor-child') => hj_bfs_get_submission_meta($post->ID, '_hj_bfs_preferred_contact_method'),
                 __('Country', 'hello-elementor-child') => strtoupper(hj_bfs_get_submission_meta($post->ID, '_hj_bfs_country_code')),
                 __('Treatment', 'hello-elementor-child') => hj_bfs_get_submission_meta($post->ID, '_hj_bfs_treatment_title'),
                 __('Source URL', 'hello-elementor-child') => hj_bfs_get_submission_meta($post->ID, '_hj_bfs_source_url'),

@@ -134,6 +134,7 @@ if (!function_exists('hj_spc_handle_lead_submission')) {
 
         $full_name = isset($_POST['full_name']) ? sanitize_text_field(wp_unslash($_POST['full_name'])) : '';
         $email = isset($_POST['email']) ? sanitize_email(wp_unslash($_POST['email'])) : '';
+        $preferred_contact_method = isset($_POST['preferred_contact_method']) ? sanitize_key(wp_unslash($_POST['preferred_contact_method'])) : '';
         $country_code = isset($_POST['country_code']) ? sanitize_key(wp_unslash($_POST['country_code'])) : '';
         $phone_raw = isset($_POST['phone']) ? sanitize_text_field(wp_unslash($_POST['phone'])) : '';
         $phone_display = isset($_POST['phone_display']) ? sanitize_text_field(wp_unslash($_POST['phone_display'])) : '';
@@ -142,13 +143,23 @@ if (!function_exists('hj_spc_handle_lead_submission')) {
             $formatted_phone = hj_spc_normalize_phone_input($phone_display);
         }
 
+        $allowed_contact_methods = [
+            'phone_call' => __('Phone call', 'hello-elementor-child'),
+            'whatsapp' => __('Whatsapp', 'hello-elementor-child'),
+            'email' => __('Email', 'hello-elementor-child'),
+        ];
+
+        if (!array_key_exists($preferred_contact_method, $allowed_contact_methods)) {
+            $preferred_contact_method = '';
+        }
+
         if ($country_code === '') {
             $country_code = hj_spc_guess_country_code_from_phone($formatted_phone);
         }
         $treatment_title = isset($_POST['treatment_title']) ? sanitize_text_field(wp_unslash($_POST['treatment_title'])) : '';
         $treatment_title = $treatment_id > 0 ? get_the_title($treatment_id) : $treatment_title;
 
-        if ($full_name === '' || $formatted_phone === '' || !is_email($email)) {
+        if ($full_name === '' || $formatted_phone === '' || !is_email($email) || $preferred_contact_method === '') {
             wp_safe_redirect(hj_spc_build_response_url($redirect_to, 'invalid', $treatment_id));
             exit;
         }
@@ -158,6 +169,7 @@ if (!function_exists('hj_spc_handle_lead_submission')) {
                 'full_name' => $full_name,
                 'email' => $email,
                 'phone' => $formatted_phone,
+                'preferred_contact_method' => $preferred_contact_method,
                 'country_code' => $country_code,
                 'treatment_id' => $treatment_id,
                 'treatment_title' => $treatment_title,
@@ -182,6 +194,7 @@ if (!function_exists('hj_spc_handle_lead_submission')) {
             sprintf(__('Treatment: %s', 'hello-elementor-child'), $treatment_title !== '' ? $treatment_title : __('Not provided', 'hello-elementor-child')),
             sprintf(__('Name: %s', 'hello-elementor-child'), $full_name),
             sprintf(__('Mobile: %s', 'hello-elementor-child'), $formatted_phone),
+            sprintf(__('Preferred contact method: %s', 'hello-elementor-child'), $allowed_contact_methods[$preferred_contact_method]),
             sprintf(__('Country: %s', 'hello-elementor-child'), strtoupper($country_code)),
             sprintf(__('Email: %s', 'hello-elementor-child'), $email),
             sprintf(__('Page: %s', 'hello-elementor-child'), $redirect_to),

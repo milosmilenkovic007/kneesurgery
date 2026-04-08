@@ -26,6 +26,12 @@ if (!$hj_spc_phone_assets_enqueued) {
 $selected_treatment = get_sub_field('treatment');
 $post_id = (int) $selected_treatment;
 
+$booking_title = trim((string) get_sub_field('booking_title'));
+$booking_text = trim((string) get_sub_field('booking_text'));
+$button_text = trim((string) get_sub_field('button_text'));
+$disclaimer_text = trim((string) get_sub_field('disclaimer_text'));
+$price_color = sanitize_hex_color((string) get_sub_field('price_color'));
+
 if (!$post_id && is_singular('service')) {
   $post_id = (int) get_the_ID();
 }
@@ -70,8 +76,12 @@ if (!$has_header && !$has_card) {
 }
 
 $uid = uniqid('hj-spc-');
+$booking_title = $booking_title !== '' ? $booking_title : __('Book your treatment', 'hello-elementor-child');
+$booking_text = $booking_text !== '' ? $booking_text : __('Leave your details and our team will contact you with the next steps.', 'hello-elementor-child');
+$button_text = $button_text !== '' ? $button_text : __('Request a Medical Review', 'hello-elementor-child');
+$section_style = $price_color ? '--spc-price-color:' . $price_color . ';' : '';
 ?>
-<section class="hj-single-package-cardbox" id="<?php echo esc_attr($uid); ?>" aria-label="Single Package Cardbox">
+<section class="hj-single-package-cardbox" id="<?php echo esc_attr($uid); ?>" aria-label="Single Package Cardbox"<?php echo $section_style !== '' ? ' style="' . esc_attr($section_style) . '"' : ''; ?>>
   <div class="hj-spc-wrap">
     <?php if ($has_header): ?>
       <div class="hj-spc-header">
@@ -88,25 +98,41 @@ $uid = uniqid('hj-spc-');
       <div class="hj-spc-grid">
         <article class="hj-spc-card">
           <div class="hj-spc-card__inner">
-            <?php if (!empty($normalized_items)): ?>
+            <?php if (!empty($normalized_items) || $package_price !== '' || $price_note !== ''): ?>
               <div class="hj-spc-card__includes">
                 <?php if ($included_title !== ''): ?>
                   <p class="hj-spc-card__includes-title"><?php echo esc_html($included_title); ?></p>
                 <?php endif; ?>
 
-                <ul class="hj-spc-card__list">
-                  <?php foreach ($normalized_items as $include): ?>
-                    <li><?php echo esc_html($include); ?></li>
-                  <?php endforeach; ?>
-                </ul>
+                <?php if (!empty($normalized_items)): ?>
+                  <ul class="hj-spc-card__list">
+                    <?php foreach ($normalized_items as $include): ?>
+                      <li><?php echo esc_html($include); ?></li>
+                    <?php endforeach; ?>
+                  </ul>
+                <?php endif; ?>
+
+                <?php if ($package_price !== '' || $price_note !== ''): ?>
+                  <div class="hj-spc-card__price-wrap">
+                    <?php if ($package_price !== ''): ?>
+                      <p class="hj-spc-card__price">
+                        <span class="hj-spc-card__currency"><?php echo esc_html($price_symbol); ?></span>
+                        <span class="hj-spc-card__amount"><?php echo esc_html($package_price); ?></span>
+                      </p>
+                    <?php endif; ?>
+                    <?php if ($price_note !== ''): ?>
+                      <p class="hj-spc-card__price-note"><?php echo esc_html($price_note); ?></p>
+                    <?php endif; ?>
+                  </div>
+                <?php endif; ?>
               </div>
             <?php endif; ?>
 
-            <?php if ($has_form || $package_price !== '' || $price_note !== ''): ?>
+            <?php if ($has_form): ?>
               <div class="hj-spc-card__footer">
                 <div class="hj-spc-card__form<?php echo esc_attr($form_status_class); ?>">
-                  <p class="hj-spc-card__form-title"><?php echo esc_html__('Book your treatment', 'hello-elementor-child'); ?></p>
-                  <p class="hj-spc-card__form-text"><?php echo esc_html__('Leave your details and our team will contact you with the next steps.', 'hello-elementor-child'); ?></p>
+                  <p class="hj-spc-card__form-title"><?php echo esc_html($booking_title); ?></p>
+                  <p class="hj-spc-card__form-text"><?php echo esc_html($booking_text); ?></p>
 
                   <?php if (!empty($form_feedback['message'])): ?>
                     <div class="hj-spc-form__notice" role="status">
@@ -142,25 +168,25 @@ $uid = uniqid('hj-spc-');
                       <label class="screen-reader-text" for="hj-spc-email-<?php echo esc_attr($uid); ?>"><?php echo esc_html__('Email address', 'hello-elementor-child'); ?></label>
                       <input id="hj-spc-email-<?php echo esc_attr($uid); ?>" type="email" name="email" required autocomplete="email" placeholder="Email address">
                     </div>
+
+                    <div class="hj-spc-form__field">
+                      <label class="screen-reader-text" for="hj-spc-contact-method-<?php echo esc_attr($uid); ?>"><?php echo esc_html__('Preferred contact method', 'hello-elementor-child'); ?></label>
+                      <select id="hj-spc-contact-method-<?php echo esc_attr($uid); ?>" name="preferred_contact_method" required>
+                        <option value="" selected disabled><?php echo esc_html__('Preferred contact method', 'hello-elementor-child'); ?></option>
+                        <option value="phone_call"><?php echo esc_html__('Phone call', 'hello-elementor-child'); ?></option>
+                        <option value="whatsapp"><?php echo esc_html__('Whatsapp', 'hello-elementor-child'); ?></option>
+                        <option value="email"><?php echo esc_html__('Email', 'hello-elementor-child'); ?></option>
+                      </select>
+                    </div>
                   </form>
 
-                  <?php if ($package_price !== '' || $price_note !== ''): ?>
-                    <div class="hj-spc-card__price-wrap">
-                      <?php if ($package_price !== ''): ?>
-                        <p class="hj-spc-card__price">
-                          <span class="hj-spc-card__currency"><?php echo esc_html($price_symbol); ?></span>
-                          <span class="hj-spc-card__amount"><?php echo esc_html($package_price); ?></span>
-                        </p>
-                      <?php endif; ?>
-                      <?php if ($price_note !== ''): ?>
-                        <p class="hj-spc-card__price-note"><?php echo esc_html($price_note); ?></p>
-                      <?php endif; ?>
-                    </div>
-                  <?php endif; ?>
-
-                  <button class="hj-spc-form__submit" id="hj-spc-submit-<?php echo esc_attr($uid); ?>" type="submit" form="hj-spc-form-<?php echo esc_attr($uid); ?>" disabled><?php echo esc_html__('Book now', 'hello-elementor-child'); ?></button>
+                  <button class="hj-spc-form__submit" id="hj-spc-submit-<?php echo esc_attr($uid); ?>" type="submit" form="hj-spc-form-<?php echo esc_attr($uid); ?>" disabled><?php echo esc_html($button_text); ?></button>
                 </div>
               </div>
+            <?php endif; ?>
+
+            <?php if ($disclaimer_text !== ''): ?>
+              <div class="hj-spc-card__disclaimer"><?php echo wpautop(esc_html($disclaimer_text)); ?></div>
             <?php endif; ?>
           </div>
         </article>

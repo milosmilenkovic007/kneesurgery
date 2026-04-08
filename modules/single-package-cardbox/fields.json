@@ -16,11 +16,57 @@
       "instructions": "Select the Treatment whose package data should be displayed. If left empty on a single Treatment page, the current Treatment is used."
     },
     {
+      "key": "field_hj_spc_booking_title",
+      "label": "Booking Title",
+      "name": "booking_title",
+      "type": "text",
+      "default_value": "Book your treatment",
+      "wrapper": {
+        "width": "50"
+      }
+    },
+    {
+      "key": "field_hj_spc_price_color",
+      "label": "Price Color",
+      "name": "price_color",
+      "type": "color_picker",
+      "default_value": "#1b2238",
+      "wrapper": {
+        "width": "50"
+      }
+    },
+    {
+      "key": "field_hj_spc_booking_text",
+      "label": "Booking Text",
+      "name": "booking_text",
+      "type": "textarea",
+      "rows": 3,
+      "default_value": "Leave your details and our team will contact you with the next steps."
+    },
+    {
+      "key": "field_hj_spc_button_text",
+      "label": "Button Text",
+      "name": "button_text",
+      "type": "text",
+      "default_value": "Request a Medical Review",
+      "wrapper": {
+        "width": "50"
+      }
+    },
+    {
+      "key": "field_hj_spc_disclaimer_text",
+      "label": "Disclaimer Text",
+      "name": "disclaimer_text",
+      "type": "textarea",
+      "rows": 3,
+      "instructions": "Appears below the includes box."
+    },
+    {
       "key": "field_hj_spc_message",
       "label": "Module Source",
       "name": "module_source_message",
       "type": "message",
-      "message": "This module renders content from the selected Treatment's Package Includes fields and outputs the built-in booking form in the right column.",
+      "message": "This module renders package content from the selected Treatment and lets you customize the booking copy, disclaimer, and price color at module level.",
       "new_lines": "wpautop",
       "esc_html": 0
     }

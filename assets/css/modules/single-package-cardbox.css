@@ -7,6 +7,7 @@
   --spc-shadow:0 20px 44px rgba(18, 24, 40, .08);
   --spc-shadow-hover:0 26px 54px rgba(18, 24, 40, .12);
   --spc-accent:#4951d5;
+  --spc-price-color:var(--spc-text);
 }
 
 .hj-single-package-cardbox{
@@ -60,7 +61,8 @@
   display:grid;
   grid-template-columns:minmax(0, 1.5fr) minmax(280px, .7fr);
   grid-template-areas:
-    'includes footer';
+    'includes footer'
+    'disclaimer .';
   align-items:start;
   gap:18px 24px;
   padding:24px;
@@ -79,10 +81,13 @@
 
 .hj-spc-card__includes{
   grid-area:includes;
+  display:flex;
+  flex-direction:column;
   padding:16px 16px 14px;
   border:1px solid var(--spc-border);
   border-radius:20px;
   background:#fff;
+  min-height:100%;
 }
 
 .hj-spc-card__includes-title{
@@ -102,6 +107,19 @@
   display:flex;
   flex-direction:column;
   gap:12px;
+}
+
+.hj-spc-card__disclaimer{
+  grid-area:disclaimer;
+  margin-top:14px;
+  color:var(--spc-muted);
+  font-family:'Manrope', sans-serif;
+  font-size:14px;
+  line-height:1.65;
+}
+
+.hj-spc-card__disclaimer p{
+  margin:0;
 }
 
 .hj-spc-card__list li{
@@ -138,10 +156,13 @@
 
 .hj-spc-card__form{
   width:100%;
+  min-height:100%;
   padding:0;
   border:none;
   border-radius:0;
   background:transparent;
+  display:flex;
+  flex-direction:column;
   text-align:left;
 }
 
@@ -164,6 +185,7 @@
 
 .hj-spc-form{
   display:flex;
+  flex:1 1 auto;
   flex-direction:column;
   gap:12px;
   margin-bottom:0;
@@ -187,15 +209,36 @@
   transition:border-color .2s ease, box-shadow .2s ease;
 }
 
+.hj-spc-form__field select{
+  width:100%;
+  min-height:48px;
+  padding:0 44px 0 16px;
+  border:1px solid #d7dff3;
+  border-radius:14px;
+  background:#fff;
+  color:var(--spc-text);
+  font-family:'Manrope', sans-serif;
+  font-size:15px;
+  appearance:none;
+  -webkit-appearance:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='%23232a3c' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;
+  background-position:right 16px center;
+  background-size:18px 18px;
+  transition:border-color .2s ease, box-shadow .2s ease;
+}
+
 .hj-spc-form__field--phone{
   display:block;
 }
 
-.hj-spc-form__field input::placeholder{
+.hj-spc-form__field input::placeholder,
+.hj-spc-form__field select:invalid{
   color:#7d89a9;
 }
 
-.hj-spc-form__field input:focus{
+.hj-spc-form__field input:focus,
+.hj-spc-form__field select:focus{
   outline:none;
   border-color:#9faef1;
   box-shadow:0 0 0 4px rgba(73, 81, 213, .08);
@@ -328,6 +371,7 @@
 
 .hj-spc-form__submit{
   width:100%;
+  margin-top:55px;
   min-height:50px;
   border:none;
   border-radius:999px;
@@ -362,18 +406,18 @@
   flex-direction:column;
   gap:6px;
   align-items:flex-end;
-  margin-top:6px;
-  padding:4px 2px 0;
+  margin-top:auto;
+  padding:18px 2px 0;
   text-align:right;
 }
 
 .hj-spc-card__price{
   margin:0;
-  color:var(--spc-text);
+  color:var(--spc-price-color);
   font-family:'Manrope', sans-serif;
   font-size:30px;
   line-height:1;
-  font-weight:800;
+  font-weight:500;
 }
 
 .hj-spc-card__price-note{
@@ -401,6 +445,7 @@
     grid-template-columns:minmax(0, 1fr);
     grid-template-areas:
       'includes'
+      'disclaimer'
       'footer';
     gap:16px;
     padding:22px 18px;
@@ -409,6 +454,10 @@
 
   .hj-spc-card__list li{
     font-size:16px;
+  }
+
+  .hj-spc-card__disclaimer{
+    margin-top:12px;
   }
 
   .hj-spc-card__price{
@@ -423,6 +472,7 @@
 
   .hj-spc-card__form{
     padding:16px;
+    min-height:0;
   }
 
   .hj-spc-card__form-title{
@@ -430,6 +480,7 @@
   }
 
   .hj-spc-form__submit{
+    margin-top:18px;
     font-size:16px;
   }
 }
