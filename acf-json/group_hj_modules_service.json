@@ -2980,7 +2980,7 @@
                             "label": "Booking Title",
                             "name": "booking_title",
                             "type": "text",
-                            "default_value": "Book your treatment",
+                            "default_value": "Get a free consultation",
                             "wrapper": {
                                 "width": "50"
                             }
@@ -2990,7 +2990,7 @@
                             "label": "Price Color",
                             "name": "price_color",
                             "type": "color_picker",
-                            "default_value": "#1b2238",
+                            "default_value": "#44b7ff",
                             "wrapper": {
                                 "width": "50"
                             }
@@ -3019,6 +3019,7 @@
                             "name": "disclaimer_text",
                             "type": "textarea",
                             "rows": 3,
+                            "default_value": "*",
                             "instructions": "Appears below the includes box."
                         },
                         {
@@ -3821,5 +3822,5 @@
     "position": "acf_after_title",
     "style": "seamless",
     "active": true,
-    "modified": 1775658350
+    "modified": 1775658787
 }
