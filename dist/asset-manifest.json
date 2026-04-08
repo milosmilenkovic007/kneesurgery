@@ -41,7 +41,7 @@
   },
   "assets/css/modules/hero-about.css": {
     "path": "assets/css/modules/hero-about.css",
-    "version": "800db1e1faf9"
+    "version": "46a554df0bb7"
   },
   "assets/css/modules/hero-dental.css": {
     "path": "assets/css/modules/hero-dental.css",
@@ -58,6 +58,14 @@
   "assets/css/modules/logo-slider.css": {
     "path": "assets/css/modules/logo-slider.css",
     "version": "743b24e463e7"
+  },
+  "assets/css/modules/medical-management-grid.css": {
+    "path": "assets/css/modules/medical-management-grid.css",
+    "version": "f50bc5d57eb1"
+  },
+  "assets/css/modules/patient-care-approach.css": {
+    "path": "assets/css/modules/patient-care-approach.css",
+    "version": "1a6fcb5bb951"
   },
   "assets/css/modules/patient-journey-media.css": {
     "path": "assets/css/modules/patient-journey-media.css",
@@ -98,6 +106,10 @@
   "assets/css/modules/trust-highlights.css": {
     "path": "assets/css/modules/trust-highlights.css",
     "version": "b0acd13909b8"
+  },
+  "assets/css/modules/video-content.css": {
+    "path": "assets/css/modules/video-content.css",
+    "version": "44515cb03504"
   },
   "assets/css/modules/video-grid.css": {
     "path": "assets/css/modules/video-grid.css",
@@ -178,6 +190,10 @@
   "assets/js/modules/treatments-block.js": {
     "path": "assets/js/modules/treatments-block.js",
     "version": "b393dd62fee7"
+  },
+  "assets/js/modules/video-content.js": {
+    "path": "assets/js/modules/video-content.js",
+    "version": "bfdb07bf69b7"
   },
   "assets/js/modules/video-grid.js": {
     "path": "assets/js/modules/video-grid.js",

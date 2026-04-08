@@ -197,3 +197,146 @@ add_filter('acf/load_field/key=field_hj_cfb_fluent_form_id', function ($field) {
 
     return $field;
 });
+
+if (!function_exists('hj_get_medical_management_grid_defaults')) {
+    function hj_get_medical_management_grid_defaults() {
+        return [
+            'title' => 'What',
+            'title_accent' => 'Medical Management & Coordination',
+            'title_suffix' => 'Mean To You',
+            'intro' => 'Medical treatment abroad is not like treatment at home. Different systems. Different languages. Different levels of follow-up. We are here to fill the gaps, reduce risks, and protect patients at every stage.',
+            'items' => [
+                [
+                    'icon_key' => 'doctor-01',
+                    'icon_path' => 'assets/img/icons/doctor-01.svg',
+                    'title' => 'Medical Matching - Not Marketing',
+                    'description' => "We choose doctors and hospitals based on medical experience - not price or popularity. You're matched with professionals who know your condition well.",
+                ],
+                [
+                    'icon_key' => 'globe',
+                    'icon_path' => 'assets/img/icons/globe.svg',
+                    'title' => "We Don't Just Organize - We Safeguard",
+                    'description' => 'We actively manage your journey - from pre-medical planning to recovery - ensuring everything is clear, coordinated, and under control.',
+                ],
+                [
+                    'icon_key' => 'cardiogram-01',
+                    'icon_path' => 'assets/img/icons/cardiogram-01.svg',
+                    'title' => 'Complete Medical Documentation',
+                    'description' => 'Healing Journey goes beyond standard facilitation by actively managing the patient journey on the ground, including coordination, follow-up, and process control.',
+                ],
+                [
+                    'icon_key' => '7',
+                    'icon_path' => 'assets/img/icons/7.svg',
+                    'title' => 'You Are never Alone',
+                    'description' => 'A dedicated coordinator supports you throughout - in coordination with the medical team - from arrival to recovery and follow-up.',
+                ],
+                [
+                    'icon_key' => 'customer-service-02',
+                    'icon_path' => 'assets/img/icons/customer-service-02.svg',
+                    'title' => 'Support Beyond Hospital Walls & Organize Your Follow-ups',
+                    'description' => "We visit you during hotel recovery, monitor your condition, and organize follow-ups. We cover what hospitals don't.",
+                ],
+                [
+                    'icon_key' => 'doctor-01',
+                    'icon_path' => 'assets/img/icons/doctor-01.svg',
+                    'title' => 'Complication & Cost Management',
+                    'description' => 'If something goes wrong, we act - medically and financially - to protect your health and your budget.',
+                ],
+            ],
+        ];
+    }
+}
+
+if (!function_exists('hj_get_medical_management_grid_icon_choices')) {
+    function hj_get_medical_management_grid_icon_choices() {
+        return [
+            'doctor-01' => 'Doctor 01',
+            'globe' => 'Globe',
+            'cardiogram-01' => 'Cardiogram 01',
+            '7' => 'Support 7',
+            'customer-service-02' => 'Customer Service 02',
+        ];
+    }
+}
+
+add_filter('acf/load_field/key=field_hj_mmg_item_icon_key', function ($field) {
+    $field['choices'] = hj_get_medical_management_grid_icon_choices();
+    return $field;
+});
+
+add_filter('acf/load_value/key=field_hj_mmg_title', function ($value) {
+    if (trim((string) $value) !== '') {
+        return $value;
+    }
+
+    $defaults = hj_get_medical_management_grid_defaults();
+    return $defaults['title'] ?? $value;
+}, 10, 1);
+
+add_filter('acf/load_value/key=field_hj_mmg_title_accent', function ($value) {
+    if (trim((string) $value) !== '') {
+        return $value;
+    }
+
+    $defaults = hj_get_medical_management_grid_defaults();
+    return $defaults['title_accent'] ?? $value;
+}, 10, 1);
+
+add_filter('acf/load_value/key=field_hj_mmg_title_suffix', function ($value) {
+    if (trim((string) $value) !== '') {
+        return $value;
+    }
+
+    $defaults = hj_get_medical_management_grid_defaults();
+    return $defaults['title_suffix'] ?? $value;
+}, 10, 1);
+
+add_filter('acf/load_value/key=field_hj_mmg_intro', function ($value) {
+    if (trim((string) $value) !== '') {
+        return $value;
+    }
+
+    $defaults = hj_get_medical_management_grid_defaults();
+    return $defaults['intro'] ?? $value;
+}, 10, 1);
+
+add_filter('acf/load_value/key=field_hj_mmg_items', function ($value) {
+    if (!function_exists('hj_get_medical_management_grid_defaults')) {
+        return $value;
+    }
+
+    $has_meaningful_value = false;
+
+    if (is_array($value) && !empty($value)) {
+        foreach ($value as $row) {
+            $row_title = trim((string) ($row['title'] ?? ''));
+            $row_description = trim((string) ($row['description'] ?? ''));
+            $row_icon = $row['icon'] ?? null;
+            $row_icon_key = trim((string) ($row['icon_key'] ?? ''));
+
+            if ($row_title !== '' || $row_description !== '' || !empty($row_icon) || $row_icon_key !== '') {
+                $has_meaningful_value = true;
+                break;
+            }
+        }
+    }
+
+    if ($has_meaningful_value) {
+        return $value;
+    }
+
+    $defaults = hj_get_medical_management_grid_defaults();
+    $items = $defaults['items'] ?? [];
+
+    if (empty($items) || !is_array($items)) {
+        return $value;
+    }
+
+    return array_map(function ($item) {
+        return [
+            'icon_key' => $item['icon_key'] ?? '',
+            'title' => $item['title'] ?? '',
+            'description' => $item['description'] ?? '',
+        ];
+    }, $items);
+}, 10, 1);

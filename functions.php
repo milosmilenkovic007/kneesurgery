@@ -486,6 +486,7 @@ add_action('admin_enqueue_scripts', function ($hook) {
   }
 
   $acf_collapse_script = hj_get_theme_asset('assets/admin/acf-flexible-collapse.js');
+  $acf_module_defaults_script = hj_get_theme_asset('assets/admin/acf-module-defaults.js');
 
   wp_enqueue_script(
     'hj-acf-flexible-collapse',
@@ -494,6 +495,20 @@ add_action('admin_enqueue_scripts', function ($hook) {
     $acf_collapse_script['version'],
     true
   );
+
+  wp_enqueue_script(
+    'hj-acf-module-defaults',
+    $acf_module_defaults_script['url'],
+    ['jquery'],
+    $acf_module_defaults_script['version'],
+    true
+  );
+
+  if (function_exists('hj_get_medical_management_grid_defaults')) {
+    wp_localize_script('hj-acf-module-defaults', 'hjAcfModuleDefaults', [
+      'medicalManagementGrid' => hj_get_medical_management_grid_defaults(),
+    ]);
+  }
 }, 20);
 
 // -----------------------------------------------------------------------------

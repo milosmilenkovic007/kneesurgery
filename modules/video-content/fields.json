@@ -1,0 +1,99 @@
+{
+  "key": "layout_hj_video_content",
+  "name": "video_content",
+  "label": "Video Content",
+  "display": "block",
+  "sub_fields": [
+    {
+      "key": "field_hj_vc_anchor_id",
+      "label": "Anchor ID",
+      "name": "anchor_id",
+      "type": "text",
+      "instructions": "Optional section anchor, e.g. about-journey or #about-journey.",
+      "placeholder": "about-journey"
+    },
+    {
+      "key": "field_hj_vc_video_poster",
+      "label": "Video Poster",
+      "name": "video_poster",
+      "type": "image",
+      "return_format": "array",
+      "preview_size": "large",
+      "required": 1
+    },
+    {
+      "key": "field_hj_vc_video_url",
+      "label": "Video URL",
+      "name": "video_url",
+      "type": "url",
+      "required": 1,
+      "instructions": "Paste a direct .mp4/.webm link or a YouTube/Vimeo URL."
+    },
+    {
+      "key": "field_hj_vc_title",
+      "label": "Title",
+      "name": "title",
+      "type": "text",
+      "required": 1,
+      "default_value": "About"
+    },
+    {
+      "key": "field_hj_vc_title_accent",
+      "label": "Title Accent",
+      "name": "title_accent",
+      "type": "text",
+      "default_value": "Healing Journey®"
+    },
+    {
+      "key": "field_hj_vc_content",
+      "label": "Content",
+      "name": "content",
+      "type": "wysiwyg",
+      "tabs": "visual,text",
+      "toolbar": "basic",
+      "media_upload": 0,
+      "required": 1
+    },
+    {
+      "key": "field_hj_vc_accordion_items",
+      "label": "Accordion Items",
+      "name": "accordion_items",
+      "type": "repeater",
+      "layout": "row",
+      "button_label": "Add Accordion Item",
+      "collapsed": "field_hj_vc_accordion_item_title",
+      "sub_fields": [
+        {
+          "key": "field_hj_vc_accordion_item_title",
+          "label": "Title",
+          "name": "title",
+          "type": "text",
+          "required": 1,
+          "wrapper": {
+            "width": "35"
+          }
+        },
+        {
+          "key": "field_hj_vc_accordion_item_content",
+          "label": "Content",
+          "name": "content",
+          "type": "wysiwyg",
+          "tabs": "visual,text",
+          "toolbar": "basic",
+          "media_upload": 0,
+          "required": 1,
+          "wrapper": {
+            "width": "65"
+          }
+        }
+      ]
+    },
+    {
+      "key": "field_hj_vc_button",
+      "label": "Button",
+      "name": "button",
+      "type": "link",
+      "return_format": "array"
+    }
+  ]
+}

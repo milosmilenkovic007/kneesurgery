@@ -1,0 +1,109 @@
+{
+  "key": "layout_hj_medical_management_grid",
+  "name": "medical_management_grid",
+  "label": "Medical Management Grid",
+  "display": "block",
+  "sub_fields": [
+    {
+      "key": "field_hj_mmg_anchor_id",
+      "label": "Anchor ID",
+      "name": "anchor_id",
+      "type": "text",
+      "instructions": "Optional section anchor, e.g. medical-management or #medical-management.",
+      "placeholder": "medical-management"
+    },
+    {
+      "key": "field_hj_mmg_title",
+      "label": "Title",
+      "name": "title",
+      "type": "text",
+      "required": 1,
+      "default_value": "What"
+    },
+    {
+      "key": "field_hj_mmg_title_accent",
+      "label": "Title Accent",
+      "name": "title_accent",
+      "type": "text",
+      "default_value": "Medical Management & Coordination"
+    },
+    {
+      "key": "field_hj_mmg_title_suffix",
+      "label": "Title Suffix",
+      "name": "title_suffix",
+      "type": "text",
+      "default_value": "Mean To You"
+    },
+    {
+      "key": "field_hj_mmg_intro",
+      "label": "Intro",
+      "name": "intro",
+      "type": "textarea",
+      "rows": 3,
+      "default_value": "Medical treatment abroad is not like treatment at home. Different systems. Different languages. Different levels of follow-up. We are here to fill the gaps, reduce risks, and protect patients at every stage."
+    },
+    {
+      "key": "field_hj_mmg_items",
+      "label": "Cards",
+      "name": "items",
+      "type": "repeater",
+      "layout": "block",
+      "button_label": "Add Card",
+      "min": 1,
+      "sub_fields": [
+        {
+          "key": "field_hj_mmg_item_icon_key",
+          "label": "Preset Icon",
+          "name": "icon_key",
+          "type": "select",
+          "ui": 1,
+          "allow_null": 1,
+          "choices": {
+            "doctor-01": "Doctor 01",
+            "globe": "Globe",
+            "cardiogram-01": "Cardiogram 01",
+            "7": "Support 7",
+            "customer-service-02": "Customer Service 02"
+          },
+          "wrapper": {
+            "width": "20"
+          }
+        },
+        {
+          "key": "field_hj_mmg_item_icon",
+          "label": "Custom Icon",
+          "name": "icon",
+          "type": "image",
+          "return_format": "array",
+          "preview_size": "thumbnail",
+          "library": "all",
+          "wrapper": {
+            "width": "20"
+          }
+        },
+        {
+          "key": "field_hj_mmg_item_title",
+          "label": "Title",
+          "name": "title",
+          "type": "textarea",
+          "rows": 2,
+          "required": 1,
+          "wrapper": {
+            "width": "25"
+          }
+        },
+        {
+          "key": "field_hj_mmg_item_description",
+          "label": "Description",
+          "name": "description",
+          "type": "textarea",
+          "rows": 4,
+          "required": 1,
+          "wrapper": {
+            "width": "35"
+          }
+        }
+      ]
+    }
+  ]
+}

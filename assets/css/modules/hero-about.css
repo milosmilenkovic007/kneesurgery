@@ -50,11 +50,11 @@
   max-width:1280px;
   min-height:var(--hj-ha-height, 400px);
   margin:0 auto;
-  padding:32px 24px;
+  padding:32px 24px 56px;
   display:flex;
   flex-direction:column;
   align-items:center;
-  justify-content:center;
+  justify-content:flex-end;
   text-align:center;
 }
 
@@ -90,7 +90,7 @@
 
   .hj-ha-wrap{
     min-height:min(var(--hj-ha-height, 400px), 400px);
-    padding:0 16px;
+    padding:0 16px 28px;
   }
 
   .hj-ha-title{
