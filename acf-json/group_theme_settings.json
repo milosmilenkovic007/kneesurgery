@@ -19,6 +19,141 @@
             "placeholder": "Let's Get in Touch"
         },
         {
+            "key": "field_integrations_settings_tab",
+            "label": "Integrations",
+            "name": "",
+            "type": "tab",
+            "placement": "top"
+        },
+        {
+            "key": "field_google_reviews_message",
+            "label": "Google Reviews",
+            "name": "",
+            "type": "message",
+            "message": "Direct Google Reviews integration for the theme. Add a server-side Places API key and Place ID. The theme caches responses and uses the fallback values below if Google is unavailable.",
+            "new_lines": "wpautop",
+            "esc_html": 0
+        },
+        {
+            "key": "field_google_reviews_api_key",
+            "label": "Google Reviews API Key",
+            "name": "google_reviews_api_key",
+            "type": "text",
+            "instructions": "Server-side Google Places API key.",
+            "wrapper": {
+                "width": "50"
+            }
+        },
+        {
+            "key": "field_google_reviews_place_id",
+            "label": "Google Place ID",
+            "name": "google_reviews_place_id",
+            "type": "text",
+            "instructions": "Place ID for the clinic or business.",
+            "wrapper": {
+                "width": "50"
+            }
+        },
+        {
+            "key": "field_google_reviews_language",
+            "label": "Language Code",
+            "name": "google_reviews_language",
+            "type": "text",
+            "instructions": "Optional, e.g. en, en-GB, tr.",
+            "default_value": "en",
+            "placeholder": "en",
+            "wrapper": {
+                "width": "25"
+            }
+        },
+        {
+            "key": "field_google_reviews_reviews_sort",
+            "label": "Review Sort",
+            "name": "google_reviews_reviews_sort",
+            "type": "select",
+            "choices": {
+                "most_relevant": "Most Relevant",
+                "newest": "Newest"
+            },
+            "default_value": "most_relevant",
+            "ui": 1,
+            "wrapper": {
+                "width": "25"
+            }
+        },
+        {
+            "key": "field_google_reviews_reviews_limit",
+            "label": "Reviews Limit",
+            "name": "google_reviews_reviews_limit",
+            "type": "number",
+            "instructions": "Max 5 per request.",
+            "default_value": 5,
+            "min": 1,
+            "max": 5,
+            "step": 1,
+            "wrapper": {
+                "width": "25"
+            }
+        },
+        {
+            "key": "field_google_reviews_cache_hours",
+            "label": "Cache Duration (Hours)",
+            "name": "google_reviews_cache_hours",
+            "type": "number",
+            "default_value": 12,
+            "min": 1,
+            "max": 168,
+            "step": 1,
+            "wrapper": {
+                "width": "25"
+            }
+        },
+        {
+            "key": "field_google_reviews_fallback_name",
+            "label": "Fallback Place Name",
+            "name": "google_reviews_fallback_name",
+            "type": "text",
+            "instructions": "Used only if live fetch fails.",
+            "wrapper": {
+                "width": "40"
+            }
+        },
+        {
+            "key": "field_google_reviews_fallback_rating",
+            "label": "Fallback Rating",
+            "name": "google_reviews_fallback_rating",
+            "type": "number",
+            "default_value": 0,
+            "min": 0,
+            "max": 5,
+            "step": 0.1,
+            "wrapper": {
+                "width": "20"
+            }
+        },
+        {
+            "key": "field_google_reviews_fallback_reviews_count",
+            "label": "Fallback Reviews Count",
+            "name": "google_reviews_fallback_reviews_count",
+            "type": "number",
+            "default_value": 0,
+            "min": 0,
+            "step": 1,
+            "wrapper": {
+                "width": "20"
+            }
+        },
+        {
+            "key": "field_google_reviews_fallback_url",
+            "label": "Fallback Reviews URL",
+            "name": "google_reviews_fallback_url",
+            "type": "url",
+            "instructions": "Optional Google Maps or reviews link.",
+            "wrapper": {
+                "width": "20"
+            }
+        },
+        {
             "key": "field_pdf_settings_tab",
             "label": "PDF Settings",
             "name": "",
@@ -238,5 +373,5 @@
     "style": "default",
     "label_placement": "top",
     "instruction_placement": "label",
-    "modified": 1775140800
+    "modified": 1776341900
 }

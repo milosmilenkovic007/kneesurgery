@@ -515,6 +515,7 @@ add_action('admin_enqueue_scripts', function ($hook) {
 //  Includes (ACF options + flexible modules)
 // -----------------------------------------------------------------------------
 require_once get_stylesheet_directory() . '/inc/acf-options.php';
+require_once get_stylesheet_directory() . '/inc/google-reviews.php';
 require_once get_stylesheet_directory() . '/inc/modules.php';
 require_once get_stylesheet_directory() . '/inc/articles-grid-ajax.php';
 require_once get_stylesheet_directory() . '/inc/doctors.php';

@@ -10,6 +10,10 @@ foreach ($sections as $index => $section) {
     $heading = trim((string) ($section['heading'] ?? ''));
     $subheading = trim((string) ($section['subheading'] ?? ''));
     $source = ($section['source'] ?? 'category') === 'manual' ? 'manual' : 'category';
+    $display_mode = ($section['display_mode'] ?? 'grid') === 'slider' ? 'slider' : 'grid';
+    $slides_desktop = max(1, min(4, (int) ($section['slides_desktop'] ?? 3)));
+    $slides_tablet = max(1, min(3, (int) ($section['slides_tablet'] ?? 2)));
+    $slides_mobile = max(1, min(2, (int) ($section['slides_mobile'] ?? 1)));
     $limit = max(1, min(18, (int) ($section['items_limit'] ?? 6)));
     $enable_accordion = !empty($section['enable_accordion']);
     $start_collapsed = $enable_accordion && !empty($section['start_collapsed']);
@@ -81,6 +85,10 @@ foreach ($sections as $index => $section) {
         'id' => $uid . '-section-' . ($index + 1),
         'heading' => $heading,
         'subheading' => $subheading,
+        'display_mode' => $display_mode,
+        'slides_desktop' => $slides_desktop,
+        'slides_tablet' => $slides_tablet,
+        'slides_mobile' => $slides_mobile,
         'enable_accordion' => $enable_accordion,
         'start_collapsed' => $start_collapsed,
         'items' => $items,
@@ -135,28 +143,89 @@ foreach ($sections as $index => $section) {
 
               <div class="hj-tb-section__panel" id="<?php echo esc_attr($section['id']); ?>-panel"<?php echo $section['start_collapsed'] ? ' hidden' : ''; ?>>
                 <?php if (!empty($section['items'])): ?>
-                  <div class="hj-tb-grid">
-                    <?php foreach ($section['items'] as $item): ?>
-                      <article class="hj-tb-card">
-                        <a class="hj-tb-card__link" href="<?php echo esc_url($item['permalink']); ?>">
-                          <div class="hj-tb-card__media<?php echo $item['image'] ? '' : ' is-empty'; ?>">
-                            <?php if ($item['image']): ?>
-                              <?php echo $item['image']; ?>
-                            <?php else: ?>
-                              <span class="hj-tb-card__media-fallback"></span>
-                            <?php endif; ?>
+                  <?php if ($section['display_mode'] === 'slider'): ?>
+                    <div
+                      class="hj-tb-slider"
+                      data-tb-slider
+                      style="--tb-slides-desktop: <?php echo esc_attr((string) $section['slides_desktop']); ?>; --tb-slides-tablet: <?php echo esc_attr((string) $section['slides_tablet']); ?>; --tb-slides-mobile: <?php echo esc_attr((string) $section['slides_mobile']); ?>;"
+                    >
+                      <div class="hj-tb-slider__viewport" data-tb-track>
+                        <?php foreach ($section['items'] as $slide_index => $item): ?>
+                          <article class="hj-tb-card hj-tb-slide" data-tb-slide>
+                            <a class="hj-tb-card__link" href="<?php echo esc_url($item['permalink']); ?>">
+                              <div class="hj-tb-card__media<?php echo $item['image'] ? '' : ' is-empty'; ?>">
+                                <?php if ($item['image']): ?>
+                                  <?php echo $item['image']; ?>
+                                <?php else: ?>
+                                  <span class="hj-tb-card__media-fallback"></span>
+                                <?php endif; ?>
+                              </div>
+                              <div class="hj-tb-card__content">
+                                <h4 class="hj-tb-card__title"><?php echo esc_html($item['title']); ?></h4>
+                                <?php if ($item['excerpt']): ?>
+                                  <p class="hj-tb-card__excerpt"><?php echo esc_html($item['excerpt']); ?></p>
+                                <?php endif; ?>
+                                <span class="hj-tb-card__button">Learn More</span>
+                              </div>
+                            </a>
+                          </article>
+                        <?php endforeach; ?>
+                      </div>
+
+                      <?php if (count($section['items']) > 1): ?>
+                        <div class="hj-tb-slider__controls" data-tb-controls>
+                          <div class="hj-tb-slider__hint" data-tb-hint>
+                            <span class="hj-tb-slider__hint-icon" aria-hidden="true"></span>
+                            <span>Swipe to explore</span>
                           </div>
-                          <div class="hj-tb-card__content">
-                            <h4 class="hj-tb-card__title"><?php echo esc_html($item['title']); ?></h4>
-                            <?php if ($item['excerpt']): ?>
-                              <p class="hj-tb-card__excerpt"><?php echo esc_html($item['excerpt']); ?></p>
-                            <?php endif; ?>
-                            <span class="hj-tb-card__button">Learn More</span>
+
+                          <div class="hj-tb-slider__dots" aria-label="Slider pagination">
+                            <?php foreach ($section['items'] as $slide_index => $item): ?>
+                              <button
+                                class="hj-tb-slider__dot<?php echo $slide_index === 0 ? ' is-active' : ''; ?>"
+                                type="button"
+                                data-tb-dot="<?php echo esc_attr((string) $slide_index); ?>"
+                                aria-label="Go to slide <?php echo esc_attr((string) ($slide_index + 1)); ?>"
+                                aria-pressed="<?php echo $slide_index === 0 ? 'true' : 'false'; ?>"
+                              ></button>
+                            <?php endforeach; ?>
                           </div>
-                        </a>
-                      </article>
-                    <?php endforeach; ?>
-                  </div>
+
+                          <div class="hj-tb-slider__arrows">
+                            <button class="hj-tb-slider__arrow hj-tb-slider__arrow--prev" type="button" data-tb-prev aria-label="Previous slide" disabled>
+                              <span class="hj-tb-slider__arrow-icon" aria-hidden="true"></span>
+                            </button>
+                            <button class="hj-tb-slider__arrow hj-tb-slider__arrow--next" type="button" data-tb-next aria-label="Next slide">
+                              <span class="hj-tb-slider__arrow-icon" aria-hidden="true"></span>
+                            </button>
+                          </div>
+                        </div>
+                      <?php endif; ?>
+                    </div>
+                  <?php else: ?>
+                    <div class="hj-tb-grid">
+                      <?php foreach ($section['items'] as $item): ?>
+                        <article class="hj-tb-card">
+                          <a class="hj-tb-card__link" href="<?php echo esc_url($item['permalink']); ?>">
+                            <div class="hj-tb-card__media<?php echo $item['image'] ? '' : ' is-empty'; ?>">
+                              <?php if ($item['image']): ?>
+                                <?php echo $item['image']; ?>
+                              <?php else: ?>
+                                <span class="hj-tb-card__media-fallback"></span>
+                              <?php endif; ?>
+                            </div>
+                            <div class="hj-tb-card__content">
+                              <h4 class="hj-tb-card__title"><?php echo esc_html($item['title']); ?></h4>
+                              <?php if ($item['excerpt']): ?>
+                                <p class="hj-tb-card__excerpt"><?php echo esc_html($item['excerpt']); ?></p>
+                              <?php endif; ?>
+                              <span class="hj-tb-card__button">Learn More</span>
+                            </div>
+                          </a>
+                        </article>
+                      <?php endforeach; ?>
+                    </div>
+                  <?php endif; ?>
                 <?php else: ?>
                   <div class="hj-tb-empty">No treatments found for this section.</div>
                 <?php endif; ?>

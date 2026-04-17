@@ -1,7 +1,9 @@
 (function () {
   function setActiveDot(dots, index) {
     dots.forEach(function (dot, idx) {
-      dot.classList.toggle('is-active', idx === index);
+      var isActive = idx === index;
+      dot.classList.toggle('is-active', isActive);
+      dot.setAttribute('aria-pressed', isActive ? 'true' : 'false');
     });
   }
 

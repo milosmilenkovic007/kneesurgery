@@ -1,11 +1,11 @@
 {
   "key": "layout_hj_reviews_trustindex",
   "name": "reviews_trustindex",
-  "label": "Reviews – Trustindex",
+  "label": "Reviews – Google",
   "display": "block",
   "sub_fields": [
     { "key": "field_hj_rt_subheading", "label": "Subheading", "name": "subheading", "type": "text", "default_value": "TESTIMONIALS", "placeholder": "TESTIMONIALS" },
     { "key": "field_hj_rt_title", "label": "Heading", "name": "title", "type": "text", "default_value": "Reviews", "placeholder": "Reviews" },
-    { "key": "field_hj_rt_shortcode", "label": "Shortcode", "name": "shortcode", "type": "text", "default_value": "[trustindex data-widget-id=c964936299834096b346c4f654e]" }
+    { "key": "field_hj_rt_review_limit", "label": "Reviews to Show", "name": "review_limit", "type": "number", "default_value": 3, "min": 1, "max": 5, "step": 1 }
   ]
 }

@@ -58,43 +58,88 @@
 }
 
 .hj-cta-form-block.is-rating .hj-cfb-media{display:flex;flex-direction:column;justify-content:center}
-.hj-cfb-trustindex{width:100%;max-width:100%;min-width:0;overflow:hidden;border-radius:18px}
-.hj-cfb-trustindex > *{max-width:100%}
-.hj-cfb-trustindex .ti-widget,
-.hj-cfb-trustindex .ti-widget-container,
-.hj-cfb-trustindex .ti-reviews-container,
-.hj-cfb-trustindex .ti-reviews-container-wrapper{
-  width:100% !important;
-  max-width:100% !important;
-  min-width:0 !important;
+.hj-cfb-google-reviews{
+  width:100%;
+  max-width:100%;
+  min-width:0;
+  display:flex;
+  flex-direction:column;
+  gap:20px;
 }
 
-.hj-cfb-trustindex .ti-widget.ti-goog,
-.hj-cfb-trustindex .ti-widget.ti-goog .ti-widget-container{
-  margin:0 !important;
-  background:#ffffff !important;
+.hj-cfb-rating-summary{
+  width:100%;
 }
 
-.hj-cfb-trustindex .ti-widget.ti-goog{
-  overflow:hidden !important;
+.hj-cfb-rating-summary__link{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  padding:22px 24px;
+  border:1px solid var(--cfb-card-border);
+  border-radius:18px;
+  background:var(--cfb-card-bg);
+  box-shadow:0 18px 34px rgba(35, 43, 127, .08);
+  color:var(--cfb-text);
+  text-decoration:none;
 }
 
-.hj-cfb-trustindex .ti-widget.ti-goog .ti-reviews-container-wrapper{
-  margin:0 !important;
-  padding:0 !important;
+.hj-cfb-rating-summary__badge{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:fit-content;
+  padding:7px 12px;
+  border-radius:999px;
+  background:rgba(77, 85, 221, .12);
+  color:var(--cfb-accent);
+  font-family:'Manrope', sans-serif;
+  font-size:12px;
+  line-height:1;
+  font-weight:700;
+  letter-spacing:.08em;
+  text-transform:uppercase;
 }
 
-.hj-cfb-trustindex .ti-widget.ti-goog [class*="ti-col-"] .ti-review-item,
-.hj-cfb-trustindex .ti-widget.ti-goog .ti-review-item{
-  flex:0 0 100% !important;
-  max-width:100% !important;
-  padding:0 !important;
+.hj-cfb-rating-summary__row{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  flex-wrap:wrap;
 }
 
-.hj-cfb-trustindex .ti-widget.ti-goog .ti-review-item > .ti-inner{
-  border-radius:18px !important;
+.hj-cfb-rating-summary__score{
+  color:var(--cfb-text);
+  font-family:'Source Serif 4';
+  font-size:42px;
+  line-height:1;
+  font-weight:600;
 }
-.hj-cta-form-block.is-rating-trustindex .hj-cfb-media{align-items:stretch}
+
+.hj-cfb-rating-summary__stars{
+  color:#ffbc35;
+  font-size:18px;
+  line-height:1;
+  letter-spacing:4px;
+}
+
+.hj-cfb-rating-summary__place{
+  color:var(--cfb-text);
+  font-family:'Manrope', sans-serif;
+  font-size:16px;
+  line-height:1.5;
+  font-weight:600;
+}
+
+.hj-cfb-rating-summary__meta{
+  color:var(--cfb-muted);
+  font-family:'Manrope', sans-serif;
+  font-size:14px;
+  line-height:1.5;
+  font-weight:500;
+}
+
+.hj-cta-form-block.is-rating-google .hj-cfb-media{align-items:stretch}
 
 .hj-cta-form-block.is-rating-style-transparent::before{
   background:transparent;
@@ -104,18 +149,20 @@
   padding:20px 0;
 }
 
-.hj-cta-form-block.is-rating-style-transparent .hj-cfb-trustindex{
-  border-radius:0;
-  background:transparent;
-  box-shadow:none;
-}
-
 .hj-cta-form-block.is-rating-style-transparent .hj-cfb-content{
   max-width:580px;
 }
 
 .hj-cta-form-block.is-rating-style-transparent .hj-cfb-subheading{
   opacity:.84;
+}
+
+.hj-cta-form-block.is-rating-style-transparent .hj-cfb-rating-summary__link,
+.hj-cta-form-block.is-rating-style-transparent .hj-cfb-rating-card,
+.hj-cta-form-block.is-rating-style-transparent .hj-cfb-rating-arrow{
+  background:transparent !important;
+  box-shadow:none;
+  backdrop-filter:none;
 }
 
 .hj-cfb-rating-slider{
@@ -193,7 +240,10 @@
   font-size:17px !important;
   line-height:1.4 !important;
   font-weight:500 !important;
+  text-decoration:none;
 }
+
+.hj-cfb-rating-name:hover{color:var(--cfb-text) !important}
 
 .hj-cfb-rating-role{
   color:var(--cfb-muted) !important;

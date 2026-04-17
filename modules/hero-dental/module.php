@@ -18,48 +18,32 @@ $rating_stars_text = $rating_stars > 0 ? str_repeat('★', (int) round($rating_s
 $rating_label = trim((string) ($rating['label'] ?? ''));
 $rating_reviews_count = (int) ($rating['reviews_count'] ?? 0);
 $rating_reviews_url = trim((string) ($rating['reviews_url'] ?? ''));
-$rating_trustindex_shortcode = trim((string) ($rating['trustindex_shortcode'] ?? ''));
-$rating_has_dynamic_source = false;
 
-if ($rating_mode === 'dynamic' && $rating_trustindex_shortcode !== '') {
-  global $trustindex_pm_google;
+if ($rating_mode === 'dynamic' && function_exists('hj_get_google_reviews_summary')) {
+  $google_reviews_summary = hj_get_google_reviews_summary();
 
-  if (is_object($trustindex_pm_google) && method_exists($trustindex_pm_google, 'getPageDetails')) {
-    $page_details = $trustindex_pm_google->getPageDetails();
-
-    if (is_array($page_details) && !empty($page_details)) {
-      $dynamic_rating_score = (float) ($page_details['rating_score'] ?? 0);
-      $dynamic_reviews_count = (int) ($page_details['rating_number'] ?? 0);
-      $dynamic_page_id = trim((string) ($page_details['id'] ?? ''));
-
-      if ($dynamic_rating_score > 0) {
-        $rating_stars = max(0, min(5, $dynamic_rating_score));
-        $rating_stars_text = str_repeat('★', (int) round($dynamic_rating_score));
-
-        $formatted_rating = floor($dynamic_rating_score) === $dynamic_rating_score
-          ? number_format($dynamic_rating_score, 0)
-          : number_format($dynamic_rating_score, 1);
-
-        $rating_label = $formatted_rating . ' stars';
-      }
-
-      if ($dynamic_reviews_count > 0) {
-        $rating_reviews_count = $dynamic_reviews_count;
-      }
-
-      if ($dynamic_page_id !== '') {
-        $rating_reviews_url = preg_match('/&c=\w+&v=\d+/', $dynamic_page_id)
-          ? 'https://customerreviews.google.com/v/merchant?q=' . rawurlencode($dynamic_page_id)
-          : 'https://admin.trustindex.io/api/googleReview?place-id=' . rawurlencode($dynamic_page_id);
-      }
-    }
+  if (!empty($google_reviews_summary['rating'])) {
+    $rating_stars = max(0, min(5, (float) $google_reviews_summary['rating']));
   }
 
-  $rating_has_dynamic_source = $rating_label === '' || $rating_reviews_count <= 0;
+  if (!empty($google_reviews_summary['stars_text'])) {
+    $rating_stars_text = trim((string) $google_reviews_summary['stars_text']);
+  }
+
+  if (!empty($google_reviews_summary['rating_label'])) {
+    $rating_label = trim((string) $google_reviews_summary['rating_label']);
+  }
+
+  if (!empty($google_reviews_summary['reviews_count'])) {
+    $rating_reviews_count = (int) $google_reviews_summary['reviews_count'];
+  }
+
+  if (!empty($google_reviews_summary['reviews_url'])) {
+    $rating_reviews_url = trim((string) $google_reviews_summary['reviews_url']);
+  }
 }
 
-$rating_has_manual_content = $rating_stars_text !== '' || $rating_label !== '' || $rating_reviews_count > 0;
-$rating_has_content = $rating_has_dynamic_source || $rating_has_manual_content;
+$rating_has_content = $rating_stars_text !== '' || $rating_label !== '' || $rating_reviews_count > 0;
 
 $split_title = static function ($value) {
     $value = trim((string) $value);
@@ -164,7 +148,7 @@ list($t1, $t2) = $split_title($title);
       <?php endif; ?>
 
       <?php if ($rating_has_content): ?>
-        <div class="hj-hd-rating hj-hd-rating--under-image<?php echo $rating_has_dynamic_source ? ' hj-hd-rating--dynamic' : ''; ?>" data-rating-mode="<?php echo esc_attr($rating_mode); ?>">
+        <div class="hj-hd-rating hj-hd-rating--under-image" data-rating-mode="<?php echo esc_attr($rating_mode); ?>">
           <?php if ($rating_reviews_url !== ''): ?>
             <a class="row hj-hd-rating-link" href="<?php echo esc_url($rating_reviews_url); ?>" target="_blank" rel="noopener noreferrer">
               <span class="stars" aria-hidden="true"><?php echo esc_html($rating_stars_text); ?></span>
@@ -178,12 +162,6 @@ list($t1, $t2) = $split_title($title);
               <span class="label"<?php echo $rating_label === '' ? ' hidden' : ''; ?>><?php echo esc_html('(' . $rating_label . ')'); ?></span>
               <span class="meta"<?php echo $rating_reviews_count <= 0 ? ' hidden' : ''; ?>>Based on</span>
               <span class="hj-hd-rating-reviews"<?php echo $rating_reviews_count <= 0 ? ' hidden' : ''; ?>><?php echo $rating_reviews_count > 0 ? esc_html(sprintf(_n('%d review', '%d reviews', $rating_reviews_count, 'hello-elementor-child'), $rating_reviews_count)) : ''; ?></span>
-            </div>
-          <?php endif; ?>
-
-          <?php if ($rating_has_dynamic_source): ?>
-            <div class="hj-hd-rating-source" aria-hidden="true">
-              <?php echo apply_filters('the_content', $rating_trustindex_shortcode); ?>
             </div>
           <?php endif; ?>
         </div>

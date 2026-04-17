@@ -1,0 +1,110 @@
+body.toplevel_page_theme-settings .acf-postbox {
+  border-color: #d7dde7;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 10px 24px rgba(17, 24, 39, 0.06);
+}
+
+body.toplevel_page_theme-settings .acf-postbox > .inside {
+  margin: 0;
+  padding: 0;
+}
+
+body.toplevel_page_theme-settings .acf-fields > .acf-tab-wrap .acf-tab-group {
+  padding: 12px 12px 0;
+  background: #f7f9fc;
+  border-bottom: 1px solid #e4e9f1;
+}
+
+body.toplevel_page_theme-settings .acf-fields > .acf-tab-wrap .acf-tab-group li a {
+  padding: 11px 16px;
+  border-radius: 10px 10px 0 0;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+body.toplevel_page_theme-settings .acf-fields > .acf-tab-wrap .acf-tab-group li.active a {
+  background: #ffffff;
+}
+
+body.toplevel_page_theme-settings .acf-fields.-top > .acf-field {
+  padding: 14px 16px;
+}
+
+body.toplevel_page_theme-settings .acf-field .acf-label {
+  margin-bottom: 6px;
+}
+
+body.toplevel_page_theme-settings .acf-field .acf-label label {
+  font-size: 14px;
+  line-height: 1.35;
+  font-weight: 600;
+}
+
+body.toplevel_page_theme-settings .acf-field .acf-label p,
+body.toplevel_page_theme-settings .acf-field .description {
+  margin: 4px 0 0;
+  color: #667085;
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+body.toplevel_page_theme-settings .acf-field input[type="text"],
+body.toplevel_page_theme-settings .acf-field input[type="url"],
+body.toplevel_page_theme-settings .acf-field input[type="number"],
+body.toplevel_page_theme-settings .acf-field select,
+body.toplevel_page_theme-settings .acf-field textarea {
+  min-height: 38px;
+  padding: 7px 11px;
+  border-radius: 8px;
+}
+
+body.toplevel_page_theme-settings .acf-field textarea {
+  min-height: 88px;
+}
+
+body.toplevel_page_theme-settings .acf-field[data-key="field_google_reviews_message"] {
+  padding: 16px 18px;
+  background: linear-gradient(180deg, #f8fbff 0%, #f4f7fb 100%);
+}
+
+body.toplevel_page_theme-settings .acf-field[data-key="field_google_reviews_message"] .acf-label {
+  margin-bottom: 4px;
+}
+
+body.toplevel_page_theme-settings .acf-field[data-key="field_google_reviews_message"] .acf-label label {
+  font-size: 15px;
+}
+
+body.toplevel_page_theme-settings .acf-field[data-key="field_google_reviews_message"] .acf-input p {
+  max-width: 920px;
+  margin: 0;
+  color: #475467;
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+body.toplevel_page_theme-settings .acf-field[data-key^="field_google_reviews_"]:not([data-key="field_google_reviews_message"]) {
+  padding-top: 12px;
+  padding-bottom: 12px;
+}
+
+body.toplevel_page_theme-settings #submitdiv .inside {
+  padding: 12px;
+}
+
+body.toplevel_page_theme-settings #submitdiv #major-publishing-actions {
+  padding: 10px 12px;
+}
+
+body.toplevel_page_theme-settings #submitdiv #publishing-action .button {
+  min-height: 38px;
+  padding: 0 18px;
+  border-radius: 8px;
+}
+
+@media (max-width: 1280px) {
+  body.toplevel_page_theme-settings .acf-fields.-top > .acf-field {
+    padding: 12px 14px;
+  }
+}
