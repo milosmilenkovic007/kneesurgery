@@ -1,6 +1,8 @@
 <?php
 $media_type = get_sub_field('media_type') ?: 'animation';
 $image = get_sub_field('image');
+$rating_source = trim((string) get_sub_field('rating_source'));
+$rating_trustindex_shortcode = trim((string) get_sub_field('rating_trustindex_shortcode'));
 $rating_style = trim((string) get_sub_field('rating_style')) ?: 'default';
 $heading = trim((string) get_sub_field('heading'));
 $heading_accent = trim((string) get_sub_field('heading_accent'));
@@ -55,10 +57,17 @@ $button_bg_color_clean = $sanitize_color($button_bg_color, '#4951d5');
 $button_text_color_clean = $sanitize_color($button_text_color, '#ffffff');
 $terms_link_color_clean = $sanitize_color($terms_link_color, '#4951d5');
 
-$google_reviews_data = $media_type === 'rating' && function_exists('hj_get_google_reviews_data')
+if (!in_array($rating_source, ['trustindex', 'google'], true)) {
+  $rating_source = 'trustindex';
+}
+
+$google_reviews_data = $media_type === 'rating' && $rating_source === 'google' && function_exists('hj_get_google_reviews_data')
   ? hj_get_google_reviews_data()
   : null;
 $use_google_reviews = $media_type === 'rating' && !empty($google_reviews_data['has_content']);
+$use_trustindex_reviews = $media_type === 'rating'
+  && $rating_trustindex_shortcode !== ''
+  && ($rating_source === 'trustindex' || !$use_google_reviews);
 $media_is_decorative = $media_type === 'animation' || ($media_type === 'image' && $image_url !== '');
 
 $hex = ltrim($bg_color_clean, '#');
@@ -79,7 +88,7 @@ $style_vars .= '--cfb-button-bg:' . $button_bg_color_clean . ';';
 $style_vars .= '--cfb-button-text:' . $button_text_color_clean . ';';
 $style_vars .= '--cfb-link:' . $terms_link_color_clean . ';';
 ?>
-<section class="hj-cta-form-block<?php echo $is_dark ? ' is-dark' : ''; ?><?php echo $media_type === 'rating' ? ' is-rating' : ($media_type === 'animation' ? ' is-animation' : ' is-image'); ?><?php echo $use_google_reviews ? ' is-rating-google' : ''; ?><?php echo $media_type === 'rating' ? ' is-rating-style-' . esc_attr(sanitize_html_class($rating_style)) : ''; ?>" id="<?php echo esc_attr($section_id); ?>" style="<?php echo esc_attr($style_vars); ?>" aria-label="CTA">
+<section class="hj-cta-form-block<?php echo $is_dark ? ' is-dark' : ''; ?><?php echo $media_type === 'rating' ? ' is-rating' : ($media_type === 'animation' ? ' is-animation' : ' is-image'); ?><?php echo $use_trustindex_reviews ? ' is-rating-trustindex' : ''; ?><?php echo $use_google_reviews ? ' is-rating-google' : ''; ?><?php echo $media_type === 'rating' ? ' is-rating-style-' . esc_attr(sanitize_html_class($rating_style)) : ''; ?>" id="<?php echo esc_attr($section_id); ?>" style="<?php echo esc_attr($style_vars); ?>" aria-label="CTA">
   <div class="hj-cfb-wrap">
     <div class="hj-cfb-grid">
       <div class="hj-cfb-media"<?php echo $media_is_decorative ? ' aria-hidden="true"' : ''; ?>>
@@ -89,7 +98,7 @@ $style_vars .= '--cfb-link:' . $terms_link_color_clean . ';';
               <?php $summary_tag = !empty($google_reviews_data['reviews_url']) ? 'a' : 'div'; ?>
               <div class="hj-cfb-rating-summary">
                 <<?php echo $summary_tag; ?> class="hj-cfb-rating-summary__link"<?php echo $summary_tag === 'a' ? ' href="' . esc_url($google_reviews_data['reviews_url']) . '" target="_blank" rel="noopener noreferrer"' : ''; ?>>
-                  <span class="hj-cfb-rating-summary__badge">Google Reviews</span>
+                  <span class="hj-cfb-rating-summary__badge"><?php esc_html_e('Google Reviews', 'hello-elementor-child'); ?></span>
 
                   <div class="hj-cfb-rating-summary__row">
                     <?php if (!empty($google_reviews_data['rating'])): ?>
@@ -117,43 +126,39 @@ $style_vars .= '--cfb-link:' . $terms_link_color_clean . ';';
                 <div class="hj-cfb-rating-track">
                   <?php foreach ($google_reviews_data['reviews'] as $index => $review): ?>
                     <?php
+                    $author_name = trim((string) ($review['author_name'] ?? ''));
+                    $author_avatar = trim((string) ($review['author_avatar'] ?? ''));
+                    $author_initials = trim((string) ($review['author_initials'] ?? ''));
+                    $review_meta = trim((string) ($review['relative_time'] ?? ''));
                     $review_text = trim((string) ($review['text'] ?? ''));
-                    $review_meta = array_filter([
-                      trim((string) ($review['relative_time'] ?? '')),
-                      !empty($google_reviews_data['place_name']) ? trim((string) $google_reviews_data['place_name']) : 'Google Reviews',
-                    ]);
+                    $review_text = $review_text !== '' ? wp_trim_words($review_text, 40, '...') : '';
                     ?>
                     <article class="hj-cfb-rating-card<?php echo $index === 0 ? ' is-active' : ''; ?>" data-cfb-slide>
                       <div class="hj-cfb-rating-head">
                         <div class="hj-cfb-rating-person">
-                          <span class="hj-cfb-rating-avatar">
-                            <?php if (!empty($review['author_avatar'])): ?>
-                              <img src="<?php echo esc_url($review['author_avatar']); ?>" alt="<?php echo esc_attr($review['author_name'] ?? ''); ?>" loading="lazy" />
+                          <div class="hj-cfb-rating-avatar" aria-hidden="true">
+                            <?php if ($author_avatar !== ''): ?>
+                              <img src="<?php echo esc_url($author_avatar); ?>" alt="" loading="lazy" decoding="async">
                             <?php else: ?>
-                              <span class="hj-cfb-rating-avatar__fallback"><?php echo esc_html($review['author_initials'] ?? 'G'); ?></span>
+                              <span class="hj-cfb-rating-avatar__fallback"><?php echo esc_html($author_initials !== '' ? $author_initials : 'G'); ?></span>
                             <?php endif; ?>
-                          </span>
+                          </div>
 
                           <div class="hj-cfb-rating-meta">
-                            <?php if (!empty($review['author_url'])): ?>
-                              <a class="hj-cfb-rating-name" href="<?php echo esc_url($review['author_url']); ?>" target="_blank" rel="noopener noreferrer"><?php echo esc_html($review['author_name'] ?? ''); ?></a>
-                            <?php else: ?>
-                              <span class="hj-cfb-rating-name"><?php echo esc_html($review['author_name'] ?? ''); ?></span>
-                            <?php endif; ?>
-
-                            <?php if (!empty($review_meta)): ?>
-                              <span class="hj-cfb-rating-role"><?php echo esc_html(implode(' • ', $review_meta)); ?></span>
+                            <span class="hj-cfb-rating-name"><?php echo esc_html($author_name !== '' ? $author_name : __('Google user', 'hello-elementor-child')); ?></span>
+                            <?php if ($review_meta !== ''): ?>
+                              <span class="hj-cfb-rating-role"><?php echo esc_html($review_meta); ?></span>
                             <?php endif; ?>
                           </div>
                         </div>
 
                         <?php if (!empty($review['stars_text'])): ?>
-                          <span class="hj-cfb-rating-stars" aria-hidden="true"><?php echo esc_html($review['stars_text']); ?></span>
+                          <span class="hj-cfb-rating-stars" aria-hidden="true"><?php echo esc_html((string) $review['stars_text']); ?></span>
                         <?php endif; ?>
                       </div>
 
                       <?php if ($review_text !== ''): ?>
-                        <div class="hj-cfb-rating-copy"><?php echo esc_html(wp_trim_words($review_text, 34, '...')); ?></div>
+                        <div class="hj-cfb-rating-copy"><?php echo esc_html($review_text); ?></div>
                       <?php endif; ?>
                     </article>
                   <?php endforeach; ?>
@@ -163,18 +168,26 @@ $style_vars .= '--cfb-link:' . $terms_link_color_clean . ';';
                   <div class="hj-cfb-rating-nav">
                     <div class="hj-cfb-rating-dots">
                       <?php foreach ($google_reviews_data['reviews'] as $index => $review): ?>
-                        <button class="hj-cfb-rating-dot<?php echo $index === 0 ? ' is-active' : ''; ?>" type="button" data-cfb-dot aria-label="Go to review <?php echo esc_attr((string) ($index + 1)); ?>" aria-pressed="<?php echo $index === 0 ? 'true' : 'false'; ?>"></button>
+                        <button type="button" class="hj-cfb-rating-dot<?php echo $index === 0 ? ' is-active' : ''; ?>" data-cfb-dot aria-label="<?php echo esc_attr(sprintf(__('Show review %d', 'hello-elementor-child'), $index + 1)); ?>"></button>
                       <?php endforeach; ?>
                     </div>
 
                     <div class="hj-cfb-rating-arrows">
-                      <button class="hj-cfb-rating-arrow" type="button" data-cfb-prev aria-label="Previous review"><span aria-hidden="true">←</span></button>
-                      <button class="hj-cfb-rating-arrow" type="button" data-cfb-next aria-label="Next review"><span aria-hidden="true">→</span></button>
+                      <button type="button" class="hj-cfb-rating-arrow" data-cfb-prev aria-label="<?php esc_attr_e('Previous review', 'hello-elementor-child'); ?>">
+                        <span aria-hidden="true">&larr;</span>
+                      </button>
+                      <button type="button" class="hj-cfb-rating-arrow" data-cfb-next aria-label="<?php esc_attr_e('Next review', 'hello-elementor-child'); ?>">
+                        <span aria-hidden="true">&rarr;</span>
+                      </button>
                     </div>
                   </div>
                 <?php endif; ?>
               </div>
             <?php endif; ?>
+          </div>
+        <?php elseif ($use_trustindex_reviews): ?>
+          <div class="hj-cfb-trustindex">
+            <?php echo do_shortcode($rating_trustindex_shortcode); ?>
           </div>
         <?php elseif ($media_type === 'animation'): ?>
           <div class="hj-cfb-animation-wrap">

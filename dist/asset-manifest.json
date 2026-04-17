@@ -37,7 +37,7 @@
   },
   "assets/css/modules/faq.css": {
     "path": "assets/css/modules/faq.css",
-    "version": "b9c9d5a9aed7"
+    "version": "d2f907c3c344"
   },
   "assets/css/modules/hero-about.css": {
     "path": "assets/css/modules/hero-about.css",
@@ -53,7 +53,7 @@
   },
   "assets/css/modules/image-faq.css": {
     "path": "assets/css/modules/image-faq.css",
-    "version": "c997c67b3400"
+    "version": "19785aca39ed"
   },
   "assets/css/modules/logo-slider.css": {
     "path": "assets/css/modules/logo-slider.css",
@@ -89,7 +89,7 @@
   },
   "assets/css/modules/reviews-trustindex.css": {
     "path": "assets/css/modules/reviews-trustindex.css",
-    "version": "c05efedb06da"
+    "version": "94b82bad6f22"
   },
   "assets/css/modules/single-package-cardbox.css": {
     "path": "assets/css/modules/single-package-cardbox.css",
@@ -121,7 +121,7 @@
   },
   "assets/css/page-faq.css": {
     "path": "assets/css/page-faq.css",
-    "version": "e2126ee6e660"
+    "version": "1f105aa0e989"
   },
   "assets/css/page-thank-you.css": {
     "path": "assets/css/page-thank-you.css",
@@ -158,6 +158,10 @@
   "assets/js/modules/cta-form-block.js": {
     "path": "assets/js/modules/cta-form-block.js",
     "version": "fcd0bef74443"
+  },
+  "assets/js/modules/faq.js": {
+    "path": "assets/js/modules/faq.js",
+    "version": "8542f2265cd0"
   },
   "assets/js/modules/hero-dental.js": {
     "path": "assets/js/modules/hero-dental.js",

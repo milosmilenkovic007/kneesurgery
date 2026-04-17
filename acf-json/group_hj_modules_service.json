@@ -1083,6 +1083,49 @@
                             ]
                         },
                         {
+                            "key": "field_hj_cfb_rating_source",
+                            "label": "Rating Source",
+                            "name": "rating_source",
+                            "type": "button_group",
+                            "choices": {
+                                "trustindex": "Trustindex",
+                                "google": "Direct Google Reviews"
+                            },
+                            "default_value": "trustindex",
+                            "layout": "horizontal",
+                            "conditional_logic": [
+                                [
+                                    {
+                                        "field": "field_hj_cfb_media_type",
+                                        "operator": "==",
+                                        "value": "rating"
+                                    }
+                                ]
+                            ]
+                        },
+                        {
+                            "key": "field_hj_cfb_rating_trustindex_shortcode",
+                            "label": "Trustindex Shortcode",
+                            "name": "rating_trustindex_shortcode",
+                            "type": "text",
+                            "default_value": "[trustindex data-widget-id=c964936299834096b346c4f654e]",
+                            "instructions": "Used when Left Media Type is set to Rating and Rating Source is Trustindex.",
+                            "conditional_logic": [
+                                [
+                                    {
+                                        "field": "field_hj_cfb_media_type",
+                                        "operator": "==",
+                                        "value": "rating"
+                                    },
+                                    {
+                                        "field": "field_hj_cfb_rating_source",
+                                        "operator": "==",
+                                        "value": "trustindex"
+                                    }
+                                ]
+                            ]
+                        },
+                        {
                             "key": "field_hj_cfb_rating_google_notice",
                             "label": "Google Reviews",
                             "name": "",
@@ -1096,6 +1139,11 @@
                                         "field": "field_hj_cfb_media_type",
                                         "operator": "==",
                                         "value": "rating"
+                                    },
+                                    {
+                                        "field": "field_hj_cfb_rating_source",
+                                        "operator": "==",
+                                        "value": "google"
                                     }
                                 ]
                             ]
@@ -1289,6 +1337,13 @@
                     "display": "block",
                     "sub_fields": [
                         {
+                            "key": "field_hj_faq_content_tab",
+                            "label": "Content",
+                            "name": "",
+                            "type": "tab",
+                            "placement": "top"
+                        },
+                        {
                             "key": "field_hj_faq_title",
                             "label": "Title",
                             "name": "title",
@@ -1296,13 +1351,122 @@
                             "default_value": "Frequently Asked Questions"
                         },
                         {
+                            "key": "field_hj_faq_source",
+                            "label": "Source",
+                            "name": "source",
+                            "type": "button_group",
+                            "choices": {
+                                "all": "All FAQs",
+                                "category": "Category",
+                                "manual": "Manual Selection",
+                                "legacy": "Legacy Repeater"
+                            },
+                            "default_value": "category",
+                            "layout": "horizontal"
+                        },
+                        {
+                            "key": "field_hj_faq_category",
+                            "label": "FAQ Categories",
+                            "name": "faq_category",
+                            "type": "taxonomy",
+                            "taxonomy": "faq_category",
+                            "field_type": "multi_select",
+                            "return_format": "id",
+                            "add_term": 0,
+                            "save_terms": 0,
+                            "load_terms": 0,
+                            "conditional_logic": [
+                                [
+                                    {
+                                        "field": "field_hj_faq_source",
+                                        "operator": "==",
+                                        "value": "category"
+                                    }
+                                ]
+                            ],
+                            "wrapper": {
+                                "width": "50"
+                            }
+                        },
+                        {
+                            "key": "field_hj_faq_selected",
+                            "label": "Selected FAQs",
+                            "name": "selected_faqs",
+                            "type": "relationship",
+                            "post_type": [
+                                "faq"
+                            ],
+                            "filters": [
+                                "search",
+                                "taxonomy"
+                            ],
+                            "return_format": "id",
+                            "elements": [],
+                            "conditional_logic": [
+                                [
+                                    {
+                                        "field": "field_hj_faq_source",
+                                        "operator": "==",
+                                        "value": "manual"
+                                    }
+                                ]
+                            ],
+                            "wrapper": {
+                                "width": "100"
+                            }
+                        },
+                        {
+                            "key": "field_hj_faq_limit",
+                            "label": "Items Limit",
+                            "name": "items_limit",
+                            "type": "number",
+                            "default_value": 10,
+                            "min": 0,
+                            "step": 1,
+                            "instructions": "Leave 0 to show all FAQ items.",
+                            "wrapper": {
+                                "width": "25"
+                            }
+                        },
+                        {
+                            "key": "field_hj_faq_read_all_text",
+                            "label": "Read More Button Text",
+                            "name": "read_all_text",
+                            "type": "text",
+                            "default_value": "Read more",
+                            "placeholder": "Read more",
+                            "wrapper": {
+                                "width": "25"
+                            }
+                        },
+                        {
+                            "key": "field_hj_faq_read_all_url",
+                            "label": "Read More URL",
+                            "name": "read_all_url",
+                            "type": "url",
+                            "instructions": "Leave empty to use the main FAQ page URL automatically. The button always opens in a new tab.",
+                            "wrapper": {
+                                "width": "50"
+                            }
+                        },
+                        {
                             "key": "field_hj_faq_items",
-                            "label": "Items",
+                            "label": "Legacy Items",
                             "name": "items",
                             "type": "repeater",
                             "button_label": "Add FAQ",
                             "layout": "row",
-                            "collapsed": "field_hj_faq_question",
+                            "collapsed": "field_hj_faq_legacy_question",
+                            "instructions": "Shown only when Source is set to Legacy Repeater.",
+                            "conditional_logic": [
+                                [
+                                    {
+                                        "field": "field_hj_faq_source",
+                                        "operator": "==",
+                                        "value": "legacy"
+                                    }
+                                ]
+                            ],
                             "default_value": [
                                 {
                                     "question": "How long will I need to stay in Turkey for knee replacement surgery?",
@@ -1331,14 +1495,14 @@
                             ],
                             "sub_fields": [
                                 {
-                                    "key": "field_hj_faq_question",
+                                    "key": "field_hj_faq_legacy_question",
                                     "label": "Question",
                                     "name": "question",
                                     "type": "text",
                                     "required": 1
                                 },
                                 {
-                                    "key": "field_hj_faq_answer",
+                                    "key": "field_hj_faq_legacy_answer",
                                     "label": "Answer",
                                     "name": "answer",
                                     "type": "textarea",
@@ -1913,6 +2077,13 @@
                     "display": "block",
                     "sub_fields": [
                         {
+                            "key": "field_hj_ifaq_content_tab",
+                            "label": "Content",
+                            "name": "",
+                            "type": "tab",
+                            "placement": "top"
+                        },
+                        {
                             "key": "field_hj_ifaq_eyebrow",
                             "label": "Eyebrow",
                             "name": "eyebrow",
@@ -1944,13 +2115,122 @@
                             "required": 1
                         },
                         {
+                            "key": "field_hj_ifaq_source",
+                            "label": "Source",
+                            "name": "source",
+                            "type": "button_group",
+                            "choices": {
+                                "all": "All FAQs",
+                                "category": "Category",
+                                "manual": "Manual Selection",
+                                "legacy": "Legacy Repeater"
+                            },
+                            "default_value": "category",
+                            "layout": "horizontal"
+                        },
+                        {
+                            "key": "field_hj_ifaq_category",
+                            "label": "FAQ Categories",
+                            "name": "faq_category",
+                            "type": "taxonomy",
+                            "taxonomy": "faq_category",
+                            "field_type": "multi_select",
+                            "return_format": "id",
+                            "add_term": 0,
+                            "save_terms": 0,
+                            "load_terms": 0,
+                            "conditional_logic": [
+                                [
+                                    {
+                                        "field": "field_hj_ifaq_source",
+                                        "operator": "==",
+                                        "value": "category"
+                                    }
+                                ]
+                            ],
+                            "wrapper": {
+                                "width": "50"
+                            }
+                        },
+                        {
+                            "key": "field_hj_ifaq_selected",
+                            "label": "Selected FAQs",
+                            "name": "selected_faqs",
+                            "type": "relationship",
+                            "post_type": [
+                                "faq"
+                            ],
+                            "filters": [
+                                "search",
+                                "taxonomy"
+                            ],
+                            "return_format": "id",
+                            "elements": [],
+                            "conditional_logic": [
+                                [
+                                    {
+                                        "field": "field_hj_ifaq_source",
+                                        "operator": "==",
+                                        "value": "manual"
+                                    }
+                                ]
+                            ],
+                            "wrapper": {
+                                "width": "100"
+                            }
+                        },
+                        {
+                            "key": "field_hj_ifaq_limit",
+                            "label": "Items Limit",
+                            "name": "items_limit",
+                            "type": "number",
+                            "default_value": 10,
+                            "min": 0,
+                            "step": 1,
+                            "instructions": "Leave 0 to show all FAQ items.",
+                            "wrapper": {
+                                "width": "25"
+                            }
+                        },
+                        {
+                            "key": "field_hj_ifaq_read_all_text",
+                            "label": "Read More Button Text",
+                            "name": "read_all_text",
+                            "type": "text",
+                            "default_value": "Read more",
+                            "placeholder": "Read more",
+                            "wrapper": {
+                                "width": "25"
+                            }
+                        },
+                        {
+                            "key": "field_hj_ifaq_read_all_url",
+                            "label": "Read More URL",
+                            "name": "read_all_url",
+                            "type": "url",
+                            "instructions": "Leave empty to use the main FAQ page URL automatically. The button always opens in a new tab.",
+                            "wrapper": {
+                                "width": "50"
+                            }
+                        },
+                        {
                             "key": "field_hj_ifaq_items",
-                            "label": "Items",
+                            "label": "Legacy Items",
                             "name": "items",
                             "type": "repeater",
                             "button_label": "Add FAQ",
                             "layout": "row",
+                            "instructions": "Shown only when Source is set to Legacy Repeater.",
                             "collapsed": "field_hj_ifaq_question",
+                            "conditional_logic": [
+                                [
+                                    {
+                                        "field": "field_hj_ifaq_source",
+                                        "operator": "==",
+                                        "value": "legacy"
+                                    }
+                                ]
+                            ],
                             "sub_fields": [
                                 {
                                     "key": "field_hj_ifaq_question",
@@ -2930,7 +3210,7 @@
                 "layout_hj_reviews_trustindex": {
                     "key": "layout_hj_reviews_trustindex",
                     "name": "reviews_trustindex",
-                    "label": "Reviews \u2013 Google",
+                    "label": "Reviews",
                     "display": "block",
                     "sub_fields": [
                         {
@@ -2950,6 +3230,52 @@
                             "placeholder": "Reviews"
                         },
                         {
+                            "key": "field_hj_rt_source",
+                            "label": "Source",
+                            "name": "source",
+                            "type": "button_group",
+                            "choices": {
+                                "trustindex": "Trustindex",
+                                "google": "Direct Google Reviews"
+                            },
+                            "default_value": "trustindex",
+                            "layout": "horizontal"
+                        },
+                        {
+                            "key": "field_hj_rt_shortcode",
+                            "label": "Trustindex Shortcode",
+                            "name": "shortcode",
+                            "type": "text",
+                            "default_value": "[trustindex data-widget-id=c964936299834096b346c4f654e]",
+                            "conditional_logic": [
+                                [
+                                    {
+                                        "field": "field_hj_rt_source",
+                                        "operator": "==",
+                                        "value": "trustindex"
+                                    }
+                                ]
+                            ]
+                        },
+                        {
+                            "key": "field_hj_rt_google_notice",
+                            "label": "Google Reviews",
+                            "name": "",
+                            "type": "message",
+                            "message": "Uses Theme Settings \u2192 Integrations \u2192 Google Reviews.",
+                            "new_lines": "wpautop",
+                            "esc_html": 0,
+                            "conditional_logic": [
+                                [
+                                    {
+                                        "field": "field_hj_rt_source",
+                                        "operator": "==",
+                                        "value": "google"
+                                    }
+                                ]
+                            ]
+                        },
+                        {
                             "key": "field_hj_rt_review_limit",
                             "label": "Reviews to Show",
                             "name": "review_limit",
@@ -2957,7 +3283,17 @@
                             "default_value": 3,
                             "min": 1,
                             "max": 5,
-                            "step": 1
+                            "step": 1,
+                            "instructions": "Used for Direct Google Reviews.",
+                            "conditional_logic": [
+                                [
+                                    {
+                                        "field": "field_hj_rt_source",
+                                        "operator": "==",
+                                        "value": "google"
+                                    }
+                                ]
+                            ]
                         }
                     ]
                 },
@@ -3914,5 +4250,5 @@
     "position": "acf_after_title",
     "style": "seamless",
     "active": true,
-    "modified": 1776355706
+    "modified": 1776424904
 }

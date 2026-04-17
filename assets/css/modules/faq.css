@@ -17,6 +17,11 @@
 .hj-faq-a p{margin:0 0 10px}
 .hj-faq-a p:last-child{margin-bottom:0}
 
+.hj-faq-actions{display:flex;justify-content:center;margin-top:24px}
+.hj-faq-read-all{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 24px;border:1px solid #d6dceb;border-radius:999px;background:#fff;color:var(--faq-text);font-size:14px;font-weight:700;letter-spacing:.02em;text-decoration:none;box-shadow:0 10px 24px rgba(15,23,42,.06);transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease}
+.hj-faq-read-all:hover{transform:translateY(-1px);border-color:#b8c3db;box-shadow:0 14px 30px rgba(15,23,42,.1)}
+.hj-faq-read-all:focus-visible{outline:2px solid #1f2937;outline-offset:3px}
+
 @media (max-width: 800px){
   .hj-faq .hj-faq-wrap{margin:40px auto}
   .hj-faq-q{font-size:16px}

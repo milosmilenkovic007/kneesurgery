@@ -4,18 +4,27 @@
   "label": "Image + FAQ",
   "display": "block",
   "sub_fields": [
+    { "key": "field_hj_ifaq_content_tab", "label": "Content", "name": "", "type": "tab", "placement": "top" },
     { "key": "field_hj_ifaq_eyebrow", "label": "Eyebrow", "name": "eyebrow", "type": "text", "default_value": "FAQs" },
     { "key": "field_hj_ifaq_title", "label": "Title", "name": "title", "type": "text", "required": 1, "default_value": "Frequently Asked Questions" },
     { "key": "field_hj_ifaq_subtitle", "label": "Subtitle", "name": "subtitle", "type": "text", "default_value": "Some of the questions our patients initially ask." },
     { "key": "field_hj_ifaq_image", "label": "Left Image", "name": "image", "type": "image", "return_format": "array", "preview_size": "medium", "required": 1 },
+    { "key": "field_hj_ifaq_source", "label": "Source", "name": "source", "type": "button_group", "choices": { "all": "All FAQs", "category": "Category", "manual": "Manual Selection", "legacy": "Legacy Repeater" }, "default_value": "category", "layout": "horizontal" },
+    { "key": "field_hj_ifaq_category", "label": "FAQ Categories", "name": "faq_category", "type": "taxonomy", "taxonomy": "faq_category", "field_type": "multi_select", "return_format": "id", "add_term": 0, "save_terms": 0, "load_terms": 0, "conditional_logic": [[{ "field": "field_hj_ifaq_source", "operator": "==", "value": "category" }]], "wrapper": { "width": "50" } },
+    { "key": "field_hj_ifaq_selected", "label": "Selected FAQs", "name": "selected_faqs", "type": "relationship", "post_type": ["faq"], "filters": ["search", "taxonomy"], "return_format": "id", "elements": [], "conditional_logic": [[{ "field": "field_hj_ifaq_source", "operator": "==", "value": "manual" }]], "wrapper": { "width": "100" } },
+    { "key": "field_hj_ifaq_limit", "label": "Items Limit", "name": "items_limit", "type": "number", "default_value": 10, "min": 0, "step": 1, "instructions": "Leave 0 to show all FAQ items.", "wrapper": { "width": "25" } },
+    { "key": "field_hj_ifaq_read_all_text", "label": "Read More Button Text", "name": "read_all_text", "type": "text", "default_value": "Read more", "placeholder": "Read more", "wrapper": { "width": "25" } },
+    { "key": "field_hj_ifaq_read_all_url", "label": "Read More URL", "name": "read_all_url", "type": "url", "instructions": "Leave empty to use the main FAQ page URL automatically. The button always opens in a new tab.", "wrapper": { "width": "50" } },
     {
       "key": "field_hj_ifaq_items",
-      "label": "Items",
+      "label": "Legacy Items",
       "name": "items",
       "type": "repeater",
       "button_label": "Add FAQ",
       "layout": "row",
+      "instructions": "Shown only when Source is set to Legacy Repeater.",
       "collapsed": "field_hj_ifaq_question",
+      "conditional_logic": [[{ "field": "field_hj_ifaq_source", "operator": "==", "value": "legacy" }]],
       "sub_fields": [
         { "key": "field_hj_ifaq_question", "label": "Question", "name": "question", "type": "text", "required": 1 },
         { "key": "field_hj_ifaq_answer", "label": "Answer", "name": "answer", "type": "textarea", "rows": 4 }

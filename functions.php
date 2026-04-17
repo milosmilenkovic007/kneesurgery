@@ -519,6 +519,7 @@ require_once get_stylesheet_directory() . '/inc/google-reviews.php';
 require_once get_stylesheet_directory() . '/inc/modules.php';
 require_once get_stylesheet_directory() . '/inc/articles-grid-ajax.php';
 require_once get_stylesheet_directory() . '/inc/doctors.php';
+require_once get_stylesheet_directory() . '/inc/faqs.php';
 require_once get_stylesheet_directory() . '/inc/testimonials.php';
 require_once get_stylesheet_directory() . '/inc/treatment-package-includes.php';
 require_once get_stylesheet_directory() . '/inc/booking-form-submissions.php';
@@ -894,7 +895,7 @@ add_action('admin_init', function () {
 // -----------------------------------------------------------------------------
 add_filter('use_block_editor_for_post', function ($use_block_editor, $post) {
   if (!$post) { return $use_block_editor; }
-  if (in_array($post->post_type, ['service', 'doctor'], true)) {
+  if (in_array($post->post_type, ['service', 'doctor', 'faq'], true)) {
     return false;
   }
   return $use_block_editor;

@@ -58,48 +58,13 @@
             "placeholder": "No questions match your search."
         },
         {
-            "key": "field_hj_faq_sections",
-            "label": "Sections",
-            "name": "faq_sections",
-            "type": "repeater",
-            "layout": "block",
-            "button_label": "Add Section",
-            "collapsed": "field_hj_faq_section_title",
-            "sub_fields": [
-                {
-                    "key": "field_hj_faq_section_title",
-                    "label": "Section Title",
-                    "name": "title",
-                    "type": "text",
-                    "required": 1
-                },
-                {
-                    "key": "field_hj_faq_section_items",
-                    "label": "Questions",
-                    "name": "items",
-                    "type": "repeater",
-                    "layout": "row",
-                    "button_label": "Add Question",
-                    "collapsed": "field_hj_faq_section_question",
-                    "sub_fields": [
-                        {
-                            "key": "field_hj_faq_section_question",
-                            "label": "Question",
-                            "name": "question",
-                            "type": "text",
-                            "required": 1
-                        },
-                        {
-                            "key": "field_hj_faq_section_answer",
-                            "label": "Answer",
-                            "name": "answer",
-                            "type": "textarea",
-                            "rows": 4,
-                            "new_lines": "wpautop"
-                        }
-                    ]
-                }
-            ]
+            "key": "field_hj_faq_source_message",
+            "label": "FAQ Source",
+            "name": "",
+            "type": "message",
+            "message": "FAQ items are now managed via the FAQ custom post type. Use FAQ Categories to group questions and edit FAQ entries from the FAQ admin menu.",
+            "new_lines": "wpautop",
+            "esc_html": 0
         }
     ],
     "location": [
