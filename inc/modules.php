@@ -44,7 +44,6 @@ add_action('acf/init', function () {
         'position' => 'acf_after_title',
         'style' => 'seamless',
         'active' => true,
-        'modified' => time()
     ];
 
     acf_add_local_field_group($group_array);
@@ -65,22 +64,9 @@ add_action('acf/init', function () {
         'position' => 'acf_after_title',
         'style' => 'seamless',
         'active' => true,
-        'modified' => time()
     ];
 
     acf_add_local_field_group($service_group_array);
-
-    // Ensure local JSON sync is available and write current group to acf-json
-    $json_dir = get_stylesheet_directory() . '/acf-json';
-    if (!is_dir($json_dir)) { wp_mkdir_p($json_dir); }
-    $json_file = $json_dir . '/group_hj_modules_pricelist.json';
-    if (is_writable($json_dir)) {
-        // Write pretty JSON so it appears under ACF sync
-        file_put_contents($json_file, wp_json_encode($group_array, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
-
-        $service_json_file = $json_dir . '/group_hj_modules_service.json';
-        file_put_contents($service_json_file, wp_json_encode($service_group_array, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
-    }
 });
 
 // Render helper for modules; include modules/{layout}/module.php and enqueue matching CSS
@@ -163,7 +149,12 @@ add_filter('acf/settings/save_json', function ($path) {
 });
 
 add_filter('acf/settings/load_json', function ($paths) {
-    $paths[] = get_stylesheet_directory() . '/acf-json';
+    $theme_json_path = get_stylesheet_directory() . '/acf-json';
+
+    if (!in_array($theme_json_path, $paths, true)) {
+        $paths[] = $theme_json_path;
+    }
+
     return $paths;
 });
 

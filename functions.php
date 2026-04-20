@@ -570,7 +570,7 @@ add_action('init', function () {
   ];
 
   register_post_type('service', $args);
-});
+}, 0);
 
 // -----------------------------------------------------------------------------
 //  CPT: Doctors
@@ -612,7 +612,7 @@ add_action('init', function () {
   ];
 
   register_post_type('doctor', $args);
-});
+}, 0);
 
 // -----------------------------------------------------------------------------
 //  CPT: Testimonials
@@ -654,7 +654,7 @@ add_action('init', function () {
   ];
 
   register_post_type('testimonial', $args);
-});
+}, 0);
 
 // -----------------------------------------------------------------------------
 //  Doctors reorder (drag & drop) for service page related-doctors block

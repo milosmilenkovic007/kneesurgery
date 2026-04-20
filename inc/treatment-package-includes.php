@@ -127,20 +127,9 @@ add_action('acf/init', function () {
         'position' => 'normal',
         'style' => 'default',
         'active' => true,
-        'modified' => time(),
     ];
 
     acf_add_local_field_group($group_array);
-
-    $json_dir = get_stylesheet_directory() . '/acf-json';
-    if (!is_dir($json_dir)) {
-        wp_mkdir_p($json_dir);
-    }
-
-    if (is_writable($json_dir)) {
-        $json_file = $json_dir . '/group_hj_treatment_package_includes.json';
-        file_put_contents($json_file, wp_json_encode($group_array, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
-    }
 });
 
 function hj_tpi_has_target_data($post_id) {

@@ -115,18 +115,7 @@ add_action('acf/init', function () {
         'position' => 'acf_after_title',
         'style' => 'seamless',
         'active' => true,
-        'modified' => time(),
     ];
 
     acf_add_local_field_group($group_array);
-
-    // Write to acf-json for Sync UI (best-effort).
-    $json_dir = get_stylesheet_directory() . '/acf-json';
-    if (!is_dir($json_dir)) {
-        wp_mkdir_p($json_dir);
-    }
-    if (is_writable($json_dir)) {
-        $json_file = $json_dir . '/group_hj_doctors.json';
-        file_put_contents($json_file, wp_json_encode($group_array, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
-    }
 });
