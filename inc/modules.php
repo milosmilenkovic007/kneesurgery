@@ -174,13 +174,19 @@ add_filter('acf/load_field/key=field_hj_cfb_fluent_form_id', function ($field) {
             ->orderBy('id', 'desc')
             ->get();
 
-        if (is_array($forms)) {
-            foreach ($forms as $form) {
-                $id = is_object($form) ? ($form->id ?? null) : ($form['id'] ?? null);
-                $title = is_object($form) ? ($form->title ?? '') : ($form['title'] ?? '');
-                if (!$id) { continue; }
-                $field['choices'][(string) $id] = $title ? $title : ('Form #' . $id);
-            }
+        if (is_object($forms) && method_exists($forms, 'all')) {
+            $forms = $forms->all();
+        }
+
+        if (!is_iterable($forms)) {
+            return $field;
+        }
+
+        foreach ($forms as $form) {
+            $id = is_object($form) ? ($form->id ?? null) : ($form['id'] ?? null);
+            $title = is_object($form) ? ($form->title ?? '') : ($form['title'] ?? '');
+            if (!$id) { continue; }
+            $field['choices'][(string) $id] = $title ? $title : ('Form #' . $id);
         }
     } catch (Throwable $e) {
         // Leave choices empty if FluentForms isn't available or DB query fails.
