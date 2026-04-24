@@ -535,6 +535,8 @@
 
 @media (max-width: 900px){
   .hj-cfb-grid{grid-template-columns:1fr;gap:28px}
+  .hj-cta-form-block.is-rating .hj-cfb-content{order:1}
+  .hj-cta-form-block.is-rating .hj-cfb-media{order:2}
   .hj-cfb-content{max-width:none}
   .hj-cfb-title-mark{min-height:44px}
   .hj-cfb-google-reviews{max-width:none}

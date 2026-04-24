@@ -717,38 +717,53 @@ add_filter('acf/load_field/key=field_google_reviews_message', function ($field) 
     return $field;
 });
 
+if (!function_exists('hj_google_reviews_get_dynamic_summary_message_html')) {
+    function hj_google_reviews_get_dynamic_summary_message_html() {
+        $summary = function_exists('hj_get_google_reviews_summary') ? (array) hj_get_google_reviews_summary() : [];
+        $stars_text = trim((string) ($summary['stars_text'] ?? ''));
+        $rating_label = trim((string) ($summary['rating_label'] ?? ''));
+        $reviews_count = max(0, (int) ($summary['reviews_count'] ?? 0));
+
+        if ($stars_text === '' && $rating_label === '' && $reviews_count <= 0) {
+            return '<p>' . esc_html__('This block pulls the Google rating summary automatically from Theme Settings > Google Reviews. Configure the integration or fallback values there to populate it.', 'hello-elementor-child') . '</p>';
+        }
+
+        $parts = [];
+
+        if ($stars_text !== '') {
+            $parts[] = '<p><strong>' . esc_html($stars_text) . '</strong></p>';
+        }
+
+        if ($rating_label !== '') {
+            $parts[] = '<p>' . esc_html($rating_label) . '</p>';
+        }
+
+        if ($reviews_count > 0) {
+            $parts[] = '<p>' . esc_html(sprintf(_n('%d review', '%d reviews', $reviews_count, 'hello-elementor-child'), $reviews_count)) . '</p>';
+        }
+
+        $parts[] = '<p>' . esc_html__('Pulled automatically from Theme Settings > Google Reviews.', 'hello-elementor-child') . '</p>';
+
+        return implode('', $parts);
+    }
+}
+
 add_filter('acf/load_field/key=field_hj_vss_rating_dynamic_message', function ($field) {
     if (!is_admin()) {
         return $field;
     }
 
-    $summary = function_exists('hj_get_google_reviews_summary') ? (array) hj_get_google_reviews_summary() : [];
-    $stars_text = trim((string) ($summary['stars_text'] ?? ''));
-    $rating_label = trim((string) ($summary['rating_label'] ?? ''));
-    $reviews_count = max(0, (int) ($summary['reviews_count'] ?? 0));
+    $field['message'] = hj_google_reviews_get_dynamic_summary_message_html();
 
-    if ($stars_text === '' && $rating_label === '' && $reviews_count <= 0) {
-        $field['message'] = '<p>' . esc_html__('This block pulls the Google rating summary automatically from Theme Settings > Google Reviews. Configure the integration or fallback values there to populate it.', 'hello-elementor-child') . '</p>';
+    return $field;
+});
+
+add_filter('acf/load_field/key=field_hj_tpi_rating_dynamic_message', function ($field) {
+    if (!is_admin()) {
         return $field;
     }
 
-    $parts = [];
-
-    if ($stars_text !== '') {
-        $parts[] = '<p><strong>' . esc_html($stars_text) . '</strong></p>';
-    }
-
-    if ($rating_label !== '') {
-        $parts[] = '<p>' . esc_html($rating_label) . '</p>';
-    }
-
-    if ($reviews_count > 0) {
-        $parts[] = '<p>' . esc_html(sprintf(_n('%d review', '%d reviews', $reviews_count, 'hello-elementor-child'), $reviews_count)) . '</p>';
-    }
-
-    $parts[] = '<p>' . esc_html__('Pulled automatically from Theme Settings > Google Reviews.', 'hello-elementor-child') . '</p>';
-
-    $field['message'] = implode('', $parts);
+    $field['message'] = hj_google_reviews_get_dynamic_summary_message_html();
 
     return $field;
 });
