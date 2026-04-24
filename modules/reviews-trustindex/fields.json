@@ -9,6 +9,6 @@
     { "key": "field_hj_rt_source", "label": "Source", "name": "source", "type": "button_group", "choices": { "trustindex": "Trustindex", "google": "Direct Google Reviews" }, "default_value": "trustindex", "layout": "horizontal" },
     { "key": "field_hj_rt_shortcode", "label": "Trustindex Shortcode", "name": "shortcode", "type": "text", "default_value": "[trustindex data-widget-id=c964936299834096b346c4f654e]", "conditional_logic": [[{ "field": "field_hj_rt_source", "operator": "==", "value": "trustindex" }]] },
     { "key": "field_hj_rt_google_notice", "label": "Google Reviews", "name": "", "type": "message", "message": "Uses Theme Settings → Integrations → Google Reviews.", "new_lines": "wpautop", "esc_html": 0, "conditional_logic": [[{ "field": "field_hj_rt_source", "operator": "==", "value": "google" }]] },
-    { "key": "field_hj_rt_review_limit", "label": "Reviews to Show", "name": "review_limit", "type": "number", "default_value": 3, "min": 1, "max": 5, "step": 1, "instructions": "Used for Direct Google Reviews.", "conditional_logic": [[{ "field": "field_hj_rt_source", "operator": "==", "value": "google" }]] }
+    { "key": "field_hj_rt_review_limit", "label": "Reviews to Show", "name": "review_limit", "type": "number", "default_value": 3, "min": 1, "max": 50, "step": 1, "instructions": "Used for Direct Google Reviews. Can exceed 5 when the local archive is enabled in Theme Settings.", "conditional_logic": [[{ "field": "field_hj_rt_source", "operator": "==", "value": "google" }]] }
   ]
 }

@@ -30,7 +30,7 @@
             "label": "Google Reviews",
             "name": "",
             "type": "message",
-            "message": "Direct Google Reviews integration for the theme. Add a server-side Places API key and Place ID. The theme caches responses and uses the fallback values below if Google is unavailable.",
+            "message": "Direct Google Reviews integration for the theme. Add a server-side Places API key and Place ID. The theme caches responses, can archive fetched reviews inside WordPress, and uses the fallback values below if Google is unavailable.",
             "new_lines": "wpautop",
             "esc_html": 0
         },
@@ -86,11 +86,66 @@
             "label": "Reviews Limit",
             "name": "google_reviews_reviews_limit",
             "type": "number",
-            "instructions": "Max 5 per request.",
-            "default_value": 5,
-            "min": 1,
-            "max": 5,
+            "instructions": "Use 0 to show all available stored reviews. Google Places API returns up to 5 reviews per request, but the local archive can accumulate more over time.",
+            "default_value": 0,
+            "min": 0,
             "step": 1,
+            "wrapper": {
+                "width": "25"
+            }
+        },
+        {
+            "key": "field_google_reviews_archive_enabled",
+            "label": "Archive Reviews Locally",
+            "name": "google_reviews_archive_enabled",
+            "type": "true_false",
+            "instructions": "Store fetched Google reviews in WordPress so the theme can build up more than Google returns in a single request.",
+            "default_value": 1,
+            "ui": 1,
+            "wrapper": {
+                "width": "25"
+            }
+        },
+        {
+            "key": "field_google_reviews_archive_fetch_both_sorts",
+            "label": "Seed Archive From Both Sorts",
+            "name": "google_reviews_archive_fetch_both_sorts",
+            "type": "true_false",
+            "instructions": "During refreshes, fetch both Most Relevant and Newest to collect a broader local review archive.",
+            "default_value": 1,
+            "ui": 1,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_google_reviews_archive_enabled",
+                        "operator": "==",
+                        "value": "1"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "25"
+            }
+        },
+        {
+            "key": "field_google_reviews_archive_limit",
+            "label": "Archive Size",
+            "name": "google_reviews_archive_limit",
+            "type": "number",
+            "instructions": "Maximum number of unique Google reviews to keep in the WordPress database.",
+            "default_value": 50,
+            "min": 5,
+            "max": 250,
+            "step": 1,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_google_reviews_archive_enabled",
+                        "operator": "==",
+                        "value": "1"
+                    }
+                ]
+            ],
             "wrapper": {
                 "width": "25"
             }

@@ -29,7 +29,7 @@
   },
   "assets/css/modules/cta-form-block.css": {
     "path": "assets/css/modules/cta-form-block.css",
-    "version": "5076e5682885"
+    "version": "2947ae894c76"
   },
   "assets/css/modules/cta-pricelist-download.css": {
     "path": "assets/css/modules/cta-pricelist-download.css",
@@ -89,7 +89,7 @@
   },
   "assets/css/modules/reviews-trustindex.css": {
     "path": "assets/css/modules/reviews-trustindex.css",
-    "version": "94b82bad6f22"
+    "version": "e97ab9c375b9"
   },
   "assets/css/modules/single-package-cardbox.css": {
     "path": "assets/css/modules/single-package-cardbox.css",
@@ -157,7 +157,7 @@
   },
   "assets/js/modules/cta-form-block.js": {
     "path": "assets/js/modules/cta-form-block.js",
-    "version": "fcd0bef74443"
+    "version": "d2f19e7b87f0"
   },
   "assets/js/modules/faq.js": {
     "path": "assets/js/modules/faq.js",
@@ -182,6 +182,10 @@
   "assets/js/modules/related-doctors.js": {
     "path": "assets/js/modules/related-doctors.js",
     "version": "55e0e77cc150"
+  },
+  "assets/js/modules/reviews-trustindex.js": {
+    "path": "assets/js/modules/reviews-trustindex.js",
+    "version": "136f9c3cc414"
   },
   "assets/js/modules/single-package-cardbox.js": {
     "path": "assets/js/modules/single-package-cardbox.js",
