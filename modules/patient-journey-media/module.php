@@ -84,7 +84,7 @@ $show_image_on_mobile = $image_show_on_mobile !== null ? !empty($image_show_on_m
           data-pjm-open
           data-video-type="<?php echo esc_attr($video_type); ?>"
           data-video-src="<?php echo esc_url($video_type === 'file' ? $video_url : $video_embed_url); ?>"
-          aria-label="<?php esc_attr_e('Open video', 'hello-elementor-child'); ?>"
+          aria-label="<?php esc_attr_e('Open video', 'kneesurgery'); ?>"
         >
           <?php if (!empty($video_poster['ID'])): ?>
             <?php echo wp_get_attachment_image((int) $video_poster['ID'], 'large', false, ['loading' => 'lazy', 'decoding' => 'async']); ?>
@@ -131,8 +131,8 @@ $show_image_on_mobile = $image_show_on_mobile !== null ? !empty($image_show_on_m
 
   <div class="hj-pjm-modal" data-pjm-modal hidden>
     <div class="hj-pjm-modal__backdrop" data-pjm-close></div>
-    <div class="hj-pjm-modal__dialog" role="dialog" aria-modal="true" aria-label="<?php esc_attr_e('Video player', 'hello-elementor-child'); ?>">
-      <button class="hj-pjm-modal__close" type="button" data-pjm-close aria-label="<?php esc_attr_e('Close video', 'hello-elementor-child'); ?>">×</button>
+    <div class="hj-pjm-modal__dialog" role="dialog" aria-modal="true" aria-label="<?php esc_attr_e('Video player', 'kneesurgery'); ?>">
+      <button class="hj-pjm-modal__close" type="button" data-pjm-close aria-label="<?php esc_attr_e('Close video', 'kneesurgery'); ?>">×</button>
       <div class="hj-pjm-modal__body" data-pjm-modal-body></div>
     </div>
   </div>

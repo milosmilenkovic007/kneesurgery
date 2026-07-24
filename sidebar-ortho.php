@@ -5,7 +5,7 @@
 <?php else : ?>
   <!-- Optional fallback: prikazi kratku poruku ako nema nijednog widgeta -->
   <section class="widget">
-    <h3 class="widget-title"><?php _e('Sidebar', 'hello-elementor-child'); ?></h3>
-    <p><?php _e('Add widgets to the Ortho Sidebar in Appearance → Widgets.', 'hello-elementor-child'); ?></p>
+    <h3 class="widget-title"><?php _e('Sidebar', 'kneesurgery'); ?></h3>
+    <p><?php _e('Add widgets to the Ortho Sidebar in Appearance → Widgets.', 'kneesurgery'); ?></p>
   </section>
 <?php endif; ?>

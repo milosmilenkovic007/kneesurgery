@@ -76,12 +76,12 @@ $google_reviews_slide_count = count($google_reviews_slides) + ($has_all_reviews_
 
 if ($use_google_reviews) {
   $google_reviews_summary_title = !empty($google_reviews_data['rating']) && (float) $google_reviews_data['rating'] >= 4.5
-    ? __('Excellent rating', 'hello-elementor-child')
-    : __('Google rating', 'hello-elementor-child');
+    ? __('Excellent rating', 'kneesurgery')
+    : __('Google rating', 'kneesurgery');
 
   if (!empty($google_reviews_data['reviews_count'])) {
     $google_reviews_summary_meta = sprintf(
-      _n('Based on %d review', 'Based on %d reviews', (int) $google_reviews_data['reviews_count'], 'hello-elementor-child'),
+      _n('Based on %d review', 'Based on %d reviews', (int) $google_reviews_data['reviews_count'], 'kneesurgery'),
       (int) $google_reviews_data['reviews_count']
     );
   }
@@ -156,7 +156,7 @@ $style_vars .= '--cfb-link:' . $terms_link_color_clean . ';';
 
                       <?php if ($review_text !== ''): ?>
                         <div class="hj-cfb-rating-copy is-clamped" data-cfb-copy><?php echo nl2br(esc_html($review_text)); ?></div>
-                        <button class="hj-cfb-read-more" type="button" data-cfb-read-more hidden><?php esc_html_e('Read more', 'hello-elementor-child'); ?></button>
+                        <button class="hj-cfb-read-more" type="button" data-cfb-read-more hidden><?php esc_html_e('Read more', 'kneesurgery'); ?></button>
                       <?php endif; ?>
 
                       <div class="hj-cfb-rating-footer">
@@ -170,7 +170,7 @@ $style_vars .= '--cfb-link:' . $terms_link_color_clean . ';';
                           </div>
 
                           <div class="hj-cfb-rating-meta">
-                            <<?php echo $name_tag; ?> class="hj-cfb-rating-name"<?php echo $name_tag === 'a' ? ' href="' . esc_url($author_url) . '" target="_blank" rel="noopener noreferrer"' : ''; ?>><?php echo esc_html($author_name !== '' ? $author_name : __('Google user', 'hello-elementor-child')); ?></<?php echo $name_tag; ?>>
+                            <<?php echo $name_tag; ?> class="hj-cfb-rating-name"<?php echo $name_tag === 'a' ? ' href="' . esc_url($author_url) . '" target="_blank" rel="noopener noreferrer"' : ''; ?>><?php echo esc_html($author_name !== '' ? $author_name : __('Google user', 'kneesurgery')); ?></<?php echo $name_tag; ?>>
                             <?php if ($review_meta !== ''): ?>
                               <span class="hj-cfb-rating-role"><?php echo esc_html($review_meta); ?></span>
                             <?php endif; ?>
@@ -181,7 +181,7 @@ $style_vars .= '--cfb-link:' . $terms_link_color_clean . ';';
                   <?php endforeach; ?>
 
                   <?php if ($has_all_reviews_slide): ?>
-                    <a class="hj-cfb-rating-card hj-cfb-rating-card--all-reviews" href="<?php echo esc_url($google_reviews_url); ?>" target="_blank" rel="noopener noreferrer" data-cfb-slide aria-label="<?php esc_attr_e('Open all Google reviews in a new tab', 'hello-elementor-child'); ?>">
+                    <a class="hj-cfb-rating-card hj-cfb-rating-card--all-reviews" href="<?php echo esc_url($google_reviews_url); ?>" target="_blank" rel="noopener noreferrer" data-cfb-slide aria-label="<?php esc_attr_e('Open all Google reviews in a new tab', 'kneesurgery'); ?>">
                       <div class="hj-cfb-rating-card__top">
                         <span class="hj-cfb-google-wordmark" aria-hidden="true">
                           <span class="hj-cfb-google-wordmark__letter hj-cfb-google-wordmark__letter--blue">G</span><span class="hj-cfb-google-wordmark__letter hj-cfb-google-wordmark__letter--red">o</span><span class="hj-cfb-google-wordmark__letter hj-cfb-google-wordmark__letter--yellow">o</span><span class="hj-cfb-google-wordmark__letter hj-cfb-google-wordmark__letter--blue">g</span><span class="hj-cfb-google-wordmark__letter hj-cfb-google-wordmark__letter--green">l</span><span class="hj-cfb-google-wordmark__letter hj-cfb-google-wordmark__letter--red">e</span>
@@ -192,8 +192,8 @@ $style_vars .= '--cfb-link:' . $terms_link_color_clean . ';';
                       </div>
 
                       <div class="hj-cfb-rating-card__body">
-                        <span class="hj-cfb-rating-card__eyebrow"><?php esc_html_e('Google Reviews', 'hello-elementor-child'); ?></span>
-                        <strong class="hj-cfb-rating-card__cta-title"><?php esc_html_e('Read all reviews', 'hello-elementor-child'); ?></strong>
+                        <span class="hj-cfb-rating-card__eyebrow"><?php esc_html_e('Google Reviews', 'kneesurgery'); ?></span>
+                        <strong class="hj-cfb-rating-card__cta-title"><?php esc_html_e('Read all reviews', 'kneesurgery'); ?></strong>
                         <?php if ($google_reviews_summary_meta !== ''): ?>
                           <span class="hj-cfb-rating-card__cta-copy"><?php echo esc_html($google_reviews_summary_meta); ?></span>
                         <?php endif; ?>
@@ -205,10 +205,10 @@ $style_vars .= '--cfb-link:' . $terms_link_color_clean . ';';
                 <?php if ($google_reviews_slide_count > 1): ?>
                   <div class="hj-cfb-rating-nav">
                     <div class="hj-cfb-rating-arrows">
-                      <button type="button" class="hj-cfb-rating-arrow" data-cfb-prev aria-label="<?php esc_attr_e('Previous review', 'hello-elementor-child'); ?>">
+                      <button type="button" class="hj-cfb-rating-arrow" data-cfb-prev aria-label="<?php esc_attr_e('Previous review', 'kneesurgery'); ?>">
                         <span aria-hidden="true">&larr;</span>
                       </button>
-                      <button type="button" class="hj-cfb-rating-arrow" data-cfb-next aria-label="<?php esc_attr_e('Next review', 'hello-elementor-child'); ?>">
+                      <button type="button" class="hj-cfb-rating-arrow" data-cfb-next aria-label="<?php esc_attr_e('Next review', 'kneesurgery'); ?>">
                         <span aria-hidden="true">&rarr;</span>
                       </button>
                     </div>

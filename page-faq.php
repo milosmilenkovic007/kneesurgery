@@ -70,10 +70,10 @@ while (have_posts()) :
     $faq_sections = $normalized_faq_sections;
 
     $faq_title = $faq_title !== '' ? $faq_title : get_the_title();
-    $search_placeholder = $search_placeholder !== '' ? $search_placeholder : __('Search questions...', 'hello-elementor-child');
-    $results_label = $results_label !== '' ? $results_label : __('Found:', 'hello-elementor-child');
-    $results_all_label = $results_all_label !== '' ? $results_all_label : __('all', 'hello-elementor-child');
-    $empty_results_text = $empty_results_text !== '' ? $empty_results_text : __('No questions match your search.', 'hello-elementor-child');
+    $search_placeholder = $search_placeholder !== '' ? $search_placeholder : __('Search questions...', 'kneesurgery');
+    $results_label = $results_label !== '' ? $results_label : __('Found:', 'kneesurgery');
+    $results_all_label = $results_all_label !== '' ? $results_all_label : __('all', 'kneesurgery');
+    $empty_results_text = $empty_results_text !== '' ? $empty_results_text : __('No questions match your search.', 'kneesurgery');
     ?>
 
     <main id="primary" <?php post_class('site-main hj-faq-page'); ?>>
@@ -89,7 +89,7 @@ while (have_posts()) :
                     <?php endif; ?>
 
                     <?php if (count($faq_sections) > 1) : ?>
-                        <nav class="hj-faq-page__nav" aria-label="<?php esc_attr_e('FAQ categories', 'hello-elementor-child'); ?>">
+                        <nav class="hj-faq-page__nav" aria-label="<?php esc_attr_e('FAQ categories', 'kneesurgery'); ?>">
                             <div class="hj-faq-page__nav-list">
                                 <?php foreach ($faq_sections as $section) : ?>
                                     <?php
@@ -109,7 +109,7 @@ while (have_posts()) :
                     <?php endif; ?>
 
                     <div class="hj-faq-page__toolbar">
-                        <label class="hj-faq-page__search" aria-label="<?php esc_attr_e('Search FAQ', 'hello-elementor-child'); ?>">
+                        <label class="hj-faq-page__search" aria-label="<?php esc_attr_e('Search FAQ', 'kneesurgery'); ?>">
                             <input type="search" placeholder="<?php echo esc_attr($search_placeholder); ?>" data-hj-faq-search>
                         </label>
 

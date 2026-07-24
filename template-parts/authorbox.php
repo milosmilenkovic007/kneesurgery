@@ -16,7 +16,7 @@ $read_min   = max(1, ceil($words / 220));
       <div class="ortho-author__sub">
         <time datetime="<?php echo esc_attr(get_the_date('c')); ?>"><?php echo esc_html(get_the_date()); ?></time>
         <span class="dot">•</span>
-        <span><?php echo esc_html($read_min . ' ' . __('min read','hello-elementor-child')); ?></span>
+        <span><?php echo esc_html($read_min . ' ' . __('min read','kneesurgery')); ?></span>
       </div>
     </div>
   </div>

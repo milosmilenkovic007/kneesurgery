@@ -183,7 +183,7 @@ $vss_render_section_body = static function ($section, $enable_accordion) use ($v
     $has_rating = $rating_stars_text !== '' || $rating_label !== '' || $rating_reviews_count > 0;
 
     if ($price_cta_label === '') {
-      $price_cta_label = __('View Surgery Pricing', 'hello-elementor-child');
+      $price_cta_label = __('View Surgery Pricing', 'kneesurgery');
     }
     ?>
     <?php if ($price_btn_url || $has_rating): ?>
@@ -205,9 +205,9 @@ $vss_render_section_body = static function ($section, $enable_accordion) use ($v
             <?php if ($rating_reviews_count > 0): ?>
               <div class="sub">
                 <?php if ($rating_reviews_url !== ''): ?>
-                  <a href="<?php echo esc_url($rating_reviews_url); ?>"><?php echo esc_html(sprintf(_n('%d review', '%d reviews', $rating_reviews_count, 'hello-elementor-child'), $rating_reviews_count)); ?></a>
+                  <a href="<?php echo esc_url($rating_reviews_url); ?>"><?php echo esc_html(sprintf(_n('%d review', '%d reviews', $rating_reviews_count, 'kneesurgery'), $rating_reviews_count)); ?></a>
                 <?php else: ?>
-                  <span><?php echo esc_html(sprintf(_n('%d review', '%d reviews', $rating_reviews_count, 'hello-elementor-child'), $rating_reviews_count)); ?></span>
+                  <span><?php echo esc_html(sprintf(_n('%d review', '%d reviews', $rating_reviews_count, 'kneesurgery'), $rating_reviews_count)); ?></span>
                 <?php endif; ?>
               </div>
             <?php endif; ?>
@@ -239,14 +239,14 @@ $vss_render_section_body = static function ($section, $enable_accordion) use ($v
 
         if (empty($accordion_items)) {
           $accordion_items = [[
-            'title' => $subheading ?: __('Details', 'hello-elementor-child'),
+            'title' => $subheading ?: __('Details', 'kneesurgery'),
             'body' => $content,
           ]];
         }
 
         foreach ($accordion_items as $index => $it) {
           if (empty($it['title'])) {
-            $accordion_items[$index]['title'] = $subheading ?: __('Details', 'hello-elementor-child');
+            $accordion_items[$index]['title'] = $subheading ?: __('Details', 'kneesurgery');
           }
         }
         ?>
@@ -303,7 +303,7 @@ foreach ($videos as $row) {
       <?php if (!empty($items)): ?>
         <div class="hj-vss-slider" data-vss-slider>
           <div class="hj-vss-stage">
-            <button class="hj-vss-arrow hj-vss-arrow--prev" type="button" data-vss-prev aria-label="<?php esc_attr_e('Previous slide', 'hello-elementor-child'); ?>">
+            <button class="hj-vss-arrow hj-vss-arrow--prev" type="button" data-vss-prev aria-label="<?php esc_attr_e('Previous slide', 'kneesurgery'); ?>">
               <img src="<?php echo esc_url($vss_arrow_left); ?>" alt="" aria-hidden="true" loading="lazy" decoding="async">
             </button>
 
@@ -318,7 +318,7 @@ foreach ($videos as $row) {
                   data-vss-open
                   data-video-type="<?php echo esc_attr($row['type']); ?>"
                   data-video-src="<?php echo esc_url($row['src']); ?>"
-                  aria-label="<?php esc_attr_e('Open video', 'hello-elementor-child'); ?>"
+                  aria-label="<?php esc_attr_e('Open video', 'kneesurgery'); ?>"
                 >
                   <?php if ($poster): ?>
                     <img class="hj-vss-poster" src="<?php echo esc_url($poster); ?>" alt="<?php echo esc_attr($row['caption']); ?>" loading="lazy" decoding="async">
@@ -335,14 +335,14 @@ foreach ($videos as $row) {
             <?php endforeach; ?>
             </div>
 
-            <button class="hj-vss-arrow hj-vss-arrow--next" type="button" data-vss-next aria-label="<?php esc_attr_e('Next slide', 'hello-elementor-child'); ?>">
+            <button class="hj-vss-arrow hj-vss-arrow--next" type="button" data-vss-next aria-label="<?php esc_attr_e('Next slide', 'kneesurgery'); ?>">
               <img src="<?php echo esc_url($vss_arrow_right); ?>" alt="" aria-hidden="true" loading="lazy" decoding="async">
             </button>
           </div>
 
-          <div class="hj-vss-dots" role="tablist" aria-label="<?php esc_attr_e('Video slides', 'hello-elementor-child'); ?>" data-vss-dots>
+          <div class="hj-vss-dots" role="tablist" aria-label="<?php esc_attr_e('Video slides', 'kneesurgery'); ?>" data-vss-dots>
             <?php foreach ($items as $i => $row): ?>
-              <button class="hj-vss-dot<?php echo $i === 0 ? ' is-active' : ''; ?>" type="button" aria-label="<?php echo esc_attr(sprintf(__('Slide %d', 'hello-elementor-child'), $i + 1)); ?>" data-vss-dot="<?php echo esc_attr($i); ?>" aria-pressed="<?php echo $i === 0 ? 'true' : 'false'; ?>"></button>
+              <button class="hj-vss-dot<?php echo $i === 0 ? ' is-active' : ''; ?>" type="button" aria-label="<?php echo esc_attr(sprintf(__('Slide %d', 'kneesurgery'), $i + 1)); ?>" data-vss-dot="<?php echo esc_attr($i); ?>" aria-pressed="<?php echo $i === 0 ? 'true' : 'false'; ?>"></button>
             <?php endforeach; ?>
           </div>
         </div>
@@ -390,8 +390,8 @@ foreach ($videos as $row) {
 
   <div class="hj-vss-modal" data-vss-modal hidden>
     <div class="hj-vss-modal__backdrop" data-vss-close></div>
-    <div class="hj-vss-modal__dialog" role="dialog" aria-modal="true" aria-label="<?php esc_attr_e('Video player', 'hello-elementor-child'); ?>">
-      <button class="hj-vss-modal__close" type="button" data-vss-close aria-label="<?php esc_attr_e('Close video', 'hello-elementor-child'); ?>">×</button>
+    <div class="hj-vss-modal__dialog" role="dialog" aria-modal="true" aria-label="<?php esc_attr_e('Video player', 'kneesurgery'); ?>">
+      <button class="hj-vss-modal__close" type="button" data-vss-close aria-label="<?php esc_attr_e('Close video', 'kneesurgery'); ?>">×</button>
       <div class="hj-vss-modal__body" data-vss-modal-body></div>
     </div>
   </div>

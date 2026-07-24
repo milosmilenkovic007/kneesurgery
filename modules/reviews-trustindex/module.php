@@ -29,7 +29,7 @@ $summary_rating = $summary_has_content && !empty($reviews_data['rating'])
 $summary_stars_text = $summary_has_content ? trim((string) ($reviews_data['stars_text'] ?? '')) : '';
 $summary_place_name = $summary_has_content ? trim((string) ($reviews_data['place_name'] ?? '')) : '';
 $summary_meta = $summary_has_content && !empty($reviews_data['reviews_count'])
-  ? sprintf(_n('Based on %d review', 'Based on %d reviews', (int) $reviews_data['reviews_count'], 'hello-elementor-child'), (int) $reviews_data['reviews_count'])
+  ? sprintf(_n('Based on %d review', 'Based on %d reviews', (int) $reviews_data['reviews_count'], 'kneesurgery'), (int) $reviews_data['reviews_count'])
   : '';
 $summary_tag = $all_reviews_url !== '' ? 'a' : 'div';
 
@@ -69,10 +69,10 @@ foreach ($rendered_reviews as $review) {
 $slides_count = count($review_cards) + ($show_all_reviews_card ? 1 : 0);
 $all_reviews_label = !empty($reviews_data['reviews_count'])
   ? sprintf(
-    _n('See all %d Google review', 'See all %d Google reviews', (int) $reviews_data['reviews_count'], 'hello-elementor-child'),
+    _n('See all %d Google review', 'See all %d Google reviews', (int) $reviews_data['reviews_count'], 'kneesurgery'),
     (int) $reviews_data['reviews_count']
   )
-  : __('See all Google reviews', 'hello-elementor-child');
+  : __('See all Google reviews', 'kneesurgery');
 
 if ($subheading === '' && $title === '' && !$use_google_reviews && !$use_trustindex_embed) {
     return;
@@ -97,7 +97,7 @@ if ($use_google_reviews) {
 
         <?php if ($summary_has_content): ?>
           <<?php echo $summary_tag; ?> class="hj-rt-summary-inline"<?php echo $summary_tag === 'a' ? ' href="' . esc_url($all_reviews_url) . '" target="_blank" rel="noopener noreferrer"' : ''; ?>>
-            <span class="hj-rt-summary-inline__eyebrow"><?php esc_html_e('Google Reviews', 'hello-elementor-child'); ?></span>
+            <span class="hj-rt-summary-inline__eyebrow"><?php esc_html_e('Google Reviews', 'kneesurgery'); ?></span>
             <div class="hj-rt-summary-inline__row">
               <?php if ($summary_rating !== ''): ?>
                 <strong class="hj-rt-summary-inline__score"><?php echo esc_html($summary_rating); ?></strong>
@@ -124,7 +124,7 @@ if ($use_google_reviews) {
       <?php if ($slides_count > 0): ?>
         <div class="hj-rt-slider" data-rt-slider>
           <div class="hj-rt-stage">
-            <button class="hj-rt-arrow hj-rt-arrow--prev" type="button" data-rt-prev aria-label="<?php esc_attr_e('Previous reviews', 'hello-elementor-child'); ?>">
+            <button class="hj-rt-arrow hj-rt-arrow--prev" type="button" data-rt-prev aria-label="<?php esc_attr_e('Previous reviews', 'kneesurgery'); ?>">
               <span aria-hidden="true">&larr;</span>
             </button>
 
@@ -143,7 +143,7 @@ if ($use_google_reviews) {
                         </div>
 
                         <div class="hj-rt-card__identity">
-                          <<?php echo $review['name_tag']; ?> class="hj-rt-card__name"<?php echo $review['name_tag'] === 'a' ? ' href="' . esc_url($review['author_url']) . '" target="_blank" rel="noopener noreferrer"' : ''; ?>><?php echo esc_html($review['author_name'] !== '' ? $review['author_name'] : __('Google user', 'hello-elementor-child')); ?></<?php echo $review['name_tag']; ?>>
+                          <<?php echo $review['name_tag']; ?> class="hj-rt-card__name"<?php echo $review['name_tag'] === 'a' ? ' href="' . esc_url($review['author_url']) . '" target="_blank" rel="noopener noreferrer"' : ''; ?>><?php echo esc_html($review['author_name'] !== '' ? $review['author_name'] : __('Google user', 'kneesurgery')); ?></<?php echo $review['name_tag']; ?>>
                           <?php if ($review['review_meta'] !== ''): ?>
                             <span class="hj-rt-card__meta"><?php echo esc_html($review['review_meta']); ?></span>
                           <?php endif; ?>
@@ -157,7 +157,7 @@ if ($use_google_reviews) {
 
                     <?php if ($review['review_text'] !== ''): ?>
                       <div class="hj-rt-card__copy is-clamped" data-rt-copy><?php echo nl2br(esc_html($review['review_text'])); ?></div>
-                      <button class="hj-rt-card__read-more" type="button" data-rt-read-more hidden><?php esc_html_e('Read more', 'hello-elementor-child'); ?></button>
+                      <button class="hj-rt-card__read-more" type="button" data-rt-read-more hidden><?php esc_html_e('Read more', 'kneesurgery'); ?></button>
                     <?php endif; ?>
                   </article>
                 </div>
@@ -166,23 +166,23 @@ if ($use_google_reviews) {
               <?php if ($show_all_reviews_card): ?>
                 <div class="hj-rt-slide" data-rt-slide>
                   <a class="hj-rt-card hj-rt-card--all-reviews" href="<?php echo esc_url($all_reviews_url); ?>" target="_blank" rel="noopener noreferrer">
-                    <span class="hj-rt-card__eyebrow"><?php esc_html_e('Google Reviews', 'hello-elementor-child'); ?></span>
-                    <strong class="hj-rt-card__cta-title"><?php esc_html_e('Read all reviews', 'hello-elementor-child'); ?></strong>
+                    <span class="hj-rt-card__eyebrow"><?php esc_html_e('Google Reviews', 'kneesurgery'); ?></span>
+                    <strong class="hj-rt-card__cta-title"><?php esc_html_e('Read all reviews', 'kneesurgery'); ?></strong>
                     <span class="hj-rt-card__cta-copy"><?php echo esc_html($all_reviews_label); ?></span>
                   </a>
                 </div>
               <?php endif; ?>
             </div>
 
-            <button class="hj-rt-arrow hj-rt-arrow--next" type="button" data-rt-next aria-label="<?php esc_attr_e('Next reviews', 'hello-elementor-child'); ?>">
+            <button class="hj-rt-arrow hj-rt-arrow--next" type="button" data-rt-next aria-label="<?php esc_attr_e('Next reviews', 'kneesurgery'); ?>">
               <span aria-hidden="true">&rarr;</span>
             </button>
           </div>
 
           <?php if ($slides_count > 1): ?>
-            <div class="hj-rt-dots" role="tablist" aria-label="<?php esc_attr_e('Reviews slides', 'hello-elementor-child'); ?>" data-rt-dots>
+            <div class="hj-rt-dots" role="tablist" aria-label="<?php esc_attr_e('Reviews slides', 'kneesurgery'); ?>" data-rt-dots>
               <?php for ($index = 0; $index < $slides_count; $index++): ?>
-                <button class="hj-rt-dot<?php echo $index === 0 ? ' is-active' : ''; ?>" type="button" data-rt-dot="<?php echo esc_attr($index); ?>" aria-label="<?php echo esc_attr(sprintf(__('Review %d', 'hello-elementor-child'), $index + 1)); ?>" aria-pressed="<?php echo $index === 0 ? 'true' : 'false'; ?>"></button>
+                <button class="hj-rt-dot<?php echo $index === 0 ? ' is-active' : ''; ?>" type="button" data-rt-dot="<?php echo esc_attr($index); ?>" aria-label="<?php echo esc_attr(sprintf(__('Review %d', 'kneesurgery'), $index + 1)); ?>" aria-pressed="<?php echo $index === 0 ? 'true' : 'false'; ?>"></button>
               <?php endfor; ?>
             </div>
           <?php endif; ?>

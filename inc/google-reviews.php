@@ -381,7 +381,7 @@ if (!function_exists('hj_google_reviews_normalize_legacy_review')) {
         }
 
         return [
-            'author_name' => $author_name !== '' ? $author_name : __('Google user', 'hello-elementor-child'),
+            'author_name' => $author_name !== '' ? $author_name : __('Google user', 'kneesurgery'),
             'author_initials' => hj_google_reviews_get_initials($author_name),
             'author_url' => trim((string) ($review['author_url'] ?? '')),
             'author_avatar' => trim((string) ($review['profile_photo_url'] ?? '')),
@@ -416,7 +416,7 @@ if (!function_exists('hj_google_reviews_normalize_new_review')) {
         $timestamp = $publish_time !== '' ? strtotime($publish_time) : false;
 
         return [
-            'author_name' => $author_name !== '' ? $author_name : __('Google user', 'hello-elementor-child'),
+            'author_name' => $author_name !== '' ? $author_name : __('Google user', 'kneesurgery'),
             'author_initials' => hj_google_reviews_get_initials($author_name),
             'author_url' => trim((string) ($author['uri'] ?? '')),
             'author_avatar' => trim((string) ($author['photoUri'] ?? '')),
@@ -448,7 +448,7 @@ if (!function_exists('hj_google_reviews_finalize_payload')) {
 
         $formatted_rating = hj_google_reviews_format_rating($payload['rating']);
         $payload['rating_label'] = $formatted_rating !== ''
-            ? sprintf(__('%s stars', 'hello-elementor-child'), $formatted_rating)
+            ? sprintf(__('%s stars', 'kneesurgery'), $formatted_rating)
             : '';
         $payload['stars_text'] = hj_google_reviews_get_stars_text($payload['rating']);
         $payload['has_summary'] = $payload['place_name'] !== '' || $payload['rating'] > 0 || $payload['reviews_count'] > 0;
@@ -484,7 +484,7 @@ if (!function_exists('hj_google_reviews_fetch_new_api')) {
 
         if ($status_code !== 200 || !is_array($body)) {
             $message = is_array($body) ? trim((string) ($body['error']['message'] ?? '')) : '';
-            return new WP_Error('hj_google_reviews_new_api_failed', $message !== '' ? $message : __('Google Places API (new) request failed.', 'hello-elementor-child'));
+            return new WP_Error('hj_google_reviews_new_api_failed', $message !== '' ? $message : __('Google Places API (new) request failed.', 'kneesurgery'));
         }
 
         $display_name = is_array($body['displayName'] ?? null) ? $body['displayName'] : [];
@@ -536,7 +536,7 @@ if (!function_exists('hj_google_reviews_fetch_legacy_api')) {
 
         if ($status_code !== 200 || !is_array($body) || ($api_status !== '' && $api_status !== 'OK')) {
             $message = is_array($body) ? trim((string) ($body['error_message'] ?? $api_status)) : '';
-            return new WP_Error('hj_google_reviews_legacy_api_failed', $message !== '' ? $message : __('Google Place Details request failed.', 'hello-elementor-child'));
+            return new WP_Error('hj_google_reviews_legacy_api_failed', $message !== '' ? $message : __('Google Place Details request failed.', 'kneesurgery'));
         }
 
         $result = is_array($body['result'] ?? null) ? $body['result'] : [];
@@ -664,33 +664,33 @@ if (!function_exists('hj_google_reviews_get_settings_message_html')) {
         ];
 
         if (!empty($settings['api_key']) && !empty($settings['place_id'])) {
-            $parts[] = '<p><a class="button button-secondary" href="' . esc_url(hj_google_reviews_get_refresh_url()) . '">' . esc_html__('Refresh Google Reviews Now', 'hello-elementor-child') . '</a></p>';
-            $parts[] = '<p><strong>' . esc_html__('Local archive:', 'hello-elementor-child') . '</strong> ' . esc_html(sprintf(_n('%d unique review', '%d unique reviews', $archive_count, 'hello-elementor-child'), $archive_count)) . '.</p>';
+            $parts[] = '<p><a class="button button-secondary" href="' . esc_url(hj_google_reviews_get_refresh_url()) . '">' . esc_html__('Refresh Google Reviews Now', 'kneesurgery') . '</a></p>';
+            $parts[] = '<p><strong>' . esc_html__('Local archive:', 'kneesurgery') . '</strong> ' . esc_html(sprintf(_n('%d unique review', '%d unique reviews', $archive_count, 'kneesurgery'), $archive_count)) . '.</p>';
         } else {
-            $parts[] = '<p><strong>' . esc_html__('Manual refresh unavailable.', 'hello-elementor-child') . '</strong> ' . esc_html__('Add both the API key and Place ID first.', 'hello-elementor-child') . '</p>';
+            $parts[] = '<p><strong>' . esc_html__('Manual refresh unavailable.', 'kneesurgery') . '</strong> ' . esc_html__('Add both the API key and Place ID first.', 'kneesurgery') . '</p>';
         }
 
         if ($status !== '' || $status_message !== '' || $refreshed_at > 0) {
             $status_label = $status === 'success'
-                ? esc_html__('Last manual refresh succeeded.', 'hello-elementor-child')
-                : esc_html__('Last manual refresh failed.', 'hello-elementor-child');
+                ? esc_html__('Last manual refresh succeeded.', 'kneesurgery')
+                : esc_html__('Last manual refresh failed.', 'kneesurgery');
 
             $meta = [];
             if ($google_count > 0) {
                 $meta[] = sprintf(
-                    _n('%d review reported by Google', '%d reviews reported by Google', $google_count, 'hello-elementor-child'),
+                    _n('%d review reported by Google', '%d reviews reported by Google', $google_count, 'kneesurgery'),
                     $google_count
                 );
             }
             if ($available_count > 0) {
                 $meta[] = sprintf(
-                    _n('%d review currently available to the theme', '%d reviews currently available to the theme', $available_count, 'hello-elementor-child'),
+                    _n('%d review currently available to the theme', '%d reviews currently available to the theme', $available_count, 'kneesurgery'),
                     $available_count
                 );
             }
             if ($refreshed_at > 0) {
                 $meta[] = sprintf(
-                    __('updated %s ago', 'hello-elementor-child'),
+                    __('updated %s ago', 'kneesurgery'),
                     human_time_diff($refreshed_at, current_time('timestamp'))
                 );
             }
@@ -725,7 +725,7 @@ if (!function_exists('hj_google_reviews_get_dynamic_summary_message_html')) {
         $reviews_count = max(0, (int) ($summary['reviews_count'] ?? 0));
 
         if ($stars_text === '' && $rating_label === '' && $reviews_count <= 0) {
-            return '<p>' . esc_html__('This block pulls the Google rating summary automatically from Theme Settings > Google Reviews. Configure the integration or fallback values there to populate it.', 'hello-elementor-child') . '</p>';
+            return '<p>' . esc_html__('This block pulls the Google rating summary automatically from Theme Settings > Google Reviews. Configure the integration or fallback values there to populate it.', 'kneesurgery') . '</p>';
         }
 
         $parts = [];
@@ -739,10 +739,10 @@ if (!function_exists('hj_google_reviews_get_dynamic_summary_message_html')) {
         }
 
         if ($reviews_count > 0) {
-            $parts[] = '<p>' . esc_html(sprintf(_n('%d review', '%d reviews', $reviews_count, 'hello-elementor-child'), $reviews_count)) . '</p>';
+            $parts[] = '<p>' . esc_html(sprintf(_n('%d review', '%d reviews', $reviews_count, 'kneesurgery'), $reviews_count)) . '</p>';
         }
 
-        $parts[] = '<p>' . esc_html__('Pulled automatically from Theme Settings > Google Reviews.', 'hello-elementor-child') . '</p>';
+        $parts[] = '<p>' . esc_html__('Pulled automatically from Theme Settings > Google Reviews.', 'kneesurgery') . '</p>';
 
         return implode('', $parts);
     }
@@ -770,7 +770,7 @@ add_filter('acf/load_field/key=field_hj_tpi_rating_dynamic_message', function ($
 
 add_action('admin_post_hj_google_reviews_refresh', function () {
     if (!current_user_can('manage_options')) {
-        wp_die(esc_html__('You do not have permission to refresh Google reviews.', 'hello-elementor-child'), 403);
+        wp_die(esc_html__('You do not have permission to refresh Google reviews.', 'kneesurgery'), 403);
     }
 
     check_admin_referer('hj_google_reviews_refresh');
@@ -784,7 +784,7 @@ add_action('admin_post_hj_google_reviews_refresh', function () {
     if (empty($settings['api_key']) || empty($settings['place_id'])) {
         hj_google_reviews_set_last_refresh_summary([
             'status' => 'error',
-            'message' => __('Missing Google Reviews API credentials.', 'hello-elementor-child'),
+            'message' => __('Missing Google Reviews API credentials.', 'kneesurgery'),
             'refreshed_at' => current_time('timestamp'),
             'google_count' => 0,
             'available_count' => 0,
@@ -809,7 +809,7 @@ add_action('admin_post_hj_google_reviews_refresh', function () {
     ];
 
     if ($summary['status'] === 'success' && $summary['message'] === '') {
-        $summary['message'] = __('Live Google reviews fetched and local archive updated.', 'hello-elementor-child');
+        $summary['message'] = __('Live Google reviews fetched and local archive updated.', 'kneesurgery');
     }
 
     hj_google_reviews_set_last_refresh_summary($summary);
@@ -836,8 +836,8 @@ add_action('admin_notices', function () {
 
     if ($message === '') {
         $message = $refresh_status === 'success'
-            ? __('Google reviews refreshed.', 'hello-elementor-child')
-            : __('Google reviews refresh failed.', 'hello-elementor-child');
+            ? __('Google reviews refreshed.', 'kneesurgery')
+            : __('Google reviews refresh failed.', 'kneesurgery');
     }
 
     echo '<div class="' . esc_attr($notice_class) . '"><p>' . esc_html($message) . '</p></div>';

@@ -20,7 +20,7 @@ $bottom_links = function_exists('get_field') ? (get_field('footer_bottom_links',
 $current_year = (string) gmdate('Y');
 
 if ($col1_text === '') {
-    $col1_text = __('Medical Tourism Agency Tursab No: 5422', 'hello-elementor-child');
+    $col1_text = __('Medical Tourism Agency Tursab No: 5422', 'kneesurgery');
 }
 
 if ($col2_content === '') {
@@ -36,7 +36,7 @@ if ($col4_content === '') {
 }
 
 if ($bottom_left_text === '') {
-    $bottom_left_text = sprintf(__('Copyright © %s Knee Surgery Turkey', 'hello-elementor-child'), $current_year);
+    $bottom_left_text = sprintf(__('Copyright © %s Knee Surgery Turkey', 'kneesurgery'), $current_year);
 }
 
 if (empty($social_links)) {
@@ -56,14 +56,14 @@ if (empty($bottom_links)) {
     $bottom_links = [
         [
             'link' => [
-                'title' => __('Privacy Policy', 'hello-elementor-child'),
+                'title' => __('Privacy Policy', 'kneesurgery'),
                 'url' => home_url('/privacy-policy/'),
                 'target' => '',
             ],
         ],
         [
             'link' => [
-                'title' => __('Terms & Services', 'hello-elementor-child'),
+                'title' => __('Terms & Services', 'kneesurgery'),
                 'url' => home_url('/terms/'),
                 'target' => '',
             ],
@@ -108,7 +108,7 @@ $render_image = static function ($image, $class_name) {
     return '';
 };
 ?>
-<footer class="hj-site-footer" aria-label="<?php echo esc_attr__('Site footer', 'hello-elementor-child'); ?>">
+<footer class="hj-site-footer" aria-label="<?php echo esc_attr__('Site footer', 'kneesurgery'); ?>">
     <div class="hj-site-footer__main">
         <div class="hj-site-footer__grid">
             <div class="hj-site-footer__column hj-site-footer__column--brand">
@@ -119,7 +119,7 @@ $render_image = static function ($image, $class_name) {
                 <?php echo $render_image($bottom_image, 'hj-site-footer__brand-image hj-site-footer__brand-image--bottom'); ?>
 
                 <?php if (!empty($social_links)) : ?>
-                    <div class="hj-site-footer__socials" aria-label="<?php echo esc_attr__('Social links', 'hello-elementor-child'); ?>">
+                    <div class="hj-site-footer__socials" aria-label="<?php echo esc_attr__('Social links', 'kneesurgery'); ?>">
                         <?php foreach ($social_links as $social) :
                             $network = sanitize_key($social['network'] ?? 'facebook');
                             $url = trim((string) ($social['url'] ?? ''));
@@ -146,7 +146,7 @@ $render_image = static function ($image, $class_name) {
             <div class="hj-site-footer__bottom-copy"><?php echo esc_html($bottom_left_text); ?></div>
 
             <?php if (!empty($bottom_links)) : ?>
-                <nav class="hj-site-footer__bottom-nav" aria-label="<?php echo esc_attr__('Footer legal links', 'hello-elementor-child'); ?>">
+                <nav class="hj-site-footer__bottom-nav" aria-label="<?php echo esc_attr__('Footer legal links', 'kneesurgery'); ?>">
                     <?php foreach ($bottom_links as $row) :
                         $link = $row['link'] ?? null;
                         $url = trim((string) ($link['url'] ?? ''));

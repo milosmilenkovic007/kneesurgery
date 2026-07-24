@@ -18,7 +18,7 @@ function ortho_primary_category_name($post_id){
     }
   }
   $cats = get_the_category($post_id);
-  return !empty($cats) ? $cats[0]->name : __('Blog','hello-elementor-child');
+  return !empty($cats) ? $cats[0]->name : __('Blog','kneesurgery');
 }
 
 $cat_name = ortho_primary_category_name(get_the_ID());
@@ -31,8 +31,8 @@ $feat     = has_post_thumbnail() ? get_the_post_thumbnail_url(get_the_ID(), 'ort
   <section class="ortho-hero">
     <div class="ortho-hero__inner container">
       <div class="ortho-hero__left">
-        <nav class="ortho-breadcrumb" aria-label="<?php esc_attr_e('Breadcrumb','hello-elementor-child'); ?>">
-          <a href="<?php echo esc_url($blog_url); ?>"><?php _e('Blog','hello-elementor-child'); ?></a>
+        <nav class="ortho-breadcrumb" aria-label="<?php esc_attr_e('Breadcrumb','kneesurgery'); ?>">
+          <a href="<?php echo esc_url($blog_url); ?>"><?php _e('Blog','kneesurgery'); ?></a>
           <span aria-hidden="true">›</span>
           <span><?php echo esc_html($cat_name); ?></span>
         </nav>
@@ -61,7 +61,7 @@ $feat     = has_post_thumbnail() ? get_the_post_thumbnail_url(get_the_ID(), 'ort
         <?php
           the_content();
           wp_link_pages([
-            'before' => '<div class="ortho-pages">'.__('Pages:','hello-elementor-child'),
+            'before' => '<div class="ortho-pages">'.__('Pages:','kneesurgery'),
             'after'  => '</div>'
           ]);
         ?>

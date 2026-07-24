@@ -141,7 +141,7 @@
 .ff-wrap label{font-weight:600;color:var(--text);font-size:15px;margin-bottom:8px;display:block}
 .ff-wrap .ff-btn-submit{display:none !important}
 
-/* FluentForms: remove Elementor Kit background from phone country selector */
+/* FluentForms: keep the phone country selector transparent */
 .ff-wrap .iti__selected-country{
   background-color: transparent !important;
   border: none !important;

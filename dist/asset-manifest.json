@@ -169,7 +169,7 @@
   },
   "assets/js/modules/home-hero.js": {
     "path": "assets/js/modules/home-hero.js",
-    "version": "3c2bb6af4a4e"
+    "version": "2af8451d546f"
   },
   "assets/js/modules/image-faq.js": {
     "path": "assets/js/modules/image-faq.js",
@@ -177,7 +177,7 @@
   },
   "assets/js/modules/patient-journey-media.js": {
     "path": "assets/js/modules/patient-journey-media.js",
-    "version": "3e8a02a4a7ed"
+    "version": "119445f81bc8"
   },
   "assets/js/modules/related-doctors.js": {
     "path": "assets/js/modules/related-doctors.js",
@@ -229,6 +229,6 @@
   },
   "style.css": {
     "path": "style.css",
-    "version": "345450407964"
+    "version": "66bee6d14b81"
   }
 }

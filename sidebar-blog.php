@@ -17,10 +17,10 @@ $treatments = new WP_Query([
 ?>
 
 <?php if ($treatments->have_posts()) : ?>
-  <section class="widget hj-blog-sidebar-card hj-blog-sidebar-card--treatments" aria-label="<?php esc_attr_e('Treatments', 'hello-elementor-child'); ?>">
+  <section class="widget hj-blog-sidebar-card hj-blog-sidebar-card--treatments" aria-label="<?php esc_attr_e('Treatments', 'kneesurgery'); ?>">
     <div class="hj-blog-sidebar-card__head">
-      <p class="hj-blog-sidebar-card__eyebrow"><?php esc_html_e('Explore Care', 'hello-elementor-child'); ?></p>
-      <h3 class="widget-title"><?php esc_html_e('Treatments', 'hello-elementor-child'); ?></h3>
+      <p class="hj-blog-sidebar-card__eyebrow"><?php esc_html_e('Explore Care', 'kneesurgery'); ?></p>
+      <h3 class="widget-title"><?php esc_html_e('Treatments', 'kneesurgery'); ?></h3>
     </div>
 
     <div class="hj-blog-treatments-list">
@@ -33,7 +33,7 @@ $treatments = new WP_Query([
     </div>
 
     <a class="hj-blog-sidebar-card__cta btn btn-primary" href="<?php echo esc_url(get_post_type_archive_link('service') ?: home_url('/treatments/')); ?>">
-      <?php esc_html_e('View All Treatments', 'hello-elementor-child'); ?>
+      <?php esc_html_e('View All Treatments', 'kneesurgery'); ?>
     </a>
   </section>
 <?php endif; ?>

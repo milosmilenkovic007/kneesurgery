@@ -1,6 +1,6 @@
 {
-  "name": "hello-elementor-child/hj-theme",
-  "description": "Child theme libraries",
+  "name": "kneesurgery/theme",
+  "description": "Knee Surgery standalone theme libraries",
   "type": "project",
   "require": {
     "dompdf/dompdf": "^2.0"

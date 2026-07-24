@@ -66,35 +66,35 @@ function hj_doc_render_repeater_list($rows) {
         <div class="hj-doc-cv">
           <?php if (!empty($current_position)): ?>
             <section class="hj-doc-card" aria-label="Current position">
-              <h2 class="hj-doc-h2"><?php esc_html_e('Current Position', 'hello-elementor-child'); ?></h2>
+              <h2 class="hj-doc-h2"><?php esc_html_e('Current Position', 'kneesurgery'); ?></h2>
               <div class="hj-doc-text"><?php echo wp_kses_post($current_position); ?></div>
             </section>
           <?php endif; ?>
 
           <?php if (!empty($education)): ?>
             <section class="hj-doc-card" aria-label="Education">
-              <h2 class="hj-doc-h2"><?php esc_html_e('Education', 'hello-elementor-child'); ?></h2>
+              <h2 class="hj-doc-h2"><?php esc_html_e('Education', 'kneesurgery'); ?></h2>
               <?php hj_doc_render_repeater_list($education); ?>
             </section>
           <?php endif; ?>
 
           <?php if (!empty($medical_expertise)): ?>
             <section class="hj-doc-card" aria-label="Medical expertise">
-              <h2 class="hj-doc-h2"><?php esc_html_e('Medical Expertise', 'hello-elementor-child'); ?></h2>
+              <h2 class="hj-doc-h2"><?php esc_html_e('Medical Expertise', 'kneesurgery'); ?></h2>
               <?php hj_doc_render_repeater_list($medical_expertise); ?>
             </section>
           <?php endif; ?>
 
           <?php if (!empty($clinical_focus)): ?>
             <section class="hj-doc-card" aria-label="Clinical focus">
-              <h2 class="hj-doc-h2"><?php esc_html_e('Clinical Focus', 'hello-elementor-child'); ?></h2>
+              <h2 class="hj-doc-h2"><?php esc_html_e('Clinical Focus', 'kneesurgery'); ?></h2>
               <?php hj_doc_render_repeater_list($clinical_focus); ?>
             </section>
           <?php endif; ?>
 
           <?php if (!empty($treatments) && is_array($treatments)): ?>
             <section class="hj-doc-card" aria-label="Treatments">
-              <h2 class="hj-doc-h2"><?php esc_html_e('Treatments', 'hello-elementor-child'); ?></h2>
+              <h2 class="hj-doc-h2"><?php esc_html_e('Treatments', 'kneesurgery'); ?></h2>
               <ul class="hj-doc-links">
                 <?php foreach ($treatments as $treatment_id):
                   $treatment_id = (int) $treatment_id;

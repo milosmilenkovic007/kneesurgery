@@ -19,7 +19,7 @@ if (!function_exists('hj_blog_primary_category_name')) {
         }
 
         $cats = get_the_category($post_id);
-        return !empty($cats) ? $cats[0]->name : __('Blog', 'hello-elementor-child');
+        return !empty($cats) ? $cats[0]->name : __('Blog', 'kneesurgery');
     }
 }
 
@@ -31,8 +31,8 @@ $feat = has_post_thumbnail() ? get_the_post_thumbnail_url(get_the_ID(), 'ortho-h
   <section class="hj-blog-single__hero">
     <div class="hj-blog-single__hero-inner container">
       <div class="hj-blog-single__hero-copy">
-        <nav class="hj-blog-single__breadcrumb" aria-label="<?php esc_attr_e('Breadcrumb', 'hello-elementor-child'); ?>">
-          <a href="<?php echo esc_url($blog_url); ?>"><?php esc_html_e('Blog', 'hello-elementor-child'); ?></a>
+        <nav class="hj-blog-single__breadcrumb" aria-label="<?php esc_attr_e('Breadcrumb', 'kneesurgery'); ?>">
+          <a href="<?php echo esc_url($blog_url); ?>"><?php esc_html_e('Blog', 'kneesurgery'); ?></a>
           <span aria-hidden="true">›</span>
           <span><?php echo esc_html($cat_name); ?></span>
         </nav>
@@ -59,7 +59,7 @@ $feat = has_post_thumbnail() ? get_the_post_thumbnail_url(get_the_ID(), 'ortho-h
         <?php
         the_content();
         wp_link_pages([
-            'before' => '<div class="hj-blog-single__pages">' . __('Pages:', 'hello-elementor-child'),
+            'before' => '<div class="hj-blog-single__pages">' . __('Pages:', 'kneesurgery'),
             'after' => '</div>',
         ]);
         ?>

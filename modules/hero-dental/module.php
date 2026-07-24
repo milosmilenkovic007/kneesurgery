@@ -160,14 +160,14 @@ list($t1, $t2) = $split_title($title);
               <span class="stars" aria-hidden="true"><?php echo esc_html($rating_stars_text); ?></span>
               <span class="label"<?php echo $rating_label === '' ? ' hidden' : ''; ?>><?php echo esc_html('(' . $rating_label . ')'); ?></span>
               <span class="meta"<?php echo $rating_reviews_count <= 0 ? ' hidden' : ''; ?>>Based on</span>
-              <span class="hj-hd-rating-reviews"<?php echo $rating_reviews_count <= 0 ? ' hidden' : ''; ?>><?php echo $rating_reviews_count > 0 ? esc_html(sprintf(_n('%d review', '%d reviews', $rating_reviews_count, 'hello-elementor-child'), $rating_reviews_count)) : ''; ?></span>
+              <span class="hj-hd-rating-reviews"<?php echo $rating_reviews_count <= 0 ? ' hidden' : ''; ?>><?php echo $rating_reviews_count > 0 ? esc_html(sprintf(_n('%d review', '%d reviews', $rating_reviews_count, 'kneesurgery'), $rating_reviews_count)) : ''; ?></span>
             </a>
           <?php else: ?>
             <div class="row">
               <span class="stars" aria-hidden="true"><?php echo esc_html($rating_stars_text); ?></span>
               <span class="label"<?php echo $rating_label === '' ? ' hidden' : ''; ?>><?php echo esc_html('(' . $rating_label . ')'); ?></span>
               <span class="meta"<?php echo $rating_reviews_count <= 0 ? ' hidden' : ''; ?>>Based on</span>
-              <span class="hj-hd-rating-reviews"<?php echo $rating_reviews_count <= 0 ? ' hidden' : ''; ?>><?php echo $rating_reviews_count > 0 ? esc_html(sprintf(_n('%d review', '%d reviews', $rating_reviews_count, 'hello-elementor-child'), $rating_reviews_count)) : ''; ?></span>
+              <span class="hj-hd-rating-reviews"<?php echo $rating_reviews_count <= 0 ? ' hidden' : ''; ?>><?php echo $rating_reviews_count > 0 ? esc_html(sprintf(_n('%d review', '%d reviews', $rating_reviews_count, 'kneesurgery'), $rating_reviews_count)) : ''; ?></span>
             </div>
           <?php endif; ?>
         </div>

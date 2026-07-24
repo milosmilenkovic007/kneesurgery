@@ -28,7 +28,7 @@ if (function_exists('hj_get_faq_module_read_more_url')) {
 }
 
 if ($read_all_text === '') {
-  $read_all_text = __('Read more', 'hello-elementor-child');
+  $read_all_text = __('Read more', 'kneesurgery');
 }
 
 $uid = uniqid('hj-faq-');

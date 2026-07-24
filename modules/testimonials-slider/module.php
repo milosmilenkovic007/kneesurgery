@@ -68,7 +68,7 @@ if ($title === '' && empty($slides)) {
     <?php if (!empty($slides)): ?>
       <div class="hj-ts-slider" data-ts-slider>
         <div class="hj-ts-stage">
-          <button class="hj-ts-arrow hj-ts-arrow--prev" type="button" data-ts-prev aria-label="<?php esc_attr_e('Previous testimonials', 'hello-elementor-child'); ?>">
+          <button class="hj-ts-arrow hj-ts-arrow--prev" type="button" data-ts-prev aria-label="<?php esc_attr_e('Previous testimonials', 'kneesurgery'); ?>">
             <img src="<?php echo esc_url($arrow_left); ?>" alt="" aria-hidden="true" loading="lazy" decoding="async">
           </button>
 
@@ -82,7 +82,7 @@ if ($title === '' && empty($slides)) {
             ?>
               <article class="hj-ts-slide" data-ts-slide>
                 <div class="hj-ts-card">
-                  <div class="hj-ts-stars" aria-label="<?php echo esc_attr(sprintf(__('%d out of 5 stars', 'hello-elementor-child'), $rating)); ?>">
+                  <div class="hj-ts-stars" aria-label="<?php echo esc_attr(sprintf(__('%d out of 5 stars', 'kneesurgery'), $rating)); ?>">
                     <?php for ($i = 0; $i < $rating; $i++): ?>
                       <span aria-hidden="true">★</span>
                     <?php endfor; ?>
@@ -90,7 +90,7 @@ if ($title === '' && empty($slides)) {
 
                   <?php if ($text !== ''): ?>
                     <div class="hj-ts-copy is-clamped" data-ts-copy><?php echo nl2br(esc_html($text)); ?></div>
-                    <button class="hj-ts-read-more" type="button" data-ts-read-more hidden><?php esc_html_e('Read more', 'hello-elementor-child'); ?></button>
+                    <button class="hj-ts-read-more" type="button" data-ts-read-more hidden><?php esc_html_e('Read more', 'kneesurgery'); ?></button>
                   <?php endif; ?>
 
                   <footer class="hj-ts-footer">
@@ -124,14 +124,14 @@ if ($title === '' && empty($slides)) {
             <?php endforeach; ?>
           </div>
 
-          <button class="hj-ts-arrow hj-ts-arrow--next" type="button" data-ts-next aria-label="<?php esc_attr_e('Next testimonials', 'hello-elementor-child'); ?>">
+          <button class="hj-ts-arrow hj-ts-arrow--next" type="button" data-ts-next aria-label="<?php esc_attr_e('Next testimonials', 'kneesurgery'); ?>">
             <img src="<?php echo esc_url($arrow_right); ?>" alt="" aria-hidden="true" loading="lazy" decoding="async">
           </button>
         </div>
 
-        <div class="hj-ts-dots" role="tablist" aria-label="<?php esc_attr_e('Testimonials slides', 'hello-elementor-child'); ?>" data-ts-dots>
+        <div class="hj-ts-dots" role="tablist" aria-label="<?php esc_attr_e('Testimonials slides', 'kneesurgery'); ?>" data-ts-dots>
           <?php foreach ($slides as $index => $item): ?>
-            <button class="hj-ts-dot<?php echo $index === 0 ? ' is-active' : ''; ?>" type="button" data-ts-dot="<?php echo esc_attr($index); ?>" aria-label="<?php echo esc_attr(sprintf(__('Testimonial %d', 'hello-elementor-child'), $index + 1)); ?>" aria-pressed="<?php echo $index === 0 ? 'true' : 'false'; ?>"></button>
+            <button class="hj-ts-dot<?php echo $index === 0 ? ' is-active' : ''; ?>" type="button" data-ts-dot="<?php echo esc_attr($index); ?>" aria-label="<?php echo esc_attr(sprintf(__('Testimonial %d', 'kneesurgery'), $index + 1)); ?>" aria-pressed="<?php echo $index === 0 ? 'true' : 'false'; ?>"></button>
           <?php endforeach; ?>
         </div>
       </div>

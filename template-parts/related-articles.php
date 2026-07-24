@@ -14,9 +14,9 @@ if ($q->have_posts()): ?>
 <section class="ortho-related">
   <div class="container">
     <div class="ortho-related__header">
-      <h2><?php _e('Related articles','hello-elementor-child'); ?></h2>
+      <h2><?php _e('Related articles','kneesurgery'); ?></h2>
       <a class="ortho-related__more" href="<?php echo esc_url(get_post_type_archive_link('post') ?: home_url('/blog/')); ?>">
-        <?php _e('See all articles','hello-elementor-child'); ?> →
+        <?php _e('See all articles','kneesurgery'); ?> →
       </a>
     </div>
 

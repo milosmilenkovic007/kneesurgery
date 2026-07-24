@@ -13,15 +13,15 @@ if (!function_exists('hj_bfs_register_post_type')) {
     {
         register_post_type(HJ_BFS_POST_TYPE, [
             'labels' => [
-                'name' => __('Submissions', 'hello-elementor-child'),
-                'singular_name' => __('Submission', 'hello-elementor-child'),
-                'menu_name' => __('Forms', 'hello-elementor-child'),
-                'all_items' => __('Submissions', 'hello-elementor-child'),
-                'edit_item' => __('View Submission', 'hello-elementor-child'),
-                'view_item' => __('View Submission', 'hello-elementor-child'),
-                'search_items' => __('Search Submissions', 'hello-elementor-child'),
-                'not_found' => __('No submissions found.', 'hello-elementor-child'),
-                'not_found_in_trash' => __('No submissions found in Trash.', 'hello-elementor-child'),
+                'name' => __('Submissions', 'kneesurgery'),
+                'singular_name' => __('Submission', 'kneesurgery'),
+                'menu_name' => __('Forms', 'kneesurgery'),
+                'all_items' => __('Submissions', 'kneesurgery'),
+                'edit_item' => __('View Submission', 'kneesurgery'),
+                'view_item' => __('View Submission', 'kneesurgery'),
+                'search_items' => __('Search Submissions', 'kneesurgery'),
+                'not_found' => __('No submissions found.', 'kneesurgery'),
+                'not_found_in_trash' => __('No submissions found in Trash.', 'kneesurgery'),
             ],
             'public' => false,
             'publicly_queryable' => false,
@@ -89,9 +89,9 @@ if (!function_exists('hj_bfs_create_submission')) {
         $zoho_response = trim((string) ($data['zoho_response'] ?? ''));
 
         $submission_title = sprintf(
-            __('%1$s - %2$s - %3$s', 'hello-elementor-child'),
-            $full_name !== '' ? $full_name : __('Booking enquiry', 'hello-elementor-child'),
-            $treatment_title !== '' ? $treatment_title : __('Treatment package', 'hello-elementor-child'),
+            __('%1$s - %2$s - %3$s', 'kneesurgery'),
+            $full_name !== '' ? $full_name : __('Booking enquiry', 'kneesurgery'),
+            $treatment_title !== '' ? $treatment_title : __('Treatment package', 'kneesurgery'),
             wp_date('Y-m-d H:i')
         );
 
@@ -232,12 +232,12 @@ if (!function_exists('hj_bfs_format_delivery_status')) {
 add_filter('manage_' . HJ_BFS_POST_TYPE . '_posts_columns', function ($columns) {
     return [
         'cb' => $columns['cb'] ?? '<input type="checkbox" />',
-        'title' => __('Submission', 'hello-elementor-child'),
-        'hj_bfs_treatment' => __('Treatment', 'hello-elementor-child'),
-        'hj_bfs_email' => __('Email', 'hello-elementor-child'),
-        'hj_bfs_phone' => __('Mobile', 'hello-elementor-child'),
-        'hj_bfs_delivery' => __('Delivery', 'hello-elementor-child'),
-        'date' => __('Submitted', 'hello-elementor-child'),
+        'title' => __('Submission', 'kneesurgery'),
+        'hj_bfs_treatment' => __('Treatment', 'kneesurgery'),
+        'hj_bfs_email' => __('Email', 'kneesurgery'),
+        'hj_bfs_phone' => __('Mobile', 'kneesurgery'),
+        'hj_bfs_delivery' => __('Delivery', 'kneesurgery'),
+        'date' => __('Submitted', 'kneesurgery'),
     ];
 });
 
@@ -272,7 +272,7 @@ add_action('manage_' . HJ_BFS_POST_TYPE . '_posts_custom_column', function ($col
             }
 
             if (hj_bfs_can_retry_zoho_submission($post_id) && current_user_can('edit_post', $post_id)) {
-                echo '<br><a class="button button-small" href="' . esc_url(hj_bfs_get_retry_zoho_url($post_id)) . '">' . esc_html__('Retry Zoho', 'hello-elementor-child') . '</a>';
+                echo '<br><a class="button button-small" href="' . esc_url(hj_bfs_get_retry_zoho_url($post_id)) . '">' . esc_html__('Retry Zoho', 'kneesurgery') . '</a>';
             }
             break;
     }
@@ -287,7 +287,7 @@ add_filter('post_row_actions', function ($actions, $post) {
     unset($actions['view']);
 
     if (hj_bfs_can_retry_zoho_submission($post->ID) && current_user_can('edit_post', $post->ID)) {
-        $actions['hj_bfs_retry_zoho'] = '<a href="' . esc_url(hj_bfs_get_retry_zoho_url($post->ID)) . '">' . esc_html__('Retry Zoho', 'hello-elementor-child') . '</a>';
+        $actions['hj_bfs_retry_zoho'] = '<a href="' . esc_url(hj_bfs_get_retry_zoho_url($post->ID)) . '">' . esc_html__('Retry Zoho', 'kneesurgery') . '</a>';
     }
 
     return $actions;
@@ -296,26 +296,26 @@ add_filter('post_row_actions', function ($actions, $post) {
 add_action('add_meta_boxes_' . HJ_BFS_POST_TYPE, function () {
     add_meta_box(
         'hj-bfs-details',
-        __('Submission Details', 'hello-elementor-child'),
+        __('Submission Details', 'kneesurgery'),
         function ($post) {
             $fields = [
-                __('Full name', 'hello-elementor-child') => hj_bfs_get_submission_meta($post->ID, '_hj_bfs_full_name'),
-                __('Email', 'hello-elementor-child') => hj_bfs_get_submission_meta($post->ID, '_hj_bfs_email'),
-                __('Mobile', 'hello-elementor-child') => hj_bfs_get_submission_meta($post->ID, '_hj_bfs_phone'),
-                __('Preferred contact method', 'hello-elementor-child') => hj_bfs_get_submission_meta($post->ID, '_hj_bfs_preferred_contact_method'),
-                __('Country', 'hello-elementor-child') => strtoupper(hj_bfs_get_submission_meta($post->ID, '_hj_bfs_country_code')),
-                __('Treatment', 'hello-elementor-child') => hj_bfs_get_submission_meta($post->ID, '_hj_bfs_treatment_title'),
-                __('Price', 'hello-elementor-child') => hj_bfs_get_submission_meta($post->ID, '_hj_bfs_treatment_price'),
-                __('Source', 'hello-elementor-child') => hj_bfs_get_submission_meta($post->ID, '_hj_bfs_source'),
-                __('Source URL', 'hello-elementor-child') => hj_bfs_get_submission_meta($post->ID, '_hj_bfs_source_url'),
-                __('Email Delivery', 'hello-elementor-child') => hj_bfs_format_delivery_status(hj_bfs_get_submission_meta($post->ID, '_hj_bfs_email_status'), 'email'),
-                __('Zoho Status', 'hello-elementor-child') => hj_bfs_get_submission_meta($post->ID, '_hj_bfs_zoho_status'),
-                __('Zoho HTTP Code', 'hello-elementor-child') => hj_bfs_get_submission_meta($post->ID, '_hj_bfs_zoho_code'),
-                __('Submitted', 'hello-elementor-child') => get_the_date('Y-m-d H:i:s', $post),
+                __('Full name', 'kneesurgery') => hj_bfs_get_submission_meta($post->ID, '_hj_bfs_full_name'),
+                __('Email', 'kneesurgery') => hj_bfs_get_submission_meta($post->ID, '_hj_bfs_email'),
+                __('Mobile', 'kneesurgery') => hj_bfs_get_submission_meta($post->ID, '_hj_bfs_phone'),
+                __('Preferred contact method', 'kneesurgery') => hj_bfs_get_submission_meta($post->ID, '_hj_bfs_preferred_contact_method'),
+                __('Country', 'kneesurgery') => strtoupper(hj_bfs_get_submission_meta($post->ID, '_hj_bfs_country_code')),
+                __('Treatment', 'kneesurgery') => hj_bfs_get_submission_meta($post->ID, '_hj_bfs_treatment_title'),
+                __('Price', 'kneesurgery') => hj_bfs_get_submission_meta($post->ID, '_hj_bfs_treatment_price'),
+                __('Source', 'kneesurgery') => hj_bfs_get_submission_meta($post->ID, '_hj_bfs_source'),
+                __('Source URL', 'kneesurgery') => hj_bfs_get_submission_meta($post->ID, '_hj_bfs_source_url'),
+                __('Email Delivery', 'kneesurgery') => hj_bfs_format_delivery_status(hj_bfs_get_submission_meta($post->ID, '_hj_bfs_email_status'), 'email'),
+                __('Zoho Status', 'kneesurgery') => hj_bfs_get_submission_meta($post->ID, '_hj_bfs_zoho_status'),
+                __('Zoho HTTP Code', 'kneesurgery') => hj_bfs_get_submission_meta($post->ID, '_hj_bfs_zoho_code'),
+                __('Submitted', 'kneesurgery') => get_the_date('Y-m-d H:i:s', $post),
             ];
 
             if (hj_bfs_can_retry_zoho_submission($post->ID) && current_user_can('edit_post', $post->ID)) {
-                echo '<p><a class="button button-secondary" href="' . esc_url(hj_bfs_get_retry_zoho_url($post->ID)) . '">' . esc_html__('Retry Zoho', 'hello-elementor-child') . '</a></p>';
+                echo '<p><a class="button button-secondary" href="' . esc_url(hj_bfs_get_retry_zoho_url($post->ID)) . '">' . esc_html__('Retry Zoho', 'kneesurgery') . '</a></p>';
             }
 
             echo '<table class="widefat striped" style="border:0">';
@@ -355,7 +355,7 @@ add_action('admin_post_hj_bfs_retry_zoho_submission', function () {
     }
 
     if (!current_user_can('edit_post', $submission_id)) {
-        wp_die(esc_html__('You do not have permission to retry this submission.', 'hello-elementor-child'), 403);
+        wp_die(esc_html__('You do not have permission to retry this submission.', 'kneesurgery'), 403);
     }
 
     check_admin_referer('hj_bfs_retry_zoho_submission_' . $submission_id);
@@ -412,16 +412,16 @@ add_action('admin_notices', function () {
     $http_code = isset($_GET['hj_bfs_zoho_retry_code']) ? absint($_GET['hj_bfs_zoho_retry_code']) : 0;
     $notice_type = $retry_status === 'sent' ? 'updated' : 'error';
     $messages = [
-        'sent' => __('Zoho lead retried successfully.', 'hello-elementor-child'),
-        'failed' => __('Zoho retry failed.', 'hello-elementor-child'),
-        'invalid' => __('Invalid submission selected for Zoho retry.', 'hello-elementor-child'),
-        'not_failed' => __('Retry is available only for submissions with failed Zoho status.', 'hello-elementor-child'),
-        'unavailable' => __('Zoho retry is currently unavailable.', 'hello-elementor-child'),
+        'sent' => __('Zoho lead retried successfully.', 'kneesurgery'),
+        'failed' => __('Zoho retry failed.', 'kneesurgery'),
+        'invalid' => __('Invalid submission selected for Zoho retry.', 'kneesurgery'),
+        'not_failed' => __('Retry is available only for submissions with failed Zoho status.', 'kneesurgery'),
+        'unavailable' => __('Zoho retry is currently unavailable.', 'kneesurgery'),
     ];
 
-    $message = $messages[$retry_status] ?? __('Zoho retry status is unknown.', 'hello-elementor-child');
+    $message = $messages[$retry_status] ?? __('Zoho retry status is unknown.', 'kneesurgery');
     if ($http_code > 0) {
-        $message .= ' ' . sprintf(__('HTTP code: %d', 'hello-elementor-child'), $http_code);
+        $message .= ' ' . sprintf(__('HTTP code: %d', 'kneesurgery'), $http_code);
     }
 
     echo '<div class="notice ' . esc_attr($notice_type) . ' is-dismissible"><p>' . esc_html($message) . '</p></div>';

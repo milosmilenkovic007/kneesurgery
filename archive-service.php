@@ -34,18 +34,18 @@ get_header();
           <?php endwhile; ?>
         </div>
 
-        <nav class="hj-services-archive__pagination" aria-label="<?php esc_attr_e('Pagination', 'hello-elementor-child'); ?>">
+        <nav class="hj-services-archive__pagination" aria-label="<?php esc_attr_e('Pagination', 'kneesurgery'); ?>">
           <?php
             the_posts_pagination([
               'mid_size' => 1,
-              'prev_text' => __('Previous', 'hello-elementor-child'),
-              'next_text' => __('Next', 'hello-elementor-child'),
+              'prev_text' => __('Previous', 'kneesurgery'),
+              'next_text' => __('Next', 'kneesurgery'),
             ]);
           ?>
         </nav>
       <?php else : ?>
         <div class="hj-services-archive__empty">
-          <p><?php esc_html_e('No treatments found.', 'hello-elementor-child'); ?></p>
+          <p><?php esc_html_e('No treatments found.', 'kneesurgery'); ?></p>
         </div>
       <?php endif; ?>
     </div>

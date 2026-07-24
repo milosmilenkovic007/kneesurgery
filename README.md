@@ -1,4 +1,7 @@
-# Hello Elementor Child Theme
+# Knee Surgery WordPress Theme
+
+Standalone custom theme for [Knee Surgery Turkey](https://kneesurgeryturkey.com/).
+It does not require Hello Elementor or the Elementor plugin.
 
 ## Asset workflow
 

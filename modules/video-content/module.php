@@ -73,7 +73,7 @@ $video_src = $video_type === 'file' ? $video_url : $video_embed_url;
             data-vc-open
             data-video-type="<?php echo esc_attr($video_type); ?>"
             data-video-src="<?php echo esc_url($video_src); ?>"
-            aria-label="<?php esc_attr_e('Open video', 'hello-elementor-child'); ?>"
+            aria-label="<?php esc_attr_e('Open video', 'kneesurgery'); ?>"
           >
             <span class="hj-vc-media__frame" aria-hidden="true"></span>
             <?php if (!empty($video_poster['ID'])) : ?>
@@ -134,8 +134,8 @@ $video_src = $video_type === 'file' ? $video_url : $video_embed_url;
 
   <div class="hj-vc-modal" data-vc-modal hidden>
     <div class="hj-vc-modal__backdrop" data-vc-close></div>
-    <div class="hj-vc-modal__dialog" role="dialog" aria-modal="true" aria-label="<?php esc_attr_e('Video player', 'hello-elementor-child'); ?>">
-      <button class="hj-vc-modal__close" type="button" data-vc-close aria-label="<?php esc_attr_e('Close video', 'hello-elementor-child'); ?>">×</button>
+    <div class="hj-vc-modal__dialog" role="dialog" aria-modal="true" aria-label="<?php esc_attr_e('Video player', 'kneesurgery'); ?>">
+      <button class="hj-vc-modal__close" type="button" data-vc-close aria-label="<?php esc_attr_e('Close video', 'kneesurgery'); ?>">×</button>
       <div class="hj-vc-modal__body" data-vc-modal-body></div>
     </div>
   </div>

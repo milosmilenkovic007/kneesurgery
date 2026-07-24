@@ -6,19 +6,19 @@ if (!defined('ABSPATH')) {
 
 add_action('init', function () {
     $labels = [
-        'name'                  => __('FAQs', 'hello-elementor-child'),
-        'singular_name'         => __('FAQ', 'hello-elementor-child'),
-        'menu_name'             => __('FAQs', 'hello-elementor-child'),
-        'name_admin_bar'        => __('FAQ', 'hello-elementor-child'),
-        'add_new'               => __('Add New', 'hello-elementor-child'),
-        'add_new_item'          => __('Add New FAQ', 'hello-elementor-child'),
-        'new_item'              => __('New FAQ', 'hello-elementor-child'),
-        'edit_item'             => __('Edit FAQ', 'hello-elementor-child'),
-        'view_item'             => __('View FAQ', 'hello-elementor-child'),
-        'all_items'             => __('All FAQs', 'hello-elementor-child'),
-        'search_items'          => __('Search FAQs', 'hello-elementor-child'),
-        'not_found'             => __('No FAQs found.', 'hello-elementor-child'),
-        'not_found_in_trash'    => __('No FAQs found in Trash.', 'hello-elementor-child'),
+        'name'                  => __('FAQs', 'kneesurgery'),
+        'singular_name'         => __('FAQ', 'kneesurgery'),
+        'menu_name'             => __('FAQs', 'kneesurgery'),
+        'name_admin_bar'        => __('FAQ', 'kneesurgery'),
+        'add_new'               => __('Add New', 'kneesurgery'),
+        'add_new_item'          => __('Add New FAQ', 'kneesurgery'),
+        'new_item'              => __('New FAQ', 'kneesurgery'),
+        'edit_item'             => __('Edit FAQ', 'kneesurgery'),
+        'view_item'             => __('View FAQ', 'kneesurgery'),
+        'all_items'             => __('All FAQs', 'kneesurgery'),
+        'search_items'          => __('Search FAQs', 'kneesurgery'),
+        'not_found'             => __('No FAQs found.', 'kneesurgery'),
+        'not_found_in_trash'    => __('No FAQs found in Trash.', 'kneesurgery'),
     ];
 
     $args = [
@@ -41,17 +41,17 @@ add_action('init', function () {
 
 add_action('init', function () {
     $labels = [
-        'name'              => __('FAQ Categories', 'hello-elementor-child'),
-        'singular_name'     => __('FAQ Category', 'hello-elementor-child'),
-        'search_items'      => __('Search FAQ Categories', 'hello-elementor-child'),
-        'all_items'         => __('All FAQ Categories', 'hello-elementor-child'),
-        'parent_item'       => __('Parent FAQ Category', 'hello-elementor-child'),
-        'parent_item_colon' => __('Parent FAQ Category:', 'hello-elementor-child'),
-        'edit_item'         => __('Edit FAQ Category', 'hello-elementor-child'),
-        'update_item'       => __('Update FAQ Category', 'hello-elementor-child'),
-        'add_new_item'      => __('Add New FAQ Category', 'hello-elementor-child'),
-        'new_item_name'     => __('New FAQ Category Name', 'hello-elementor-child'),
-        'menu_name'         => __('Categories', 'hello-elementor-child'),
+        'name'              => __('FAQ Categories', 'kneesurgery'),
+        'singular_name'     => __('FAQ Category', 'kneesurgery'),
+        'search_items'      => __('Search FAQ Categories', 'kneesurgery'),
+        'all_items'         => __('All FAQ Categories', 'kneesurgery'),
+        'parent_item'       => __('Parent FAQ Category', 'kneesurgery'),
+        'parent_item_colon' => __('Parent FAQ Category:', 'kneesurgery'),
+        'edit_item'         => __('Edit FAQ Category', 'kneesurgery'),
+        'update_item'       => __('Update FAQ Category', 'kneesurgery'),
+        'add_new_item'      => __('Add New FAQ Category', 'kneesurgery'),
+        'new_item_name'     => __('New FAQ Category Name', 'kneesurgery'),
+        'menu_name'         => __('Categories', 'kneesurgery'),
     ];
 
     $args = [
@@ -505,7 +505,7 @@ if (!function_exists('hj_get_faq_sections')) {
                 $sections[] = [
                     'term_id' => 0,
                     'slug' => 'general',
-                    'title' => __('General', 'hello-elementor-child'),
+                    'title' => __('General', 'kneesurgery'),
                     'items' => $items,
                 ];
             }
@@ -656,17 +656,17 @@ if (!function_exists('hj_get_faq_module_read_more_url')) {
 if (!function_exists('hj_migrate_legacy_faq_page_to_cpt')) {
     function hj_migrate_legacy_faq_page_to_cpt($page_id = 0) {
         if (!function_exists('get_field')) {
-            return new WP_Error('hj_faq_missing_acf', __('ACF is required for FAQ migration.', 'hello-elementor-child'));
+            return new WP_Error('hj_faq_missing_acf', __('ACF is required for FAQ migration.', 'kneesurgery'));
         }
 
         $page_id = $page_id ? (int) $page_id : hj_find_legacy_faq_page_id();
         if ($page_id <= 0) {
-            return new WP_Error('hj_faq_missing_page', __('Legacy FAQ page was not found.', 'hello-elementor-child'));
+            return new WP_Error('hj_faq_missing_page', __('Legacy FAQ page was not found.', 'kneesurgery'));
         }
 
         $sections = hj_get_legacy_faq_page_sections($page_id);
         if (!is_array($sections) || empty($sections)) {
-            return new WP_Error('hj_faq_empty_source', __('Legacy FAQ page has no FAQ sections to migrate.', 'hello-elementor-child'));
+            return new WP_Error('hj_faq_empty_source', __('Legacy FAQ page has no FAQ sections to migrate.', 'kneesurgery'));
         }
 
         $created = 0;

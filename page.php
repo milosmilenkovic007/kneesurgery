@@ -26,7 +26,7 @@ while (have_posts()) :
 
 <main id="primary" <?php post_class($page_classes); ?>>
 
-    <?php if (!$has_modules && apply_filters('hello_elementor_page_title', true)) : ?>
+    <?php if (!$has_modules && apply_filters('kneesurgery_page_title', true)) : ?>
         <div class="page-header hj-default-page__header">
             <?php the_title('<h1 class="entry-title">', '</h1>'); ?>
         </div>

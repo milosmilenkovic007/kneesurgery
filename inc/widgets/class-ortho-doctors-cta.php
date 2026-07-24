@@ -6,15 +6,15 @@ class Ortho_Doctors_CTA_Widget extends WP_Widget {
   public function __construct() {
     parent::__construct(
       'ortho_doctors_cta',
-      __('Doctors CTA (Ortho)', 'hello-elementor-child'),
-      ['description' => __('Card with doctors image and a CTA button for the Ortho sidebar.', 'hello-elementor-child')]
+      __('Doctors CTA (Ortho)', 'kneesurgery'),
+      ['description' => __('Card with doctors image and a CTA button for the Ortho sidebar.', 'kneesurgery')]
     );
   }
 
   public function widget($args, $instance) {
-    $title      = isset($instance['title']) ? $instance['title'] : __('Get a free consultation', 'hello-elementor-child');
+    $title      = isset($instance['title']) ? $instance['title'] : __('Get a free consultation', 'kneesurgery');
     $image_id   = isset($instance['image_id']) ? intval($instance['image_id']) : 0;
-    $button_txt = isset($instance['button_txt']) ? $instance['button_txt'] : __('Book now', 'hello-elementor-child');
+    $button_txt = isset($instance['button_txt']) ? $instance['button_txt'] : __('Book now', 'kneesurgery');
     $button_url = isset($instance['button_url']) ? esc_url($instance['button_url']) : home_url('/contact/');
 
     echo $args['before_widget'];
@@ -42,43 +42,43 @@ class Ortho_Doctors_CTA_Widget extends WP_Widget {
   }
 
   public function form($instance) {
-    $title      = isset($instance['title']) ? $instance['title'] : __('Get a free consultation', 'hello-elementor-child');
+    $title      = isset($instance['title']) ? $instance['title'] : __('Get a free consultation', 'kneesurgery');
     $image_id   = isset($instance['image_id']) ? intval($instance['image_id']) : 0;
-    $button_txt = isset($instance['button_txt']) ? $instance['button_txt'] : __('Book now', 'hello-elementor-child');
+    $button_txt = isset($instance['button_txt']) ? $instance['button_txt'] : __('Book now', 'kneesurgery');
     $button_url = isset($instance['button_url']) ? $instance['button_url'] : home_url('/contact/');
     $img_src    = $image_id ? wp_get_attachment_image_src($image_id, 'medium') : false;
     ?>
     <p>
-      <label for="<?php echo esc_attr($this->get_field_id('title')); ?>"><?php _e('Title', 'hello-elementor-child'); ?></label>
+      <label for="<?php echo esc_attr($this->get_field_id('title')); ?>"><?php _e('Title', 'kneesurgery'); ?></label>
       <input class="widefat" id="<?php echo esc_attr($this->get_field_id('title')); ?>"
              name="<?php echo esc_attr($this->get_field_name('title')); ?>" type="text"
              value="<?php echo esc_attr($title); ?>">
     </p>
 
     <p>
-      <label><?php _e('Doctors Image', 'hello-elementor-child'); ?></label><br>
+      <label><?php _e('Doctors Image', 'kneesurgery'); ?></label><br>
       <img class="odw-preview" src="<?php echo $img_src ? esc_url($img_src[0]) : ''; ?>"
            style="max-width:100%;height:auto;<?php echo $img_src ? '' : 'display:none;'; ?>">
       <input type="hidden" class="odw-image-id" id="<?php echo esc_attr($this->get_field_id('image_id')); ?>"
              name="<?php echo esc_attr($this->get_field_name('image_id')); ?>" value="<?php echo esc_attr($image_id); ?>">
       <button type="button" class="button button-secondary odw-upload"
               data-target="#<?php echo esc_attr($this->get_field_id('image_id')); ?>">
-        <?php echo $img_src ? __('Change image', 'hello-elementor-child') : __('Choose image', 'hello-elementor-child'); ?>
+        <?php echo $img_src ? __('Change image', 'kneesurgery') : __('Choose image', 'kneesurgery'); ?>
       </button>
       <button type="button" class="button button-link-delete odw-remove" <?php echo $img_src ? '' : 'style="display:none"'; ?>>
-        <?php _e('Remove', 'hello-elementor-child'); ?>
+        <?php _e('Remove', 'kneesurgery'); ?>
       </button>
     </p>
 
     <p>
-      <label for="<?php echo esc_attr($this->get_field_id('button_txt')); ?>"><?php _e('Button Text', 'hello-elementor-child'); ?></label>
+      <label for="<?php echo esc_attr($this->get_field_id('button_txt')); ?>"><?php _e('Button Text', 'kneesurgery'); ?></label>
       <input class="widefat" id="<?php echo esc_attr($this->get_field_id('button_txt')); ?>"
              name="<?php echo esc_attr($this->get_field_name('button_txt')); ?>" type="text"
              value="<?php echo esc_attr($button_txt); ?>">
     </p>
 
     <p>
-      <label for="<?php echo esc_attr($this->get_field_id('button_url')); ?>"><?php _e('Button URL', 'hello-elementor-child'); ?></label>
+      <label for="<?php echo esc_attr($this->get_field_id('button_url')); ?>"><?php _e('Button URL', 'kneesurgery'); ?></label>
       <input class="widefat" id="<?php echo esc_attr($this->get_field_id('button_url')); ?>"
              name="<?php echo esc_attr($this->get_field_name('button_url')); ?>" type="url"
              value="<?php echo esc_attr($button_url); ?>">

@@ -212,7 +212,7 @@ if (!function_exists('hj_zoho_crm_get_oauth_access_token')) {
         $refresh_token = (string) ($settings['oauth_refresh_token'] ?? '');
 
         if ($accounts_url === '' || $client_id === '' || $client_secret === '' || $refresh_token === '') {
-            return new WP_Error('zoho_oauth_missing', __('Zoho OAuth settings are incomplete.', 'hello-elementor-child'));
+            return new WP_Error('zoho_oauth_missing', __('Zoho OAuth settings are incomplete.', 'kneesurgery'));
         }
 
         $response = wp_remote_post($accounts_url . '/oauth/v2/token', [
@@ -310,7 +310,7 @@ if (!function_exists('hj_zoho_crm_exchange_authorization_code')) {
         $client_secret = trim((string) ($settings['oauth_client_secret'] ?? ''));
 
         if ($accounts_url === '' || $client_id === '' || $client_secret === '' || $code === '') {
-            return new WP_Error('zoho_oauth_missing', __('Zoho OAuth credentials are incomplete.', 'hello-elementor-child'));
+            return new WP_Error('zoho_oauth_missing', __('Zoho OAuth credentials are incomplete.', 'kneesurgery'));
         }
 
         $response = wp_remote_post($accounts_url . '/oauth/v2/token', [
@@ -500,7 +500,7 @@ if (!function_exists('hj_zoho_crm_enqueue_retry')) {
         hj_zoho_crm_set_last_status([
             'status' => 'queued',
             'code' => (int) ($result['code'] ?? 0),
-            'message' => __('Zoho lead queued for retry.', 'hello-elementor-child'),
+            'message' => __('Zoho lead queued for retry.', 'kneesurgery'),
             'queue_count' => count($queue),
         ]);
     }
@@ -815,7 +815,7 @@ if (!function_exists('hj_send_zoho_crm_lead')) {
             hj_zoho_crm_set_last_status([
                 'status' => 'disabled',
                 'code' => 0,
-                'message' => __('Zoho integration is disabled.', 'hello-elementor-child'),
+                'message' => __('Zoho integration is disabled.', 'kneesurgery'),
                 'queue_count' => count(hj_zoho_crm_get_retry_queue()),
             ]);
 
@@ -826,12 +826,12 @@ if (!function_exists('hj_send_zoho_crm_lead')) {
             $result = [
                 'status' => 'misconfigured',
                 'code' => 0,
-                'body' => __('Missing Zoho webhook URL.', 'hello-elementor-child'),
+                'body' => __('Missing Zoho webhook URL.', 'kneesurgery'),
             ];
             hj_zoho_crm_set_last_status([
                 'status' => 'misconfigured',
                 'code' => 0,
-                'message' => __('Zoho is enabled but webhook URL is missing for webhook mode.', 'hello-elementor-child'),
+                'message' => __('Zoho is enabled but webhook URL is missing for webhook mode.', 'kneesurgery'),
                 'queue_count' => count(hj_zoho_crm_get_retry_queue()),
             ]);
 
@@ -844,7 +844,7 @@ if (!function_exists('hj_send_zoho_crm_lead')) {
             hj_zoho_crm_set_last_status([
                 'status' => 'sent',
                 'code' => (int) $result['code'],
-                'message' => __('Zoho lead sent successfully.', 'hello-elementor-child'),
+                'message' => __('Zoho lead sent successfully.', 'kneesurgery'),
                 'queue_count' => count(hj_zoho_crm_get_retry_queue()),
             ]);
 
@@ -867,7 +867,7 @@ if (!function_exists('hj_send_zoho_crm_lead')) {
         hj_zoho_crm_set_last_status([
             'status' => 'failed',
             'code' => (int) $result['code'],
-            'message' => __('Zoho retry failed.', 'hello-elementor-child'),
+            'message' => __('Zoho retry failed.', 'kneesurgery'),
             'queue_count' => count(hj_zoho_crm_get_retry_queue()),
         ]);
 
@@ -889,7 +889,7 @@ if (!function_exists('hj_zoho_crm_process_retry_queue')) {
             hj_zoho_crm_set_last_status([
                 'status' => 'idle',
                 'code' => 0,
-                'message' => __('Zoho retry queue is empty.', 'hello-elementor-child'),
+                'message' => __('Zoho retry queue is empty.', 'kneesurgery'),
                 'queue_count' => 0,
             ]);
             return;
@@ -920,7 +920,7 @@ if (!function_exists('hj_zoho_crm_process_retry_queue')) {
                 hj_zoho_crm_set_last_status([
                     'status' => 'failed',
                     'code' => (int) ($result['code'] ?? 0),
-                    'message' => __('Zoho retry attempts exhausted.', 'hello-elementor-child'),
+                    'message' => __('Zoho retry attempts exhausted.', 'kneesurgery'),
                     'queue_count' => max(0, count($updated_queue)),
                 ]);
                 continue;
@@ -943,8 +943,8 @@ if (!function_exists('hj_zoho_crm_process_retry_queue')) {
             'status' => empty($updated_queue) ? 'idle' : 'queued',
             'code' => 0,
             'message' => empty($updated_queue)
-                ? __('Zoho retry queue processed successfully.', 'hello-elementor-child')
-                : __('Zoho retry queue processed. Pending items remain.', 'hello-elementor-child'),
+                ? __('Zoho retry queue processed successfully.', 'kneesurgery')
+                : __('Zoho retry queue processed. Pending items remain.', 'kneesurgery'),
             'queue_count' => count($updated_queue),
         ]);
     }
@@ -981,7 +981,7 @@ if (!function_exists('hj_zoho_crm_get_test_url')) {
 
 add_action('admin_post_hj_zoho_crm_oauth_connect', function () {
     if (!current_user_can('manage_options')) {
-        wp_die(esc_html__('You do not have permission to authenticate Zoho.', 'hello-elementor-child'), 403);
+        wp_die(esc_html__('You do not have permission to authenticate Zoho.', 'kneesurgery'), 403);
     }
 
     check_admin_referer('hj_zoho_crm_oauth_connect');
@@ -989,12 +989,12 @@ add_action('admin_post_hj_zoho_crm_oauth_connect', function () {
     $settings = hj_get_zoho_crm_settings();
     $auth_url = hj_zoho_crm_build_oauth_authorize_url($settings);
     if ($auth_url === '') {
-        hj_zoho_crm_set_oauth_status('missing_config', __('Missing OAuth config: Accounts URL or Client ID.', 'hello-elementor-child'));
+        hj_zoho_crm_set_oauth_status('missing_config', __('Missing OAuth config: Accounts URL or Client ID.', 'kneesurgery'));
         wp_safe_redirect(add_query_arg('hj_zoho_oauth', 'missing_config', hj_zoho_crm_get_settings_page_url()));
         exit;
     }
 
-    hj_zoho_crm_set_oauth_status('started', __('OAuth connect started. Waiting for Zoho callback...', 'hello-elementor-child'));
+    hj_zoho_crm_set_oauth_status('started', __('OAuth connect started. Waiting for Zoho callback...', 'kneesurgery'));
 
     wp_redirect($auth_url);
     exit;
@@ -1016,14 +1016,14 @@ if (!function_exists('hj_zoho_crm_handle_oauth_callback')) {
     delete_option(HJ_ZOHO_CRM_OAUTH_STATE_OPTION);
 
     if ($error !== '') {
-        hj_zoho_crm_set_oauth_status('denied', sprintf(__('Zoho returned error: %s', 'hello-elementor-child'), $error));
+        hj_zoho_crm_set_oauth_status('denied', sprintf(__('Zoho returned error: %s', 'kneesurgery'), $error));
         wp_safe_redirect(add_query_arg('hj_zoho_oauth', 'denied', hj_zoho_crm_get_settings_page_url()));
         exit;
     }
 
     $user_mismatch = $stored_user > 0 && $current_user > 0 && $stored_user !== $current_user;
     if ($state === '' || $stored_value === '' || !hash_equals($stored_value, $state) || $user_mismatch || $expires_at < time()) {
-        hj_zoho_crm_set_oauth_status('invalid_state', __('Invalid OAuth state, user mismatch, or expired session.', 'hello-elementor-child'));
+        hj_zoho_crm_set_oauth_status('invalid_state', __('Invalid OAuth state, user mismatch, or expired session.', 'kneesurgery'));
         wp_safe_redirect(add_query_arg('hj_zoho_oauth', 'invalid_state', hj_zoho_crm_get_settings_page_url()));
         exit;
     }
@@ -1040,8 +1040,8 @@ if (!function_exists('hj_zoho_crm_handle_oauth_callback')) {
     hj_zoho_crm_set_oauth_status(
         $status,
         empty($result['refresh_token'])
-            ? __('Connected but refresh token was not returned.', 'hello-elementor-child')
-            : __('Connected successfully and refresh token saved.', 'hello-elementor-child')
+            ? __('Connected but refresh token was not returned.', 'kneesurgery')
+            : __('Connected successfully and refresh token saved.', 'kneesurgery')
     );
     wp_safe_redirect(add_query_arg('hj_zoho_oauth', $status, hj_zoho_crm_get_settings_page_url()));
     exit;
@@ -1053,7 +1053,7 @@ add_action('admin_post_nopriv_hj_zoho_crm_oauth_callback', 'hj_zoho_crm_handle_o
 
 add_action('admin_post_hj_zoho_crm_retry_now', function () {
     if (!current_user_can('manage_options')) {
-        wp_die(esc_html__('You do not have permission to retry Zoho queue.', 'hello-elementor-child'), 403);
+        wp_die(esc_html__('You do not have permission to retry Zoho queue.', 'kneesurgery'), 403);
     }
 
     check_admin_referer('hj_zoho_crm_retry_now');
@@ -1065,7 +1065,7 @@ add_action('admin_post_hj_zoho_crm_retry_now', function () {
 
 add_action('admin_post_hj_zoho_crm_test_connection', function () {
     if (!current_user_can('manage_options')) {
-        wp_die(esc_html__('You do not have permission to test Zoho connection.', 'hello-elementor-child'), 403);
+        wp_die(esc_html__('You do not have permission to test Zoho connection.', 'kneesurgery'), 403);
     }
 
     check_admin_referer('hj_zoho_crm_test_connection');
@@ -1103,12 +1103,12 @@ add_action('admin_notices', function () {
 
     $settings = hj_get_zoho_crm_settings();
     if (!empty($settings['enabled']) && !hj_zoho_crm_is_direct_mode($settings) && empty($settings['webhook_url'])) {
-        echo '<div class="notice notice-error"><p>' . esc_html__('Zoho CRM webhook mode is enabled, but webhook URL is missing. Leads cannot be delivered until you configure it.', 'hello-elementor-child') . '</p></div>';
+        echo '<div class="notice notice-error"><p>' . esc_html__('Zoho CRM webhook mode is enabled, but webhook URL is missing. Leads cannot be delivered until you configure it.', 'kneesurgery') . '</p></div>';
     }
 
     $retry_status = isset($_GET['hj_zoho_retry']) ? sanitize_key(wp_unslash((string) $_GET['hj_zoho_retry'])) : '';
     if ($retry_status === 'done') {
-        echo '<div class="notice notice-success is-dismissible"><p>' . esc_html__('Zoho retry queue processed.', 'hello-elementor-child') . '</p></div>';
+        echo '<div class="notice notice-success is-dismissible"><p>' . esc_html__('Zoho retry queue processed.', 'kneesurgery') . '</p></div>';
     }
 
     $test_status = isset($_GET['hj_zoho_test']) ? sanitize_key(wp_unslash((string) $_GET['hj_zoho_test'])) : '';
@@ -1117,8 +1117,8 @@ add_action('admin_notices', function () {
         $is_ok = in_array($test_status, ['sent', 'queued'], true);
         $class = $is_ok ? 'notice-success' : 'notice-error';
         $label = $is_ok
-            ? __('Zoho test connection successful.', 'hello-elementor-child')
-            : __('Zoho test connection failed.', 'hello-elementor-child');
+            ? __('Zoho test connection successful.', 'kneesurgery')
+            : __('Zoho test connection failed.', 'kneesurgery');
         $suffix = $test_code > 0 ? ' (HTTP ' . $test_code . ')' : '';
         echo '<div class="notice ' . esc_attr($class) . ' is-dismissible"><p>' . esc_html($label . $suffix) . '</p></div>';
     }
@@ -1126,12 +1126,12 @@ add_action('admin_notices', function () {
     $oauth_status = isset($_GET['hj_zoho_oauth']) ? sanitize_key(wp_unslash((string) $_GET['hj_zoho_oauth'])) : '';
     if ($oauth_status !== '') {
         $messages = [
-            'connected' => ['class' => 'notice-success', 'text' => __('Zoho OAuth connected and refresh token saved.', 'hello-elementor-child')],
-            'connected_no_refresh' => ['class' => 'notice-warning', 'text' => __('Zoho OAuth connected, but refresh token was not returned. Re-authenticate and ensure consent is granted.', 'hello-elementor-child')],
-            'missing_config' => ['class' => 'notice-error', 'text' => __('Missing Zoho OAuth configuration. Fill Accounts URL, Client ID and Client Secret first.', 'hello-elementor-child')],
-            'invalid_state' => ['class' => 'notice-error', 'text' => __('Invalid or expired Zoho OAuth state. Please try connect again.', 'hello-elementor-child')],
-            'exchange_failed' => ['class' => 'notice-error', 'text' => __('Zoho OAuth token exchange failed. Check credentials and redirect URI.', 'hello-elementor-child')],
-            'denied' => ['class' => 'notice-error', 'text' => __('Zoho OAuth authorization was denied.', 'hello-elementor-child')],
+            'connected' => ['class' => 'notice-success', 'text' => __('Zoho OAuth connected and refresh token saved.', 'kneesurgery')],
+            'connected_no_refresh' => ['class' => 'notice-warning', 'text' => __('Zoho OAuth connected, but refresh token was not returned. Re-authenticate and ensure consent is granted.', 'kneesurgery')],
+            'missing_config' => ['class' => 'notice-error', 'text' => __('Missing Zoho OAuth configuration. Fill Accounts URL, Client ID and Client Secret first.', 'kneesurgery')],
+            'invalid_state' => ['class' => 'notice-error', 'text' => __('Invalid or expired Zoho OAuth state. Please try connect again.', 'kneesurgery')],
+            'exchange_failed' => ['class' => 'notice-error', 'text' => __('Zoho OAuth token exchange failed. Check credentials and redirect URI.', 'kneesurgery')],
+            'denied' => ['class' => 'notice-error', 'text' => __('Zoho OAuth authorization was denied.', 'kneesurgery')],
         ];
 
         if (isset($messages[$oauth_status])) {
@@ -1147,42 +1147,42 @@ if (!function_exists('hj_zoho_crm_get_status_message_html')) {
         $status = hj_zoho_crm_get_last_status();
         $queue_count = count(hj_zoho_crm_get_retry_queue());
         $status_label = (string) ($status['status'] ?? 'idle');
-        $message = (string) ($status['message'] ?? __('No Zoho activity yet.', 'hello-elementor-child'));
+        $message = (string) ($status['message'] ?? __('No Zoho activity yet.', 'kneesurgery'));
         $code = (int) ($status['code'] ?? 0);
         $updated_at = (string) ($status['updated_at'] ?? '');
 
         $parts = [];
-        $parts[] = '<p><strong>' . esc_html__('Zoho Status', 'hello-elementor-child') . ':</strong> ' . esc_html($status_label) . '</p>';
-        $parts[] = '<p><strong>' . esc_html__('Message', 'hello-elementor-child') . ':</strong> ' . esc_html($message) . '</p>';
-        $parts[] = '<p><strong>' . esc_html__('HTTP Code', 'hello-elementor-child') . ':</strong> ' . esc_html((string) $code) . '</p>';
-        $parts[] = '<p><strong>' . esc_html__('Queue Size', 'hello-elementor-child') . ':</strong> ' . esc_html((string) $queue_count) . '</p>';
-        $parts[] = '<p><strong>' . esc_html__('Delivery Mode', 'hello-elementor-child') . ':</strong> ' . esc_html(hj_zoho_crm_is_direct_mode(hj_get_zoho_crm_settings()) ? 'direct-crm-api' : 'webhook') . '</p>';
-        $parts[] = '<p><strong>' . esc_html__('OAuth Redirect URI', 'hello-elementor-child') . ':</strong> <code>' . esc_html(hj_zoho_crm_get_oauth_redirect_uri()) . '</code></p>';
+        $parts[] = '<p><strong>' . esc_html__('Zoho Status', 'kneesurgery') . ':</strong> ' . esc_html($status_label) . '</p>';
+        $parts[] = '<p><strong>' . esc_html__('Message', 'kneesurgery') . ':</strong> ' . esc_html($message) . '</p>';
+        $parts[] = '<p><strong>' . esc_html__('HTTP Code', 'kneesurgery') . ':</strong> ' . esc_html((string) $code) . '</p>';
+        $parts[] = '<p><strong>' . esc_html__('Queue Size', 'kneesurgery') . ':</strong> ' . esc_html((string) $queue_count) . '</p>';
+        $parts[] = '<p><strong>' . esc_html__('Delivery Mode', 'kneesurgery') . ':</strong> ' . esc_html(hj_zoho_crm_is_direct_mode(hj_get_zoho_crm_settings()) ? 'direct-crm-api' : 'webhook') . '</p>';
+        $parts[] = '<p><strong>' . esc_html__('OAuth Redirect URI', 'kneesurgery') . ':</strong> <code>' . esc_html(hj_zoho_crm_get_oauth_redirect_uri()) . '</code></p>';
 
         $oauth = hj_zoho_crm_get_oauth_status();
         if (!empty($oauth)) {
-            $parts[] = '<p><strong>' . esc_html__('OAuth Status', 'hello-elementor-child') . ':</strong> ' . esc_html((string) ($oauth['status'] ?? '-')) . '</p>';
-            $parts[] = '<p><strong>' . esc_html__('OAuth Message', 'hello-elementor-child') . ':</strong> ' . esc_html((string) ($oauth['message'] ?? '-')) . '</p>';
-            $parts[] = '<p><strong>' . esc_html__('OAuth Updated', 'hello-elementor-child') . ':</strong> ' . esc_html((string) ($oauth['updated_at'] ?? '-')) . '</p>';
+            $parts[] = '<p><strong>' . esc_html__('OAuth Status', 'kneesurgery') . ':</strong> ' . esc_html((string) ($oauth['status'] ?? '-')) . '</p>';
+            $parts[] = '<p><strong>' . esc_html__('OAuth Message', 'kneesurgery') . ':</strong> ' . esc_html((string) ($oauth['message'] ?? '-')) . '</p>';
+            $parts[] = '<p><strong>' . esc_html__('OAuth Updated', 'kneesurgery') . ':</strong> ' . esc_html((string) ($oauth['updated_at'] ?? '-')) . '</p>';
         }
 
         $oauth_debug = hj_zoho_crm_get_oauth_debug();
         if (!empty($oauth_debug)) {
-            $parts[] = '<p><strong>' . esc_html__('OAuth Debug HTTP', 'hello-elementor-child') . ':</strong> ' . esc_html((string) ($oauth_debug['http_code'] ?? '-')) . '</p>';
-            $parts[] = '<p><strong>' . esc_html__('OAuth Debug Updated', 'hello-elementor-child') . ':</strong> ' . esc_html((string) ($oauth_debug['updated_at'] ?? '-')) . '</p>';
-            $parts[] = '<p><strong>' . esc_html__('OAuth Debug Body', 'hello-elementor-child') . ':</strong> <code style="display:block;white-space:pre-wrap;">' . esc_html((string) ($oauth_debug['raw_body'] ?? '')) . '</code></p>';
+            $parts[] = '<p><strong>' . esc_html__('OAuth Debug HTTP', 'kneesurgery') . ':</strong> ' . esc_html((string) ($oauth_debug['http_code'] ?? '-')) . '</p>';
+            $parts[] = '<p><strong>' . esc_html__('OAuth Debug Updated', 'kneesurgery') . ':</strong> ' . esc_html((string) ($oauth_debug['updated_at'] ?? '-')) . '</p>';
+            $parts[] = '<p><strong>' . esc_html__('OAuth Debug Body', 'kneesurgery') . ':</strong> <code style="display:block;white-space:pre-wrap;">' . esc_html((string) ($oauth_debug['raw_body'] ?? '')) . '</code></p>';
         }
 
         if ($updated_at !== '') {
-            $parts[] = '<p><strong>' . esc_html__('Last Updated', 'hello-elementor-child') . ':</strong> ' . esc_html($updated_at) . '</p>';
+            $parts[] = '<p><strong>' . esc_html__('Last Updated', 'kneesurgery') . ':</strong> ' . esc_html($updated_at) . '</p>';
         }
 
         if ($queue_count > 0) {
-            $parts[] = '<p><a class="button button-secondary" href="' . esc_url(hj_zoho_crm_get_retry_url()) . '">' . esc_html__('Retry Queue Now', 'hello-elementor-child') . '</a></p>';
+            $parts[] = '<p><a class="button button-secondary" href="' . esc_url(hj_zoho_crm_get_retry_url()) . '">' . esc_html__('Retry Queue Now', 'kneesurgery') . '</a></p>';
         }
 
-        $parts[] = '<p><a class="button button-secondary" href="' . esc_url(hj_zoho_crm_get_oauth_connect_url()) . '">' . esc_html__('Authenticate with Zoho', 'hello-elementor-child') . '</a></p>';
-        $parts[] = '<p><a class="button button-primary" href="' . esc_url(hj_zoho_crm_get_test_url()) . '">' . esc_html__('Test Zoho Connection', 'hello-elementor-child') . '</a></p>';
+        $parts[] = '<p><a class="button button-secondary" href="' . esc_url(hj_zoho_crm_get_oauth_connect_url()) . '">' . esc_html__('Authenticate with Zoho', 'kneesurgery') . '</a></p>';
+        $parts[] = '<p><a class="button button-primary" href="' . esc_url(hj_zoho_crm_get_test_url()) . '">' . esc_html__('Test Zoho Connection', 'kneesurgery') . '</a></p>';
 
         return implode('', $parts);
     }

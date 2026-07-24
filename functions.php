@@ -1,6 +1,6 @@
 <?php
 /**
- * Hello Elementor Child – core bootstrap
+ * Knee Surgery standalone theme bootstrap.
  */
 
 if (!defined('ABSPATH')) exit;
@@ -75,7 +75,7 @@ if (!function_exists('hj_is_ortho_single_template')) {
 if (!function_exists('hj_get_header_cta')) {
   function hj_get_header_cta() {
     $cta = [
-      'label' => __('Let\'s Get in Touch', 'hello-elementor-child'),
+      'label' => __('Let\'s Get in Touch', 'kneesurgery'),
       'url' => home_url('/contact/'),
       'target' => '',
     ];
@@ -146,7 +146,7 @@ if (!function_exists('hj_get_mega_menu_item_type_label')) {
       }
     }
 
-    return __('Explore', 'hello-elementor-child');
+    return __('Explore', 'kneesurgery');
   }
 }
 
@@ -278,12 +278,28 @@ add_action('wp_body_open', function () {
 // -----------------------------------------------------------------------------
 add_action('after_setup_theme', function () {
   // i18n
-  load_child_theme_textdomain('hello-elementor-child', get_stylesheet_directory() . '/languages');
+  load_theme_textdomain('kneesurgery', get_template_directory() . '/languages');
 
   // supports
   add_theme_support('post-thumbnails');
   add_theme_support('title-tag');
-  add_theme_support('html5', ['search-form','comment-form','comment-list','gallery','caption','script','style']);
+  add_theme_support('automatic-feed-links');
+  add_theme_support('custom-logo', [
+    'height' => 100,
+    'width' => 350,
+    'flex-height' => true,
+    'flex-width' => true,
+  ]);
+  add_theme_support('align-wide');
+  add_theme_support('responsive-embeds');
+  add_theme_support('html5', ['search-form','comment-form','comment-list','gallery','caption','script','style','navigation-widgets']);
+
+  register_nav_menus([
+    'menu-1' => __('Header', 'kneesurgery'),
+    'menu-2' => __('Footer', 'kneesurgery'),
+  ]);
+
+  add_post_type_support('page', 'excerpt');
 
   // custom sizes (used by the Ortho single template)
   add_image_size('ortho-hero', 1440, 900, true);
@@ -309,7 +325,7 @@ add_filter('wp_check_filetype_and_ext', function ($data, $file, $filename, $mime
 }, 10, 4);
 
 // -----------------------------------------------------------------------------
-//  Enqueue parent & child assets
+//  Enqueue standalone theme assets
 // -----------------------------------------------------------------------------
 add_action('wp_enqueue_scripts', function () {
   $child_style = hj_get_theme_asset('style.css');
@@ -324,48 +340,39 @@ add_action('wp_enqueue_scripts', function () {
   $site_header_script = hj_get_theme_asset('assets/js/site-header.js');
   $faq_page_script = hj_get_theme_asset('assets/js/page-faq.js');
 
-  // Parent Hello Elementor style
   wp_enqueue_style(
-    'hello-elementor-parent',
-    get_template_directory_uri() . '/style.css',
-    [],
-    wp_get_theme(get_template())->get('Version')
-  );
-
-  // Child style.css
-  wp_enqueue_style(
-    'hello-elementor-child',
+    'kneesurgery',
     $child_style['url'],
-    ['hello-elementor-parent'],
+    [],
     $child_style['version']
   );
 
-  wp_enqueue_style('hj-site-header', $site_header_style['url'], ['hello-elementor-child'], $site_header_style['version']);
-  wp_enqueue_style('hj-site-footer', $site_footer_style['url'], ['hello-elementor-child'], $site_footer_style['version']);
+  wp_enqueue_style('hj-site-header', $site_header_style['url'], ['kneesurgery'], $site_header_style['version']);
+  wp_enqueue_style('hj-site-footer', $site_footer_style['url'], ['kneesurgery'], $site_footer_style['version']);
   wp_enqueue_script('hj-site-header', $site_header_script['url'], [], $site_header_script['version'], true);
 
   // Load Ortho single assets only on our custom template
   if (hj_is_ortho_single_template()) {
-    wp_enqueue_style('ortho-single', $ortho_style['url'], ['hello-elementor-child'], $ortho_style['version']);
+    wp_enqueue_style('ortho-single', $ortho_style['url'], ['kneesurgery'], $ortho_style['version']);
     wp_enqueue_script('ortho-single', $ortho_script['url'], [], $ortho_script['version'], true);
   }
 
   if (is_singular('post') && !hj_is_ortho_single_template()) {
-    wp_enqueue_style('hj-blog-single', $blog_single_style['url'], ['hello-elementor-child'], $blog_single_style['version']);
+    wp_enqueue_style('hj-blog-single', $blog_single_style['url'], ['kneesurgery'], $blog_single_style['version']);
   }
 
   if (is_page_template('page-thank-you.php')) {
-    wp_enqueue_style('hj-thank-you-page', $thank_you_style['url'], ['hello-elementor-child'], $thank_you_style['version']);
+    wp_enqueue_style('hj-thank-you-page', $thank_you_style['url'], ['kneesurgery'], $thank_you_style['version']);
   }
 
   if (is_page_template('page-faq.php')) {
-    wp_enqueue_style('hj-faq-page', $faq_page_style['url'], ['hello-elementor-child'], $faq_page_style['version']);
+    wp_enqueue_style('hj-faq-page', $faq_page_style['url'], ['kneesurgery'], $faq_page_style['version']);
     wp_enqueue_script('hj-faq-page', $faq_page_script['url'], [], $faq_page_script['version'], true);
   }
 
   // Load Doctor single assets only on doctor pages
   if (is_singular('doctor')) {
-    wp_enqueue_style('doctor-single', $doctor_style['url'], ['hello-elementor-child'], $doctor_style['version']);
+    wp_enqueue_style('doctor-single', $doctor_style['url'], ['kneesurgery'], $doctor_style['version']);
   }
 }, 20);
 
@@ -374,9 +381,9 @@ add_action('wp_enqueue_scripts', function () {
 // -----------------------------------------------------------------------------
 add_action('widgets_init', function () {
   register_sidebar([
-    'name'          => __('Ortho Sidebar', 'hello-elementor-child'),
+    'name'          => __('Ortho Sidebar', 'kneesurgery'),
     'id'            => 'ortho-sidebar',
-    'description'   => __('Widgets here appear in the sticky sidebar on the Ortho single template.', 'hello-elementor-child'),
+    'description'   => __('Widgets here appear in the sticky sidebar on the Ortho single template.', 'kneesurgery'),
     'before_widget' => '<section id="%1$s" class="widget %2$s">',
     'after_widget'  => '</section>',
     'before_title'  => '<h3 class="widget-title">',
@@ -385,11 +392,11 @@ add_action('widgets_init', function () {
 });
 
 // -----------------------------------------------------------------------------
-//  Safety: ensure template header is respected even with Elementor Theme Builder
+//  Register the custom single-post template in the page template selector
 // -----------------------------------------------------------------------------
 add_filter('theme_page_templates', function ($templates) {
   // make sure WP lists our template in the selector if needed
-  $templates['single-ortho.php'] = __('Ortho Single (Blog)', 'hello-elementor-child');
+  $templates['single-ortho.php'] = __('Ortho Single (Blog)', 'kneesurgery');
   return $templates;
 });
 
@@ -410,7 +417,7 @@ add_action('wp_enqueue_scripts', function () {
   wp_enqueue_style(
     'ortho-widget-doctors-cta',
     $widget_style['url'],
-    ['hello-elementor-child'],
+    ['kneesurgery'],
     $widget_style['version']
   );
 }, 30);
@@ -536,23 +543,23 @@ if (is_admin()) {
 // -----------------------------------------------------------------------------
 add_action('init', function () {
   $labels = [
-    'name'                  => __('Treatments', 'hello-elementor-child'),
-    'singular_name'         => __('Treatment', 'hello-elementor-child'),
-    'menu_name'             => __('Treatments', 'hello-elementor-child'),
-    'name_admin_bar'        => __('Treatment', 'hello-elementor-child'),
-    'add_new'               => __('Add New', 'hello-elementor-child'),
-    'add_new_item'          => __('Add New Treatment', 'hello-elementor-child'),
-    'new_item'              => __('New Treatment', 'hello-elementor-child'),
-    'edit_item'             => __('Edit Treatment', 'hello-elementor-child'),
-    'view_item'             => __('View Treatment', 'hello-elementor-child'),
-    'all_items'             => __('All Treatments', 'hello-elementor-child'),
-    'search_items'          => __('Search Treatments', 'hello-elementor-child'),
-    'not_found'             => __('No treatments found.', 'hello-elementor-child'),
-    'not_found_in_trash'    => __('No treatments found in Trash.', 'hello-elementor-child'),
-    'featured_image'        => __('Treatment Image', 'hello-elementor-child'),
-    'set_featured_image'    => __('Set treatment image', 'hello-elementor-child'),
-    'remove_featured_image' => __('Remove treatment image', 'hello-elementor-child'),
-    'use_featured_image'    => __('Use as treatment image', 'hello-elementor-child'),
+    'name'                  => __('Treatments', 'kneesurgery'),
+    'singular_name'         => __('Treatment', 'kneesurgery'),
+    'menu_name'             => __('Treatments', 'kneesurgery'),
+    'name_admin_bar'        => __('Treatment', 'kneesurgery'),
+    'add_new'               => __('Add New', 'kneesurgery'),
+    'add_new_item'          => __('Add New Treatment', 'kneesurgery'),
+    'new_item'              => __('New Treatment', 'kneesurgery'),
+    'edit_item'             => __('Edit Treatment', 'kneesurgery'),
+    'view_item'             => __('View Treatment', 'kneesurgery'),
+    'all_items'             => __('All Treatments', 'kneesurgery'),
+    'search_items'          => __('Search Treatments', 'kneesurgery'),
+    'not_found'             => __('No treatments found.', 'kneesurgery'),
+    'not_found_in_trash'    => __('No treatments found in Trash.', 'kneesurgery'),
+    'featured_image'        => __('Treatment Image', 'kneesurgery'),
+    'set_featured_image'    => __('Set treatment image', 'kneesurgery'),
+    'remove_featured_image' => __('Remove treatment image', 'kneesurgery'),
+    'use_featured_image'    => __('Use as treatment image', 'kneesurgery'),
   ];
 
   $args = [
@@ -578,23 +585,23 @@ add_action('init', function () {
 // -----------------------------------------------------------------------------
 add_action('init', function () {
   $labels = [
-    'name'                  => __('Doctors', 'hello-elementor-child'),
-    'singular_name'         => __('Doctor', 'hello-elementor-child'),
-    'menu_name'             => __('Doctors', 'hello-elementor-child'),
-    'name_admin_bar'        => __('Doctor', 'hello-elementor-child'),
-    'add_new'               => __('Add New', 'hello-elementor-child'),
-    'add_new_item'          => __('Add New Doctor', 'hello-elementor-child'),
-    'new_item'              => __('New Doctor', 'hello-elementor-child'),
-    'edit_item'             => __('Edit Doctor', 'hello-elementor-child'),
-    'view_item'             => __('View Doctor', 'hello-elementor-child'),
-    'all_items'             => __('All Doctors', 'hello-elementor-child'),
-    'search_items'          => __('Search Doctors', 'hello-elementor-child'),
-    'not_found'             => __('No doctors found.', 'hello-elementor-child'),
-    'not_found_in_trash'    => __('No doctors found in Trash.', 'hello-elementor-child'),
-    'featured_image'        => __('Doctor Photo', 'hello-elementor-child'),
-    'set_featured_image'    => __('Set doctor photo', 'hello-elementor-child'),
-    'remove_featured_image' => __('Remove doctor photo', 'hello-elementor-child'),
-    'use_featured_image'    => __('Use as doctor photo', 'hello-elementor-child'),
+    'name'                  => __('Doctors', 'kneesurgery'),
+    'singular_name'         => __('Doctor', 'kneesurgery'),
+    'menu_name'             => __('Doctors', 'kneesurgery'),
+    'name_admin_bar'        => __('Doctor', 'kneesurgery'),
+    'add_new'               => __('Add New', 'kneesurgery'),
+    'add_new_item'          => __('Add New Doctor', 'kneesurgery'),
+    'new_item'              => __('New Doctor', 'kneesurgery'),
+    'edit_item'             => __('Edit Doctor', 'kneesurgery'),
+    'view_item'             => __('View Doctor', 'kneesurgery'),
+    'all_items'             => __('All Doctors', 'kneesurgery'),
+    'search_items'          => __('Search Doctors', 'kneesurgery'),
+    'not_found'             => __('No doctors found.', 'kneesurgery'),
+    'not_found_in_trash'    => __('No doctors found in Trash.', 'kneesurgery'),
+    'featured_image'        => __('Doctor Photo', 'kneesurgery'),
+    'set_featured_image'    => __('Set doctor photo', 'kneesurgery'),
+    'remove_featured_image' => __('Remove doctor photo', 'kneesurgery'),
+    'use_featured_image'    => __('Use as doctor photo', 'kneesurgery'),
   ];
 
   $args = [
@@ -620,23 +627,23 @@ add_action('init', function () {
 // -----------------------------------------------------------------------------
 add_action('init', function () {
   $labels = [
-    'name'                  => __('Testimonials', 'hello-elementor-child'),
-    'singular_name'         => __('Testimonial', 'hello-elementor-child'),
-    'menu_name'             => __('Testimonials', 'hello-elementor-child'),
-    'name_admin_bar'        => __('Testimonial', 'hello-elementor-child'),
-    'add_new'               => __('Add New', 'hello-elementor-child'),
-    'add_new_item'          => __('Add New Testimonial', 'hello-elementor-child'),
-    'new_item'              => __('New Testimonial', 'hello-elementor-child'),
-    'edit_item'             => __('Edit Testimonial', 'hello-elementor-child'),
-    'view_item'             => __('View Testimonial', 'hello-elementor-child'),
-    'all_items'             => __('All Testimonials', 'hello-elementor-child'),
-    'search_items'          => __('Search Testimonials', 'hello-elementor-child'),
-    'not_found'             => __('No testimonials found.', 'hello-elementor-child'),
-    'not_found_in_trash'    => __('No testimonials found in Trash.', 'hello-elementor-child'),
-    'featured_image'        => __('Testimonial Photo', 'hello-elementor-child'),
-    'set_featured_image'    => __('Set testimonial photo', 'hello-elementor-child'),
-    'remove_featured_image' => __('Remove testimonial photo', 'hello-elementor-child'),
-    'use_featured_image'    => __('Use as testimonial photo', 'hello-elementor-child'),
+    'name'                  => __('Testimonials', 'kneesurgery'),
+    'singular_name'         => __('Testimonial', 'kneesurgery'),
+    'menu_name'             => __('Testimonials', 'kneesurgery'),
+    'name_admin_bar'        => __('Testimonial', 'kneesurgery'),
+    'add_new'               => __('Add New', 'kneesurgery'),
+    'add_new_item'          => __('Add New Testimonial', 'kneesurgery'),
+    'new_item'              => __('New Testimonial', 'kneesurgery'),
+    'edit_item'             => __('Edit Testimonial', 'kneesurgery'),
+    'view_item'             => __('View Testimonial', 'kneesurgery'),
+    'all_items'             => __('All Testimonials', 'kneesurgery'),
+    'search_items'          => __('Search Testimonials', 'kneesurgery'),
+    'not_found'             => __('No testimonials found.', 'kneesurgery'),
+    'not_found_in_trash'    => __('No testimonials found in Trash.', 'kneesurgery'),
+    'featured_image'        => __('Testimonial Photo', 'kneesurgery'),
+    'set_featured_image'    => __('Set testimonial photo', 'kneesurgery'),
+    'remove_featured_image' => __('Remove testimonial photo', 'kneesurgery'),
+    'use_featured_image'    => __('Use as testimonial photo', 'kneesurgery'),
   ];
 
   $args = [
@@ -663,8 +670,8 @@ add_action('init', function () {
 add_action('admin_menu', function () {
   add_submenu_page(
     'edit.php?post_type=doctor',
-    __('Reorder Doctors', 'hello-elementor-child'),
-    __('Reorder', 'hello-elementor-child'),
+    __('Reorder Doctors', 'kneesurgery'),
+    __('Reorder', 'kneesurgery'),
     'edit_posts',
     'hj-reorder-doctors',
     'hj_render_reorder_doctors_page'
@@ -673,7 +680,7 @@ add_action('admin_menu', function () {
 
 function hj_render_reorder_doctors_page() {
   if (!current_user_can('edit_posts')) {
-    wp_die(esc_html__('You do not have permission to access this page.', 'hello-elementor-child'));
+    wp_die(esc_html__('You do not have permission to access this page.', 'kneesurgery'));
   }
 
   wp_enqueue_script('jquery-ui-sortable');
@@ -692,19 +699,19 @@ function hj_render_reorder_doctors_page() {
   $nonce = wp_create_nonce('hj_doctors_reorder');
   ?>
   <div class="wrap">
-    <h1><?php esc_html_e('Reorder Doctors', 'hello-elementor-child'); ?></h1>
-    <p><?php esc_html_e('Drag and drop doctors to set display order for the Service page related doctors block.', 'hello-elementor-child'); ?></p>
+    <h1><?php esc_html_e('Reorder Doctors', 'kneesurgery'); ?></h1>
+    <p><?php esc_html_e('Drag and drop doctors to set display order for the Service page related doctors block.', 'kneesurgery'); ?></p>
 
     <ul id="hj-doctors-sortable" style="max-width:760px; margin-top:16px;">
       <?php foreach ($doctors as $doctor): ?>
         <li class="hj-doctor-item" data-id="<?php echo esc_attr($doctor->ID); ?>" style="background:#fff; border:1px solid #dcdcde; padding:10px 12px; margin-bottom:8px; cursor:move;">
-          <?php echo esc_html($doctor->post_title ?: __('(no title)', 'hello-elementor-child')); ?>
+          <?php echo esc_html($doctor->post_title ?: __('(no title)', 'kneesurgery')); ?>
         </li>
       <?php endforeach; ?>
     </ul>
 
     <p>
-      <button type="button" class="button button-primary" id="hj-save-doctors-order"><?php esc_html_e('Save order', 'hello-elementor-child'); ?></button>
+      <button type="button" class="button button-primary" id="hj-save-doctors-order"><?php esc_html_e('Save order', 'kneesurgery'); ?></button>
       <span id="hj-order-status" style="margin-left:8px;"></span>
     </p>
   </div>
@@ -726,7 +733,7 @@ function hj_render_reorder_doctors_page() {
           return $(this).data('id');
         }).get();
 
-        $status.text('<?php echo esc_js(__('Saving...', 'hello-elementor-child')); ?>');
+        $status.text('<?php echo esc_js(__('Saving...', 'kneesurgery')); ?>');
 
         $.post(ajaxurl, {
           action: 'hj_save_doctors_order',
@@ -735,13 +742,13 @@ function hj_render_reorder_doctors_page() {
         })
         .done(function (response) {
           if (response && response.success) {
-            $status.text('<?php echo esc_js(__('Saved.', 'hello-elementor-child')); ?>');
+            $status.text('<?php echo esc_js(__('Saved.', 'kneesurgery')); ?>');
           } else {
-            $status.text('<?php echo esc_js(__('Error while saving order.', 'hello-elementor-child')); ?>');
+            $status.text('<?php echo esc_js(__('Error while saving order.', 'kneesurgery')); ?>');
           }
         })
         .fail(function () {
-          $status.text('<?php echo esc_js(__('Request failed.', 'hello-elementor-child')); ?>');
+          $status.text('<?php echo esc_js(__('Request failed.', 'kneesurgery')); ?>');
         });
       });
     });
@@ -781,12 +788,12 @@ add_filter('manage_edit-doctor_columns', function ($columns) {
     $new_columns[$key] = $label;
 
     if ($key === 'title') {
-      $new_columns['doctor_order'] = __('Order', 'hello-elementor-child');
+      $new_columns['doctor_order'] = __('Order', 'kneesurgery');
     }
   }
 
   if (!isset($new_columns['doctor_order'])) {
-    $new_columns['doctor_order'] = __('Order', 'hello-elementor-child');
+    $new_columns['doctor_order'] = __('Order', 'kneesurgery');
   }
 
   return $new_columns;
@@ -822,17 +829,17 @@ add_action('pre_get_posts', function ($query) {
 // Taxonomy: Treatment Categories (hierarchical)
 add_action('init', function () {
   $labels = [
-    'name'              => __('Treatment Categories', 'hello-elementor-child'),
-    'singular_name'     => __('Treatment Category', 'hello-elementor-child'),
-    'search_items'      => __('Search Treatment Categories', 'hello-elementor-child'),
-    'all_items'         => __('All Treatment Categories', 'hello-elementor-child'),
-    'parent_item'       => __('Parent Treatment Category', 'hello-elementor-child'),
-    'parent_item_colon' => __('Parent Treatment Category:', 'hello-elementor-child'),
-    'edit_item'         => __('Edit Treatment Category', 'hello-elementor-child'),
-    'update_item'       => __('Update Treatment Category', 'hello-elementor-child'),
-    'add_new_item'      => __('Add New Treatment Category', 'hello-elementor-child'),
-    'new_item_name'     => __('New Treatment Category Name', 'hello-elementor-child'),
-    'menu_name'         => __('Treatment Categories', 'hello-elementor-child'),
+    'name'              => __('Treatment Categories', 'kneesurgery'),
+    'singular_name'     => __('Treatment Category', 'kneesurgery'),
+    'search_items'      => __('Search Treatment Categories', 'kneesurgery'),
+    'all_items'         => __('All Treatment Categories', 'kneesurgery'),
+    'parent_item'       => __('Parent Treatment Category', 'kneesurgery'),
+    'parent_item_colon' => __('Parent Treatment Category:', 'kneesurgery'),
+    'edit_item'         => __('Edit Treatment Category', 'kneesurgery'),
+    'update_item'       => __('Update Treatment Category', 'kneesurgery'),
+    'add_new_item'      => __('Add New Treatment Category', 'kneesurgery'),
+    'new_item_name'     => __('New Treatment Category Name', 'kneesurgery'),
+    'menu_name'         => __('Treatment Categories', 'kneesurgery'),
   ];
 
   $args = [

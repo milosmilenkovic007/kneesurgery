@@ -76,9 +76,9 @@ if (!$has_header && !$has_card) {
 }
 
 $uid = uniqid('hj-spc-');
-$booking_title = $booking_title !== '' ? $booking_title : __('Book your treatment', 'hello-elementor-child');
-$booking_text = $booking_text !== '' ? $booking_text : __('Leave your details and our team will contact you with the next steps.', 'hello-elementor-child');
-$button_text = $button_text !== '' ? $button_text : __('Request a Medical Review', 'hello-elementor-child');
+$booking_title = $booking_title !== '' ? $booking_title : __('Book your treatment', 'kneesurgery');
+$booking_text = $booking_text !== '' ? $booking_text : __('Leave your details and our team will contact you with the next steps.', 'kneesurgery');
+$button_text = $button_text !== '' ? $button_text : __('Request a Medical Review', 'kneesurgery');
 $section_style = $price_color ? '--spc-price-color:' . $price_color . ';' : '';
 ?>
 <section class="hj-single-package-cardbox" id="<?php echo esc_attr($uid); ?>" aria-label="Single Package Cardbox"<?php echo $section_style !== '' ? ' style="' . esc_attr($section_style) . '"' : ''; ?>>
@@ -149,34 +149,34 @@ $section_style = $price_color ? '--spc-price-color:' . $price_color . ';' : '';
                     <?php wp_nonce_field('hj_spc_submit_lead', 'hj_spc_nonce'); ?>
 
                     <div class="hj-spc-form__field hj-spc-form__field--trap" aria-hidden="true">
-                      <label class="screen-reader-text" for="hj-spc-company-<?php echo esc_attr($uid); ?>"><?php echo esc_html__('Company', 'hello-elementor-child'); ?></label>
+                      <label class="screen-reader-text" for="hj-spc-company-<?php echo esc_attr($uid); ?>"><?php echo esc_html__('Company', 'kneesurgery'); ?></label>
                       <input id="hj-spc-company-<?php echo esc_attr($uid); ?>" type="text" name="company" tabindex="-1" autocomplete="off" placeholder="Company">
                     </div>
 
                     <div class="hj-spc-form__field">
-                      <label class="screen-reader-text" for="hj-spc-name-<?php echo esc_attr($uid); ?>"><?php echo esc_html__('Full name', 'hello-elementor-child'); ?></label>
+                      <label class="screen-reader-text" for="hj-spc-name-<?php echo esc_attr($uid); ?>"><?php echo esc_html__('Full name', 'kneesurgery'); ?></label>
                       <input id="hj-spc-name-<?php echo esc_attr($uid); ?>" type="text" name="full_name" required autocomplete="name" placeholder="Full name">
                     </div>
 
                     <div class="hj-spc-form__field hj-spc-form__field--phone">
-                      <label class="screen-reader-text" for="hj-spc-phone-<?php echo esc_attr($uid); ?>"><?php echo esc_html__('Mobile number', 'hello-elementor-child'); ?></label>
+                      <label class="screen-reader-text" for="hj-spc-phone-<?php echo esc_attr($uid); ?>"><?php echo esc_html__('Mobile number', 'kneesurgery'); ?></label>
                       <input type="hidden" name="phone" value="">
                       <input type="hidden" name="country_code" value="">
                       <input id="hj-spc-phone-<?php echo esc_attr($uid); ?>" class="hj-spc-phone-input" type="tel" name="phone_display" required autocomplete="tel" placeholder="Mobile number">
                     </div>
 
                     <div class="hj-spc-form__field">
-                      <label class="screen-reader-text" for="hj-spc-email-<?php echo esc_attr($uid); ?>"><?php echo esc_html__('Email address', 'hello-elementor-child'); ?></label>
+                      <label class="screen-reader-text" for="hj-spc-email-<?php echo esc_attr($uid); ?>"><?php echo esc_html__('Email address', 'kneesurgery'); ?></label>
                       <input id="hj-spc-email-<?php echo esc_attr($uid); ?>" type="email" name="email" required autocomplete="email" placeholder="Email address">
                     </div>
 
                     <div class="hj-spc-form__field">
-                      <label class="screen-reader-text" for="hj-spc-contact-method-<?php echo esc_attr($uid); ?>"><?php echo esc_html__('Preferred contact method', 'hello-elementor-child'); ?></label>
+                      <label class="screen-reader-text" for="hj-spc-contact-method-<?php echo esc_attr($uid); ?>"><?php echo esc_html__('Preferred contact method', 'kneesurgery'); ?></label>
                       <select id="hj-spc-contact-method-<?php echo esc_attr($uid); ?>" name="preferred_contact_method" required>
-                        <option value="" selected disabled><?php echo esc_html__('Preferred contact method', 'hello-elementor-child'); ?></option>
-                        <option value="phone_call"><?php echo esc_html__('Phone call', 'hello-elementor-child'); ?></option>
-                        <option value="whatsapp"><?php echo esc_html__('Whatsapp', 'hello-elementor-child'); ?></option>
-                        <option value="email"><?php echo esc_html__('Email', 'hello-elementor-child'); ?></option>
+                        <option value="" selected disabled><?php echo esc_html__('Preferred contact method', 'kneesurgery'); ?></option>
+                        <option value="phone_call"><?php echo esc_html__('Phone call', 'kneesurgery'); ?></option>
+                        <option value="whatsapp"><?php echo esc_html__('Whatsapp', 'kneesurgery'); ?></option>
+                        <option value="email"><?php echo esc_html__('Email', 'kneesurgery'); ?></option>
                       </select>
                     </div>
                   </form>

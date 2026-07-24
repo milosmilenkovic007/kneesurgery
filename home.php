@@ -10,7 +10,7 @@ $posts_page = $posts_page_id > 0 ? get_post($posts_page_id) : null;
 $has_modules = $posts_page instanceof WP_Post && function_exists('have_rows') && have_rows('modules', $posts_page_id);
 $content = $posts_page instanceof WP_Post ? (string) $posts_page->post_content : '';
 $has_content = trim(wp_strip_all_tags($content)) !== '';
-$archive_title = $posts_page instanceof WP_Post ? get_the_title($posts_page_id) : __('Blog', 'hello-elementor-child');
+$archive_title = $posts_page instanceof WP_Post ? get_the_title($posts_page_id) : __('Blog', 'kneesurgery');
 $page_classes = ['site-main', 'hj-default-page', 'hj-blog-archive'];
 
 if (!$has_modules) {
@@ -26,7 +26,7 @@ if (!$has_modules) {
 
 <main id="primary" class="<?php echo esc_attr(implode(' ', $page_classes)); ?>">
 
-    <?php if (!$has_modules && apply_filters('hello_elementor_page_title', true)) : ?>
+    <?php if (!$has_modules && apply_filters('kneesurgery_page_title', true)) : ?>
         <div class="page-header hj-default-page__header">
             <h1 class="entry-title"><?php echo esc_html($archive_title); ?></h1>
         </div>
@@ -81,18 +81,18 @@ if (!$has_modules) {
                     <?php endwhile; ?>
                 </div>
 
-                <nav class="hj-blog-archive__pagination" aria-label="<?php esc_attr_e('Pagination', 'hello-elementor-child'); ?>">
+                <nav class="hj-blog-archive__pagination" aria-label="<?php esc_attr_e('Pagination', 'kneesurgery'); ?>">
                     <?php
                     the_posts_pagination([
                         'mid_size' => 1,
-                        'prev_text' => __('Previous', 'hello-elementor-child'),
-                        'next_text' => __('Next', 'hello-elementor-child'),
+                        'prev_text' => __('Previous', 'kneesurgery'),
+                        'next_text' => __('Next', 'kneesurgery'),
                     ]);
                     ?>
                 </nav>
             <?php else : ?>
                 <div class="hj-blog-archive__empty">
-                    <p><?php esc_html_e('No articles found.', 'hello-elementor-child'); ?></p>
+                    <p><?php esc_html_e('No articles found.', 'kneesurgery'); ?></p>
                 </div>
             <?php endif; ?>
         </section>

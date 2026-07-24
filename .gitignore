@@ -22,6 +22,11 @@ composer.phar
 
 # WordPress caches/uploads (theme should not track these)
 *.log
+*.bak
+*.bak-*
+*.backup
+*.old
+*~
 
 # Build
 .cache/

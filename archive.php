@@ -13,7 +13,7 @@ $content_classes = ['page-content', 'hj-default-page__content', 'hj-default-page
 
 <main id="primary" class="<?php echo esc_attr(implode(' ', $page_classes)); ?>">
 
-    <?php if (apply_filters('hello_elementor_page_title', true)) : ?>
+    <?php if (apply_filters('kneesurgery_page_title', true)) : ?>
         <div class="page-header hj-default-page__header">
             <?php the_archive_title('<h1 class="entry-title">', '</h1>'); ?>
         </div>
@@ -61,18 +61,18 @@ $content_classes = ['page-content', 'hj-default-page__content', 'hj-default-page
                 <?php endwhile; ?>
             </div>
 
-            <nav class="hj-blog-archive__pagination" aria-label="<?php esc_attr_e('Pagination', 'hello-elementor-child'); ?>">
+            <nav class="hj-blog-archive__pagination" aria-label="<?php esc_attr_e('Pagination', 'kneesurgery'); ?>">
                 <?php
                 the_posts_pagination([
                     'mid_size' => 1,
-                    'prev_text' => __('Previous', 'hello-elementor-child'),
-                    'next_text' => __('Next', 'hello-elementor-child'),
+                    'prev_text' => __('Previous', 'kneesurgery'),
+                    'next_text' => __('Next', 'kneesurgery'),
                 ]);
                 ?>
             </nav>
         <?php else : ?>
             <div class="hj-blog-archive__empty">
-                <p><?php esc_html_e('No articles found.', 'hello-elementor-child'); ?></p>
+                <p><?php esc_html_e('No articles found.', 'kneesurgery'); ?></p>
             </div>
         <?php endif; ?>
     </section>

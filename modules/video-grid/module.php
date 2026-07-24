@@ -82,7 +82,7 @@ if ($heading === '' && $intro === '' && empty($items)) {
 <section
   class="hj-video-grid"
   id="<?php echo esc_attr($uid); ?>"
-  aria-label="<?php echo esc_attr($heading !== '' ? $heading : __('Video grid', 'hello-elementor-child')); ?>"
+  aria-label="<?php echo esc_attr($heading !== '' ? $heading : __('Video grid', 'kneesurgery')); ?>"
   style="--hj-vg-cols:<?php echo esc_attr((string) $desktop_columns); ?>;--hj-vg-cols-md:<?php echo esc_attr((string) $tablet_columns); ?>;--hj-vg-cols-sm:<?php echo esc_attr((string) $mobile_columns); ?>;"
 >
   <div class="hj-vg-wrap">
@@ -103,7 +103,7 @@ if ($heading === '' && $intro === '' && empty($items)) {
             data-vg-index="<?php echo esc_attr((string) $index); ?>"
             data-video-type="<?php echo esc_attr($item['type']); ?>"
             data-video-src="<?php echo esc_url($item['src']); ?>"
-            aria-label="<?php echo esc_attr($item['title'] !== '' ? $item['title'] : __('Open video', 'hello-elementor-child')); ?>"
+            aria-label="<?php echo esc_attr($item['title'] !== '' ? $item['title'] : __('Open video', 'kneesurgery')); ?>"
           >
             <?php if ($item['poster'] !== '') : ?>
               <img class="hj-vg-poster" src="<?php echo esc_url($item['poster']); ?>" alt="<?php echo esc_attr($item['poster_alt']); ?>" loading="lazy" decoding="async">
@@ -128,8 +128,8 @@ if ($heading === '' && $intro === '' && empty($items)) {
 
   <div class="hj-vg-modal" data-vg-modal hidden>
     <div class="hj-vg-modal__backdrop" data-vg-close></div>
-    <div class="hj-vg-modal__dialog" role="dialog" aria-modal="true" aria-label="<?php esc_attr_e('Video player', 'hello-elementor-child'); ?>">
-      <button class="hj-vg-modal__close" type="button" data-vg-close aria-label="<?php esc_attr_e('Close video', 'hello-elementor-child'); ?>">×</button>
+    <div class="hj-vg-modal__dialog" role="dialog" aria-modal="true" aria-label="<?php esc_attr_e('Video player', 'kneesurgery'); ?>">
+      <button class="hj-vg-modal__close" type="button" data-vg-close aria-label="<?php esc_attr_e('Close video', 'kneesurgery'); ?>">×</button>
       <div class="hj-vg-modal__body" data-vg-modal-body></div>
     </div>
   </div>

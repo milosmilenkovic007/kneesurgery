@@ -184,9 +184,9 @@ if (!function_exists('hj_spc_get_form_feedback')) {
         }
 
         $messages = [
-            'success' => __('Your request has been sent. Our team will contact you shortly.', 'hello-elementor-child'),
-            'invalid' => __('Please complete all fields with a valid email address.', 'hello-elementor-child'),
-            'error' => __('We could not send your request right now. Please try again shortly.', 'hello-elementor-child'),
+            'success' => __('Your request has been sent. Our team will contact you shortly.', 'kneesurgery'),
+            'invalid' => __('Please complete all fields with a valid email address.', 'kneesurgery'),
+            'error' => __('We could not send your request right now. Please try again shortly.', 'kneesurgery'),
         ];
 
         return [
@@ -255,9 +255,9 @@ if (!function_exists('hj_spc_handle_lead_submission')) {
         }
 
         $allowed_contact_methods = [
-            'phone_call' => __('Phone call', 'hello-elementor-child'),
-            'whatsapp' => __('Whatsapp', 'hello-elementor-child'),
-            'email' => __('Email', 'hello-elementor-child'),
+            'phone_call' => __('Phone call', 'kneesurgery'),
+            'whatsapp' => __('Whatsapp', 'kneesurgery'),
+            'email' => __('Email', 'kneesurgery'),
         ];
 
         if (!array_key_exists($preferred_contact_method, $allowed_contact_methods)) {
@@ -330,20 +330,20 @@ if (!function_exists('hj_spc_handle_lead_submission')) {
 
         $recipient = apply_filters('hj_spc_lead_recipient', get_option('admin_email'), $treatment_id);
         $subject = sprintf(
-            __('Package enquiry: %s', 'hello-elementor-child'),
-            $treatment_title !== '' ? $treatment_title : __('Treatment package', 'hello-elementor-child')
+            __('Package enquiry: %s', 'kneesurgery'),
+            $treatment_title !== '' ? $treatment_title : __('Treatment package', 'kneesurgery')
         );
 
         $message_lines = [
-            __('New package booking enquiry received.', 'hello-elementor-child'),
+            __('New package booking enquiry received.', 'kneesurgery'),
             '',
-            sprintf(__('Treatment: %s', 'hello-elementor-child'), $treatment_title !== '' ? $treatment_title : __('Not provided', 'hello-elementor-child')),
-            sprintf(__('Name: %s', 'hello-elementor-child'), $full_name),
-            sprintf(__('Mobile: %s', 'hello-elementor-child'), $formatted_phone),
-            sprintf(__('Preferred contact method: %s', 'hello-elementor-child'), $allowed_contact_methods[$preferred_contact_method]),
-            sprintf(__('Country: %s', 'hello-elementor-child'), strtoupper($country_code)),
-            sprintf(__('Email: %s', 'hello-elementor-child'), $email),
-            sprintf(__('Page: %s', 'hello-elementor-child'), $redirect_to),
+            sprintf(__('Treatment: %s', 'kneesurgery'), $treatment_title !== '' ? $treatment_title : __('Not provided', 'kneesurgery')),
+            sprintf(__('Name: %s', 'kneesurgery'), $full_name),
+            sprintf(__('Mobile: %s', 'kneesurgery'), $formatted_phone),
+            sprintf(__('Preferred contact method: %s', 'kneesurgery'), $allowed_contact_methods[$preferred_contact_method]),
+            sprintf(__('Country: %s', 'kneesurgery'), strtoupper($country_code)),
+            sprintf(__('Email: %s', 'kneesurgery'), $email),
+            sprintf(__('Page: %s', 'kneesurgery'), $redirect_to),
         ];
 
         $headers = ['Content-Type: text/plain; charset=UTF-8'];

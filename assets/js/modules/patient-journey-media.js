@@ -1,6 +1,6 @@
 (function () {
   function getScrollTopWithOffset(target) {
-    const header = document.querySelector('.elementor-location-header');
+    const header = document.querySelector('.hj-site-header');
     const headerHeight = header ? header.getBoundingClientRect().height : 0;
     const targetTop = target.getBoundingClientRect().top + window.pageYOffset;
 

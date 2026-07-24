@@ -1,7 +1,7 @@
 {
-  "name": "hello-elementor-child",
+  "name": "kneesurgery",
   "version": "1.0.0",
-  "description": "Child theme for Hello Elementor",
+  "description": "Standalone WordPress theme for Knee Surgery Turkey",
   "scripts": {
     "build": "npm run build:assets",
     "build:assets": "node scripts/build-assets.mjs",
