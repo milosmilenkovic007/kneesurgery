@@ -2,13 +2,32 @@ document.addEventListener('DOMContentLoaded', function () {
   var intlTelInputFactory = window.intlTelInput;
   var fallbackCountry = 'gb';
 
-  var lookupCountryByIp = function (success, failure) {
+  var lookupCountryByIp = function (success) {
     var storageKey = 'hj-visitor-country';
+    var controller = typeof window.AbortController === 'function'
+      ? new window.AbortController()
+      : null;
+    var settled = false;
+    var timeoutId = null;
+    var finish = function (country) {
+      if (settled) {
+        return;
+      }
+      settled = true;
+      window.clearTimeout(timeoutId);
+      success(country);
+    };
+    timeoutId = window.setTimeout(function () {
+      if (controller) {
+        controller.abort();
+      }
+      finish(fallbackCountry);
+    }, 3000);
 
     try {
       var cachedCountry = window.sessionStorage.getItem(storageKey);
       if (/^[a-z]{2}$/i.test(cachedCountry || '')) {
-        success(cachedCountry.toLowerCase());
+        finish(cachedCountry.toLowerCase());
         return;
       }
     } catch (error) {
@@ -19,6 +38,7 @@ document.addEventListener('DOMContentLoaded', function () {
       method: 'GET',
       mode: 'cors',
       credentials: 'omit',
+      signal: controller ? controller.signal : undefined,
       headers: {
         Accept: 'application/json'
       }
@@ -44,10 +64,10 @@ document.addEventListener('DOMContentLoaded', function () {
           // The selected country still works when storage is unavailable.
         }
 
-        success(country);
+        finish(country);
       })
       .catch(function () {
-        success(fallbackCountry);
+        finish(fallbackCountry);
       });
   };
 
@@ -87,8 +107,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     var iti = intlTelInputFactory(phoneInput, {
-      initialCountry: 'auto',
-      geoIpLookup: lookupCountryByIp,
+      initialCountry: fallbackCountry,
       nationalMode: false,
       formatAsYouType: true,
       autoPlaceholder: 'polite',
@@ -96,6 +115,23 @@ document.addEventListener('DOMContentLoaded', function () {
       strictMode: true,
       countrySearch: true,
       fixDropdownWidth: false
+    });
+    var geoCountryPending = true;
+    var applyingGeoCountry = false;
+
+    phoneInput.addEventListener('countrychange', function () {
+      if (!applyingGeoCountry) {
+        geoCountryPending = false;
+      }
+    });
+
+    lookupCountryByIp(function (country) {
+      if (geoCountryPending && /^[a-z]{2}$/.test(country)) {
+        applyingGeoCountry = true;
+        iti.setCountry(country);
+        applyingGeoCountry = false;
+      }
+      geoCountryPending = false;
     });
 
     var syncPhoneState = function () {
@@ -129,7 +165,9 @@ document.addEventListener('DOMContentLoaded', function () {
     form.addEventListener('input', syncPhoneState);
     form.addEventListener('change', syncPhoneState);
     phoneInput.addEventListener('blur', syncPhoneState);
-    phoneInput.addEventListener('countrychange', syncPhoneState);
+    phoneInput.addEventListener('countrychange', function () {
+      syncPhoneState();
+    });
     form.addEventListener('submit', function (event) {
       syncPhoneState();
       if (submitButton.disabled) {
