@@ -11,7 +11,7 @@ if (!is_array($rating)) {
     $rating = [];
 }
 
-$rating_mode = trim((string) ($rating['mode'] ?? 'manual')) ?: 'manual';
+$rating_mode = trim((string) ($rating['mode'] ?? 'dynamic')) ?: 'dynamic';
 $rating_mode = in_array($rating_mode, ['manual', 'dynamic'], true) ? $rating_mode : 'manual';
 $rating_stars = max(0, min(5, (float) ($rating['stars'] ?? 0)));
 $rating_stars_text = $rating_stars > 0 ? str_repeat('★', (int) round($rating_stars)) : '';
@@ -19,10 +19,16 @@ $rating_label = trim((string) ($rating['label'] ?? ''));
 $rating_reviews_count = (int) ($rating['reviews_count'] ?? 0);
 $rating_reviews_url = trim((string) ($rating['reviews_url'] ?? ''));
 
-if ($rating_mode === 'dynamic' && function_exists('hj_get_google_reviews_summary')) {
+// The hero always uses the theme's shared Google Reviews integration when it is
+// available. Manual ACF values remain as a fallback for unconfigured installs.
+if (function_exists('hj_get_google_reviews_summary')) {
   $google_reviews_summary = hj_get_google_reviews_summary();
 
-  if (!empty($google_reviews_summary['rating'])) {
+  if (!empty($google_reviews_summary['has_summary'])) {
+    $rating_mode = 'dynamic';
+  }
+
+  if (array_key_exists('rating', $google_reviews_summary) && (float) $google_reviews_summary['rating'] > 0) {
     $rating_stars = max(0, min(5, (float) $google_reviews_summary['rating']));
   }
 

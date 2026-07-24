@@ -3717,10 +3717,10 @@
                                         "id": ""
                                     },
                                     "choices": {
-                                        "manual": "Manual",
+                                        "manual": "Manual fallback",
                                         "dynamic": "Google Reviews"
                                     },
-                                    "default_value": "manual",
+                                    "default_value": "dynamic",
                                     "layout": "horizontal",
                                     "allow_null": 0,
                                     "return_format": "value"

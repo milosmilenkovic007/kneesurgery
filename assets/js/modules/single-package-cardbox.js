@@ -1,5 +1,55 @@
 document.addEventListener('DOMContentLoaded', function () {
   var intlTelInputFactory = window.intlTelInput;
+  var fallbackCountry = 'gb';
+
+  var lookupCountryByIp = function (success, failure) {
+    var storageKey = 'hj-visitor-country';
+
+    try {
+      var cachedCountry = window.sessionStorage.getItem(storageKey);
+      if (/^[a-z]{2}$/i.test(cachedCountry || '')) {
+        success(cachedCountry.toLowerCase());
+        return;
+      }
+    } catch (error) {
+      // Storage can be unavailable in private browsing; continue with the lookup.
+    }
+
+    fetch('https://ipapi.co/json/', {
+      method: 'GET',
+      mode: 'cors',
+      credentials: 'omit',
+      headers: {
+        Accept: 'application/json'
+      }
+    })
+      .then(function (response) {
+        if (!response.ok) {
+          throw new Error('Country lookup failed.');
+        }
+        return response.json();
+      })
+      .then(function (data) {
+        var country = data && typeof data.country_code === 'string'
+          ? data.country_code.toLowerCase()
+          : '';
+
+        if (!/^[a-z]{2}$/.test(country)) {
+          throw new Error('Country lookup returned an invalid country.');
+        }
+
+        try {
+          window.sessionStorage.setItem(storageKey, country);
+        } catch (error) {
+          // The selected country still works when storage is unavailable.
+        }
+
+        success(country);
+      })
+      .catch(function () {
+        success(fallbackCountry);
+      });
+  };
 
   var syncFallbackButtonState = function (form, submitButton) {
     if (!form || !submitButton) {
@@ -37,7 +87,8 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     var iti = intlTelInputFactory(phoneInput, {
-      initialCountry: 'gb',
+      initialCountry: 'auto',
+      geoIpLookup: lookupCountryByIp,
       nationalMode: false,
       formatAsYouType: true,
       autoPlaceholder: 'polite',
