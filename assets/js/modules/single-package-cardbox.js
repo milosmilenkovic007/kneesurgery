@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', function () {
       // Storage can be unavailable in private browsing; continue with the lookup.
     }
 
-    fetch('https://ipapi.co/json/', {
+    fetch('https://api.country.is/', {
       method: 'GET',
       mode: 'cors',
       credentials: 'omit',
@@ -50,8 +50,8 @@ document.addEventListener('DOMContentLoaded', function () {
         return response.json();
       })
       .then(function (data) {
-        var country = data && typeof data.country_code === 'string'
-          ? data.country_code.toLowerCase()
+        var country = data && typeof data.country === 'string'
+          ? data.country.toLowerCase()
           : '';
 
         if (!/^[a-z]{2}$/.test(country)) {
