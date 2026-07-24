@@ -144,6 +144,7 @@ $section_style = $price_color ? '--spc-price-color:' . $price_color . ';' : '';
                     <input type="hidden" name="action" value="hj_spc_submit_lead">
                     <input type="hidden" name="treatment_id" value="<?php echo esc_attr($post_id); ?>">
                     <input type="hidden" name="treatment_title" value="<?php echo esc_attr($treatment_title); ?>">
+                    <input type="hidden" name="treatment_price" value="<?php echo esc_attr($package_price); ?>">
                     <input type="hidden" name="redirect_to" value="<?php echo esc_url($redirect_url); ?>">
                     <?php wp_nonce_field('hj_spc_submit_lead', 'hj_spc_nonce'); ?>
 

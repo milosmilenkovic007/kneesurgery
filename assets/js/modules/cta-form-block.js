@@ -7,6 +7,29 @@
     });
   }
 
+  function updateReadMore(slide) {
+    if (!slide) {
+      return;
+    }
+
+    var copy = slide.querySelector('[data-cfb-copy]');
+    var toggle = slide.querySelector('[data-cfb-read-more]');
+
+    if (!copy || !toggle) {
+      return;
+    }
+
+    if (!copy.classList.contains('is-clamped')) {
+      toggle.hidden = false;
+      toggle.textContent = 'Read less';
+      return;
+    }
+
+    var isOverflowing = copy.scrollHeight > copy.clientHeight + 2;
+    toggle.hidden = !isOverflowing;
+    toggle.textContent = 'Read more';
+  }
+
   function init(root) {
     var slides = Array.from(root.querySelectorAll('[data-cfb-slide]'));
     var dots = Array.from(root.querySelectorAll('[data-cfb-dot]'));
@@ -17,8 +40,27 @@
       return;
     }
 
+    slides.forEach(function (slide) {
+      var copy = slide.querySelector('[data-cfb-copy]');
+      var toggle = slide.querySelector('[data-cfb-read-more]');
+
+      if (!copy || !toggle) {
+        return;
+      }
+
+      toggle.addEventListener('click', function () {
+        var expanded = copy.classList.toggle('is-clamped') === false;
+        toggle.textContent = expanded ? 'Read less' : 'Read more';
+
+        if (!expanded) {
+          requestAnimationFrame(function () {
+            updateReadMore(slide);
+          });
+        }
+      });
+    });
+
     var activeIndex = 0;
-    var timer = null;
 
     function showSlide(index) {
       activeIndex = (index + slides.length) % slides.length;
@@ -28,51 +70,31 @@
       if (dots.length) {
         setActiveDot(dots, activeIndex);
       }
-    }
 
-    function startAutoplay() {
-      if (slides.length <= 1) return;
-      timer = window.setInterval(function () {
-        showSlide((activeIndex + 1) % slides.length);
-      }, 5000);
-    }
-
-    function stopAutoplay() {
-      if (timer) {
-        window.clearInterval(timer);
-        timer = null;
-      }
+      requestAnimationFrame(function () {
+        updateReadMore(slides[activeIndex]);
+      });
     }
 
     dots.forEach(function (dot, index) {
       dot.addEventListener('click', function () {
-        stopAutoplay();
         showSlide(index);
-        startAutoplay();
       });
     });
 
     if (prevButton) {
       prevButton.addEventListener('click', function () {
-        stopAutoplay();
         showSlide(activeIndex - 1);
-        startAutoplay();
       });
     }
 
     if (nextButton) {
       nextButton.addEventListener('click', function () {
-        stopAutoplay();
         showSlide(activeIndex + 1);
-        startAutoplay();
       });
     }
 
-    root.addEventListener('mouseenter', stopAutoplay);
-    root.addEventListener('mouseleave', startAutoplay);
-
     showSlide(0);
-    startAutoplay();
   }
 
   document.addEventListener('DOMContentLoaded', function () {

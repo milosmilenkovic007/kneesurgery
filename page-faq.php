@@ -14,7 +14,60 @@ while (have_posts()) :
     $results_label = function_exists('get_field') ? trim((string) get_field('faq_results_label')) : '';
     $results_all_label = function_exists('get_field') ? trim((string) get_field('faq_results_all_label')) : '';
     $empty_results_text = function_exists('get_field') ? trim((string) get_field('faq_empty_results_text')) : '';
-    $faq_sections = function_exists('get_field') ? (get_field('faq_sections') ?: []) : [];
+    $faq_sections = function_exists('hj_get_faq_sections')
+        ? hj_get_faq_sections(['include_uncategorized' => true])
+        : [];
+
+    if (!is_array($faq_sections) || empty($faq_sections)) {
+        if (function_exists('hj_get_legacy_faq_page_sections')) {
+            $faq_sections = hj_get_legacy_faq_page_sections(get_the_ID());
+        } elseif (function_exists('get_field')) {
+            $faq_sections = get_field('faq_sections');
+        }
+    }
+
+    $faq_sections = is_array($faq_sections) ? array_values($faq_sections) : [];
+    $normalized_faq_sections = [];
+    $used_section_anchors = [];
+
+    foreach ($faq_sections as $section_index => $section) {
+        if (!is_array($section)) {
+            continue;
+        }
+
+        $section_title = trim((string) ($section['title'] ?? ''));
+        $section_items = is_array($section['items'] ?? null) ? array_values($section['items']) : [];
+
+        if ($section_title === '' && empty($section_items)) {
+            continue;
+        }
+
+        $section_anchor_base = function_exists('hj_get_faq_section_anchor_id')
+            ? hj_get_faq_section_anchor_id($section, $section_index + 1)
+            : sanitize_title($section_title);
+
+        if ($section_anchor_base === '') {
+            $section_anchor_base = 'faq-section-' . ($section_index + 1);
+        }
+
+        $section_anchor = $section_anchor_base;
+        $anchor_suffix = 2;
+
+        while (isset($used_section_anchors[$section_anchor])) {
+            $section_anchor = $section_anchor_base . '-' . $anchor_suffix;
+            $anchor_suffix++;
+        }
+
+        $used_section_anchors[$section_anchor] = true;
+
+        $normalized_faq_sections[] = [
+            'title' => $section_title,
+            'items' => $section_items,
+            'anchor' => $section_anchor,
+        ];
+    }
+
+    $faq_sections = $normalized_faq_sections;
 
     $faq_title = $faq_title !== '' ? $faq_title : get_the_title();
     $search_placeholder = $search_placeholder !== '' ? $search_placeholder : __('Search questions...', 'hello-elementor-child');
@@ -35,6 +88,26 @@ while (have_posts()) :
                         <div class="hj-faq-page__intro"><?php echo wp_kses_post(wpautop($faq_intro)); ?></div>
                     <?php endif; ?>
 
+                    <?php if (count($faq_sections) > 1) : ?>
+                        <nav class="hj-faq-page__nav" aria-label="<?php esc_attr_e('FAQ categories', 'hello-elementor-child'); ?>">
+                            <div class="hj-faq-page__nav-list">
+                                <?php foreach ($faq_sections as $section) : ?>
+                                    <?php
+                                    $section_title = trim((string) ($section['title'] ?? ''));
+                                    $section_anchor = trim((string) ($section['anchor'] ?? ''));
+
+                                    if ($section_title === '' || $section_anchor === '') {
+                                        continue;
+                                    }
+                                    ?>
+                                    <a class="hj-faq-page__nav-link" href="#<?php echo esc_attr($section_anchor); ?>">
+                                        <?php echo esc_html($section_title); ?>
+                                    </a>
+                                <?php endforeach; ?>
+                            </div>
+                        </nav>
+                    <?php endif; ?>
+
                     <div class="hj-faq-page__toolbar">
                         <label class="hj-faq-page__search" aria-label="<?php esc_attr_e('Search FAQ', 'hello-elementor-child'); ?>">
                             <input type="search" placeholder="<?php echo esc_attr($search_placeholder); ?>" data-hj-faq-search>
@@ -49,17 +122,17 @@ while (have_posts()) :
 
                 <?php if (!empty($faq_sections)) : ?>
                     <div class="hj-faq-page__sections" data-hj-faq-sections>
-                        <?php $open_first_item = true; ?>
                         <?php foreach ($faq_sections as $section_index => $section) : ?>
                             <?php
                             $section_title = trim((string) ($section['title'] ?? ''));
                             $section_items = is_array($section['items'] ?? null) ? $section['items'] : [];
+                            $section_anchor = trim((string) ($section['anchor'] ?? ''));
 
                             if ($section_title === '' && empty($section_items)) {
                                 continue;
                             }
                             ?>
-                            <section class="hj-faq-page__section" data-hj-faq-section>
+                            <section class="hj-faq-page__section" id="<?php echo esc_attr($section_anchor); ?>" data-hj-faq-section>
                                 <?php if ($section_title !== '') : ?>
                                     <div class="hj-faq-page__section-head">
                                         <h2 class="hj-faq-page__section-title"><?php echo esc_html($section_title); ?></h2>
@@ -77,7 +150,7 @@ while (have_posts()) :
                                                 continue;
                                             }
                                             ?>
-                                            <details class="hj-faq-page__item" data-hj-faq-item data-faq-search="<?php echo esc_attr(strtolower($section_title . ' ' . $question . ' ' . $answer)); ?>"<?php echo $open_first_item ? ' open' : ''; ?>>
+                                            <details class="hj-faq-page__item" data-hj-faq-item data-faq-search="<?php echo esc_attr(strtolower($section_title . ' ' . $question . ' ' . $answer)); ?>">
                                                 <summary class="hj-faq-page__summary">
                                                     <span class="hj-faq-page__question"><?php echo esc_html($question); ?></span>
                                                     <span class="hj-faq-page__toggle" aria-hidden="true"></span>
@@ -89,7 +162,6 @@ while (have_posts()) :
                                                     </div>
                                                 <?php endif; ?>
                                             </details>
-                                            <?php $open_first_item = false; ?>
                                         <?php endforeach; ?>
                                     </div>
                                 <?php endif; ?>

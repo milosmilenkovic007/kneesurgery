@@ -1,0 +1,1 @@
+(()=>{function a(r){const e=Array.from(r.querySelectorAll("[data-hj-faq-item]"));e.length<2||e.forEach(n=>{n.addEventListener("toggle",()=>{n.open&&e.forEach(o=>{o!==n&&(o.open=!1)})})})}function t(){document.querySelectorAll("[data-hj-faq-accordion]").forEach(a)}document.readyState==="loading"?document.addEventListener("DOMContentLoaded",t,{once:!0}):t()})();

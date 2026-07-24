@@ -265,15 +265,7 @@ add_action('manage_' . HJ_BFS_POST_TYPE . '_posts_custom_column', function ($col
             if ($zoho_status !== '') {
                 $parts[] = 'Zoho: ' . $zoho_status;
             }
-            if (!empty($parts)) {
-                echo esc_html(implode(' | ', $parts));
-            } else {
-                echo '&mdash;';
-            }
-
-            if (hj_bfs_can_retry_zoho_submission($post_id) && current_user_can('edit_post', $post_id)) {
-                echo '<br><a class="button button-small" href="' . esc_url(hj_bfs_get_retry_zoho_url($post_id)) . '">' . esc_html__('Retry Zoho', 'hello-elementor-child') . '</a>';
-            }
+            echo !empty($parts) ? esc_html(implode(' | ', $parts)) : '&mdash;';
             break;
     }
 }, 10, 2);

@@ -30,7 +30,7 @@
             "label": "Google Reviews",
             "name": "",
             "type": "message",
-            "message": "Direct Google Reviews integration for the theme. Add a server-side Places API key and Place ID. The theme caches responses and uses the fallback values below if Google is unavailable.",
+            "message": "Direct Google Reviews integration for the theme. Add a server-side Places API key and Place ID. The theme caches responses, can archive fetched reviews inside WordPress, and uses the fallback values below if Google is unavailable.",
             "new_lines": "wpautop",
             "esc_html": 0
         },
@@ -86,11 +86,66 @@
             "label": "Reviews Limit",
             "name": "google_reviews_reviews_limit",
             "type": "number",
-            "instructions": "Max 5 per request.",
-            "default_value": 5,
-            "min": 1,
-            "max": 5,
+            "instructions": "Use 0 to show all available stored reviews. Google Places API returns up to 5 reviews per request, but the local archive can accumulate more over time.",
+            "default_value": 0,
+            "min": 0,
             "step": 1,
+            "wrapper": {
+                "width": "25"
+            }
+        },
+        {
+            "key": "field_google_reviews_archive_enabled",
+            "label": "Archive Reviews Locally",
+            "name": "google_reviews_archive_enabled",
+            "type": "true_false",
+            "instructions": "Store fetched Google reviews in WordPress so the theme can build up more than Google returns in a single request.",
+            "default_value": 1,
+            "ui": 1,
+            "wrapper": {
+                "width": "25"
+            }
+        },
+        {
+            "key": "field_google_reviews_archive_fetch_both_sorts",
+            "label": "Seed Archive From Both Sorts",
+            "name": "google_reviews_archive_fetch_both_sorts",
+            "type": "true_false",
+            "instructions": "During refreshes, fetch both Most Relevant and Newest to collect a broader local review archive.",
+            "default_value": 1,
+            "ui": 1,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_google_reviews_archive_enabled",
+                        "operator": "==",
+                        "value": "1"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "25"
+            }
+        },
+        {
+            "key": "field_google_reviews_archive_limit",
+            "label": "Archive Size",
+            "name": "google_reviews_archive_limit",
+            "type": "number",
+            "instructions": "Maximum number of unique Google reviews to keep in the WordPress database.",
+            "default_value": 50,
+            "min": 5,
+            "max": 250,
+            "step": 1,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_google_reviews_archive_enabled",
+                        "operator": "==",
+                        "value": "1"
+                    }
+                ]
+            ],
             "wrapper": {
                 "width": "25"
             }
@@ -151,6 +206,500 @@
             "instructions": "Optional Google Maps or reviews link.",
             "wrapper": {
                 "width": "20"
+            }
+        },
+        {
+            "key": "field_zoho_crm_message",
+            "label": "Zoho CRM",
+            "name": "",
+            "type": "message",
+            "message": "Send custom booking form leads to Zoho CRM webhook. Configure webhook/auth settings and map each local field to your Zoho field API names.",
+            "new_lines": "wpautop",
+            "esc_html": 0
+        },
+        {
+            "key": "field_zoho_crm_status_message",
+            "label": "Zoho Integration Status",
+            "name": "",
+            "type": "message",
+            "message": "Status will appear after first send attempt.",
+            "new_lines": "wpautop",
+            "esc_html": 0
+        },
+        {
+            "key": "field_zoho_crm_enabled",
+            "label": "Enable Zoho CRM",
+            "name": "zoho_crm_enabled",
+            "type": "true_false",
+            "default_value": 0,
+            "ui": 1,
+            "wrapper": {
+                "width": "25"
+            }
+        },
+        {
+            "key": "field_zoho_crm_module",
+            "label": "Zoho Module",
+            "name": "zoho_crm_module",
+            "type": "text",
+            "default_value": "Leads",
+            "instructions": "Example: Leads",
+            "wrapper": {
+                "width": "25"
+            }
+        },
+        {
+            "key": "field_zoho_crm_source",
+            "label": "Lead Source Value",
+            "name": "zoho_crm_source",
+            "type": "text",
+            "default_value": "KST",
+            "instructions": "Static source sent with every booking lead.",
+            "wrapper": {
+                "width": "25"
+            }
+        },
+        {
+            "key": "field_zoho_crm_webhook_url",
+            "label": "Zoho Webhook URL",
+            "name": "zoho_crm_webhook_url",
+            "type": "url",
+            "instructions": "Required only for webhook modes (None/Bearer/Custom Header). Not required for Zoho OAuth direct CRM mode.",
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_zoho_crm_enabled",
+                        "operator": "==",
+                        "value": "1"
+                    },
+                    {
+                        "field": "field_zoho_crm_auth_mode",
+                        "operator": "!=",
+                        "value": "zoho_oauth"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "75"
+            }
+        },
+        {
+            "key": "field_zoho_crm_auth_mode",
+            "label": "Authentication Mode",
+            "name": "zoho_crm_auth_mode",
+            "type": "hidden",
+            "default_value": "zoho_oauth",
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_zoho_crm_enabled",
+                        "operator": "==",
+                        "value": "1"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "50"
+            }
+        },
+        {
+            "key": "field_zoho_crm_oauth_accounts_url",
+            "label": "Zoho Accounts Base URL",
+            "name": "zoho_crm_oauth_accounts_url",
+            "type": "text",
+            "default_value": "https://accounts.zoho.com",
+            "instructions": "Examples: https://accounts.zoho.com, https://accounts.zoho.eu",
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_zoho_crm_enabled",
+                        "operator": "==",
+                        "value": "1"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "50"
+            }
+        },
+        {
+            "key": "field_zoho_crm_oauth_client_id",
+            "label": "Zoho OAuth Client ID",
+            "name": "zoho_crm_oauth_client_id",
+            "type": "text",
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_zoho_crm_enabled",
+                        "operator": "==",
+                        "value": "1"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "50"
+            }
+        },
+        {
+            "key": "field_zoho_crm_oauth_client_secret",
+            "label": "Zoho OAuth Client Secret",
+            "name": "zoho_crm_oauth_client_secret",
+            "type": "text",
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_zoho_crm_enabled",
+                        "operator": "==",
+                        "value": "1"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "50"
+            }
+        },
+        {
+            "key": "field_zoho_crm_oauth_refresh_token",
+            "label": "Zoho OAuth Refresh Token",
+            "name": "zoho_crm_oauth_refresh_token",
+            "type": "text",
+            "instructions": "Optional manual entry. You can generate and save this automatically using the 'Authenticate with Zoho' button in the status box.",
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_zoho_crm_enabled",
+                        "operator": "==",
+                        "value": "1"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "100"
+            }
+        },
+        {
+            "key": "field_zoho_crm_auth_token",
+            "label": "Bearer Token",
+            "name": "zoho_crm_auth_token",
+            "type": "text",
+            "instructions": "Used only when Authentication Mode is Bearer Token.",
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_zoho_crm_enabled",
+                        "operator": "==",
+                        "value": "1"
+                    },
+                    {
+                        "field": "field_zoho_crm_auth_mode",
+                        "operator": "==",
+                        "value": "bearer"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "50"
+            }
+        },
+        {
+            "key": "field_zoho_crm_header_name",
+            "label": "Auth Header Name",
+            "name": "zoho_crm_header_name",
+            "type": "text",
+            "instructions": "Optional, for webhook auth (example: Authorization).",
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_zoho_crm_enabled",
+                        "operator": "==",
+                        "value": "1"
+                    },
+                    {
+                        "field": "field_zoho_crm_auth_mode",
+                        "operator": "==",
+                        "value": "custom_header"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "50"
+            }
+        },
+        {
+            "key": "field_zoho_crm_header_value",
+            "label": "Auth Header Value",
+            "name": "zoho_crm_header_value",
+            "type": "text",
+            "instructions": "Optional token/header value.",
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_zoho_crm_enabled",
+                        "operator": "==",
+                        "value": "1"
+                    },
+                    {
+                        "field": "field_zoho_crm_auth_mode",
+                        "operator": "==",
+                        "value": "custom_header"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "50"
+            }
+        },
+        {
+            "key": "field_zoho_crm_retry_max_attempts",
+            "label": "Retry Max Attempts",
+            "name": "zoho_crm_retry_max_attempts",
+            "type": "number",
+            "default_value": 3,
+            "min": 1,
+            "max": 10,
+            "step": 1,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_zoho_crm_enabled",
+                        "operator": "==",
+                        "value": "1"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "25"
+            }
+        },
+        {
+            "key": "field_zoho_crm_retry_delay_minutes",
+            "label": "Retry Delay (minutes)",
+            "name": "zoho_crm_retry_delay_minutes",
+            "type": "number",
+            "default_value": 10,
+            "min": 1,
+            "max": 1440,
+            "step": 1,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_zoho_crm_enabled",
+                        "operator": "==",
+                        "value": "1"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "25"
+            }
+        },
+        {
+            "key": "field_zoho_crm_field_first_name",
+            "label": "Map: First Name",
+            "name": "zoho_crm_field_first_name",
+            "type": "text",
+            "default_value": "First_Name",
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_zoho_crm_enabled",
+                        "operator": "==",
+                        "value": "1"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "33"
+            }
+        },
+        {
+            "key": "field_zoho_crm_field_last_name",
+            "label": "Map: Last Name",
+            "name": "zoho_crm_field_last_name",
+            "type": "text",
+            "default_value": "Last_Name",
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_zoho_crm_enabled",
+                        "operator": "==",
+                        "value": "1"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "33"
+            }
+        },
+        {
+            "key": "field_zoho_crm_field_full_name",
+            "label": "Map: Full Name (optional)",
+            "name": "zoho_crm_field_full_name",
+            "type": "text",
+            "default_value": "full_name",
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_zoho_crm_enabled",
+                        "operator": "==",
+                        "value": "1"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "34"
+            }
+        },
+        {
+            "key": "field_zoho_crm_field_email",
+            "label": "Map: Email",
+            "name": "zoho_crm_field_email",
+            "type": "text",
+            "default_value": "Email",
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_zoho_crm_enabled",
+                        "operator": "==",
+                        "value": "1"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "33"
+            }
+        },
+        {
+            "key": "field_zoho_crm_field_phone",
+            "label": "Map: Phone",
+            "name": "zoho_crm_field_phone",
+            "type": "text",
+            "default_value": "Phone",
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_zoho_crm_enabled",
+                        "operator": "==",
+                        "value": "1"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "34"
+            }
+        },
+        {
+            "key": "field_zoho_crm_field_preferred_contact_method",
+            "label": "Map: Preferred Contact",
+            "name": "zoho_crm_field_preferred_contact_method",
+            "type": "text",
+            "default_value": "preferred_contact_method",
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_zoho_crm_enabled",
+                        "operator": "==",
+                        "value": "1"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "33"
+            }
+        },
+        {
+            "key": "field_zoho_crm_field_country_code",
+            "label": "Map: Country",
+            "name": "zoho_crm_field_country_code",
+            "type": "text",
+            "default_value": "Country",
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_zoho_crm_enabled",
+                        "operator": "==",
+                        "value": "1"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "33"
+            }
+        },
+        {
+            "key": "field_zoho_crm_field_service",
+            "label": "Map: Service",
+            "name": "zoho_crm_field_service",
+            "type": "text",
+            "default_value": "service",
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_zoho_crm_enabled",
+                        "operator": "==",
+                        "value": "1"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "34"
+            }
+        },
+        {
+            "key": "field_zoho_crm_field_price",
+            "label": "Map: Price",
+            "name": "zoho_crm_field_price",
+            "type": "text",
+            "default_value": "price",
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_zoho_crm_enabled",
+                        "operator": "==",
+                        "value": "1"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "33"
+            }
+        },
+        {
+            "key": "field_zoho_crm_field_source",
+            "label": "Map: Source",
+            "name": "zoho_crm_field_source",
+            "type": "text",
+            "default_value": "Lead_Source",
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_zoho_crm_enabled",
+                        "operator": "==",
+                        "value": "1"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "33"
+            }
+        },
+        {
+            "key": "field_zoho_crm_field_source_url",
+            "label": "Map: Source URL",
+            "name": "zoho_crm_field_source_url",
+            "type": "text",
+            "default_value": "Website",
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_zoho_crm_enabled",
+                        "operator": "==",
+                        "value": "1"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "34"
             }
         },
         {

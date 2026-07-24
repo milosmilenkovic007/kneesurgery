@@ -13,6 +13,8 @@
 .hj-ifaq-title{margin:0 auto !important;max-width:920px !important;color:var(--ifaq-text) !important;font-family:'Manrope',sans-serif !important;font-size:clamp(32px,4vw,45px) !important;line-height:1.03 !important;font-weight:500 !important;letter-spacing:-.03em !important}
 .hj-ifaq-subtitle{margin:28px auto 0;max-width:460px;color:var(--ifaq-muted);font-family:'Manrope',sans-serif;font-size:16px;line-height:1.7}
 
+.hj-ifaq-content{display:flex;flex-direction:column;align-self:start}
+
 .hj-ifaq-list{margin-top:0;background:var(--ifaq-surface);border:1px solid var(--ifaq-border);border-radius:18px;box-shadow:0 14px 30px rgba(17,24,39,.04);overflow:hidden}
 .hj-ifaq-item{border-bottom:1px solid var(--ifaq-border);display:grid;grid-template-rows:auto 0fr;transition:grid-template-rows .38s cubic-bezier(.22,1,.36,1),background-color .25s ease}
 .hj-ifaq-item:last-child{border-bottom:0}
@@ -34,6 +36,11 @@
 .hj-ifaq-answer__inner p{margin:0 0 12px}
 .hj-ifaq-answer__inner p:last-child{margin-bottom:0}
 
+.hj-ifaq-actions{display:flex;justify-content:flex-start;margin-top:22px}
+.hj-ifaq-read-all{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 24px;border:1px solid rgba(77,85,221,.18);border-radius:999px;background:#fff;color:var(--ifaq-text);font-family:'Manrope',sans-serif;font-size:14px;font-weight:700;letter-spacing:.01em;text-decoration:none;box-shadow:0 12px 24px rgba(17,24,39,.06);transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease}
+.hj-ifaq-read-all:hover{transform:translateY(-1px);border-color:rgba(77,85,221,.42);box-shadow:0 16px 30px rgba(17,24,39,.1)}
+.hj-ifaq-read-all:focus-visible{outline:2px solid var(--ifaq-text);outline-offset:3px}
+
 @media (max-width:1024px){
   .hj-ifaq-wrap{padding:44px 20px}
   .hj-ifaq-header{margin-bottom:36px}
@@ -52,4 +59,5 @@
   .hj-ifaq-question{font-size:16px;max-width:100%}
   .hj-ifaq-answer__inner{padding:0 18px 18px;font-size:14px}
   .hj-ifaq-icon{width:18px;height:18px;flex:0 0 18px}
+  .hj-ifaq-actions{justify-content:center}
 }

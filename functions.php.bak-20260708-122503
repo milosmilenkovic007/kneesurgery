@@ -522,7 +522,6 @@ require_once get_stylesheet_directory() . '/inc/doctors.php';
 require_once get_stylesheet_directory() . '/inc/faqs.php';
 require_once get_stylesheet_directory() . '/inc/testimonials.php';
 require_once get_stylesheet_directory() . '/inc/treatment-package-includes.php';
-require_once get_stylesheet_directory() . '/inc/zoho-crm.php';
 require_once get_stylesheet_directory() . '/inc/booking-form-submissions.php';
 require_once get_stylesheet_directory() . '/inc/single-package-cardbox-leads.php';
 

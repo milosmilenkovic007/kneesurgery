@@ -15,6 +15,10 @@ if (!wp_script_is('hj-video-slider-sections', 'enqueued')) {
 
 $vss_arrow_left = get_stylesheet_directory_uri() . '/assets/img/icons/arrow-left.svg';
 $vss_arrow_right = get_stylesheet_directory_uri() . '/assets/img/icons/arrow-right.svg';
+$vss_google_reviews_summary = function_exists('hj_get_google_reviews_summary') ? (array) hj_get_google_reviews_summary() : [];
+$vss_google_rating_has_content = !empty($vss_google_reviews_summary['stars_text'])
+  || !empty($vss_google_reviews_summary['rating_label'])
+  || !empty($vss_google_reviews_summary['reviews_count']);
 
 $vss_is_media_url = static function ($url) {
   $path = (string) wp_parse_url($url, PHP_URL_PATH);
@@ -133,7 +137,7 @@ $vss_split_content_tabs = static function ($content) {
   return $items;
 };
 
-$vss_render_section_body = static function ($section, $enable_accordion) use ($vss_split_content_tabs) {
+$vss_render_section_body = static function ($section, $enable_accordion) use ($vss_split_content_tabs, $vss_google_reviews_summary) {
   $section_type = $section['section_type'] ?? 'content';
   $subheading = trim((string) ($section['subheading'] ?? ''));
   $content = $section['content'] ?? '';
@@ -147,16 +151,36 @@ $vss_render_section_body = static function ($section, $enable_accordion) use ($v
   $price_btn_title = is_array($price_btn) ? trim((string) ($price_btn['title'] ?? '')) : '';
   $price_btn_target = is_array($price_btn) ? ($price_btn['target'] ?? '') : '';
   $rating_stars = max(0, min(5, (float) ($rating['stars'] ?? 0)));
+  $rating_stars_text = $rating_stars > 0 ? str_repeat('★', (int) round($rating_stars)) : '';
   $rating_label = trim((string) ($rating['label'] ?? ''));
   $rating_reviews_count = (int) ($rating['reviews_count'] ?? 0);
   $rating_reviews_url = trim((string) ($rating['reviews_url'] ?? ''));
+
+  if (!empty($vss_google_reviews_summary['rating'])) {
+    $rating_stars = max(0, min(5, (float) $vss_google_reviews_summary['rating']));
+  }
+
+  if (!empty($vss_google_reviews_summary['stars_text'])) {
+    $rating_stars_text = trim((string) $vss_google_reviews_summary['stars_text']);
+  }
+
+  if (!empty($vss_google_reviews_summary['rating_label'])) {
+    $rating_label = trim((string) $vss_google_reviews_summary['rating_label']);
+  }
+
+  if (!empty($vss_google_reviews_summary['reviews_count'])) {
+    $rating_reviews_count = (int) $vss_google_reviews_summary['reviews_count'];
+  }
+
+  if (!empty($vss_google_reviews_summary['reviews_url'])) {
+    $rating_reviews_url = trim((string) $vss_google_reviews_summary['reviews_url']);
+  }
 
   ob_start();
 
   if ($section_type === 'price') {
     $price_cta_label = $price_btn_title;
-    $has_rating = $rating_stars > 0 || $rating_label !== '' || $rating_reviews_count > 0;
-    $rating_stars_text = $rating_stars > 0 ? str_repeat('★', (int) round($rating_stars)) : '';
+    $has_rating = $rating_stars_text !== '' || $rating_label !== '' || $rating_reviews_count > 0;
 
     if ($price_cta_label === '') {
       $price_cta_label = __('View Surgery Pricing', 'hello-elementor-child');
@@ -333,7 +357,7 @@ foreach ($videos as $row) {
         $has_content_block = ($section_type !== 'price') && (!empty($s['subheading']) || !empty($s['content']) || !empty($s['button']));
         $price_button = $s['price_button'] ?? [];
         $rating = $s['rating'] ?? [];
-        $has_price_block = ($section_type === 'price') && (!empty($price_button['url']) || !empty($rating['label']) || !empty($rating['reviews_count']) || !empty($rating['stars']));
+        $has_price_block = ($section_type === 'price') && (!empty($price_button['url']) || !empty($rating['label']) || !empty($rating['reviews_count']) || !empty($rating['stars']) || $vss_google_rating_has_content);
         if (!$heading && !$has_content_block && !$has_price_block) continue;
         $section_body = $vss_render_section_body($s, $enable_accordion);
       ?>

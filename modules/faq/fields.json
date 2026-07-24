@@ -4,8 +4,15 @@
   "label": "FAQ – Accordion",
   "display": "block",
   "sub_fields": [
+    { "key": "field_hj_faq_content_tab", "label": "Content", "name": "", "type": "tab", "placement": "top" },
     { "key": "field_hj_faq_title", "label": "Title", "name": "title", "type": "text", "default_value": "Frequently Asked Questions" },
-    { "key": "field_hj_faq_items", "label": "Items", "name": "items", "type": "repeater", "button_label": "Add FAQ", "layout": "row", "collapsed": "field_hj_faq_question",
+    { "key": "field_hj_faq_source", "label": "Source", "name": "source", "type": "button_group", "choices": { "all": "All FAQs", "category": "Category", "manual": "Manual Selection", "legacy": "Legacy Repeater" }, "default_value": "category", "layout": "horizontal" },
+    { "key": "field_hj_faq_category", "label": "FAQ Categories", "name": "faq_category", "type": "taxonomy", "taxonomy": "faq_category", "field_type": "multi_select", "return_format": "id", "add_term": 0, "save_terms": 0, "load_terms": 0, "conditional_logic": [[{ "field": "field_hj_faq_source", "operator": "==", "value": "category" }]], "wrapper": { "width": "50" } },
+    { "key": "field_hj_faq_selected", "label": "Selected FAQs", "name": "selected_faqs", "type": "relationship", "post_type": ["faq"], "filters": ["search", "taxonomy"], "return_format": "id", "elements": [], "conditional_logic": [[{ "field": "field_hj_faq_source", "operator": "==", "value": "manual" }]], "wrapper": { "width": "100" } },
+    { "key": "field_hj_faq_limit", "label": "Items Limit", "name": "items_limit", "type": "number", "default_value": 10, "min": 0, "step": 1, "instructions": "Leave 0 to show all FAQ items.", "wrapper": { "width": "25" } },
+    { "key": "field_hj_faq_read_all_text", "label": "Read More Button Text", "name": "read_all_text", "type": "text", "default_value": "Read more", "placeholder": "Read more", "wrapper": { "width": "25" } },
+    { "key": "field_hj_faq_read_all_url", "label": "Read More URL", "name": "read_all_url", "type": "url", "instructions": "Leave empty to use the main FAQ page URL automatically. The button always opens in a new tab.", "wrapper": { "width": "50" } },
+    { "key": "field_hj_faq_items", "label": "Legacy Items", "name": "items", "type": "repeater", "button_label": "Add FAQ", "layout": "row", "collapsed": "field_hj_faq_legacy_question", "instructions": "Shown only when Source is set to Legacy Repeater.", "conditional_logic": [[{ "field": "field_hj_faq_source", "operator": "==", "value": "legacy" }]],
       "default_value": [
         {
           "question": "How long will I need to stay in Turkey for knee replacement surgery?",
@@ -33,8 +40,8 @@
         }
       ],
       "sub_fields": [
-        { "key": "field_hj_faq_question", "label": "Question", "name": "question", "type": "text", "required": 1 },
-        { "key": "field_hj_faq_answer", "label": "Answer", "name": "answer", "type": "textarea", "rows": 4 }
+        { "key": "field_hj_faq_legacy_question", "label": "Question", "name": "question", "type": "text", "required": 1 },
+        { "key": "field_hj_faq_legacy_answer", "label": "Answer", "name": "answer", "type": "textarea", "rows": 4 }
       ]
     }
   ]

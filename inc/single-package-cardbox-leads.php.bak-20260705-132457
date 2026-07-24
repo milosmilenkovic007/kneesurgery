@@ -52,117 +52,6 @@ if (!function_exists('hj_spc_guess_country_code_from_phone')) {
     }
 }
 
-if (!function_exists('hj_spc_extract_numeric_price')) {
-    function hj_spc_extract_numeric_price($value)
-    {
-        $value = trim((string) $value);
-        if ($value === '') {
-            return '';
-        }
-
-        if (preg_match('/-?\d+(?:[\.,]\d+)?/', str_replace(' ', '', $value), $matches)) {
-            return str_replace(',', '.', (string) $matches[0]);
-        }
-
-        return '';
-    }
-}
-
-if (!function_exists('hj_spc_prepare_source_url_for_crm')) {
-    function hj_spc_prepare_source_url_for_crm($url)
-    {
-        $url = trim((string) $url);
-        if ($url === '') {
-            return '';
-        }
-
-        $parts = wp_parse_url($url);
-        if (!is_array($parts) || empty($parts['host'])) {
-            return substr($url, 0, 255);
-        }
-
-        $normalized_url = '';
-
-        if (!empty($parts['scheme'])) {
-            $normalized_url .= $parts['scheme'] . '://';
-        }
-
-        $normalized_url .= $parts['host'];
-
-        if (!empty($parts['port'])) {
-            $normalized_url .= ':' . (int) $parts['port'];
-        }
-
-        $normalized_url .= isset($parts['path']) ? (string) $parts['path'] : '/';
-
-        return substr($normalized_url, 0, 255);
-    }
-}
-
-if (!function_exists('hj_spc_split_full_name')) {
-    function hj_spc_split_full_name($full_name)
-    {
-        $full_name = trim((string) $full_name);
-        $first_name = '';
-        $last_name = '';
-
-        if ($full_name !== '') {
-            $parts = preg_split('/\s+/', $full_name, 2);
-            $first_name = trim((string) ($parts[0] ?? ''));
-            $last_name = trim((string) ($parts[1] ?? ''));
-            if ($last_name === '') {
-                $last_name = $full_name;
-            }
-        }
-
-        return [
-            'first_name' => $first_name,
-            'last_name' => $last_name,
-            'full_name' => $full_name,
-        ];
-    }
-}
-
-if (!function_exists('hj_spc_send_zoho_plugin_lead')) {
-    function hj_spc_send_zoho_plugin_lead(array $lead)
-    {
-        if (!function_exists('zoho_crm_send_lead_data')) {
-            return ['status' => 'unavailable', 'code' => 0, 'body' => 'Zoho plugin sender unavailable.'];
-        }
-
-        $name = hj_spc_split_full_name((string) ($lead['full_name'] ?? ''));
-        $service = trim((string) ($lead['service'] ?? ''));
-        $price = trim((string) ($lead['price'] ?? ''));
-        $source_url = hj_spc_prepare_source_url_for_crm((string) ($lead['source_url'] ?? ''));
-        $message_parts = [];
-        if ($service !== '') {
-            $message_parts[] = 'Treatment: ' . $service;
-        }
-        if ($price !== '') {
-            $message_parts[] = 'Price: ' . $price;
-        }
-
-        $lead_data = [
-            'Full_Name' => (string) $name['full_name'],
-            'Last_Name' => (string) ($name['last_name'] !== '' ? $name['last_name'] : 'Website Lead'),
-            'Contact_Through' => (string) ($lead['preferred_contact_method'] ?? ''),
-            'Email' => (string) ($lead['email'] ?? ''),
-            'Phone' => (string) ($lead['phone'] ?? ''),
-            'Mobile' => (string) ($lead['phone'] ?? ''),
-            'Multi_Line_7' => implode(' | ', $message_parts),
-            'Lead_Source' => 'Kneesurgery Website',
-            'Lead_Status' => 'New',
-            'Lead_Source_URL' => $source_url,
-        ];
-
-        return zoho_crm_send_lead_data(
-            $lead_data,
-            (string) ($name['first_name'] !== '' ? $name['first_name'] : $name['full_name']),
-            'Custom form lead error: '
-        );
-    }
-}
-
 if (!function_exists('hj_spc_get_form_feedback')) {
     function hj_spc_get_form_feedback($treatment_id = 0)
     {
@@ -270,7 +159,10 @@ if (!function_exists('hj_spc_handle_lead_submission')) {
         $treatment_title = isset($_POST['treatment_title']) ? sanitize_text_field(wp_unslash($_POST['treatment_title'])) : '';
         $treatment_title = $treatment_id > 0 ? get_the_title($treatment_id) : $treatment_title;
         $treatment_price = isset($_POST['treatment_price']) ? sanitize_text_field(wp_unslash($_POST['treatment_price'])) : '';
-        $source = 'Kneesurgery Website';
+        $source = function_exists('hj_get_zoho_crm_settings') ? (string) (hj_get_zoho_crm_settings()['source'] ?? '') : '';
+        if ($source === '') {
+            $source = 'KST';
+        }
 
         if ($treatment_id > 0 && function_exists('get_field')) {
             $stored_price = get_field('package_includes_price', $treatment_id);
@@ -282,7 +174,9 @@ if (!function_exists('hj_spc_handle_lead_submission')) {
             }
         }
 
-        $treatment_price_numeric = hj_spc_extract_numeric_price($treatment_price);
+        $treatment_price_numeric = function_exists('hj_zoho_crm_extract_numeric_price')
+            ? hj_zoho_crm_extract_numeric_price($treatment_price)
+            : '';
         if ($treatment_price_numeric !== '') {
             $treatment_price = $treatment_price_numeric;
         }
@@ -292,7 +186,8 @@ if (!function_exists('hj_spc_handle_lead_submission')) {
             exit;
         }
 
-        $zoho_result = hj_spc_send_zoho_plugin_lead([
+        $zoho_result = function_exists('hj_send_zoho_crm_lead')
+            ? hj_send_zoho_crm_lead([
                 'full_name' => $full_name,
                 'email' => $email,
                 'phone' => $formatted_phone,
@@ -302,7 +197,8 @@ if (!function_exists('hj_spc_handle_lead_submission')) {
                 'price' => $treatment_price,
                 'source' => $source,
                 'source_url' => $redirect_to,
-            ]);
+            ])
+            : ['status' => 'disabled', 'code' => 0, 'body' => ''];
 
         $submission_id = function_exists('hj_bfs_create_submission')
             ? hj_bfs_create_submission([
@@ -316,7 +212,6 @@ if (!function_exists('hj_spc_handle_lead_submission')) {
                 'treatment_price' => $treatment_price,
                 'source' => $source,
                 'source_url' => $redirect_to,
-                'email_status' => 'pending',
                 'zoho_status' => sanitize_key((string) ($zoho_result['status'] ?? '')),
                 'zoho_code' => (int) ($zoho_result['code'] ?? 0),
                 'zoho_response' => (string) ($zoho_result['body'] ?? ''),
@@ -350,10 +245,6 @@ if (!function_exists('hj_spc_handle_lead_submission')) {
         $headers[] = 'Reply-To: ' . $full_name . ' <' . $email . '>';
 
         $sent = wp_mail($recipient, $subject, implode("\n", $message_lines), $headers);
-
-        if ($submission_id > 0) {
-            update_post_meta($submission_id, '_hj_bfs_email_status', $sent ? 'sent' : 'failed');
-        }
 
         if ($sent) {
             wp_safe_redirect(hj_spc_get_success_redirect_url($treatment_id));

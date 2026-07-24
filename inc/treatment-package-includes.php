@@ -86,37 +86,18 @@ add_action('acf/init', function () {
             ],
             [
                 'key' => 'field_hj_tpi_rating',
-                'label' => 'Rating',
+                'label' => 'Google Reviews Summary',
                 'name' => 'package_includes_rating',
                 'type' => 'group',
                 'sub_fields' => [
                     [
-                        'key' => 'field_hj_tpi_rating_stars',
-                        'label' => 'Stars (e.g. 5)',
-                        'name' => 'stars',
-                        'type' => 'number',
-                        'min' => 0,
-                        'max' => 5,
-                        'step' => 0.5,
-                    ],
-                    [
-                        'key' => 'field_hj_tpi_rating_label',
-                        'label' => 'Label',
-                        'name' => 'label',
-                        'type' => 'text',
-                    ],
-                    [
-                        'key' => 'field_hj_tpi_rating_reviews_count',
-                        'label' => 'Reviews Count',
-                        'name' => 'reviews_count',
-                        'type' => 'number',
-                        'min' => 0,
-                    ],
-                    [
-                        'key' => 'field_hj_tpi_rating_reviews_url',
-                        'label' => 'Reviews URL / Anchor',
-                        'name' => 'reviews_url',
-                        'type' => 'text',
+                        'key' => 'field_hj_tpi_rating_dynamic_message',
+                        'label' => 'Dynamic Rating',
+                        'name' => '',
+                        'type' => 'message',
+                        'message' => 'This block pulls the Google rating summary automatically from Theme Settings > Google Reviews.',
+                        'new_lines' => 'wpautop',
+                        'esc_html' => 0,
                     ],
                 ],
             ],
@@ -127,20 +108,9 @@ add_action('acf/init', function () {
         'position' => 'normal',
         'style' => 'default',
         'active' => true,
-        'modified' => time(),
     ];
 
     acf_add_local_field_group($group_array);
-
-    $json_dir = get_stylesheet_directory() . '/acf-json';
-    if (!is_dir($json_dir)) {
-        wp_mkdir_p($json_dir);
-    }
-
-    if (is_writable($json_dir)) {
-        $json_file = $json_dir . '/group_hj_treatment_package_includes.json';
-        file_put_contents($json_file, wp_json_encode($group_array, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
-    }
 });
 
 function hj_tpi_has_target_data($post_id) {
@@ -153,7 +123,6 @@ function hj_tpi_has_target_data($post_id) {
         get_field('package_includes_price_symbol', $post_id),
         get_field('package_includes_price_note', $post_id),
         get_field('package_includes_price_button', $post_id),
-        get_field('package_includes_rating', $post_id),
     ];
 
     foreach ($values as $value) {
@@ -204,13 +173,6 @@ function hj_tpi_get_legacy_source_data($post_id) {
             $price_button = hj_tpi_get_meta_value($all_meta, $section_prefix . '_price_button', []);
             $price_button = is_array($price_button) ? $price_button : [];
 
-            $rating = [
-                'stars' => hj_tpi_get_meta_value($all_meta, $section_prefix . '_rating_stars', ''),
-                'label' => hj_tpi_get_meta_value($all_meta, $section_prefix . '_rating_label', ''),
-                'reviews_count' => hj_tpi_get_meta_value($all_meta, $section_prefix . '_rating_reviews_count', ''),
-                'reviews_url' => hj_tpi_get_meta_value($all_meta, $section_prefix . '_rating_reviews_url', ''),
-            ];
-
             $data = [
                 'heading' => trim((string) hj_tpi_get_meta_value($all_meta, $section_prefix . '_heading', '')),
                 'content' => trim((string) hj_tpi_get_meta_value($all_meta, $section_prefix . '_content', '')),
@@ -219,7 +181,6 @@ function hj_tpi_get_legacy_source_data($post_id) {
                 'price' => trim((string) hj_tpi_get_meta_value($all_meta, $section_prefix . '_price', '')),
                 'price_note' => trim((string) hj_tpi_get_meta_value($all_meta, $section_prefix . '_price_note', '')),
                 'price_button' => $price_button,
-                'rating' => $rating,
             ];
 
             $included_items_count = (int) hj_tpi_get_meta_value($all_meta, $section_prefix . '_included_items', 0);
@@ -241,14 +202,7 @@ function hj_tpi_get_legacy_source_data($post_id) {
                 || !empty($data['included_items'])
                 || $data['price'] !== ''
                 || $data['price_note'] !== ''
-                || !empty($data['price_button'])
-                || !empty(array_filter($data['rating'], static function ($value) {
-                    if (is_array($value)) {
-                        return !empty($value);
-                    }
-
-                    return trim((string) $value) !== '';
-                }));
+                || !empty($data['price_button']);
 
             if ($has_data) {
                 return $data;
@@ -302,7 +256,6 @@ add_action('admin_init', function () {
         update_field('field_hj_tpi_price', $source['price'], $post_id);
         update_field('field_hj_tpi_price_note', $source['price_note'], $post_id);
         update_field('field_hj_tpi_button', $source['price_button'], $post_id);
-        update_field('field_hj_tpi_rating', $source['rating'], $post_id);
     }
 
     update_option($migration_key, '1');

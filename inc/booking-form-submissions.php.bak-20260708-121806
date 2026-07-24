@@ -134,60 +134,6 @@ if (!function_exists('hj_bfs_get_submission_meta')) {
     }
 }
 
-if (!function_exists('hj_bfs_can_retry_zoho_submission')) {
-    function hj_bfs_can_retry_zoho_submission($post_id)
-    {
-        return get_post_type($post_id) === HJ_BFS_POST_TYPE
-            && hj_bfs_get_submission_meta($post_id, '_hj_bfs_zoho_status') === 'failed';
-    }
-}
-
-if (!function_exists('hj_bfs_get_submission_lead')) {
-    function hj_bfs_get_submission_lead($post_id)
-    {
-        return [
-            'full_name' => hj_bfs_get_submission_meta($post_id, '_hj_bfs_full_name'),
-            'email' => hj_bfs_get_submission_meta($post_id, '_hj_bfs_email'),
-            'phone' => hj_bfs_get_submission_meta($post_id, '_hj_bfs_phone'),
-            'preferred_contact_method' => hj_bfs_get_submission_meta($post_id, '_hj_bfs_preferred_contact_method'),
-            'country_code' => hj_bfs_get_submission_meta($post_id, '_hj_bfs_country_code'),
-            'service' => hj_bfs_get_submission_meta($post_id, '_hj_bfs_treatment_title'),
-            'price' => hj_bfs_get_submission_meta($post_id, '_hj_bfs_treatment_price'),
-            'source' => hj_bfs_get_submission_meta($post_id, '_hj_bfs_source'),
-            'source_url' => hj_bfs_get_submission_meta($post_id, '_hj_bfs_source_url'),
-        ];
-    }
-}
-
-if (!function_exists('hj_bfs_get_retry_redirect_url')) {
-    function hj_bfs_get_retry_redirect_url($fallback = '')
-    {
-        $fallback = $fallback !== '' ? $fallback : admin_url('edit.php?post_type=' . HJ_BFS_POST_TYPE);
-        $redirect_to = isset($_REQUEST['_wp_http_referer']) ? wp_unslash($_REQUEST['_wp_http_referer']) : '';
-        if ($redirect_to === '') {
-            $redirect_to = wp_get_referer();
-        }
-
-        return wp_validate_redirect($redirect_to, $fallback);
-    }
-}
-
-if (!function_exists('hj_bfs_get_retry_zoho_url')) {
-    function hj_bfs_get_retry_zoho_url($post_id)
-    {
-        return wp_nonce_url(
-            add_query_arg(
-                [
-                    'action' => 'hj_bfs_retry_zoho_submission',
-                    'submission_id' => absint($post_id),
-                ],
-                admin_url('admin-post.php')
-            ),
-            'hj_bfs_retry_zoho_submission_' . absint($post_id)
-        );
-    }
-}
-
 if (!function_exists('hj_bfs_format_delivery_status')) {
     function hj_bfs_format_delivery_status($status, $channel = 'zoho')
     {
@@ -265,15 +211,7 @@ add_action('manage_' . HJ_BFS_POST_TYPE . '_posts_custom_column', function ($col
             if ($zoho_status !== '') {
                 $parts[] = 'Zoho: ' . $zoho_status;
             }
-            if (!empty($parts)) {
-                echo esc_html(implode(' | ', $parts));
-            } else {
-                echo '&mdash;';
-            }
-
-            if (hj_bfs_can_retry_zoho_submission($post_id) && current_user_can('edit_post', $post_id)) {
-                echo '<br><a class="button button-small" href="' . esc_url(hj_bfs_get_retry_zoho_url($post_id)) . '">' . esc_html__('Retry Zoho', 'hello-elementor-child') . '</a>';
-            }
+            echo !empty($parts) ? esc_html(implode(' | ', $parts)) : '&mdash;';
             break;
     }
 }, 10, 2);
@@ -285,10 +223,6 @@ add_filter('post_row_actions', function ($actions, $post) {
 
     unset($actions['inline hide-if-no-js']);
     unset($actions['view']);
-
-    if (hj_bfs_can_retry_zoho_submission($post->ID) && current_user_can('edit_post', $post->ID)) {
-        $actions['hj_bfs_retry_zoho'] = '<a href="' . esc_url(hj_bfs_get_retry_zoho_url($post->ID)) . '">' . esc_html__('Retry Zoho', 'hello-elementor-child') . '</a>';
-    }
 
     return $actions;
 }, 10, 2);
@@ -313,10 +247,6 @@ add_action('add_meta_boxes_' . HJ_BFS_POST_TYPE, function () {
                 __('Zoho HTTP Code', 'hello-elementor-child') => hj_bfs_get_submission_meta($post->ID, '_hj_bfs_zoho_code'),
                 __('Submitted', 'hello-elementor-child') => get_the_date('Y-m-d H:i:s', $post),
             ];
-
-            if (hj_bfs_can_retry_zoho_submission($post->ID) && current_user_can('edit_post', $post->ID)) {
-                echo '<p><a class="button button-secondary" href="' . esc_url(hj_bfs_get_retry_zoho_url($post->ID)) . '">' . esc_html__('Retry Zoho', 'hello-elementor-child') . '</a></p>';
-            }
 
             echo '<table class="widefat striped" style="border:0">';
             foreach ($fields as $label => $value) {
@@ -344,88 +274,6 @@ add_action('add_meta_boxes_' . HJ_BFS_POST_TYPE, function () {
 add_action('admin_menu', function () {
     remove_submenu_page('edit.php?post_type=' . HJ_BFS_POST_TYPE, 'post-new.php?post_type=' . HJ_BFS_POST_TYPE);
 }, 99);
-
-add_action('admin_post_hj_bfs_retry_zoho_submission', function () {
-    $submission_id = isset($_GET['submission_id']) ? absint($_GET['submission_id']) : 0;
-    $fallback_url = admin_url('edit.php?post_type=' . HJ_BFS_POST_TYPE);
-
-    if ($submission_id <= 0 || get_post_type($submission_id) !== HJ_BFS_POST_TYPE) {
-        wp_safe_redirect(add_query_arg('hj_bfs_zoho_retry', 'invalid', $fallback_url));
-        exit;
-    }
-
-    if (!current_user_can('edit_post', $submission_id)) {
-        wp_die(esc_html__('You do not have permission to retry this submission.', 'hello-elementor-child'), 403);
-    }
-
-    check_admin_referer('hj_bfs_retry_zoho_submission_' . $submission_id);
-
-    $redirect_url = hj_bfs_get_retry_redirect_url(get_edit_post_link($submission_id, ''));
-
-    if (!hj_bfs_can_retry_zoho_submission($submission_id)) {
-        wp_safe_redirect(add_query_arg('hj_bfs_zoho_retry', 'not_failed', $redirect_url));
-        exit;
-    }
-
-    if (!function_exists('hj_send_zoho_crm_lead')) {
-        wp_safe_redirect(add_query_arg('hj_bfs_zoho_retry', 'unavailable', $redirect_url));
-        exit;
-    }
-
-    $result = hj_send_zoho_crm_lead(hj_bfs_get_submission_lead($submission_id), false);
-
-    $status = sanitize_key((string) ($result['status'] ?? 'failed'));
-    $code = (int) ($result['code'] ?? 0);
-    $body = (string) ($result['body'] ?? '');
-
-    update_post_meta($submission_id, '_hj_bfs_zoho_status', $status);
-    update_post_meta($submission_id, '_hj_bfs_zoho_code', $code);
-
-    if ($body !== '') {
-        update_post_meta($submission_id, '_hj_bfs_zoho_response', $body);
-    } else {
-        delete_post_meta($submission_id, '_hj_bfs_zoho_response');
-    }
-
-    wp_safe_redirect(add_query_arg([
-        'hj_bfs_zoho_retry' => $status === 'sent' ? 'sent' : 'failed',
-        'hj_bfs_zoho_retry_code' => $code,
-    ], $redirect_url));
-    exit;
-});
-
-add_action('admin_notices', function () {
-    if (!is_admin()) {
-        return;
-    }
-
-    $screen = get_current_screen();
-    if (!$screen || $screen->post_type !== HJ_BFS_POST_TYPE) {
-        return;
-    }
-
-    $retry_status = isset($_GET['hj_bfs_zoho_retry']) ? sanitize_key(wp_unslash($_GET['hj_bfs_zoho_retry'])) : '';
-    if ($retry_status === '') {
-        return;
-    }
-
-    $http_code = isset($_GET['hj_bfs_zoho_retry_code']) ? absint($_GET['hj_bfs_zoho_retry_code']) : 0;
-    $notice_type = $retry_status === 'sent' ? 'updated' : 'error';
-    $messages = [
-        'sent' => __('Zoho lead retried successfully.', 'hello-elementor-child'),
-        'failed' => __('Zoho retry failed.', 'hello-elementor-child'),
-        'invalid' => __('Invalid submission selected for Zoho retry.', 'hello-elementor-child'),
-        'not_failed' => __('Retry is available only for submissions with failed Zoho status.', 'hello-elementor-child'),
-        'unavailable' => __('Zoho retry is currently unavailable.', 'hello-elementor-child'),
-    ];
-
-    $message = $messages[$retry_status] ?? __('Zoho retry status is unknown.', 'hello-elementor-child');
-    if ($http_code > 0) {
-        $message .= ' ' . sprintf(__('HTTP code: %d', 'hello-elementor-child'), $http_code);
-    }
-
-    echo '<div class="notice ' . esc_attr($notice_type) . ' is-dismissible"><p>' . esc_html($message) . '</p></div>';
-});
 
 add_action('admin_head', function () {
     $screen = get_current_screen();
