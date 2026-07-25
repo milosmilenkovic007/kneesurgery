@@ -3,6 +3,212 @@
     "title": "Theme Settings",
     "fields": [
         {
+            "key": "field_branding_settings_tab",
+            "label": "Branding",
+            "name": "",
+            "type": "tab",
+            "placement": "top"
+        },
+        {
+            "key": "field_header_logo",
+            "label": "Header Logo",
+            "name": "header_logo",
+            "type": "image",
+            "instructions": "Primary logo used in the desktop header. Falls back to Appearance > Customize > Site Identity.",
+            "return_format": "id",
+            "preview_size": "medium",
+            "library": "all",
+            "wrapper": {
+                "width": "40"
+            }
+        },
+        {
+            "key": "field_mobile_logo",
+            "label": "Mobile Logo",
+            "name": "mobile_logo",
+            "type": "image",
+            "instructions": "Optional compact logo for mobile. The header logo is used when empty.",
+            "return_format": "id",
+            "preview_size": "medium",
+            "library": "all",
+            "wrapper": {
+                "width": "40"
+            }
+        },
+        {
+            "key": "field_site_favicon",
+            "label": "Favicon",
+            "name": "site_favicon",
+            "type": "image",
+            "instructions": "Use a square PNG, ICO or SVG. Recommended size: at least 512 × 512 px.",
+            "return_format": "id",
+            "preview_size": "thumbnail",
+            "library": "all",
+            "wrapper": {
+                "width": "20"
+            }
+        },
+        {
+            "key": "field_header_logo_width",
+            "label": "Desktop Logo Width",
+            "name": "header_logo_width",
+            "type": "number",
+            "append": "px",
+            "default_value": 210,
+            "min": 80,
+            "max": 500,
+            "step": 1,
+            "wrapper": {
+                "width": "25"
+            }
+        },
+        {
+            "key": "field_mobile_logo_width",
+            "label": "Mobile Logo Width",
+            "name": "mobile_logo_width",
+            "type": "number",
+            "append": "px",
+            "default_value": 180,
+            "min": 60,
+            "max": 400,
+            "step": 1,
+            "wrapper": {
+                "width": "25"
+            }
+        },
+        {
+            "key": "field_typography_settings_tab",
+            "label": "Typography",
+            "name": "",
+            "type": "tab",
+            "placement": "top"
+        },
+        {
+            "key": "field_body_font_family",
+            "label": "Body Font Family",
+            "name": "body_font_family",
+            "type": "select",
+            "instructions": "Google fonts are loaded automatically. System fonts do not make an external request.",
+            "choices": {
+                "Manrope": "Manrope",
+                "Inter": "Inter",
+                "Roboto": "Roboto",
+                "Open Sans": "Open Sans",
+                "Lato": "Lato",
+                "Poppins": "Poppins",
+                "Source Serif 4": "Source Serif 4",
+                "System UI": "System UI",
+                "Georgia": "Georgia"
+            },
+            "default_value": "Manrope",
+            "ui": 1,
+            "wrapper": {
+                "width": "50"
+            }
+        },
+        {
+            "key": "field_heading_font_family",
+            "label": "Heading Font Family",
+            "name": "heading_font_family",
+            "type": "select",
+            "choices": {
+                "Manrope": "Manrope",
+                "Inter": "Inter",
+                "Roboto": "Roboto",
+                "Open Sans": "Open Sans",
+                "Lato": "Lato",
+                "Poppins": "Poppins",
+                "Source Serif 4": "Source Serif 4",
+                "System UI": "System UI",
+                "Georgia": "Georgia"
+            },
+            "default_value": "Manrope",
+            "ui": 1,
+            "wrapper": {
+                "width": "50"
+            }
+        },
+        {
+            "key": "field_colors_settings_tab",
+            "label": "Colors & Styles",
+            "name": "",
+            "type": "tab",
+            "placement": "top"
+        },
+        {
+            "key": "field_color_primary",
+            "label": "Primary Color",
+            "name": "color_primary",
+            "type": "color_picker",
+            "default_value": "#4d55dd",
+            "wrapper": {
+                "width": "25"
+            }
+        },
+        {
+            "key": "field_color_secondary",
+            "label": "Secondary Color",
+            "name": "color_secondary",
+            "type": "color_picker",
+            "default_value": "#0b726d",
+            "wrapper": {
+                "width": "25"
+            }
+        },
+        {
+            "key": "field_color_accent",
+            "label": "Accent Color",
+            "name": "color_accent",
+            "type": "color_picker",
+            "default_value": "#4d55dd",
+            "wrapper": {
+                "width": "25"
+            }
+        },
+        {
+            "key": "field_color_background",
+            "label": "Page Background",
+            "name": "color_background",
+            "type": "color_picker",
+            "default_value": "#ffffff",
+            "wrapper": {
+                "width": "25"
+            }
+        },
+        {
+            "key": "field_color_text",
+            "label": "Body Text",
+            "name": "color_text",
+            "type": "color_picker",
+            "default_value": "#333333",
+            "wrapper": {
+                "width": "25"
+            }
+        },
+        {
+            "key": "field_color_heading",
+            "label": "Heading Text",
+            "name": "color_heading",
+            "type": "color_picker",
+            "default_value": "#22243f",
+            "wrapper": {
+                "width": "25"
+            }
+        },
+        {
+            "key": "field_button_border_radius",
+            "label": "Button Corner Radius",
+            "name": "button_border_radius",
+            "type": "number",
+            "append": "px",
+            "default_value": 999,
+            "min": 0,
+            "max": 999,
+            "wrapper": {
+                "width": "25"
+            }
+        },
+        {
             "key": "field_header_settings_tab",
             "label": "Header",
             "name": "",
@@ -19,11 +225,91 @@
             "placeholder": "Let's Get in Touch"
         },
         {
+            "key": "field_header_cta_url",
+            "label": "Header CTA Button URL",
+            "name": "header_cta_url",
+            "type": "url",
+            "instructions": "Destination of the header CTA button.",
+            "wrapper": {
+                "width": "50"
+            }
+        },
+        {
+            "key": "field_header_cta_target",
+            "label": "Open CTA in New Tab",
+            "name": "header_cta_target",
+            "type": "true_false",
+            "default_value": 0,
+            "ui": 1,
+            "wrapper": {
+                "width": "25"
+            }
+        },
+        {
+            "key": "field_header_background",
+            "label": "Header Background",
+            "name": "header_background",
+            "type": "color_picker",
+            "default_value": "#f7f7ff",
+            "wrapper": {
+                "width": "25"
+            }
+        },
+        {
+            "key": "field_header_border_color",
+            "label": "Header Border",
+            "name": "header_border_color",
+            "type": "color_picker",
+            "default_value": "#d8daf7",
+            "wrapper": {
+                "width": "25"
+            }
+        },
+        {
+            "key": "field_header_text_color",
+            "label": "Menu Text",
+            "name": "header_text_color",
+            "type": "color_picker",
+            "default_value": "#6f748a",
+            "wrapper": {
+                "width": "25"
+            }
+        },
+        {
+            "key": "field_header_active_color",
+            "label": "Menu Active / Hover",
+            "name": "header_active_color",
+            "type": "color_picker",
+            "default_value": "#22243f",
+            "wrapper": {
+                "width": "25"
+            }
+        },
+        {
+            "key": "field_header_button_color",
+            "label": "Header Button",
+            "name": "header_button_color",
+            "type": "color_picker",
+            "default_value": "#4d55dd",
+            "wrapper": {
+                "width": "25"
+            }
+        },
+        {
             "key": "field_integrations_settings_tab",
             "label": "Integrations",
             "name": "",
             "type": "tab",
             "placement": "top"
+        },
+        {
+            "key": "field_google_tag_manager_id",
+            "label": "Google Tag Manager Container ID",
+            "name": "google_tag_manager_id",
+            "type": "text",
+            "instructions": "Example: GTM-XXXXXXX. Leave empty to disable Google Tag Manager.",
+            "default_value": "GTM-NQF5LP95",
+            "placeholder": "GTM-XXXXXXX"
         },
         {
             "key": "field_google_reviews_message",
@@ -791,6 +1077,36 @@
             "placement": "top"
         },
         {
+            "key": "field_footer_background",
+            "label": "Footer Background",
+            "name": "footer_background",
+            "type": "color_picker",
+            "default_value": "#4e56d9",
+            "wrapper": {
+                "width": "33"
+            }
+        },
+        {
+            "key": "field_footer_text_color",
+            "label": "Footer Text",
+            "name": "footer_text_color",
+            "type": "color_picker",
+            "default_value": "#ffffff",
+            "wrapper": {
+                "width": "33"
+            }
+        },
+        {
+            "key": "field_footer_heading_color",
+            "label": "Footer Headings",
+            "name": "footer_heading_color",
+            "type": "color_picker",
+            "default_value": "#ffffff",
+            "wrapper": {
+                "width": "33"
+            }
+        },
+        {
             "key": "field_footer_col1_top_image",
             "label": "Column 1 Top Image",
             "name": "footer_col1_top_image",
@@ -922,5 +1238,5 @@
     "style": "default",
     "label_placement": "top",
     "instruction_placement": "label",
-    "modified": 1776341900
+    "modified": 1784893905
 }

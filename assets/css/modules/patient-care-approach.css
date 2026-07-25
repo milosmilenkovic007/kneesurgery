@@ -28,7 +28,7 @@
   gap:18px;
   margin:0;
   color:var(--pca-title) !important;
-  font-family:"Manrope", sans-serif !important;
+  font-family:var(--hj-font-heading, "Manrope", sans-serif) !important;
   font-size:clamp(28px, 2.8vw, 38px) !important;
   line-height:1.12 !important;
   font-weight:500 !important;
@@ -44,7 +44,7 @@
 }
 
 .hj-pca-title__accent{
-  color:#4d55dd !important;
+  color:var(--hj-color-accent, #4d55dd) !important;
   font-style:italic;
   font-weight:500;
 }
@@ -73,7 +73,7 @@
 
 .hj-pca-row__title{
   color:var(--pca-text);
-  font-family:"Manrope", sans-serif !important;
+  font-family:var(--hj-font-heading, "Manrope", sans-serif) !important;
   font-size:clamp(20px, 1.8vw, 26px) !important;
   line-height:1.18 !important;
   font-weight:500 !important;
@@ -83,7 +83,7 @@
 .hj-pca-row__content,
 .hj-pca-row__content p{
   color:var(--pca-copy);
-  font-family:"Manrope", sans-serif;
+  font-family:var(--hj-font-heading, "Manrope", sans-serif);
   font-size:16px;
   line-height:1.9;
   font-weight:400;

@@ -94,7 +94,7 @@ if (!function_exists('hj_get_header_cta')) {
       }
 
       if ($target !== '') {
-        $cta['target'] = $target;
+        $cta['target'] = in_array($target, ['1', '_blank'], true) ? '_blank' : '';
       }
     }
 
@@ -243,11 +243,11 @@ add_filter('nav_menu_item_title', function ($title, $item, $args, $depth) {
   );
 }, 10, 4);
 
-// -----------------------------------------------------------------------------
-//  Google Tag Manager (GTM) – <head> i posle <body>
-// -----------------------------------------------------------------------------
-// <head> skripta (što više u <head>, prioritet 0)
 add_action('wp_head', function () {
+  $gtm_id = function_exists('get_field') ? trim((string) get_field('google_tag_manager_id', 'option')) : 'GTM-NQF5LP95';
+  if (!preg_match('/^GTM-[A-Z0-9]+$/i', $gtm_id)) {
+    return;
+  }
 ?>
 <!-- Google Tag Manager -->
 <script>
@@ -255,7 +255,7 @@ add_action('wp_head', function () {
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
 j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-NQF5LP95');
+})(window,document,'script','dataLayer',<?php echo wp_json_encode($gtm_id); ?>);
 </script>
 <!-- End Google Tag Manager -->
 <?php
@@ -263,10 +263,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 // <body> noscript (odmah nakon <body>, kroz wp_body_open)
 add_action('wp_body_open', function () {
+  $gtm_id = function_exists('get_field') ? trim((string) get_field('google_tag_manager_id', 'option')) : 'GTM-NQF5LP95';
+  if (!preg_match('/^GTM-[A-Z0-9]+$/i', $gtm_id)) {
+    return;
+  }
 ?>
 <!-- Google Tag Manager (noscript) -->
 <noscript>
-  <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NQF5LP95"
+  <iframe src="https://www.googletagmanager.com/ns.html?id=<?php echo esc_attr($gtm_id); ?>"
           height="0" width="0" style="display:none;visibility:hidden"></iframe>
 </noscript>
 <!-- End Google Tag Manager (noscript) -->
@@ -522,6 +526,7 @@ add_action('admin_enqueue_scripts', function ($hook) {
 //  Includes (ACF options + flexible modules)
 // -----------------------------------------------------------------------------
 require_once get_stylesheet_directory() . '/inc/acf-options.php';
+require_once get_stylesheet_directory() . '/inc/theme-customization.php';
 require_once get_stylesheet_directory() . '/inc/google-reviews.php';
 require_once get_stylesheet_directory() . '/inc/modules.php';
 require_once get_stylesheet_directory() . '/inc/articles-grid-ajax.php';

@@ -50,7 +50,7 @@
 
 .hj-site-footer__brand-copy{
   margin:30px 0 28px;
-  font-family:"Manrope", sans-serif;
+  font-family:var(--hj-font-heading, "Manrope", sans-serif);
   font-size:16px;
   line-height:1.7;
   color:var(--hj-footer-text);
@@ -70,7 +70,7 @@
 .hj-site-footer__social-link{
   width:40px;
   height:40px;
-  border-radius:999px;
+  border-radius:var(--hj-button-radius, 999px);
   border:1px solid rgba(255,255,255,.18);
   background:var(--hj-footer-icon-bg);
   color:#fff;
@@ -93,7 +93,7 @@
 }
 
 .hj-site-footer__column--content{
-  font-family:"Manrope", sans-serif;
+  font-family:var(--hj-font-heading, "Manrope", sans-serif);
   font-size:16px;
   line-height:1.95;
 }
@@ -106,7 +106,7 @@
 .hj-site-footer__column--content h6{
   margin:0 0 20px;
   color:var(--hj-footer-heading) !important;
-  font-family:"Manrope", sans-serif !important;
+  font-family:var(--hj-font-heading, "Manrope", sans-serif) !important;
   font-size:20px !important;
   line-height:1.2 !important;
   font-weight:600 !important;
@@ -154,7 +154,7 @@
 
 .hj-site-footer__bottom-copy,
 .hj-site-footer__bottom-nav a{
-  font-family:"Manrope", sans-serif;
+  font-family:var(--hj-font-heading, "Manrope", sans-serif);
   font-size:15px;
   line-height:1.5;
   font-weight:600;

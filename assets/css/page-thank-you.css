@@ -3,7 +3,7 @@
   --ty-surface:#ffffff;
   --ty-text:#121432;
   --ty-muted:#70748a;
-  --ty-accent:#4d55dd;
+  --ty-accent:var(--hj-color-accent, #4d55dd);
   --ty-border:#dfe3f0;
   --ty-shadow:0 16px 40px rgba(18, 20, 50, .05);
 }
@@ -38,7 +38,7 @@
 .hj-thank-you__title{
   margin:0;
   color:var(--ty-text) !important;
-  font-family:"Manrope", sans-serif !important;
+  font-family:var(--hj-font-heading, "Manrope", sans-serif) !important;
   font-size:clamp(28px, 2.8vw, 38px) !important;
   line-height:1.12 !important;
   font-weight:500 !important;
@@ -56,7 +56,7 @@
 .hj-thank-you__content p{
   margin:0;
   color:var(--ty-text);
-  font-family:"Manrope", sans-serif;
+  font-family:var(--hj-font-heading, "Manrope", sans-serif);
   font-size:clamp(42px, 4.8vw, 62px);
   line-height:1.12;
   font-weight:500;
@@ -76,7 +76,7 @@
 .hj-thank-you__card-title{
   margin:0;
   color:var(--ty-text) !important;
-  font-family:"Manrope", sans-serif !important;
+  font-family:var(--hj-font-heading, "Manrope", sans-serif) !important;
   font-size:clamp(26px, 2.8vw, 34px) !important;
   line-height:1.18 !important;
   font-weight:500 !important;
@@ -85,7 +85,7 @@
 .hj-thank-you__card-copy{
   margin:10px 0 0;
   color:#4f566f;
-  font-family:"Manrope", sans-serif;
+  font-family:var(--hj-font-heading, "Manrope", sans-serif);
   font-size:18px;
   line-height:1.6;
 }
@@ -93,7 +93,7 @@
 .hj-thank-you__card-phone{
   margin:10px 0 0;
   color:#6f6f77;
-  font-family:"Manrope", sans-serif;
+  font-family:var(--hj-font-heading, "Manrope", sans-serif);
   font-size:24px;
   line-height:1.35;
   font-weight:700;
@@ -117,7 +117,7 @@
   padding:14px 28px;
   border-radius:999px;
   text-decoration:none;
-  font-family:"Manrope", sans-serif;
+  font-family:var(--hj-font-heading, "Manrope", sans-serif);
   font-size:16px;
   line-height:1.2;
   font-weight:700;

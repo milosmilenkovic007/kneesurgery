@@ -40,7 +40,7 @@
 
 .hj-spc-content{
   color:var(--spc-muted);
-  font-family:'Manrope', sans-serif;
+  font-family:var(--hj-font-heading, 'Manrope', sans-serif);
   font-size:16px;
   line-height:1.8;
 }
@@ -93,7 +93,7 @@
 .hj-spc-card__includes-title{
   margin:0 0 14px;
   color:var(--spc-text);
-  font-family:'Manrope', sans-serif;
+  font-family:var(--hj-font-heading, 'Manrope', sans-serif);
   font-size:14px;
   font-weight:700;
   letter-spacing:.02em;
@@ -113,7 +113,7 @@
   grid-area:disclaimer;
   margin-top:14px;
   color:var(--spc-muted);
-  font-family:'Manrope', sans-serif;
+  font-family:var(--hj-font-heading, 'Manrope', sans-serif);
   font-size:14px;
   line-height:1.65;
 }
@@ -126,7 +126,7 @@
   position:relative;
   padding-left:34px;
   color:var(--spc-muted);
-  font-family:'Manrope', sans-serif;
+  font-family:var(--hj-font-heading, 'Manrope', sans-serif);
   font-size:15px;
   line-height:1.65;
 }
@@ -178,7 +178,7 @@
 .hj-spc-card__form-text{
   margin:0 0 16px;
   color:var(--spc-muted);
-  font-family:'Manrope', sans-serif;
+  font-family:var(--hj-font-heading, 'Manrope', sans-serif);
   font-size:14px;
   line-height:1.65;
 }
@@ -204,7 +204,7 @@
   border-radius:14px;
   background:#fff;
   color:var(--spc-text);
-  font-family:'Manrope', sans-serif;
+  font-family:var(--hj-font-heading, 'Manrope', sans-serif);
   font-size:15px;
   transition:border-color .2s ease, box-shadow .2s ease;
 }
@@ -217,7 +217,7 @@
   border-radius:14px;
   background:#fff;
   color:var(--spc-text);
-  font-family:'Manrope', sans-serif;
+  font-family:var(--hj-font-heading, 'Manrope', sans-serif);
   font-size:15px;
   appearance:none;
   -webkit-appearance:none;
@@ -251,7 +251,7 @@
 
 .hj-spc-form__field--phone .iti,
 .hj-spc-form__field--phone .iti *{
-  font-family:'Manrope', sans-serif;
+  font-family:var(--hj-font-heading, 'Manrope', sans-serif);
 }
 
 .hj-spc-form__field--phone .iti__tel-input,
@@ -351,7 +351,7 @@
   margin:0 0 14px;
   padding:12px 14px;
   border-radius:14px;
-  font-family:'Manrope', sans-serif;
+  font-family:var(--hj-font-heading, 'Manrope', sans-serif);
   font-size:14px;
   line-height:1.55;
 }
@@ -377,7 +377,7 @@
   border-radius:999px;
   background:var(--spc-accent);
   color:#fff;
-  font-family:'Manrope', sans-serif;
+  font-family:var(--hj-font-heading, 'Manrope', sans-serif);
   font-size:17px;
   font-weight:700;
   line-height:1.2;
@@ -414,7 +414,7 @@
 .hj-spc-card__price{
   margin:0;
   color:var(--spc-price-color);
-  font-family:'Manrope', sans-serif;
+  font-family:var(--hj-font-heading, 'Manrope', sans-serif);
   font-size:30px;
   line-height:1;
   font-weight:500;
@@ -423,7 +423,7 @@
 .hj-spc-card__price-note{
   margin:0;
   color:var(--spc-muted);
-  font-family:'Manrope', sans-serif;
+  font-family:var(--hj-font-heading, 'Manrope', sans-serif);
   font-size:14px;
   line-height:1.6;
 }

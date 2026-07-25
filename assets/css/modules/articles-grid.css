@@ -5,7 +5,7 @@
   --ag-border: rgba(131, 144, 197, .16);
   --ag-muted: #6e7487;
   --ag-text: #10162f;
-  --ag-blue: #4d55dd;
+  --ag-blue: var(--hj-color-accent, #4d55dd);
   --ag-surface: #ffffff;
   --ag-surface-alt: #f7f8ff;
   --ag-blue-soft: rgba(77, 85, 221, .12);
@@ -62,7 +62,7 @@
   background: var(--ag-blue);
   color: #fff;
   text-decoration: none;
-  font-family: 'Manrope', sans-serif;
+  font-family:var(--hj-font-heading, 'Manrope', sans-serif);
   font-size: 16px;
   font-weight: 600;
   line-height: 1.2;
@@ -208,7 +208,7 @@
   align-items: center;
   gap: 8px;
   margin-bottom: 10px;
-  font-family: 'Manrope', sans-serif;
+  font-family:var(--hj-font-heading, 'Manrope', sans-serif);
   font-size: 13px;
   color: var(--ag-muted);
   width: 100%;
@@ -239,7 +239,7 @@
 .hj-ag-card__title{
   margin: 0;
   color: var(--ag-text) !important;
-  font-family: 'Manrope', sans-serif !important;
+  font-family:var(--hj-font-heading, 'Manrope', sans-serif) !important;
   font-size: 20px;
   font-weight: 600;
   line-height: 1.2;
@@ -247,7 +247,7 @@
 
 .hj-ag-card__excerpt{
   margin: 12px 0 0;
-  font-family: 'Manrope', sans-serif;
+  font-family:var(--hj-font-heading, 'Manrope', sans-serif);
   font-size: 14px;
   font-weight: 400;
   line-height: 1.65;
@@ -268,7 +268,7 @@
   border-radius: 14px;
   border: 1px solid rgba(77, 85, 221, .12);
   background: var(--ag-surface-alt);
-  font-family: 'Manrope', sans-serif;
+  font-family:var(--hj-font-heading, 'Manrope', sans-serif);
   font-size: 13px;
   font-weight: 600;
   line-height: 1.4;
@@ -282,7 +282,7 @@
   align-items: center;
   gap: 10px;
   color: var(--ag-blue) !important;
-  font-family: 'Manrope', sans-serif !important;
+  font-family:var(--hj-font-heading, 'Manrope', sans-serif) !important;
   font-size: 15px !important;
   font-weight: 700 !important;
   letter-spacing: .01em !important;

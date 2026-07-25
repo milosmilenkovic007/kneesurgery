@@ -1,5 +1,5 @@
 .hj-patient-journey-steps{
-  --pjs-bg:#4d55dd;
+  --pjs-bg:var(--hj-color-accent, #4d55dd);
   --pjs-card-bg:rgba(255,255,255,.12);
   --pjs-card-border:rgba(255,255,255,.18);
   --pjs-text:#ffffff;
@@ -32,7 +32,7 @@
 .hj-pjs-eyebrow{
   margin:0 0 18px;
   color:var(--pjs-star);
-  font-family:'Manrope', sans-serif;
+  font-family:var(--hj-font-heading, 'Manrope', sans-serif);
   font-size:22px;
   line-height:1;
   letter-spacing:.12em;
@@ -41,7 +41,7 @@
 .hj-pjs-title{
   margin:0;
   color:var(--pjs-text) !important;
-  font-family:'Manrope', sans-serif !important;
+  font-family:var(--hj-font-heading, 'Manrope', sans-serif) !important;
   font-size:clamp(34px, 3.3vw, 45px) !important;
   line-height:1.15 !important;
   font-weight:400 !important;
@@ -84,7 +84,7 @@
 .hj-pjs-card__title{
   margin:0;
   color:var(--pjs-text) !important;
-  font-family:'Manrope', sans-serif !important;
+  font-family:var(--hj-font-heading, 'Manrope', sans-serif) !important;
   font-size:19px !important;
   line-height:1.4 !important;
   font-weight:500 !important;
@@ -98,7 +98,7 @@
 .hj-pjs-card__text{
   margin:8px 0 0;
   color:var(--pjs-text-soft) !important;
-  font-family:'Manrope', sans-serif !important;
+  font-family:var(--hj-font-heading, 'Manrope', sans-serif) !important;
   font-size:16px !important;
   line-height:1.7 !important;
   font-weight:400 !important;

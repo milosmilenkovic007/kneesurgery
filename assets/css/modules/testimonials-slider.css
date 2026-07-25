@@ -1,7 +1,7 @@
 :root{
   --ts-text:#141634;
   --ts-muted:#6f7488;
-  --ts-accent:#4d55dd;
+  --ts-accent:var(--hj-color-accent, #4d55dd);
   --ts-border:#eceef8;
   --ts-star:#ffbc35;
   --ts-bg:#ffffff;
@@ -26,7 +26,7 @@
 .hj-ts-eyebrow{
   margin:0 0 14px;
   color:var(--ts-accent) !important;
-  font-family:'Manrope', sans-serif !important;
+  font-family:var(--hj-font-heading, 'Manrope', sans-serif) !important;
   font-size:14px !important;
   line-height:1.3 !important;
   font-weight:700 !important;
@@ -36,7 +36,7 @@
 .hj-ts-title{
   margin:0;
   color:var(--ts-text) !important;
-  font-family:'Manrope', sans-serif !important;
+  font-family:var(--hj-font-heading, 'Manrope', sans-serif) !important;
   font-size:clamp(38px, 4vw, 45px) !important;
   line-height:1.4em !important;
   font-weight:500 !important;
@@ -89,7 +89,7 @@
 
 .hj-ts-copy{
   color:var(--ts-text) !important;
-  font-family:'Manrope', sans-serif !important;
+  font-family:var(--hj-font-heading, 'Manrope', sans-serif) !important;
   font-size:16px !important;
   line-height:1.72 !important;
   font-weight:400 !important;
@@ -109,7 +109,7 @@
   padding:0;
   background:transparent !important;
   color:var(--ts-accent) !important;
-  font-family:'Manrope', sans-serif !important;
+  font-family:var(--hj-font-heading, 'Manrope', sans-serif) !important;
   font-size:14px !important;
   line-height:1.4 !important;
   font-weight:600 !important;
@@ -156,14 +156,14 @@
 
 .hj-ts-avatar__fallback{
   color:var(--ts-accent);
-  font-family:'Manrope', sans-serif;
+  font-family:var(--hj-font-heading, 'Manrope', sans-serif);
   font-size:24px;
   font-weight:700;
 }
 
 .hj-ts-name{
   color:var(--ts-text) !important;
-  font-family:'Manrope', sans-serif !important;
+  font-family:var(--hj-font-heading, 'Manrope', sans-serif) !important;
   font-size:17px !important;
   line-height:1.4 !important;
   font-weight:500 !important;
@@ -172,7 +172,7 @@
 .hj-ts-role{
   margin-top:4px;
   color:var(--ts-accent) !important;
-  font-family:'Manrope', sans-serif !important;
+  font-family:var(--hj-font-heading, 'Manrope', sans-serif) !important;
   font-size:15px !important;
   line-height:1.4 !important;
   font-weight:400 !important;

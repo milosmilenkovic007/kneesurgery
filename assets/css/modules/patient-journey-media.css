@@ -2,7 +2,7 @@
   --pjm-text:#121432;
   --pjm-muted:#80808e;
   --pjm-border:#d9ddf4;
-  --pjm-primary:#4d55dd;
+  --pjm-primary:var(--hj-color-accent, #4d55dd);
   --pjm-bg:#f6f6ff;
   --pjm-shadow:0 20px 42px rgba(48, 55, 114, .08);
 }
@@ -180,7 +180,7 @@
   flex-direction:column;
   gap:2px;
   color:var(--pjm-text);
-  font-family:"Manrope", sans-serif;
+  font-family:var(--hj-font-heading, "Manrope", sans-serif);
 }
 
 .hj-pjm-badge__title,
@@ -199,7 +199,7 @@
 .hj-patient-journey-media .hj-pjm-title{
   margin:0 !important;
   color:var(--pjm-text) !important;
-  font-family:"Manrope", sans-serif !important;
+  font-family:var(--hj-font-heading, "Manrope", sans-serif) !important;
   font-size:clamp(40px, 4.2vw, 45px) !important;
   line-height:1.4em !important;
   font-weight:500 !important;
@@ -209,7 +209,7 @@
 .hj-pjm-content{
   margin-top:26px;
   color:var(--pjm-muted);
-  font-family:"Manrope", sans-serif;
+  font-family:var(--hj-font-heading, "Manrope", sans-serif);
   font-size:16px;
   line-height:1.6;
 }
@@ -236,7 +236,7 @@
   min-height:54px;
   padding:12px 28px;
   border-radius:999px;
-  font-family:"Manrope", sans-serif;
+  font-family:var(--hj-font-heading, "Manrope", sans-serif);
   font-size:16px;
   font-weight:500;
   line-height:1.2;

@@ -2,7 +2,7 @@
   --hj-cif-text:#121432;
   --hj-cif-muted:#7c7d88;
   --hj-cif-border:#dfe3f0;
-  --hj-cif-accent:#4d55dd;
+  --hj-cif-accent:var(--hj-color-accent, #4d55dd);
   --hj-cif-surface:#ffffff;
   --hj-cif-bg:#f9f9ff;
   --hj-cif-shadow:0 16px 38px rgba(17, 22, 47, .06);
@@ -110,7 +110,7 @@
 
 .hj-cif-card__content{
   color:var(--hj-cif-muted);
-  font-family:"Manrope", sans-serif;
+  font-family:var(--hj-font-heading, "Manrope", sans-serif);
   font-size:15px;
   line-height:1.65;
 }
@@ -146,7 +146,7 @@
 .hj-cif-title{
   margin:0;
   color:var(--hj-cif-text) !important;
-  font-family:"Manrope", sans-serif !important;
+  font-family:var(--hj-font-heading, "Manrope", sans-serif) !important;
   font-size:clamp(28px, 2.8vw, 38px) !important;
   line-height:1.08 !important;
   font-weight:500 !important;
@@ -156,7 +156,7 @@
 .hj-cif-intro{
   margin:14px 0 0;
   color:var(--hj-cif-muted);
-  font-family:"Manrope", sans-serif;
+  font-family:var(--hj-font-heading, "Manrope", sans-serif);
   font-size:16px;
   line-height:1.65;
 }
@@ -185,7 +185,7 @@
 .hj-cif-form .ff-el-form-control,
 .hj-cif-form .ff-t-cell .iti,
 .hj-cif-form .iti__selected-country{
-  font-family:"Manrope", sans-serif;
+  font-family:var(--hj-font-heading, "Manrope", sans-serif);
 }
 
 .hj-cif-form input[type="text"],
@@ -250,7 +250,7 @@
   background:#121432 !important;
   color:#fff !important;
   box-shadow:0 12px 24px rgba(18, 20, 50, .12);
-  font-family:"Manrope", sans-serif !important;
+  font-family:var(--hj-font-heading, "Manrope", sans-serif) !important;
   font-size:16px !important;
   line-height:1.2 !important;
   font-weight:700 !important;

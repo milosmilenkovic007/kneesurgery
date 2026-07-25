@@ -96,7 +96,7 @@
   z-index:0;
   width:30%;
   height:38%;
-  background:#4d55dd;
+  background:var(--hj-color-accent, #4d55dd);
   border-bottom-right-radius:35px;
 }
 
@@ -173,7 +173,7 @@
   justify-self:center;
   text-align:center;
   color:var(--vc-text) !important;
-  font-family:"Manrope", sans-serif !important;
+  font-family:var(--hj-font-heading, "Manrope", sans-serif) !important;
   font-size:clamp(28px, 2.8vw, 38px) !important;
   line-height:1.08 !important;
   font-weight:500 !important;
@@ -193,7 +193,7 @@
 }
 
 .hj-vc-title__accent{
-  color:#4d55dd !important;
+  color:var(--hj-color-accent, #4d55dd) !important;
   font-style:italic;
   font-weight:500;
 }
@@ -227,7 +227,7 @@
 .hj-vc-content{
   margin-top:18px;
   color:var(--vc-muted);
-  font-family:"Manrope", sans-serif;
+  font-family:var(--hj-font-heading, "Manrope", sans-serif);
   font-size:15px;
   line-height:1.7;
   max-width:540px;
@@ -278,7 +278,7 @@
 
 .hj-vc-accordion__title{
   color:#2f343d;
-  font-family:"Manrope", sans-serif;
+  font-family:var(--hj-font-heading, "Manrope", sans-serif);
   font-size:14px;
   line-height:1.35;
   font-weight:600;
@@ -310,7 +310,7 @@
 .hj-vc-accordion__content{
   padding:0 18px 14px;
   color:var(--vc-muted);
-  font-family:"Manrope", sans-serif;
+  font-family:var(--hj-font-heading, "Manrope", sans-serif);
   font-size:14px;
   line-height:1.65;
 }
@@ -339,7 +339,7 @@
   color:#2c3240;
   background:transparent;
   text-decoration:none;
-  font-family:"Manrope", sans-serif;
+  font-family:var(--hj-font-heading, "Manrope", sans-serif);
   font-size:17px;
   line-height:1.2;
   font-weight:600;

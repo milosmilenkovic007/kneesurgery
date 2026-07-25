@@ -29,7 +29,7 @@
   gap:16px;
   margin:0;
   color:var(--mmg-text) !important;
-  font-family:"Manrope", sans-serif !important;
+  font-family:var(--hj-font-heading, "Manrope", sans-serif) !important;
   font-size:clamp(28px, 2.8vw, 38px) !important;
   line-height:1.12 !important;
   font-weight:500 !important;
@@ -41,7 +41,7 @@
 }
 
 .hj-mmg-title__accent{
-  color:#4d55dd !important;
+  color:var(--hj-color-accent, #4d55dd) !important;
   font-style:italic;
 }
 
@@ -49,7 +49,7 @@
   width:min(100%, 760px);
   margin:18px 0 0;
   color:var(--mmg-muted);
-  font-family:"Manrope", sans-serif;
+  font-family:var(--hj-font-heading, "Manrope", sans-serif);
   font-size:16px;
   line-height:1.65;
 }
@@ -83,12 +83,12 @@
 .hj-mmg-card__icon{
   width:32px;
   height:32px;
-  border:1px solid #4d55dd;
+  border:1px solid var(--hj-color-accent, #4d55dd);
   border-radius:8px;
   display:inline-flex;
   align-items:center;
   justify-content:center;
-  color:#4d55dd;
+  color:var(--hj-color-accent, #4d55dd);
 }
 
 .hj-mmg-card__icon img{
@@ -101,7 +101,7 @@
 .hj-mmg-card__title{
   margin:0;
   color:var(--mmg-text);
-  font-family:"Manrope", sans-serif !important;
+  font-family:var(--hj-font-heading, "Manrope", sans-serif) !important;
   font-size:clamp(16px, 1.28vw, 18px) !important;
   line-height:1.35 !important;
   font-weight:500 !important;
@@ -111,7 +111,7 @@
 .hj-mmg-card__description{
   margin:0;
   color:var(--mmg-muted);
-  font-family:"Manrope", sans-serif;
+  font-family:var(--hj-font-heading, "Manrope", sans-serif);
   font-size:14px;
   line-height:1.55;
 }

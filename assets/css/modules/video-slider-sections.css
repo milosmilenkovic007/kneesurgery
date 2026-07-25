@@ -248,7 +248,7 @@
   font-size:45px !important;
   line-height:1.4em !important;
   font-weight:500 !important;
-  font-family:'Manrope', sans-serif !important;
+  font-family:var(--hj-font-heading, 'Manrope', sans-serif) !important;
 }
 .hj-vss-main-summary{
   cursor: pointer;

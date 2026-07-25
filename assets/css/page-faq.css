@@ -5,7 +5,7 @@
   --hj-faq-page-border-strong:#2a2a5f;
   --hj-faq-page-text:#1f2432;
   --hj-faq-page-muted:#6f748a;
-  --hj-faq-page-accent:#4d55dd;
+  --hj-faq-page-accent:var(--hj-color-accent, #4d55dd);
   --hj-faq-page-accent-soft:#edf0ff;
   --hj-faq-page-shadow:0 16px 38px rgba(34, 36, 63, .08);
 }

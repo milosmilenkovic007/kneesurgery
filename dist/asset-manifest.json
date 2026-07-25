@@ -1,15 +1,15 @@
 {
   "assets/css/modules/about-cta.css": {
     "path": "assets/css/modules/about-cta.css",
-    "version": "3247d5b7debd"
+    "version": "5f7cc51cd366"
   },
   "assets/css/modules/about-highlights.css": {
     "path": "assets/css/modules/about-highlights.css",
-    "version": "1305c350d09a"
+    "version": "b3ee1c718114"
   },
   "assets/css/modules/articles-grid.css": {
     "path": "assets/css/modules/articles-grid.css",
-    "version": "d85aefaadea6"
+    "version": "a638296831c9"
   },
   "assets/css/modules/candidate-popup.css": {
     "path": "assets/css/modules/candidate-popup.css",
@@ -21,7 +21,7 @@
   },
   "assets/css/modules/contact-info-form.css": {
     "path": "assets/css/modules/contact-info-form.css",
-    "version": "575856976654"
+    "version": "5661cd31551d"
   },
   "assets/css/modules/contact-map.css": {
     "path": "assets/css/modules/contact-map.css",
@@ -29,7 +29,7 @@
   },
   "assets/css/modules/cta-form-block.css": {
     "path": "assets/css/modules/cta-form-block.css",
-    "version": "22a86de00d9e"
+    "version": "cb7316e7a0e3"
   },
   "assets/css/modules/cta-pricelist-download.css": {
     "path": "assets/css/modules/cta-pricelist-download.css",
@@ -41,7 +41,7 @@
   },
   "assets/css/modules/hero-about.css": {
     "path": "assets/css/modules/hero-about.css",
-    "version": "46a554df0bb7"
+    "version": "8a8626f6444d"
   },
   "assets/css/modules/hero-dental.css": {
     "path": "assets/css/modules/hero-dental.css",
@@ -49,11 +49,11 @@
   },
   "assets/css/modules/home-hero.css": {
     "path": "assets/css/modules/home-hero.css",
-    "version": "96d5017cf15b"
+    "version": "86cedecbb73b"
   },
   "assets/css/modules/image-faq.css": {
     "path": "assets/css/modules/image-faq.css",
-    "version": "19785aca39ed"
+    "version": "8592c656fc64"
   },
   "assets/css/modules/logo-slider.css": {
     "path": "assets/css/modules/logo-slider.css",
@@ -61,19 +61,19 @@
   },
   "assets/css/modules/medical-management-grid.css": {
     "path": "assets/css/modules/medical-management-grid.css",
-    "version": "f50bc5d57eb1"
+    "version": "d56e5b71143e"
   },
   "assets/css/modules/patient-care-approach.css": {
     "path": "assets/css/modules/patient-care-approach.css",
-    "version": "1a6fcb5bb951"
+    "version": "b65ca604b22c"
   },
   "assets/css/modules/patient-journey-media.css": {
     "path": "assets/css/modules/patient-journey-media.css",
-    "version": "2b0b75dfe771"
+    "version": "c4139f6e8cf9"
   },
   "assets/css/modules/patient-journey-steps.css": {
     "path": "assets/css/modules/patient-journey-steps.css",
-    "version": "626ea59989b2"
+    "version": "1a07f25a505b"
   },
   "assets/css/modules/pricelist-accordion.css": {
     "path": "assets/css/modules/pricelist-accordion.css",
@@ -81,7 +81,7 @@
   },
   "assets/css/modules/pricelist-cardboxes.css": {
     "path": "assets/css/modules/pricelist-cardboxes.css",
-    "version": "42f12d539ec5"
+    "version": "3a2c5306b4fc"
   },
   "assets/css/modules/related-doctors.css": {
     "path": "assets/css/modules/related-doctors.css",
@@ -89,47 +89,47 @@
   },
   "assets/css/modules/reviews-trustindex.css": {
     "path": "assets/css/modules/reviews-trustindex.css",
-    "version": "e97ab9c375b9"
+    "version": "e3fe8a1adcbb"
   },
   "assets/css/modules/single-package-cardbox.css": {
     "path": "assets/css/modules/single-package-cardbox.css",
-    "version": "74b407f8901b"
+    "version": "c3c726a6f221"
   },
   "assets/css/modules/testimonials-slider.css": {
     "path": "assets/css/modules/testimonials-slider.css",
-    "version": "84da96a09963"
+    "version": "5f67815120fb"
   },
   "assets/css/modules/treatments-block.css": {
     "path": "assets/css/modules/treatments-block.css",
-    "version": "75c78efce545"
+    "version": "1aa21d6ed155"
   },
   "assets/css/modules/trust-highlights.css": {
     "path": "assets/css/modules/trust-highlights.css",
-    "version": "b0acd13909b8"
+    "version": "282eeff556c8"
   },
   "assets/css/modules/video-content.css": {
     "path": "assets/css/modules/video-content.css",
-    "version": "44515cb03504"
+    "version": "1ddd8735c78c"
   },
   "assets/css/modules/video-grid.css": {
     "path": "assets/css/modules/video-grid.css",
-    "version": "23c88117dbba"
+    "version": "4545e6bb814d"
   },
   "assets/css/modules/video-slider-sections.css": {
     "path": "assets/css/modules/video-slider-sections.css",
-    "version": "01ba3043024d"
+    "version": "8363ee7aebfa"
   },
   "assets/css/page-faq.css": {
     "path": "assets/css/page-faq.css",
-    "version": "1f105aa0e989"
+    "version": "50c14110a999"
   },
   "assets/css/page-thank-you.css": {
     "path": "assets/css/page-thank-you.css",
-    "version": "78c9f091b505"
+    "version": "81322584c3c8"
   },
   "assets/css/single-article.css": {
     "path": "assets/css/single-article.css",
-    "version": "d0429668ab3a"
+    "version": "6612d7c2751a"
   },
   "assets/css/single-doctor.css": {
     "path": "assets/css/single-doctor.css",
@@ -141,11 +141,11 @@
   },
   "assets/css/site-footer.css": {
     "path": "assets/css/site-footer.css",
-    "version": "a4e774ba4df2"
+    "version": "e03746f1a4d8"
   },
   "assets/css/site-header.css": {
     "path": "assets/css/site-header.css",
-    "version": "0fa755052391"
+    "version": "7a692a4f7eeb"
   },
   "assets/css/widget-doctors-cta.css": {
     "path": "assets/css/widget-doctors-cta.css",
@@ -229,6 +229,6 @@
   },
   "style.css": {
     "path": "style.css",
-    "version": "66bee6d14b81"
+    "version": "36e6363790b8"
   }
 }

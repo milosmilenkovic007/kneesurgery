@@ -41,13 +41,7 @@ $header_cta_target = trim((string) ($header_cta['target'] ?? ''));
     <div class="hj-site-header__inner">
         <div class="hj-site-header__brand-block">
             <div class="hj-site-header__brand">
-                <?php if (function_exists('the_custom_logo') && has_custom_logo()) : ?>
-                    <?php the_custom_logo(); ?>
-                <?php else : ?>
-                    <a class="hj-site-header__brand-link" href="<?php echo esc_url(home_url('/')); ?>" rel="home">
-                        <?php bloginfo('name'); ?>
-                    </a>
-                <?php endif; ?>
+                <?php hj_render_theme_logo('desktop'); ?>
             </div>
 
             <span class="hj-site-header__divider" aria-hidden="true"></span>
@@ -89,13 +83,7 @@ $header_cta_target = trim((string) ($header_cta['target'] ?? ''));
         <div class="hj-site-header__mobile-panel">
             <div class="hj-site-header__mobile-top">
                 <div class="hj-site-header__mobile-brand">
-                    <?php if (function_exists('the_custom_logo') && has_custom_logo()) : ?>
-                        <?php the_custom_logo(); ?>
-                    <?php else : ?>
-                        <a class="hj-site-header__brand-link" href="<?php echo esc_url(home_url('/')); ?>" rel="home">
-                            <?php bloginfo('name'); ?>
-                        </a>
-                    <?php endif; ?>
+                    <?php hj_render_theme_logo('mobile'); ?>
                 </div>
 
                 <button class="hj-site-header__mobile-close" type="button" aria-label="<?php echo esc_attr__('Close menu', 'kneesurgery'); ?>" data-hj-header-close>

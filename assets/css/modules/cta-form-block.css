@@ -93,7 +93,7 @@
   border-radius:999px;
   background:rgba(77, 85, 221, .12);
   color:var(--cfb-accent);
-  font-family:'Manrope', sans-serif;
+  font-family:var(--hj-font-heading, 'Manrope', sans-serif);
   font-size:12px;
   line-height:1;
   font-weight:700;
@@ -125,7 +125,7 @@
 
 .hj-cfb-rating-summary__place{
   color:var(--cfb-text);
-  font-family:'Manrope', sans-serif;
+  font-family:var(--hj-font-heading, 'Manrope', sans-serif);
   font-size:16px;
   line-height:1.5;
   font-weight:600;
@@ -133,7 +133,7 @@
 
 .hj-cfb-rating-summary__meta{
   color:var(--cfb-muted);
-  font-family:'Manrope', sans-serif;
+  font-family:var(--hj-font-heading, 'Manrope', sans-serif);
   font-size:14px;
   line-height:1.5;
   font-weight:500;
@@ -157,7 +157,7 @@
 .hj-cta-form-block.is-rating-google .hj-cfb-rating-summary__badge,
 .hj-cfb-rating-summary-inline__title{
   color:var(--cfb-review-text);
-  font-family:'Manrope', sans-serif;
+  font-family:var(--hj-font-heading, 'Manrope', sans-serif);
   font-size:16px;
   line-height:1.25;
   font-weight:800;
@@ -256,7 +256,7 @@
 
 .hj-cfb-rating-card__eyebrow{
   color:var(--cfb-blue);
-  font-family:'Manrope', sans-serif;
+  font-family:var(--hj-font-heading, 'Manrope', sans-serif);
   font-size:12px;
   line-height:1.2;
   font-weight:700;
@@ -282,7 +282,7 @@
 
 .hj-cfb-rating-card__cta-copy{
   color:var(--cfb-review-muted);
-  font-family:'Manrope', sans-serif;
+  font-family:var(--hj-font-heading, 'Manrope', sans-serif);
   font-size:16px;
   line-height:1.6;
   font-weight:500;
@@ -306,7 +306,7 @@
 
 .hj-cfb-rating-summary-inline__meta{
   color:var(--cfb-review-muted);
-  font-family:'Manrope', sans-serif;
+  font-family:var(--hj-font-heading, 'Manrope', sans-serif);
   font-size:15px;
   line-height:1.45;
   font-weight:500;
@@ -324,7 +324,7 @@
   display:inline-flex;
   align-items:center;
   gap:0;
-  font-family:'Manrope', sans-serif;
+  font-family:var(--hj-font-heading, 'Manrope', sans-serif);
   font-size:26px;
   line-height:1;
   font-weight:700;
@@ -369,7 +369,7 @@
 
 .hj-cfb-rating-avatar__fallback{
   color:#fff;
-  font-family:'Manrope', sans-serif;
+  font-family:var(--hj-font-heading, 'Manrope', sans-serif);
   font-size:22px;
   font-weight:700;
 }
@@ -382,7 +382,7 @@
 
 .hj-cfb-rating-name{
   color:var(--cfb-review-text) !important;
-  font-family:'Manrope', sans-serif !important;
+  font-family:var(--hj-font-heading, 'Manrope', sans-serif) !important;
   font-size:16px !important;
   line-height:1.4 !important;
   font-weight:800 !important;
@@ -393,7 +393,7 @@
 
 .hj-cfb-rating-role{
   color:var(--cfb-review-muted) !important;
-  font-family:'Manrope', sans-serif !important;
+  font-family:var(--hj-font-heading, 'Manrope', sans-serif) !important;
   font-size:15px !important;
   line-height:1.4 !important;
   font-weight:400 !important;
@@ -401,7 +401,7 @@
 
 .hj-cfb-rating-copy{
   color:var(--cfb-review-text) !important;
-  font-family:'Manrope', sans-serif !important;
+  font-family:var(--hj-font-heading, 'Manrope', sans-serif) !important;
   font-size:17px !important;
   line-height:1.65 !important;
   font-weight:400 !important;
@@ -421,7 +421,7 @@
   padding:0;
   background:transparent !important;
   color:#4b5563 !important;
-  font-family:'Manrope', sans-serif !important;
+  font-family:var(--hj-font-heading, 'Manrope', sans-serif) !important;
   font-size:14px !important;
   line-height:1.4 !important;
   font-weight:700 !important;

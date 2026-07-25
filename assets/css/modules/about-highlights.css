@@ -2,7 +2,7 @@
   --ah-text:#121432;
   --ah-muted:#7c7d88;
   --ah-border:#dfe3f0;
-  --ah-accent:#4d55dd;
+  --ah-accent:var(--hj-color-accent, #4d55dd);
   --ah-surface:#ffffff;
   --ah-shadow:0 16px 38px rgba(17, 22, 47, .05);
 }
@@ -24,7 +24,7 @@
 .hj-ah-eyebrow{
   margin:0 0 20px;
   color:var(--ah-accent);
-  font-family:"Manrope", sans-serif;
+  font-family:var(--hj-font-heading, "Manrope", sans-serif);
   font-size:13px;
   line-height:1.2;
   font-weight:700;
@@ -35,7 +35,7 @@
 .hj-ah-title{
   margin:0;
   color:var(--ah-text) !important;
-  font-family:"Manrope", sans-serif !important;
+  font-family:var(--hj-font-heading, "Manrope", sans-serif) !important;
   font-size:clamp(28px, 2.8vw, 38px) !important;
   line-height:1.12 !important;
   font-weight:500 !important;
@@ -86,7 +86,7 @@
 .hj-ah-card__title{
   margin:0;
   color:var(--ah-text);
-  font-family:"Manrope", sans-serif;
+  font-family:var(--hj-font-heading, "Manrope", sans-serif);
   font-size:20px !important;
   line-height:1.25 !important;
   font-weight:500;
@@ -94,7 +94,7 @@
 
 .hj-ah-card__description{
   color:var(--ah-muted);
-  font-family:"Manrope", sans-serif;
+  font-family:var(--hj-font-heading, "Manrope", sans-serif);
   font-size:16px;
   line-height:1.9;
 }

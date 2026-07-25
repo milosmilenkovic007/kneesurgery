@@ -47,7 +47,7 @@
 .hj-pcb-subheading{
   margin:0;
   color:var(--pcb-muted);
-  font-family:'Manrope', sans-serif;
+  font-family:var(--hj-font-heading, 'Manrope', sans-serif);
   font-size:16px;
   line-height:1.7;
 }
@@ -135,7 +135,7 @@
   position:relative;
   padding-left:32px;
   color:var(--pcb-muted);
-  font-family:'Manrope', sans-serif;
+  font-family:var(--hj-font-heading, 'Manrope', sans-serif);
   font-size:15px;
   line-height:1.6;
 }
@@ -177,7 +177,7 @@
 .hj-pcb-card__price{
   margin:0;
   color:var(--pcb-text);
-  font-family:'Manrope', sans-serif;
+  font-family:var(--hj-font-heading, 'Manrope', sans-serif);
   font-size:24px;
   line-height:1.1;
   font-weight:800;
@@ -201,7 +201,7 @@
   background: #4951d5;
   color:#fff !important;
   text-decoration:none;
-  font-family:'Manrope', sans-serif;
+  font-family:var(--hj-font-heading, 'Manrope', sans-serif);
   font-size:17px;
   font-weight:600;
   line-height:1.2;

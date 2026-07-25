@@ -62,7 +62,7 @@
   margin:0;
   max-width:900px;
   color:var(--ha-text) !important;
-  font-family:"Manrope", sans-serif !important;
+  font-family:var(--hj-font-heading, "Manrope", sans-serif) !important;
   font-size:clamp(38px, 5vw, 58px) !important;
   line-height:1.08 !important;
   font-weight:700 !important;
@@ -73,7 +73,7 @@
   margin:18px 0 0;
   max-width:760px;
   color:var(--ha-muted);
-  font-family:"Manrope", sans-serif;
+  font-family:var(--hj-font-heading, "Manrope", sans-serif);
   font-size:22px;
   line-height:1.65;
   font-weight:600;
