@@ -8,8 +8,8 @@ npm-debug.log*
 pnpm-lock.yaml
 yarn.lock
 
-# Composer
-vendor/
+# Composer (root directory only; frontend vendor assets are tracked)
+/vendor/
 composer.phar
 
 # Env / local
